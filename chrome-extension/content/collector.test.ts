@@ -187,7 +187,7 @@ describe("Collectors", () => {
         const htmlPath = join(TARGET_HTML_DIR, "qq.html");
         const jsonPath = join(TARGET_HTML_DIR, "qq.json");
         
-        updateDOMWithUrl(htmlPath, "https://user.qzone.qq.com/852872578");
+        updateDOMWithUrl(htmlPath, "https://user.qzone.qq.com/852872578/main");
         
         const feeds = (globalThis as any).findAllFeedsQZone();
         

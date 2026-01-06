@@ -5,8 +5,8 @@
 
 import { logger } from '../lib/logger.js';
 import { uploadMedia } from '../lib/github-uploader.js';
-import { saveToNotion, checkDuplicate, truncateText } from '../lib/notion-client.js';
-import { validateConfig, getConfig, shouldCollect, updateLastCollectTime } from '../lib/storage.js';
+import { saveToNotion, batchCheckDuplicates, truncateText } from '../lib/notion-client.js';
+import { validateConfig, getConfig, updateLastCollectTime } from '../lib/storage.js';
 
 /**
  * Process collected content: upload images and save to Notion
@@ -60,15 +60,6 @@ async function processContent(content: CollectedContent): Promise<any> {
         throw new Error(error);
     }
 
-    // Check for duplicates
-    console.log('[Synapse] Checking for duplicates:', content.url);
-    const isDuplicate = await checkDuplicate(content.url);
-    if (isDuplicate) {
-        console.warn('[Synapse] Duplicate content detected, skipping:', content.url);
-        await logger.warn('Content already exists', { data: { url: content.url }, summary: summary });
-        throw new Error('Content already saved');
-    }
-
     // Upload images to GitHub if present
     let imageUrls: string[] = [];
     if (content.images && content.images.length > 0) {
@@ -112,97 +103,58 @@ async function processContent(content: CollectedContent): Promise<any> {
 }
 
 /**
- * Handle auto-collection request from content script
+ * Handle batch collection request from content script (for multiple items)
  */
-async function handleAutoCollect(content: CollectedContent, sender: chrome.runtime.MessageSender): Promise<any> {
+async function handleCollectBatch(contents: CollectedContent[], pageUID: string): Promise<any> {
     const config = await getConfig();
-
-    // In debug mode, skip interval check
-    if (!config.debugMode) {
-        const canCollect = await shouldCollect();
-        if (!canCollect) {
-            console.log('[Synapse] Skipping auto-collect, too soon since last collection');
-            return { success: false, reason: 'interval' };
-        }
-    }
-
-    // Determine target user based on source
-    let targetUser: string | undefined;
-    if (content.source === 'X') {
-        targetUser = config.targetXUser;
-    } else if (content.source === 'Bilibili') {
-        targetUser = config.targetBilibiliUser;
-    } else if (content.source === 'QZone') {
-        targetUser = config.targetQZoneUser;
-    }
-
-    // Verify author matches target
-    if (targetUser) {
-        const author = content.author?.username || '';
-        if (author.toLowerCase() !== targetUser.toLowerCase()) {
-            console.log('[Synapse] Skipping, not target user:', author, 'vs', targetUser);
-            return { success: false, reason: 'not_target_user' };
-        }
-    }
-
-    // Process the content
-    try {
-        const result = await processContent(content);
-        if (!result) {
-            return { success: false, reason: 'empty_text' };
-        }
-        return { success: true, data: result };
-    } catch (err: any) {
-        await logger.error(`Auto-collect failed: ${err.message}`, { summary: truncateText(content.text) });
-        return { success: false, error: err.message };
-    }
-}
-
-/**
- * Handle batch auto-collection request from content script (for multiple items)
- */
-async function handleAutoCollectBatch(contents: CollectedContent[], pageUID: string): Promise<any> {
-    const config = await getConfig();
-
-    // In debug mode, skip interval check
-    if (!config.debugMode) {
-        const canCollect = await shouldCollect();
-        if (!canCollect) {
-            console.log('[Synapse] Skipping auto-collect batch, too soon since last collection');
-            return { success: false, reason: 'interval' };
-        }
-    }
 
     // Process each content item
     let collected = 0;
     let skipped = 0;
     let firstSource = contents[0]?.source || 'Unknown';
 
-    for (const content of contents) {
+    // Filter by user target first to avoid unnecessary duplicate checks
+    const filteredContents = contents.filter(content => {
+        if (content.source === 'Bilibili' && config.targetBilibiliUser) {
+            return !pageUID || pageUID === config.targetBilibiliUser;
+        } else if (content.source === 'QZone' && config.targetQZoneUser) {
+            return !pageUID || pageUID === config.targetQZoneUser;
+        } else if (content.source === 'X' && config.targetXUser) {
+            const target = config.targetXUser.toLowerCase();
+            return !((pageUID && pageUID.toLowerCase() !== target) ||
+                (content.author?.username && content.author.username.toLowerCase() !== target));
+        }
+        return true;
+    });
+
+    skipped += (contents.length - filteredContents.length);
+
+    // Batch check duplicates for remaining items
+    const urls = filteredContents.map(c => c.url).filter(Boolean);
+    const existingUrls = await batchCheckDuplicates(urls);
+    const processedInThisBatch = new Set<string>();
+
+    if (urls.length > 0) {
+        await logger.info(`Batch check duplicates: ${existingUrls.size} existing items found in ${urls.length} items`, {
+            data: {
+                totalChecked: urls.length,
+                duplicatesFound: existingUrls.size,
+                existingUrls: Array.from(existingUrls)
+            }
+        });
+    }
+
+    for (const content of filteredContents) {
         try {
-            // Target user filtering
-            if (content.source === 'Bilibili' && config.targetBilibiliUser) {
-                if (pageUID && pageUID !== config.targetBilibiliUser) {
-                    skipped++;
-                    continue;
-                }
-            } else if (content.source === 'QZone' && config.targetQZoneUser) {
-                if (pageUID && pageUID !== config.targetQZoneUser) {
-                    skipped++;
-                    continue;
-                }
-            } else if (content.source === 'X' && config.targetXUser) {
-                const target = config.targetXUser.toLowerCase();
-                if ((pageUID && pageUID.toLowerCase() !== target) ||
-                    (content.author?.username && content.author.username.toLowerCase() !== target)) {
-                    skipped++;
-                    continue;
-                }
+            if (existingUrls.has(content.url) || processedInThisBatch.has(content.url)) {
+                skipped++;
+                continue;
             }
 
             const result = await processContent(content);
             if (result) {
                 collected++;
+                processedInThisBatch.add(content.url);
             } else {
                 skipped++;
             }
@@ -224,59 +176,6 @@ async function handleAutoCollectBatch(contents: CollectedContent[], pageUID: str
     return { success: true, collected, skipped };
 }
 
-/**
- * Handle manual collection request (bypasses interval check)
- */
-async function handleManualCollect(content: CollectedContent): Promise<any> {
-    try {
-        const result = await processContent(content);
-        if (!result) {
-            return { success: false, error: 'Empty text content' };
-        }
-        return { success: true, data: result };
-    } catch (err: any) {
-        await logger.error(`Manual collect failed: ${err.message}`, { summary: truncateText(content.text) });
-        return { success: false, error: err.message };
-    }
-}
-
-/**
- * Handle manual batch collection request (bypasses interval check)
- */
-async function handleManualCollectBatch(contents: CollectedContent[], pageUID: string): Promise<any> {
-    const config = await getConfig();
-    let successCount = 0;
-    let errors: string[] = [];
-
-    await logger.info(`Manually processing batch of ${contents.length} items`);
-
-    for (const content of contents) {
-        try {
-            if (content.source === 'Bilibili' && config.targetBilibiliUser) {
-                const target = config.targetBilibiliUser.toLowerCase();
-                const author = content.author?.username?.toLowerCase();
-
-                if ((pageUID && pageUID.toLowerCase() !== target) || (author && author !== target)) {
-                    continue;
-                }
-            }
-
-            const isDup = await checkDuplicate(content.url);
-            if (isDup) continue;
-
-            const result = await processContent(content);
-            if (result) {
-                successCount++;
-            }
-        } catch (err: any) {
-            errors.push(err.message);
-        }
-    }
-
-    await logger.info(`Manual batch complete: ${successCount} saved, ${errors.length} failed`);
-    return { success: true, collected: successCount, errors };
-}
-
 // Listen for messages from content scripts and popup
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     (async () => {
@@ -287,29 +186,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                     sendResponse({ success: true });
                     break;
 
-                case 'AUTO_COLLECT':
-                    const autoResult = await handleAutoCollect(message.content, sender);
-                    sendResponse(autoResult);
-                    break;
-
-                case 'AUTO_COLLECT_BATCH':
-                    const batchResult = await handleAutoCollectBatch(message.contents, message.pageUID);
+                case 'CONTENT_TO_BG_PROCESS':
+                    const batchResult = await handleCollectBatch(message.contents, message.pageUID);
                     sendResponse(batchResult);
-                    break;
-
-                case 'MANUAL_COLLECT':
-                    const manualResult = await handleManualCollect(message.content);
-                    sendResponse(manualResult);
-                    break;
-
-                case 'MANUAL_COLLECT_BATCH':
-                    const manualBatchResult = await handleManualCollectBatch(message.contents, message.pageUID);
-                    sendResponse(manualBatchResult);
-                    break;
-
-                case 'PROCESS_CONTENT':
-                    const result = await processContent(message.content);
-                    sendResponse({ success: true, data: result });
                     break;
 
                 case 'VALIDATE_CONFIG':

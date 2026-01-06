@@ -9,6 +9,7 @@ import { getConfig, saveConfig } from '../lib/storage.js';
 const elements = {
     notionToken: document.getElementById('notionToken') as HTMLInputElement,
     notionDatabaseId: document.getElementById('notionDatabaseId') as HTMLInputElement,
+    notionDataSourceId: document.getElementById('notionDataSourceId') as HTMLInputElement,
     githubToken: document.getElementById('githubToken') as HTMLInputElement,
     githubOwner: document.getElementById('githubOwner') as HTMLInputElement,
     githubRepo: document.getElementById('githubRepo') as HTMLInputElement,
@@ -30,6 +31,7 @@ async function loadConfig() {
 
     elements.notionToken.value = config.notionToken || '';
     elements.notionDatabaseId.value = config.notionDatabaseId || '';
+    elements.notionDataSourceId.value = config.notionDataSourceId || '';
     elements.githubToken.value = config.githubToken || '';
     elements.githubOwner.value = config.githubOwner || '';
     elements.githubRepo.value = config.githubRepo || '';
@@ -57,6 +59,7 @@ async function handleSave() {
         ...currentConfig,
         notionToken: elements.notionToken.value.trim(),
         notionDatabaseId: elements.notionDatabaseId.value.trim(),
+        notionDataSourceId: elements.notionDataSourceId.value.trim(),
         githubToken: elements.githubToken.value.trim(),
         githubOwner: elements.githubOwner.value.trim(),
         githubRepo: elements.githubRepo.value.trim(),

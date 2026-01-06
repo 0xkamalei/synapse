@@ -1,6 +1,6 @@
 /**
  * X.com Content Collector
- * Extracts post content from X.com (Twitter) pages
+ * Extracts feed content from X.com (Twitter)
  */
 
 
@@ -285,7 +285,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         }
 
         sendResponse({ success: true, data });
-    } else if (message.type === 'MANUAL_COLLECT') {
+    } else if (message.type === 'POP_TO_CONTENT_COLLECT') {
         const isDetail = window.location.pathname.includes('/status/');
 
         if (isDetail) {
@@ -298,8 +298,9 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
             const data = collectTweetDataX(mainTweetX);
 
             chrome.runtime.sendMessage({
-                type: 'MANUAL_COLLECT',
-                content: data
+                type: 'CONTENT_TO_BG_PROCESS',
+                contents: [data],
+                pageUID: data.author.username
             }, response => {
                 sendResponse(response);
             });
@@ -316,7 +317,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
             const pageUID = getCurrentPageUserX();
 
             chrome.runtime.sendMessage({
-                type: 'MANUAL_COLLECT_BATCH',
+                type: 'CONTENT_TO_BG_PROCESS',
                 contents,
                 pageUID
             }, response => {
@@ -365,7 +366,7 @@ async function tryAutoCollectX(): Promise<void> {
     const pageUID = getCurrentPageUserX();
 
     chrome.runtime.sendMessage({
-        type: 'AUTO_COLLECT_BATCH',
+        type: 'CONTENT_TO_BG_PROCESS',
         contents,
         pageUID,
         source: 'X'
@@ -376,15 +377,41 @@ async function tryAutoCollectX(): Promise<void> {
     });
 }
 
-chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'x' });
-tryAutoCollectX();
+/**
+ * Initialization logic
+ */
+(() => {
+    chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'x' });
+    tryAutoCollectX();
 
-let lastUrl = window.location.href;
-const observer = new MutationObserver(() => {
-    if (window.location.href !== lastUrl) {
-        lastUrl = window.location.href;
-        tryAutoCollectX();
-    }
-});
+    let lastUrl = window.location.href;
+    let lastScrollTop = 0;
+    let debounceTimer: number | undefined;
 
-observer.observe(document.body, { childList: true, subtree: true });
+    const triggerCollect = () => {
+        if (debounceTimer) clearTimeout(debounceTimer);
+        debounceTimer = window.setTimeout(() => {
+            tryAutoCollectX();
+        }, 10000); // Wait 10 seconds
+    };
+
+    // 1. Listen for URL changes (immediate)
+    const observer = new MutationObserver(() => {
+        if (window.location.href !== lastUrl) {
+            lastUrl = window.location.href;
+            if (debounceTimer) clearTimeout(debounceTimer);
+            tryAutoCollectX();
+        }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // 2. Listen for scroll down events (debounced)
+    window.addEventListener('scroll', () => {
+        const st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > lastScrollTop) {
+            // Scrolling down
+            triggerCollect();
+        }
+        lastScrollTop = st <= 0 ? 0 : st;
+    }, { passive: true });
+})();

@@ -5,10 +5,12 @@
 import { Client } from '@notionhq/client';
 
 const notion = new Client({
-    auth: import.meta.env?.NOTION_TOKEN || process.env.NOTION_TOKEN
+    auth: import.meta.env?.NOTION_TOKEN || process.env.NOTION_TOKEN,
+    notionVersion: '2025-09-03'
 });
 
 const databaseId = import.meta.env?.NOTION_DATABASE_ID || process.env.NOTION_DATABASE_ID;
+const datasourceId = import.meta.env?.NOTION_DATASOURCE_ID || process.env.NOTION_DATASOURCE_ID;
 
 export interface Thought {
     id: string;
@@ -82,19 +84,32 @@ export async function getAllThoughts(since?: string): Promise<Thought[]> {
         });
     }
 
+    const queryParams = [
+        'Title',
+        'Content',
+        'Source',
+        'OriginalURL',
+        'OriginalDate',
+        'Tags',
+        'Status'
+    ].map(p => `filter_properties[]=${encodeURIComponent(p)}`).join('&');
+
     do {
-        const response = await notion.databases.query({
-            database_id: databaseId,
-            filter: filter,
-            sorts: [
-                { property: 'OriginalDate', direction: 'descending' }
-            ],
-            start_cursor: cursor,
-            page_size: 100
+        const response: any = await notion.request({
+            path: `data_sources/${datasourceId}/query?${queryParams}`,
+            method: 'post',
+            body: {
+                filter: filter,
+                sorts: [
+                    { property: 'OriginalDate', direction: 'descending' }
+                ],
+                start_cursor: cursor,
+                page_size: 100
+            }
         });
 
         // Fetch blocks for all pages in parallel
-        const pagesWithBlocks = await Promise.all(response.results.map(async (page) => {
+        const pagesWithBlocks = await Promise.all(response.results.map(async (page: any) => {
             const blocksResponse = await notion.blocks.children.list({
                 block_id: page.id
             });

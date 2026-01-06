@@ -50,7 +50,10 @@ if (!parentPageId) {
 // Clean up page ID (remove dashes if present)
 const cleanPageId = parentPageId.replace(/-/g, '');
 
-const notion = new Client({ auth: NOTION_TOKEN });
+const notion = new Client({ 
+    auth: NOTION_TOKEN,
+    notionVersion: '2025-09-03'
+});
 
 async function createDatabase() {
     console.log('🚀 Creating Synapse database in Notion...');

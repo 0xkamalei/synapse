@@ -42,6 +42,7 @@ interface LogEntry {
 interface AppConfig {
     notionToken: string;
     notionDatabaseId: string;
+    notionDataSourceId: string;
     githubToken: string;
     githubOwner: string;
     githubRepo: string;
@@ -49,7 +50,7 @@ interface AppConfig {
     targetXUser: string;
     targetBilibiliUser: string;
     targetQZoneUser: string;
-    collectIntervalHours: number;
+    collectIntervalHours?: number;
     lastCollectTime: string | null;
     debugMode: boolean;
 }

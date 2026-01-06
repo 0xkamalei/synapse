@@ -1,6 +1,7 @@
 export const STORAGE_KEYS = {
   NOTION_TOKEN: 'notionToken',
   NOTION_DATABASE_ID: 'notionDatabaseId',
+  NOTION_DATASOURCE_ID: 'notionDataSourceId',
   GITHUB_TOKEN: 'githubToken',
   GITHUB_OWNER: 'githubOwner',
   GITHUB_REPO: 'githubRepo',
@@ -8,7 +9,6 @@ export const STORAGE_KEYS = {
   TARGET_X_USER: 'targetXUser',
   TARGET_BILIBILI_USER: 'targetBilibiliUser',
   TARGET_QZONE_USER: 'targetQZoneUser',
-  COLLECT_INTERVAL_HOURS: 'collectIntervalHours',
   LAST_COLLECT_TIME: 'lastCollectTime',
   DEBUG_MODE: 'debugMode'
 } as const;
@@ -17,7 +17,6 @@ export const STORAGE_KEYS = {
 
 const DEFAULT_CONFIG: Partial<AppConfig> = {
   enabledSources: ['x', 'bilibili', 'qzone'],
-  collectIntervalHours: 4,
   debugMode: false
 };
 
@@ -46,6 +45,7 @@ async function getConfig(): Promise<AppConfig> {
   return {
     notionToken: (result[STORAGE_KEYS.NOTION_TOKEN] as string) || '',
     notionDatabaseId: (result[STORAGE_KEYS.NOTION_DATABASE_ID] as string) || '',
+    notionDataSourceId: (result[STORAGE_KEYS.NOTION_DATASOURCE_ID] as string) || '',
     githubToken: (result[STORAGE_KEYS.GITHUB_TOKEN] as string) || '',
     githubOwner: (result[STORAGE_KEYS.GITHUB_OWNER] as string) || '',
     githubRepo: (result[STORAGE_KEYS.GITHUB_REPO] as string) || '',
@@ -53,7 +53,6 @@ async function getConfig(): Promise<AppConfig> {
     targetXUser: (result[STORAGE_KEYS.TARGET_X_USER] as string) || '',
     targetBilibiliUser: (result[STORAGE_KEYS.TARGET_BILIBILI_USER] as string) || '',
     targetQZoneUser: (result[STORAGE_KEYS.TARGET_QZONE_USER] as string) || '',
-    collectIntervalHours: (result[STORAGE_KEYS.COLLECT_INTERVAL_HOURS] as number) ?? (DEFAULT_CONFIG.collectIntervalHours as number),
     lastCollectTime: (result[STORAGE_KEYS.LAST_COLLECT_TIME] as string) || null,
     debugMode: (result[STORAGE_KEYS.DEBUG_MODE] as boolean) ?? (DEFAULT_CONFIG.debugMode as boolean)
   };
@@ -66,6 +65,7 @@ async function saveConfig(config: AppConfig): Promise<void> {
   await chrome.storage.sync.set({
     [STORAGE_KEYS.NOTION_TOKEN]: config.notionToken,
     [STORAGE_KEYS.NOTION_DATABASE_ID]: config.notionDatabaseId,
+    [STORAGE_KEYS.NOTION_DATASOURCE_ID]: config.notionDataSourceId,
     [STORAGE_KEYS.GITHUB_TOKEN]: config.githubToken,
     [STORAGE_KEYS.GITHUB_OWNER]: config.githubOwner,
     [STORAGE_KEYS.GITHUB_REPO]: config.githubRepo,
@@ -73,7 +73,6 @@ async function saveConfig(config: AppConfig): Promise<void> {
     [STORAGE_KEYS.TARGET_X_USER]: config.targetXUser,
     [STORAGE_KEYS.TARGET_BILIBILI_USER]: config.targetBilibiliUser,
     [STORAGE_KEYS.TARGET_QZONE_USER]: config.targetQZoneUser,
-    [STORAGE_KEYS.COLLECT_INTERVAL_HOURS]: config.collectIntervalHours,
     [STORAGE_KEYS.DEBUG_MODE]: config.debugMode
   });
 }
@@ -85,28 +84,6 @@ async function updateLastCollectTime(): Promise<void> {
   await chrome.storage.sync.set({
     [STORAGE_KEYS.LAST_COLLECT_TIME]: new Date().toISOString()
   });
-}
-
-/**
- * Check if enough time has passed for next collection
- */
-async function shouldCollect(): Promise<boolean> {
-  const config = await getConfig();
-
-  // If interval is 0, disable control
-  if (config.collectIntervalHours === 0) {
-    return true;
-  }
-
-  if (!config.lastCollectTime) {
-    return true; // Never collected before
-  }
-
-  const lastTime = new Date(config.lastCollectTime).getTime();
-  const now = Date.now();
-  const hoursSinceLastCollect = (now - lastTime) / (1000 * 60 * 60);
-
-  return hoursSinceLastCollect >= config.collectIntervalHours;
 }
 
 /**
@@ -134,6 +111,5 @@ export {
   getConfig,
   saveConfig,
   validateConfig,
-  updateLastCollectTime,
-  shouldCollect
+  updateLastCollectTime
 };

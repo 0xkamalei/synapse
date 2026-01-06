@@ -1,6 +1,6 @@
 /**
  * Bilibili Content Collector
- * Extracts dynamic/post content from Bilibili pages
+ * Extracts dynamic content from Bilibili pages
  */
 
 
@@ -365,13 +365,11 @@ function collectDynamicDataBilibili(dynamicElement: Element): CollectedContent {
 }
 
 /**
- * Get the UID from current page URL
- * URL format: https://space.bilibili.com/{uid}/dynamic
- * @returns {string}
+ * Get the current page's user ID from URL
+ * Bilibili space URL: space.bilibili.com/[UID]
  */
 function getCurrentPageUID(): string {
-    const path = window.location.pathname;
-    const match = path.match(/^\/(\d+)/);
+    const match = window.location.href.match(/space\.bilibili\.com\/(\d+)/);
     return match ? match[1] : '';
 }
 
@@ -488,7 +486,7 @@ chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.Mess
 
         const data = collectDynamicDataBilibili(mainDynamic);
         sendResponse({ success: true, data });
-    } else if (message.type === 'MANUAL_COLLECT') {
+    } else if (message.type === 'POP_TO_CONTENT_COLLECT') {
         const pageUID = getCurrentPageUID();
         const allDynamics = findAllDynamicsBilibili();
 
@@ -503,9 +501,9 @@ chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.Mess
             return data;
         }).filter(data => data.text && data.text.trim().length > 0);
 
-        // Send to background for processing (bypassing interval)
+        // Send to background for processing
         chrome.runtime.sendMessage({
-            type: 'MANUAL_COLLECT_BATCH',
+            type: 'CONTENT_TO_BG_PROCESS',
             contents: allContent,
             pageUID: pageUID
         }, response => {
@@ -527,6 +525,21 @@ async function tryAutoCollectBilibili(): Promise<void> {
         return;
     }
 
+    const response: any = await new Promise(resolve => {
+        chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
+    });
+
+    if (!response || !response.config) return;
+    const config = response.config;
+
+    const pageUID = getCurrentPageUID();
+    if (!pageUID || !config.targetBilibiliUser) return;
+
+    if (pageUID !== config.targetBilibiliUser) {
+        console.log('[Synapse] Bilibili UID mismatch, skipping auto-collect', { current: pageUID, target: config.targetBilibiliUser });
+        return;
+    }
+
     // Wait for content to load
     await new Promise(resolve => setTimeout(resolve, 3000));
 
@@ -536,7 +549,6 @@ async function tryAutoCollectBilibili(): Promise<void> {
     }
 
     // Collect all dynamic data
-    const pageUID = getCurrentPageUID();
     const allContent = allDynamics.map((element, index) => {
         const data = collectDynamicDataBilibili(element);
         // Add UID as username for target user verification
@@ -547,16 +559,51 @@ async function tryAutoCollectBilibili(): Promise<void> {
 
     // Send batch to background for processing
     chrome.runtime.sendMessage({
-        type: 'AUTO_COLLECT_BATCH',
+        type: 'CONTENT_TO_BG_PROCESS',
         contents: allContent,
         pageUID: pageUID
     }, response => {
-        // Silent success/fail
+        if (response?.success) {
+            console.log(`[Synapse] Bilibili auto-collected ${response.collected} items`);
+        }
     });
 }
 
-// Notify background script that content script is ready
-chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'bilibili' });
+/**
+ * Initialization logic
+ */
+(() => {
+    chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'bilibili' });
+    tryAutoCollectBilibili();
 
-// Try auto-collect after page loads
-tryAutoCollectBilibili();
+    let lastUrl = window.location.href;
+    let lastScrollTop = 0;
+    let debounceTimer: number | undefined;
+
+    const triggerCollect = () => {
+        if (debounceTimer) clearTimeout(debounceTimer);
+        debounceTimer = window.setTimeout(() => {
+            tryAutoCollectBilibili();
+        }, 10000); // Wait 10 seconds
+    };
+
+    // 1. Listen for URL changes (immediate)
+    const observer = new MutationObserver(() => {
+        if (window.location.href !== lastUrl) {
+            lastUrl = window.location.href;
+            if (debounceTimer) clearTimeout(debounceTimer);
+            tryAutoCollectBilibili();
+        }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // 2. Listen for scroll down events (debounced)
+    window.addEventListener('scroll', () => {
+        const st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > lastScrollTop) {
+            // Scrolling down
+            triggerCollect();
+        }
+        lastScrollTop = st <= 0 ? 0 : st;
+    }, { passive: true });
+})();

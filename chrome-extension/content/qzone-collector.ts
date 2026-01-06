@@ -15,7 +15,8 @@ const MessageTypeQZone = {
  * Extract text content from a QZone feed element
  */
 function extractFeedTextQZone(item: Element): string {
-    const infoElement = item.querySelector('.f-info');
+    // Try to find the complete (expanded) text element first
+    const infoElement = item.querySelector('.f-info.qz_info_complete') || item.querySelector('.f-info');
     if (infoElement) {
         const content = infoElement.querySelector('.f-content');
         if (content) return (content as HTMLElement).innerText.trim();
@@ -194,15 +195,6 @@ function parseQZoneTimeQZone(timeText: string): string {
  * Extract feed URL
  */
 function extractFeedUrlQZone(item: Element, timestamp: string, text: string): string {
-    const timeLink = (item.querySelector('.f-time a') || item.querySelector('.abritary')) as HTMLAnchorElement;
-    if (timeLink && timeLink.href && !timeLink.href.startsWith('javascript:')) {
-        return timeLink.href;
-    }
-
-    // Try to find a unique ID in the element itself
-    const feedId = item.getAttribute('data-id') || item.id || item.getAttribute('name') || '';
-
-    // Fallback: Use Parent/Current URL + Text Highlight (#:~:text=...)
     let baseUrl = window.location.href;
     try {
         if (window.parent && window.parent.location.hostname.includes('qzone.qq.com')) {
@@ -213,14 +205,18 @@ function extractFeedUrlQZone(item: Element, timestamp: string, text: string): st
     // Clean up base URL
     baseUrl = baseUrl.split('#')[0].split('?')[0];
 
-    // Use first 50 chars for the hash to ensure different posts with same "clock-in" text but different surrounding info stay unique
-    const contentHash = btoa(unescape(encodeURIComponent(text.substring(0, 50)))).substring(0, 10);
-    const timeHash = btoa(timestamp).substring(0, 8);
+    // Create a stable fingerprint based on content and time
+    // We avoid using DOM IDs like feedId because they can be unstable in QZone
+    const contentHash = btoa(unescape(encodeURIComponent(text.substring(0, 100)))).substring(0, 12);
+    const timeHash = btoa(timestamp).substring(0, 10);
+    
+    // Get author to make the hash even more unique across different spaces
+    const author = extractAuthorInfoQZone(item);
+    const authorHash = author.username ? btoa(author.username).substring(0, 6) : '';
 
-    // Combine for a super-stable but unique ID
-    const salt = feedId ? `id-${feedId}` : `h-${contentHash}-${timeHash}`;
+    const salt = `h-${authorHash}-${contentHash}-${timeHash}`;
 
-    const highlightText = text.substring(0, 100).trim();
+    const highlightText = text.substring(0, 50).trim();
     if (highlightText) {
         const encodedText = encodeURIComponent(highlightText);
         return `${baseUrl}#:~:text=${encodedText}&synapse=${salt}`;
@@ -304,18 +300,23 @@ function findAllFeedsQZone(): Element[] {
 }
 
 /**
- * Get the current page's QQ number from URL
+ * Get the QQ number from current page URL
+ * QZone URL format: user.qzone.qq.com/[QQ]/main or user.qzone.qq.com/[QQ]/infocenter
  */
 function getPageQQ(): string {
-    const match = window.location.href.match(/qzone\.qq\.com\/(\d+)/);
-    if (match) return match[1];
+    const url = window.location.href;
+    // Check for user.qzone.qq.com/[QQ]/main or similar
+    const match = url.match(/user\.qzone\.qq\.com\/(\d+)/);
+    return match ? match[1] : '';
+}
 
-    if (window.parent && window.parent.location.href) {
-        const parentMatch = window.parent.location.href.match(/qzone\.qq\.com\/(\d+)/);
-        if (parentMatch) return parentMatch[1];
-    }
-
-    return '';
+/**
+ * Check if current page is the main feed page
+ */
+function isQZoneMainPage(): boolean {
+    const url = window.location.href;
+    // Main feed is usually at /main or /infocenter
+    return url.includes('/main') || url.includes('/infocenter');
 }
 
 /**
@@ -358,7 +359,7 @@ chrome.runtime.onMessage.addListener((message: any, _sender, sendResponse) => {
         }
 
         sendResponse({ success: true, data });
-    } else if (message.type === 'MANUAL_COLLECT') {
+    } else if (message.type === 'POP_TO_CONTENT_COLLECT') {
         const allFeeds = findAllFeedsQZone();
         if (allFeeds.length === 0) {
             sendResponse({ success: false, error: 'No feeds found' });
@@ -371,7 +372,7 @@ chrome.runtime.onMessage.addListener((message: any, _sender, sendResponse) => {
             .filter(data => data.text && data.text.trim().length > 0);
 
         chrome.runtime.sendMessage({
-            type: 'MANUAL_COLLECT_BATCH',
+            type: 'CONTENT_TO_BG_PROCESS',
             contents,
             pageUID: pageQQ
         }, response => {
@@ -385,39 +386,94 @@ chrome.runtime.onMessage.addListener((message: any, _sender, sendResponse) => {
 });
 
 /**
- * Auto-collect visibility changes
+ * Auto-collect on page load
  */
 async function tryAutoCollectQZone(): Promise<void> {
-    await new Promise(resolve => setTimeout(resolve, 5000));
-
-    const feeds = findAllFeedsQZone();
-    if (feeds.length === 0) return;
+    // 1. Check URL pattern first
+    if (!isQZoneMainPage()) {
+        return;
+    }
 
     const pageQQ = getPageQQ();
+    if (!pageQQ) {
+        return;
+    }
+
+    // 2. Compare with config
+    const response: any = await new Promise(resolve => {
+        chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
+    });
+
+    if (!response || !response.config) return;
+    const config = response.config;
+
+    if (!config.targetQZoneUser || pageQQ !== config.targetQZoneUser) {
+        console.log('[Synapse] QZone QQ mismatch, skipping auto-collect', { current: pageQQ, target: config.targetQZoneUser });
+        return;
+    }
+
+    console.log(`[Synapse] QZone matched target user ${pageQQ}, preparing to parse DOM...`);
+
+    // 3. Wait for content and parse DOM
+    await new Promise(resolve => setTimeout(resolve, 5000)); // QZone is slow
+
+    const feeds = findAllFeedsQZone();
+    if (feeds.length === 0) {
+        console.log('[Synapse] No feeds found on QZone page after waiting');
+        return;
+    }
+
     const contents = feeds
         .map(f => collectFeedDataQZone(f))
         .filter(data => data.text && data.text.trim().length > 0);
 
     chrome.runtime.sendMessage({
-        type: 'AUTO_COLLECT_BATCH' as const,
+        type: 'CONTENT_TO_BG_PROCESS' as const,
         contents,
         pageUID: pageQQ,
         source: 'QZone' as const
-    }, _response => {
-        // Silent
+    }, response => {
+        if (response?.success) {
+            console.log(`[Synapse] QZone auto-collected ${response.collected} feeds`);
+        }
     });
 }
 
-chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'qzone' });
-
-if (document.getElementById('host_home_feeds')) {
+/**
+ * Initialization logic
+ */
+(() => {
+    chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'qzone' });
     tryAutoCollectQZone();
-} else {
-    const observer = new MutationObserver((_mutations, obs) => {
-        if (document.getElementById('host_home_feeds')) {
+
+    let lastUrl = window.location.href;
+    let lastScrollTop = 0;
+    let debounceTimer: number | undefined;
+
+    const triggerCollect = () => {
+        if (debounceTimer) clearTimeout(debounceTimer);
+        debounceTimer = window.setTimeout(() => {
             tryAutoCollectQZone();
-            obs.disconnect();
+        }, 10000); // Wait 10 seconds
+    };
+
+    // 1. Listen for URL changes (immediate)
+    const observer = new MutationObserver(() => {
+        if (window.location.href !== lastUrl) {
+            lastUrl = window.location.href;
+            if (debounceTimer) clearTimeout(debounceTimer);
+            tryAutoCollectQZone();
         }
     });
     observer.observe(document.body, { childList: true, subtree: true });
-}
+
+    // 2. Listen for scroll down events (debounced)
+    window.addEventListener('scroll', () => {
+        const st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > lastScrollTop) {
+            // Scrolling down
+            triggerCollect();
+        }
+        lastScrollTop = st <= 0 ? 0 : st;
+    }, { passive: true });
+})();

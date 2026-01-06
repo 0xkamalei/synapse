@@ -117,9 +117,10 @@ async function handleManualCollect() {
         if (!tab || !tab.id) throw new Error('No active tab found');
 
         // Broadcast to all frames
-        const frames = await new Promise<chrome.webNavigation.GetAllFrameResultDetails[] | null>((resolve) => {
-            chrome.webNavigation.getAllFrames({ tabId: tab.id! }, resolve);
-        });
+        if (!chrome.webNavigation) {
+            throw new Error('webNavigation API not available. Please check extension permissions.');
+        }
+        const frames = await chrome.webNavigation.getAllFrames({ tabId: tab.id! });
 
         if (!frames) throw new Error('Could not get frames');
 
@@ -128,7 +129,7 @@ async function handleManualCollect() {
 
         for (const frame of frames) {
             try {
-                const response = await chrome.tabs.sendMessage(tab.id!, { type: 'MANUAL_COLLECT' }, { frameId: frame.frameId });
+                const response = await chrome.tabs.sendMessage(tab.id!, { type: 'POP_TO_CONTENT_COLLECT' }, { frameId: frame.frameId });
                 if (response && response.success) {
                     success = true;
                     // Don't break if it's a batch collection, but for now QZone/Bili/X are usually one-shot per frame
