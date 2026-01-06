@@ -3,10 +3,10 @@
     "type": "module",
     "version": "1.0.0",
     "scripts": {
-        "sync": "npm scripts/sync-data.ts",
+        "sync": "bun scripts/sync-data.ts",
         "dev": "astro dev",
-        "start": "npm run dev",
-        "build": "npm run sync && astro build",
+        "start": "bun run dev",
+        "build": "bun run sync && astro build",
         "preview": "astro preview",
         "astro": "astro"
     },
