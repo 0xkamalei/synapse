@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synapse Options</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">Synapse Settings</span>
+            </div>
+        </header>
+
+        <main class="main">
+            <!-- Notion Config -->
+            <section class="section">
+                <h2>Notion</h2>
+                <div class="input-group">
+                    <label for="notionToken">API Token</label>
+                    <input type="password" id="notionToken" placeholder="secret_xxx...">
+                </div>
+                <div class="input-group">
+                    <label for="notionDatabaseId">Database ID</label>
+                    <input type="text" id="notionDatabaseId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+                </div>
+            </section>
+
+            <!-- GitHub Config -->
+            <section class="section">
+                <h2>GitHub Image Host</h2>
+                <div class="input-group">
+                    <label for="githubToken">Personal Access Token</label>
+                    <input type="password" id="githubToken" placeholder="ghp_xxx...">
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="githubOwner">Owner</label>
+                        <input type="text" id="githubOwner" placeholder="username">
+                    </div>
+                    <div class="input-group">
+                        <label for="githubRepo">Repository</label>
+                        <input type="text" id="githubRepo" placeholder="synapse-images">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Target Users -->
+            <section class="section">
+                <h2>Target Users</h2>
+                <p class="hint">Only content from these users will be collected</p>
+                <div class="input-group">
+                    <label for="targetXUser">X.com Username</label>
+                    <input type="text" id="targetXUser" placeholder="username (without @)">
+                </div>
+                <div class="input-group">
+                    <label for="targetBilibiliUser">Bilibili UID</label>
+                    <input type="text" id="targetBilibiliUser" placeholder="123456789">
+                </div>
+            </section>
+
+            <!-- Auto-collect Settings -->
+            <section class="section">
+                <h2>Auto-Collect</h2>
+                <div class="input-group">
+                    <label for="collectIntervalHours">Collect Interval (hours)</label>
+                    <input type="number" id="collectIntervalHours" min="0" max="168" value="4">
+                    <p class="hint">Hours between auto-collections. Set to 0 to disable interval check.</p>
+                </div>
+                <div class="info-card">
+                    <span id="lastCollectInfo">Last collected: Never</span>
+                </div>
+            </section>
+
+            <!-- Debug Mode -->
+            <section class="section">
+                <h2>🛠 Debug Mode</h2>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="debugMode">
+                        <span>Enable Debug Mode</span>
+                    </label>
+                    <p class="hint">When enabled, content will be logged as JSON but NOT saved to Notion. Use this to
+                        test content parsing.</p>
+                </div>
+            </section>
+
+            <div class="actions">
+                <button id="saveBtn" class="primary-btn">Save Settings</button>
+                <span id="saveStatus" class="save-status"></span>
+            </div>
+        </main>
+    </div>
+
+    <script src="options.js" type="module"></script>
+</body>
+
+</html>

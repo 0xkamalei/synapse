@@ -1,0 +1,12 @@
+{
+    "name": "synapse-scripts",
+    "type": "module",
+    "version": "1.0.0",
+    "scripts": {
+        "init-db": "node init-notion-db.js"
+    },
+    "dependencies": {
+        "@notionhq/client": "^2.2.14",
+        "dotenv": "^16.3.1"
+    }
+}

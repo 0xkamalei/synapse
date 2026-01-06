@@ -1,0 +1,274 @@
+/* Synapse Popup Styles */
+
+:root {
+  --md-primary: #6750A4;
+  --md-on-primary: #FFFFFF;
+  --md-surface: #FFFBFE;
+  --md-on-surface: #1C1B1F;
+  --md-surface-variant: #E7E0EC;
+  --md-outline: #79747E;
+  --md-error: #B3261E;
+  --md-success: #198754;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+  width: 320px;
+  min-height: 400px;
+}
+
+.popup-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--md-surface-variant);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  font-size: 20px;
+}
+
+.logo-text {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  color: var(--md-on-surface);
+  transition: background 0.2s;
+}
+
+.icon-btn:hover {
+  background: var(--md-surface-variant);
+}
+
+/* Status Bar */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--md-surface-variant);
+  font-size: 12px;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--md-outline);
+}
+
+/* Actions Section */
+.actions-section {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.secondary-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.primary-btn {
+  background: var(--md-primary);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(103, 80, 164, 0.25);
+}
+
+.primary-btn:hover {
+  background: #5a4591;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(103, 80, 164, 0.3);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.primary-btn:disabled {
+  background: var(--md-outline);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.secondary-btn {
+  flex: 1;
+  background: var(--md-surface-variant);
+  color: var(--md-on-surface);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.secondary-btn:hover {
+  background: #dad2df;
+}
+
+.btn-icon {
+  font-size: 18px;
+}
+
+/* Footer */
+.footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--md-surface-variant);
+  text-align: center;
+}
+
+.last-sync {
+  font-size: 11px;
+  color: var(--md-outline);
+}
+
+/* Logs */
+.logs-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 16px;
+  overflow: hidden;
+}
+
+.logs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.logs-header h3 {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: var(--md-primary);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.logs-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 220px;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--md-outline);
+  padding: 24px;
+  font-size: 13px;
+}
+
+.log-entry {
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  background: white;
+  border-left: 3px solid var(--md-outline);
+}
+
+.log-entry.success {
+  border-left-color: var(--md-success);
+}
+
+.log-entry.error {
+  border-left-color: var(--md-error);
+}
+
+.log-entry.warn {
+  border-left-color: #F59E0B;
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.log-level {
+  font-size: 12px;
+}
+
+.log-time {
+  font-size: 10px;
+  color: var(--md-outline);
+}
+
+.log-message {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.log-summary {
+  font-size: 11px;
+  color: var(--md-outline);
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--md-surface-variant);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

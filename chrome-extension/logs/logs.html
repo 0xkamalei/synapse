@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Synapse - Activity Logs</title>
+    <link rel="stylesheet" href="logs.css">
+</head>
+
+<body>
+    <div class="logs-container">
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">Synapse Activity Logs</span>
+            </div>
+            <div class="actions">
+                <button id="clearLogs" class="secondary-btn">Clear Logs</button>
+                <button id="closePage" class="primary-btn">Close</button>
+            </div>
+        </header>
+
+        <div class="filter-bar">
+            <div class="search-box">
+                <input type="text" id="logSearch" placeholder="Search logs...">
+            </div>
+            <div class="filter-options">
+                <select id="levelFilter">
+                    <option value="all">All Levels</option>
+                    <option value="success">Success</option>
+                    <option value="error">Error</option>
+                    <option value="info">Info</option>
+                    <option value="warn">Warning</option>
+                </select>
+                <select id="sourceFilter">
+                    <option value="all">All Sources</option>
+                    <option value="Bilibili">Bilibili</option>
+                    <option value="X">X</option>
+                </select>
+            </div>
+        </div>
+
+        <main class="logs-viewport">
+            <div id="logsList" class="logs-list">
+                <!-- Logs will be rendered here -->
+                <div class="empty-state">Loading logs...</div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="logs.js"></script>
+</body>
+
+</html>

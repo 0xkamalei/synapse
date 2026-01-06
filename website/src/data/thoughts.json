@@ -1,0 +1,436 @@
+[
+  {
+    "id": "2df6dd2f-2d12-816e-8d98-e364e214dc61",
+    "title": "我做了个人媒体工具,自动采集多个社交媒体平台的内容同步到notion database,在通过ast...",
+    "content": "我做了个人媒体工具,自动采集多个社交媒体平台的内容同步到notion database,在通过astro构建成为一个timeline website,目前支持B站,X,QQ空间,朋友圈。项目原因我想追忆一下自己以前的想法，但是这些thoughts可能散落在各个平台，我想有一个属于自己host的site来拥有它们",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/2008104979949834420",
+    "originalDate": "2026-01-05T09:15:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:19:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8103-9457-e426ce2291dc",
+    "title": "",
+    "content": "要实现从“卖时间”到“卖作品”的跨越，核心不在于代码，而在于思维的重构。",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/opus/gen-g6sz3g",
+    "originalDate": "2026-01-03T08:51:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-81c7-b5ba-f962ec8f37dd",
+    "title": "",
+    "content": "别把“赚钱”看成了一个结果，而它其实是一个实验过程",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/opus/gen-yn3hhn",
+    "originalDate": "2026-01-03T08:51:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-81b3-ab3f-efb024ceea88",
+    "title": "AI is now so powerful. I built my long-pending app...",
+    "content": "AI is now so powerful. I built my long-pending app with Gemini 3 Pro, and AI interaction is way easier.Welcome to this replica of Timing App. No more €10/month subscription like the original.",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/2005610727122542715",
+    "originalDate": "2025-12-29T12:03:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:19:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-81e2-aa1b-eeeb0d4f574b",
+    "title": "现在AI模型确实强了，之前一直没做出来app现在用Gemini3pro做出来了，和AI沟通越来越简单...",
+    "content": "现在AI模型确实强了，之前一直没做出来app现在用Gemini3pro做出来了，和AI沟通越来越简单了\n\n欢迎使用这个复刻的timingapp;原app订阅10欧每个月，之后再也不用订阅了\n\n\nhttps://\ngithub.com/0xkamalei/mac-\ntime-trace/releases/tag/0.0.2\n…",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/2005610623594578222",
+    "originalDate": "2025-12-29T12:03:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767604790666-0fs9t6jn.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:19:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8174-aa31-d19ad11d62e4",
+    "title": "[视频] Philingo使用介绍\ntry it out : philingo.leix.dev",
+    "content": "[视频] Philingo使用介绍\ntry it out : philingo.leix.dev",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1qGqGBWEVt/",
+    "originalDate": "2025-12-16T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603068151-asxwtj2d.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-810e-b8b4-d0b5cc295dba",
+    "title": "",
+    "content": "网页链接  加入了爱发电",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/opus/gen-skgkz8",
+    "originalDate": "2025-12-13T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8182-b7c7-f4ca9f7c978a",
+    "title": "[视频] 202512121056_今日英语练习\n视频中使用软件为自制webapp",
+    "content": "[视频] 202512121056_今日英语练习\n视频中使用软件为自制webapp",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1qAm7BcEGB/",
+    "originalDate": "2025-12-11T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603071520-fphm6a6t.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-817f-9095-d3762244ef59",
+    "title": "[视频] 防被裁编程法",
+    "content": "[视频] 防被裁编程法",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1XJmgBKEMJ/",
+    "originalDate": "2025-12-10T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603073729-bfdt0con.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-810e-95fe-fb18f2d1bed3",
+    "title": "[视频] 英语练习记录",
+    "content": "[视频] 英语练习记录",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1NhmJBDEZ6/",
+    "originalDate": "2025-12-08T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603076799-9bjbxb2r.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8178-b136-f5e134a0b27f",
+    "title": "[视频] 2025#5 AI成为一中新的material",
+    "content": "[视频] 2025#5 AI成为一中新的material",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1kFsnzgEuk/",
+    "originalDate": "2025-10-23T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603079166-51iwolwn.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-81e8-b7e3-ebfdbe9239d2",
+    "title": "[视频] 2025#4 一镜到底外出上班",
+    "content": "[视频] 2025#4 一镜到底外出上班",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV11TsbzqEqR/",
+    "originalDate": "2025-10-21T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603082470-m9lm0bg6.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-818c-a074-f328ccf533e2",
+    "title": "[视频] 2025#3 我是只青蛙",
+    "content": "[视频] 2025#3 我是只青蛙",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1vEWDz1EkY/",
+    "originalDate": "2025-10-20T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603085927-r7or37dd.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-81ec-9f77-fd9f35a4fa83",
+    "title": "[视频] 2025#1 寡人张磊",
+    "content": "[视频] 2025#1 寡人张磊",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1GBsMzdEpT/",
+    "originalDate": "2025-10-19T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603092253-csll9urz.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-813e-8c59-e504235dd3db",
+    "title": "[视频] 2025#2 为什么要工作",
+    "content": "[视频] 2025#2 为什么要工作",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV15DWyz8EH8/",
+    "originalDate": "2025-10-19T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603088398-csk77fpy.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T08:51:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8159-954f-e5d62097ed33",
+    "title": "[视频] 2023-5-2-程序员如何打造专属信息源 [ETWRFQkxs_o]",
+    "content": "[视频] 2023-5-2-程序员如何打造专属信息源 [ETWRFQkxs_o]",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1oY4izSEdc/",
+    "originalDate": "2025-10-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603688891-ktsf6z95.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8134-835d-e382e534548b",
+    "title": "[视频] 2023-4-28-BUG 写入成功却读不到 [6pTUqkbnkUk]",
+    "content": "[视频] 2023-4-28-BUG 写入成功却读不到 [6pTUqkbnkUk]",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1RB4izjE1v/",
+    "originalDate": "2025-10-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603686258-qnh7p0k8.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8115-b82f-f3e868e3dc93",
+    "title": "[视频] 2023-3-28-十年工作经历 vs 十年工作经验 [zbk02Z1E-_Y]",
+    "content": "[视频] 2023-3-28-十年工作经历 vs 十年工作经验 [zbk02Z1E-_Y]",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1iB4iz7Epx/",
+    "originalDate": "2025-10-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603683126-tj7ps1g3.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8199-ba4e-d3f73cdf85cf",
+    "title": "[视频] 2022-11-8-追求深度还是追求广度这是一个问题 [27lG4v_HWPc]",
+    "content": "[视频] 2022-11-8-追求深度还是追求广度这是一个问题 [27lG4v_HWPc]",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1LB4iz7Ezc/",
+    "originalDate": "2025-10-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603679530-u6sdag0c.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8193-bd32-f1e8172778de",
+    "title": "[视频] 2022-11-7-实事求是有时候我们应该承认自己是码农 [z2iWAkkxoKw]",
+    "content": "[视频] 2022-11-7-实事求是有时候我们应该承认自己是码农 [z2iWAkkxoKw]",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1jB4iz7ETg/",
+    "originalDate": "2025-10-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603673991-aej3bd5w.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-81a9-81e6-e98360df7001",
+    "title": "[视频] AWS SQS 死信队列究竟是怎么回事？",
+    "content": "[视频] AWS SQS 死信队列究竟是怎么回事？",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1ii4izUESi/",
+    "originalDate": "2025-10-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603671554-zxi7msck.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-810a-9563-faf191ae0696",
+    "title": "[视频] 2023-3-3-对人不对事可能吗？ [Wv7Sjtu5IQw]",
+    "content": "[视频] 2023-3-3-对人不对事可能吗？ [Wv7Sjtu5IQw]",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1RB4izjE9E/",
+    "originalDate": "2025-10-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603667362-x20plt3d.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8172-906c-c7e9b3f0a53f",
+    "title": "[视频] 2023-4-30-NAS选购避坑 [GwDKNOwop1g]",
+    "content": "[视频] 2023-4-30-NAS选购避坑 [GwDKNOwop1g]",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1dB4izjEzo/",
+    "originalDate": "2025-10-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603654159-5ffx3r1y.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8105-8991-fabaf0f3a260",
+    "title": "[视频] 2023-5-1-为什么中国公司很少要求写单元测试 [XoQDzeXUVvM]",
+    "content": "[视频] 2023-5-1-为什么中国公司很少要求写单元测试 [XoQDzeXUVvM]",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1iB4iz7EnM/",
+    "originalDate": "2025-10-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603651058-z9j0u98o.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:00:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8131-93d9-e3a6af69dd92",
+    "title": "[视频] 【VUP自我介绍】大家好，今天我正式出道啦！",
+    "content": "[视频] 【VUP自我介绍】大家好，今天我正式出道啦！",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1LcYCz7EuN/",
+    "originalDate": "2025-08-16T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603692438-ztjrbfcz.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-819d-bf01-fc812015cb77",
+    "title": "My personal time-tracking app is 50% complete.",
+    "content": "My personal time-tracking app is 50% complete.",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/1951830475892547787",
+    "originalDate": "2025-08-03T02:20:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767604794343-yfsqdpla.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:19:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-81dd-a47f-ca1727fccd30",
+    "title": "我们写的单元测试比目标代码多三倍，它的价值不是为了检测潜在BUG，而是为了避免将来的修改引入BUG。...",
+    "content": "我们写的单元测试比目标代码多三倍，它的价值不是为了检测潜在BUG，而是为了避免将来的修改引入BUG。\nThe unit tests we write are three times more than the target code. Their value is not to detect potential bugs, but to prevent introducing bugs in future modifications.",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/1950100285902479669",
+    "originalDate": "2025-07-29T07:45:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767604797680-kzpbsdvj.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:19:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8143-812e-f8617e4b62f0",
+    "title": "[视频] copy timing\n帮我生成软件的功能列表",
+    "content": "[视频] copy timing\n帮我生成软件的功能列表",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1pKutzxEGu/",
+    "originalDate": "2025-07-15T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603697465-a64r6m0l.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-81ec-b8b6-e3f0d51727b2",
+    "title": "[视频] 不要将程序员思维代入你的生活",
+    "content": "[视频] 不要将程序员思维代入你的生活",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1DEjdzvEsA/",
+    "originalDate": "2025-05-26T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603703295-0my5f2h5.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:01:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8136-8473-efdaf8fce3b9",
+    "title": "how engineer fix bug",
+    "content": "how engineer fix bug",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/1694553064718696892",
+    "originalDate": "2023-08-24T03:31:00.000+00:00",
+    "images": [],
+    "videos": [
+      "https://video.twimg.com/tweet_video/F4RC5tpbEAAbqc-.mp4"
+    ],
+    "tags": [],
+    "createdAt": "2026-01-05T09:41:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8168-a5f4-ef8747943113",
+    "title": "Never stop think about thinking",
+    "content": "Never stop think about thinking",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/1652299724391874562",
+    "originalDate": "2023-04-29T13:12:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:31:00.000Z"
+  },
+  {
+    "id": "2df6dd2f-2d12-8134-a5ba-ed83b1fc31d2",
+    "title": "Ask yourself everyday \nWhat’s your goal? \nAnd does...",
+    "content": "Ask yourself everyday \nWhat’s your goal? \nAnd does your actions can implement your goal?",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/1650524592195407873",
+    "originalDate": "2023-04-24T15:38:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-05T09:31:00.000Z"
+  }
+]

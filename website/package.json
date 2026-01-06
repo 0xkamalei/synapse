@@ -1,0 +1,21 @@
+{
+    "name": "synapse-website",
+    "type": "module",
+    "version": "1.0.0",
+    "scripts": {
+        "sync": "bun scripts/sync-data.ts",
+        "dev": "astro dev",
+        "start": "npm run dev",
+        "build": "npm run sync && astro build",
+        "preview": "astro preview",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "@notionhq/client": "^2.2.14",
+        "astro": "^4.0.0",
+        "firebase": "^12.7.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0"
+    }
+}

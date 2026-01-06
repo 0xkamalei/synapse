@@ -1,0 +1,353 @@
+---
+import type { Thought } from "../lib/notion";
+
+interface Props {
+  thoughts: Thought[];
+}
+
+const { thoughts } = Astro.props;
+
+// Prepare data for the client
+const countsByDate = new Map<string, number>();
+const sources = new Set<string>();
+
+for (const thought of thoughts) {
+  const date = thought.originalDate.split("T")[0];
+  countsByDate.set(date, (countsByDate.get(date) || 0) + 1);
+  if (thought.source) {
+    sources.add(thought.source);
+  }
+}
+
+const uniqueSources = Array.from(sources).sort();
+const serializedCounts = JSON.stringify(Object.fromEntries(countsByDate));
+---
+
+<div
+  class="calendar-container"
+  id="sidebar-calendar"
+  data-counts={serializedCounts}
+>
+  <header class="calendar-header">
+    <button class="nav-btn" id="prev-month">←</button>
+    <h2 id="month-display"></h2>
+    <button class="nav-btn" id="next-month">→</button>
+  </header>
+
+  <div class="calendar-grid">
+    <div class="weekday-header">
+      <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span
+      ><span>F</span><span>S</span>
+    </div>
+
+    <div class="days-grid" id="calendar-days">
+      <!-- Days will be injected by script -->
+    </div>
+  </div>
+
+  <div class="sources-nav">
+    <h3 class="nav-title">Sources</h3>
+    <div class="source-links">
+      <a href="/" class="source-link all-link">
+        <span class="dot all"></span> All Thoughts
+      </a>
+      {
+        uniqueSources.map((source) => (
+          <a href={`/source/${source.toLowerCase()}`} class="source-link">
+            <span class={`dot ${source.toLowerCase()}`} /> {source}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById("sidebar-calendar");
+  const daysGrid = document.getElementById("calendar-days");
+  const monthDisplay = document.getElementById("month-display");
+  const prevBtn = document.getElementById("prev-month");
+  const nextBtn = document.getElementById("next-month");
+
+  if (container && daysGrid && monthDisplay) {
+    const counts = JSON.parse(container.getAttribute("data-counts") || "{}");
+    let currentMonth = new Date();
+    let selectedDate = "";
+
+    function renderCalendar() {
+      const year = currentMonth.getFullYear();
+      const month = currentMonth.getMonth();
+
+      monthDisplay!.textContent = currentMonth.toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
+      });
+
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const startPadding = firstDay.getDay();
+      const daysInMonth = lastDay.getDate();
+
+      let html = "";
+
+      // Prev month padding
+      const prevMonthLastDay = new Date(year, month, 0).getDate();
+      for (let i = startPadding - 1; i >= 0; i--) {
+        html += `<div class="calendar-day other-month">${prevMonthLastDay - i}</div>`;
+      }
+
+      // Current month
+      const today = new Date().toISOString().split("T")[0];
+      for (let d = 1; d <= daysInMonth; d++) {
+        const fullDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        const count = counts[fullDate] || 0;
+        const isToday = fullDate === today;
+        const isSelected = fullDate === selectedDate;
+
+        html += `
+          <div 
+            class="calendar-day ${isToday ? "today" : ""} ${isSelected ? "selected" : ""} ${count > 0 ? "has-thoughts" : ""}" 
+            data-date="${fullDate}"
+            title="${count > 0 ? count + " thoughts" : ""}"
+          >
+            <span class="day-number">${d}</span>
+            ${count > 0 ? `<span class="red-dot">${count}</span>` : ""}
+          </div>
+        `;
+      }
+
+      // Next month padding
+      const totalDays = startPadding + daysInMonth;
+      const endPadding = 42 - totalDays;
+      for (let d = 1; d <= endPadding; d++) {
+        html += `<div class="calendar-day other-month">${d}</div>`;
+      }
+
+      daysGrid!.innerHTML = html;
+
+      // Add event listeners
+      daysGrid!
+        .querySelectorAll(".calendar-day[data-date]")
+        .forEach((dayEl) => {
+          dayEl.addEventListener("click", () => {
+            const date = dayEl.getAttribute("data-date");
+            if (date) {
+              if (selectedDate === date) {
+                selectedDate = ""; // Toggle off
+              } else {
+                selectedDate = date;
+              }
+              renderCalendar();
+
+              // Dispatch event for Filtering
+              window.dispatchEvent(
+                new CustomEvent("filter-date", { detail: selectedDate }),
+              );
+            }
+          });
+        });
+    }
+
+    prevBtn?.addEventListener("click", () => {
+      currentMonth.setMonth(currentMonth.getMonth() - 1);
+      renderCalendar();
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      currentMonth.setMonth(currentMonth.getMonth() + 1);
+      renderCalendar();
+    });
+
+    window.addEventListener("clear-calendar-selection", () => {
+      selectedDate = "";
+      renderCalendar();
+    });
+
+    renderCalendar();
+  }
+</script>
+
+<style is:global>
+  .calendar-container {
+    background: transparent;
+    border: none;
+    overflow: hidden;
+  }
+
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--md-outline-variant);
+    margin-bottom: var(--space-2);
+  }
+
+  .calendar-header h2 {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--md-on-surface-variant);
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+
+  .nav-btn:hover {
+    background: var(--md-surface-container-high);
+  }
+
+  .calendar-grid {
+    padding: 0;
+  }
+
+  .weekday-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: var(--space-1);
+  }
+
+  .weekday-header span {
+    text-align: center;
+    font-size: 0.625rem;
+    font-weight: 500;
+    color: var(--md-on-surface-variant);
+    padding: var(--space-1) 0;
+  }
+
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+
+  .calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    font-size: 0.75rem;
+  }
+
+  .calendar-day:hover {
+    background: var(--md-surface-container-high);
+  }
+
+  .calendar-day.other-month {
+    opacity: 0.15;
+    cursor: default;
+  }
+
+  .calendar-day.today {
+    background: var(--md-primary-container);
+    border: 1px solid var(--md-primary);
+  }
+
+  .calendar-day.today .day-number {
+    color: var(--md-on-primary-container);
+    font-weight: 700;
+  }
+
+  .calendar-day.selected {
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    font-weight: 700;
+  }
+
+  .red-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: var(--md-error);
+    color: white;
+    font-size: 0.625rem;
+    min-width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    font-weight: 700;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transform: scale(0.8);
+    z-index: 2;
+  }
+
+  .calendar-day.selected .red-dot {
+    background: var(--md-on-secondary-container);
+    color: var(--md-secondary-container);
+  }
+
+  .sources-nav {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--md-outline-variant);
+  }
+
+  .nav-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--md-on-surface-variant);
+    margin-bottom: var(--space-3);
+    letter-spacing: 0.05em;
+  }
+
+  .source-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .source-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.875rem;
+    color: var(--md-on-surface);
+    padding: var(--space-1) var(--space-2);
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .source-link:hover {
+    background: var(--md-surface-container-high);
+    color: var(--md-primary);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot.all {
+    background: var(--md-primary);
+  }
+  .dot.x {
+    background: #1da1f2;
+  }
+  .dot.bilibili {
+    background: #fb7299;
+  }
+  .dot.manual {
+    background: var(--md-outline);
+  }
+  /* Default for unknown sources */
+  .dot {
+    background: var(--md-outline-variant);
+  }
+</style>

@@ -1,0 +1,106 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ThoughtCard from "../../components/ThoughtCard.astro";
+import Calendar from "../../components/Calendar.astro";
+import thoughts from "../../data/thoughts.json";
+
+export function getStaticPaths() {
+    const sources = [...new Set(thoughts.map((t) => t.source.toLowerCase()))];
+    return sources.map((source) => ({
+        params: { source },
+        props: {
+            sourceName: source.charAt(0).toUpperCase() + source.slice(1),
+            filteredThoughts: thoughts.filter(
+                (t) => t.source.toLowerCase() === source,
+            ),
+        },
+    }));
+}
+
+const { sourceName, filteredThoughts } = Astro.props;
+---
+
+<BaseLayout title={`${sourceName} Logs`}>
+    <div class="container container-grid">
+        <aside class="sidebar">
+            <Calendar thoughts={thoughts as any} />
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <a href="/" class="back-link">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Back to Dashboard
+                </a>
+                <h1>{sourceName} Thoughts</h1>
+                <p class="hero-subtitle text-muted">
+                    {filteredThoughts.length} items collected from {sourceName}
+                </p>
+            </header>
+
+            <div class="timeline">
+                {
+                    filteredThoughts.map((thought) => (
+                        <ThoughtCard thought={thought as any} />
+                    ))
+                }
+            </div>
+        </main>
+    </div>
+</BaseLayout>
+
+<style>
+    .container-grid {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: var(--space-8);
+        align-items: start;
+        padding-top: var(--space-4);
+    }
+
+    @media (max-width: 992px) {
+        .container-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .sidebar {
+        position: sticky;
+        top: calc(48px + var(--space-4));
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-6);
+    }
+
+    .page-header {
+        margin-bottom: var(--space-8);
+    }
+
+    .back-link {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+        font-size: 0.875rem;
+        margin-bottom: var(--space-4);
+        color: var(--md-on-surface-variant);
+    }
+
+    .back-link:hover {
+        color: var(--md-primary);
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: var(--space-1);
+    }
+
+    .hero-subtitle {
+        font-size: 1.125rem;
+    }
+
+    .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-6);
+    }
+</style>

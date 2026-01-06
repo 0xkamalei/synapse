@@ -1,0 +1,211 @@
+---
+---
+
+<div class="landing-page">
+  <section class="hero-section">
+    <div class="container container-landing">
+      <div class="hero-content">
+        <div class="logo-large">
+          <span class="material-symbols-outlined logo-icon-bg">psychology</span>
+          <h1>Synapse</h1>
+        </div>
+        <h2 class="hero-headline">Every brilliant thought, synchronized.</h2>
+        <p class="hero-subheadline">
+          Stop losing insights to the scroll. Synapse automatically captures your favorite moments from across social media into your personal Notion-powered second brain.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="platforms-section">
+    <div class="container container-landing">
+      <h3 class="section-label">Supported Platforms</h3>
+      <div class="platform-grid">
+        <div class="platform-item">
+          <span class="platform-name">X (Twitter)</span>
+        </div>
+        <div class="platform-item">
+          <span class="platform-name">Bilibili</span>
+        </div>
+        <div class="platform-item">
+          <span class="platform-name">QQ Space</span>
+        </div>
+        <div class="platform-item">
+          <span class="platform-name">WeChat Moments</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="value-section">
+    <div class="container container-landing">
+      <div class="value-grid">
+        <div class="value-card">
+          <span class="material-symbols-outlined">analytics</span>
+          <h4>End Fragmented Storage</h4>
+          <p>No more bookmarks buried in different apps. Centralize your inspiration in one high-density, searchable place.</p>
+        </div>
+        <div class="value-card">
+          <span class="material-symbols-outlined">auto_awesome</span>
+          <h4>Fully Automated</h4>
+          <p>Our extension works in the background. Just browse, and Synapse handles the collection, metadata, and media archiving.</p>
+        </div>
+        <div class="value-card">
+          <span class="material-symbols-outlined">data_object</span>
+          <h4>Notion Powered</h4>
+          <p>Own your data. Every thought is saved to your Notion database, ready for your own workflows and permanent retrieval.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="landing-footer">
+    <div class="container container-landing">
+      <p class="text-small text-muted">© 2026 Synapse. Designed for the curious mind.</p>
+    </div>
+  </footer>
+</div>
+
+<style>
+  .landing-page {
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+  }
+
+  .container-landing {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: var(--space-16) 0 var(--space-12);
+    text-align: center;
+  }
+
+  .logo-large {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .logo-icon-bg {
+    font-size: 4.5rem;
+    color: var(--md-primary);
+    background: var(--md-primary-container);
+    padding: var(--space-6);
+    border-radius: 32px;
+    font-variation-settings: 'FILL' 1, 'wght' 400;
+  }
+
+  .logo-large h1 {
+    font-size: 3rem;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-headline {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: var(--space-6);
+    color: var(--md-on-surface);
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 768px) {
+    .hero-headline {
+      font-size: 2.5rem;
+    }
+  }
+
+  .hero-subheadline {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--md-on-surface-variant);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Platforms Section */
+  .platforms-section {
+    padding: var(--space-12) 0;
+    background: var(--md-surface-container-low);
+    text-align: center;
+  }
+
+  .section-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--md-primary);
+    margin-bottom: var(--space-8);
+  }
+
+  .platform-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-8);
+  }
+
+  .platform-item {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--md-on-surface-variant);
+    opacity: 0.8;
+  }
+
+  /* Value Section */
+  .value-section {
+    padding: var(--space-16) 0;
+  }
+
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .value-card {
+    background: var(--md-surface-container);
+    padding: var(--space-8);
+    border-radius: 24px;
+    text-align: left;
+    border: 1px solid var(--md-outline-variant);
+    transition: transform 0.2s;
+  }
+
+  .value-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .value-card .material-symbols-outlined {
+    font-size: 2.5rem;
+    color: var(--md-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .value-card h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+    color: var(--md-on-surface);
+  }
+
+  .value-card p {
+    line-height: 1.6;
+    color: var(--md-on-surface-variant);
+  }
+
+  .landing-footer {
+    padding: var(--space-12) 0;
+    text-align: center;
+    opacity: 0.6;
+  }
+</style>

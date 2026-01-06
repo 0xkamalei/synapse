@@ -1,0 +1,146 @@
+---
+import type { Thought } from "../lib/notion";
+
+interface Props {
+  thought: Thought;
+}
+
+const { thought } = Astro.props;
+
+const sourceClass = thought.source.toLowerCase();
+const formattedDate = new Date(thought.originalDate).toLocaleDateString(
+  "en-US",
+  {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  },
+);
+const dateISO = thought.originalDate.split("T")[0];
+---
+
+<article class="thought-card" data-date={dateISO}>
+  <header class="card-header">
+    <span class={`badge ${sourceClass}`}>{thought.source}</span>
+    <time datetime={thought.originalDate} class="text-muted text-small">
+      {formattedDate}
+    </time>
+  </header>
+
+  <div class="card-content">
+    <p>{thought.content}</p>
+
+    {
+      (thought.images.length > 0 || thought.videos.length > 0) && (
+        <div class="card-media">
+          {thought.images.map((img) => (
+            <img src={img} alt="" loading="lazy" />
+          ))}
+          {thought.videos.map((vid) => (
+            <video src={vid} controls preload="none" />
+          ))}
+        </div>
+      )
+    }
+  </div>
+
+  <footer class="card-footer">
+    {
+      thought.tags.length > 0 && (
+        <div class="card-tags">
+          {thought.tags.map((tag) => (
+            <span class="tag">#{tag}</span>
+          ))}
+        </div>
+      )
+    }
+    {
+      thought.originalUrl &&
+        !(
+          thought.source === "Bilibili" &&
+          thought.images.length === 0 &&
+          thought.videos.length === 0
+        ) && (
+          <a
+            href={thought.originalUrl}
+            target="_blank"
+            rel="noopener"
+            class="original-link"
+          >
+            View original →
+          </a>
+        )
+    }
+  </footer>
+</article>
+
+<style>
+  .thought-card {
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    transition:
+      box-shadow 0.2s,
+      border-color 0.2s;
+  }
+
+  .thought-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--md-outline);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+  }
+
+  .card-content p {
+    color: var(--md-on-surface);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .card-media {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .card-media img,
+  .card-media video {
+    border-radius: var(--radius-md);
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--md-surface-container);
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--md-outline-variant);
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    color: var(--md-on-surface-variant);
+  }
+  .original-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+</style>

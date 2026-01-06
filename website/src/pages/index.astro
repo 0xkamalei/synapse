@@ -1,0 +1,271 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ThoughtCard from "../components/ThoughtCard.astro";
+import Heatmap from "../components/Heatmap.astro";
+import Calendar from "../components/Calendar.astro";
+import LandingPage from "../components/LandingPage.astro";
+import thoughts from "../data/thoughts.json";
+import dailyCounts from "../data/daily-counts.json";
+---
+
+<BaseLayout title="Home">
+  <div id="auth-loading" class="auth-state">
+    <div class="spinner"></div>
+  </div>
+
+  <div id="unauthenticated-content" class="auth-state hidden">
+    <LandingPage />
+  </div>
+
+  <div id="authenticated-content" class="auth-state hidden">
+    <div class="container container-grid">
+      <aside class="sidebar">
+        <Calendar thoughts={thoughts as any} />
+      </aside>
+
+      <main class="main-content">
+        <section class="hero">
+          <h1>My Thoughts</h1>
+          <p class="hero-subtitle text-muted">
+            A collection of ideas, insights, and moments from across the web.
+          </p>
+        </section>
+
+        <section class="heatmap-main">
+          <h2 class="section-title">Activity</h2>
+          <Heatmap data={dailyCounts} />
+        </section>
+
+        <section class="timeline-section">
+          <div class="timeline-header flex-between">
+            <h2 class="section-title">Recent Thoughts</h2>
+            <div id="filter-indicator" class="filter-badge hidden">
+              <span id="filter-date-text"></span>
+              <button id="clear-filter" class="material-symbols-outlined"
+                >close</button
+              >
+            </div>
+          </div>
+
+          {
+            thoughts.length === 0 ? (
+              <div class="empty-state">
+                <span class="empty-icon">📝</span>
+                <p>No thoughts yet</p>
+                <p class="text-small text-muted">
+                  Start collecting from X.com or Bilibili
+                </p>
+              </div>
+            ) : (
+              <div class="timeline" id="thoughts-timeline">
+                {thoughts.map((thought) => (
+                  <ThoughtCard thought={thought as any} />
+                ))}
+              </div>
+            )
+          }
+        </section>
+      </main>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { auth } from "../lib/firebase";
+  import { onAuthStateChanged } from "firebase/auth";
+
+  const loading = document.getElementById("auth-loading");
+  const unauth = document.getElementById("unauthenticated-content");
+  const authContent = document.getElementById("authenticated-content");
+
+  onAuthStateChanged(auth, (user) => {
+    loading?.classList.add("hidden");
+    if (user) {
+      authContent?.classList.remove("hidden");
+      unauth?.classList.add("hidden");
+    } else {
+      unauth?.classList.remove("hidden");
+      authContent?.classList.add("hidden");
+    }
+  });
+
+  // Filtering logic
+  const indicator = document.getElementById("filter-indicator");
+  const dateText = document.getElementById("filter-date-text");
+  const clearBtn = document.getElementById("clear-filter");
+
+  window.addEventListener("filter-date", (e: any) => {
+    const selectedDate = e.detail;
+    const cards = document.querySelectorAll(
+      ".thought-card",
+    ) as NodeListOf<HTMLElement>;
+
+    if (selectedDate) {
+      indicator?.classList.remove("hidden");
+      if (dateText) dateText.textContent = `Filtered by ${selectedDate}`;
+
+      cards.forEach((card) => {
+        if (card.dataset.date === selectedDate) {
+          card.classList.remove("hidden");
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+    } else {
+      clearFilter();
+    }
+  });
+
+  clearBtn?.addEventListener("click", clearFilter);
+
+  function clearFilter() {
+    indicator?.classList.add("hidden");
+    const cards = document.querySelectorAll(
+      ".thought-card",
+    ) as NodeListOf<HTMLElement>;
+    cards.forEach((card) => card.classList.remove("hidden"));
+    window.dispatchEvent(new CustomEvent("clear-calendar-selection"));
+  }
+</script>
+
+<style is:global>
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<style>
+  .auth-state {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--md-secondary-container);
+    border-bottom-color: var(--md-primary);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .container-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: var(--space-8);
+    align-items: start;
+    padding-top: var(--space-4);
+  }
+
+  @media (max-width: 992px) {
+    .container-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .sidebar {
+    position: sticky;
+    top: calc(48px + var(--space-4));
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .heatmap-main {
+    margin-bottom: var(--space-8);
+    overflow-x: auto;
+  }
+
+  .hero {
+    margin-bottom: var(--space-10);
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    max-width: 600px;
+  }
+
+  .timeline-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+  }
+
+  .filter-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .filter-badge button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .filter-badge button:hover {
+    opacity: 0.7;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--space-12);
+    background: var(--md-surface-container-low);
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--md-outline-variant);
+  }
+
+  .empty-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: var(--space-4);
+    opacity: 0.5;
+  }
+</style>
