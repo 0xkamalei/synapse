@@ -31,8 +31,7 @@ import dailyCounts from "../data/daily-counts.json";
           </p>
         </section>
 
-        <section class="heatmap-main">
-          <h2 class="section-title">Activity</h2>
+        <section class="activity-section">
           <Heatmap data={dailyCounts} />
         </section>
 
@@ -212,11 +211,12 @@ import dailyCounts from "../data/daily-counts.json";
   }
 
   .section-title {
-    font-size: 1.125rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--md-on-surface-variant);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    margin-bottom: var(--space-4);
   }
 
   .timeline-header {

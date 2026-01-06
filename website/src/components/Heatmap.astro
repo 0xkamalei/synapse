@@ -4,84 +4,51 @@ interface Props {
 }
 
 const { data } = Astro.props;
-
-// Organize data into weeks (7 days per column)
-function organizeIntoWeeks(dailyData: { date: string; count: number }[]) {
-  const weeks: { date: string; count: number }[][] = [];
-  let currentWeek: { date: string; count: number }[] = [];
-
-  // Find the first day and pad to start on Sunday
-  const firstDate = new Date(dailyData[0]?.date || new Date());
-  const firstDayOfWeek = firstDate.getDay();
-
-  // Add empty padding for first week
-  for (let i = 0; i < firstDayOfWeek; i++) {
-    currentWeek.push({ date: "", count: -1 });
-  }
-
-  for (const day of dailyData) {
-    currentWeek.push(day);
-    if (currentWeek.length === 7) {
-      weeks.push(currentWeek);
-      currentWeek = [];
-    }
-  }
-
-  // Push remaining days
-  if (currentWeek.length > 0) {
-    weeks.push(currentWeek);
-  }
-
-  return weeks;
-}
-
-function getLevel(count: number): number {
-  if (count <= 0) return 0;
-  if (count === 1) return 1;
-  if (count <= 3) return 2;
-  if (count <= 5) return 3;
-  return 4;
-}
-
-const weeks = organizeIntoWeeks(data);
-const totalCount = data.reduce((sum, d) => sum + d.count, 0);
+const serializedData = JSON.stringify(data);
 ---
 
-<div class="heatmap-container">
+<div class="heatmap-card" id="heatmap-root" data-activity={serializedData}>
   <div class="heatmap-header">
-    <span class="heatmap-total">{totalCount} thoughts this year</span>
+    <span class="section-label">Activity</span>
+    <div class="year-selector">
+      <button id="heatmap-prev" class="nav-btn material-symbols-outlined"
+        >chevron_left</button
+      >
+      <span id="heatmap-year-display" class="year-display"></span>
+      <button id="heatmap-next" class="nav-btn material-symbols-outlined"
+        >chevron_right</button
+      >
+    </div>
   </div>
 
-  <div class="heatmap-wrapper">
-    <div class="heatmap-labels">
-      <span>Sun</span>
-      <span>Mon</span>
-      <span>Tue</span>
-      <span>Wed</span>
-      <span>Thu</span>
-      <span>Fri</span>
-      <span>Sat</span>
-    </div>
+  <div class="heatmap-content">
+    <div class="heatmap-wrapper">
+      <div class="heatmap-labels" aria-hidden="true">
+        <span>Sun</span>
+        <span>Mon</span>
+        <span>Tue</span>
+        <span>Wed</span>
+        <span>Thu</span>
+        <span>Fri</span>
+        <span>Sat</span>
+      </div>
 
-    <div class="heatmap">
-      {
-        weeks.map((week) => (
-          <div class="heatmap-week">
-            {week.map((day) => (
-              <div
-                class={`heatmap-day level-${getLevel(day.count)}`}
-                data-date={day.date}
-                data-count={day.count}
-                title={
-                  day.date
-                    ? `${day.date}: ${day.count} thought${day.count !== 1 ? "s" : ""}`
-                    : ""
-                }
-              />
-            ))}
-          </div>
-        ))
-      }
+      <div class="heatmap-grid" id="heatmap-grid">
+        <!-- Grid injected by script -->
+      </div>
+    </div>
+  </div>
+
+  <div class="heatmap-footer">
+    <span id="heatmap-total-text" class="heatmap-total"></span>
+    <div class="heatmap-legend">
+      <span class="text-tiny">Less</span>
+      <div class="heatmap-day level-0"></div>
+      <div class="heatmap-day level-1"></div>
+      <div class="heatmap-day level-2"></div>
+      <div class="heatmap-day level-3"></div>
+      <div class="heatmap-day level-4"></div>
+      <span class="text-tiny">More</span>
     </div>
   </div>
 
@@ -89,133 +56,319 @@ const totalCount = data.reduce((sum, d) => sum + d.count, 0);
 </div>
 
 <script>
+  const root = document.getElementById("heatmap-root");
+  const grid = document.getElementById("heatmap-grid");
+  const yearDisplay = document.getElementById("heatmap-year-display");
+  const prevBtn = document.getElementById("heatmap-prev");
+  const nextBtn = document.getElementById("heatmap-next");
+  const totalText = document.getElementById("heatmap-total-text");
   const tooltip = document.getElementById("heatmap-tooltip");
-  const days = document.querySelectorAll(".heatmap-day[data-date]");
 
-  const wrapper = document.querySelector(".heatmap-wrapper");
-  if (wrapper) {
-    wrapper.scrollLeft = wrapper.scrollWidth;
+  if (root && grid && yearDisplay) {
+    const rawData = JSON.parse(root.getAttribute("data-activity") || "[]");
+
+    // Grouping by local date parts to avoid UTC shift
+    const dataByYear: Record<number, { date: string; count: number }[]> = {};
+    rawData.forEach((d: any) => {
+      const parts = d.date.split("-");
+      const year = parseInt(parts[0]);
+      if (!dataByYear[year]) dataByYear[year] = [];
+      dataByYear[year].push(d);
+    });
+
+    const years = Object.keys(dataByYear)
+      .map(Number)
+      .sort((a, b) => b - a);
+    let currentYearIndex = 0;
+
+    function getLevel(count: number): number {
+      if (count <= 0) return 0;
+      if (count === 1) return 1;
+      if (count <= 3) return 2;
+      if (count <= 5) return 3;
+      return 4;
+    }
+
+    // Helper for generating local YYYY-MM-DD strings
+    function getDateKey(year: number, month: number, day: number) {
+      return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    }
+
+    function renderHeatmap() {
+      const year =
+        years.length > 0 ? years[currentYearIndex] : new Date().getFullYear();
+      yearDisplay!.textContent = year.toString();
+
+      const yearData = dataByYear[year] || [];
+      const totalInYear = yearData.reduce((sum, d) => sum + d.count, 0);
+      totalText!.textContent = `${totalInYear} thoughts in ${year}`;
+
+      if (prevBtn)
+        (prevBtn as HTMLButtonElement).disabled =
+          currentYearIndex === years.length - 1 || years.length <= 1;
+      if (nextBtn)
+        (nextBtn as HTMLButtonElement).disabled =
+          currentYearIndex === 0 || years.length <= 1;
+
+      const countsMap = new Map(yearData.map((d) => [d.date, d.count]));
+
+      const weeks: any[][] = [];
+      let currentWeek: any[] = [];
+
+      // Logic: Iterate every day of the year manually
+      const firstDay = new Date(year, 0, 1);
+      const startPadding = firstDay.getDay();
+
+      // Pad beginning
+      for (let i = 0; i < startPadding; i++) {
+        currentWeek.push({ date: "", count: -1 });
+      }
+
+      // Loop through all days of the year precisely
+      // Using month/day instead of Date addition to avoid DST issues
+      for (let m = 0; m < 12; m++) {
+        const daysInMonth = new Date(year, m + 1, 0).getDate();
+        for (let d = 1; d <= daysInMonth; d++) {
+          const key = getDateKey(year, m, d);
+          currentWeek.push({ date: key, count: countsMap.get(key) || 0 });
+
+          if (currentWeek.length === 7) {
+            weeks.push(currentWeek);
+            currentWeek = [];
+          }
+        }
+      }
+
+      if (currentWeek.length > 0) {
+        while (currentWeek.length < 7) {
+          currentWeek.push({ date: "", count: -1 });
+        }
+        weeks.push(currentWeek);
+      }
+
+      let html = "";
+      weeks.forEach((week) => {
+        html += `<div class="heatmap-week">`;
+        week.forEach((day) => {
+          if (day.count === -1) {
+            html += `<div class="heatmap-day level-empty"></div>`;
+          } else {
+            html += `<div class="heatmap-day level-${getLevel(day.count)}" data-date="${day.date}" data-count="${day.count}"></div>`;
+          }
+        });
+        html += `</div>`;
+      });
+
+      grid!.innerHTML = html;
+
+      // Tooltip listeners
+      const dayEls = grid!.querySelectorAll(".heatmap-day[data-date]");
+      dayEls.forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          const date = el.getAttribute("data-date");
+          const count = el.getAttribute("data-count");
+          if (!date || !tooltip) return;
+          tooltip.textContent = `${date}: ${count} thought${count !== "1" ? "s" : ""}`;
+          tooltip.classList.remove("hidden");
+        });
+
+        el.addEventListener("mousemove", (e: any) => {
+          if (!tooltip) return;
+          tooltip.style.left = `${e.clientX + 10}px`;
+          tooltip.style.top = `${e.clientY - 30}px`;
+        });
+
+        el.addEventListener("mouseleave", () =>
+          tooltip?.classList.add("hidden"),
+        );
+      });
+    }
+
+    prevBtn?.addEventListener("click", () => {
+      if (currentYearIndex < years.length - 1) {
+        currentYearIndex++;
+        renderHeatmap();
+      }
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      if (currentYearIndex > 0) {
+        currentYearIndex--;
+        renderHeatmap();
+      }
+    });
+
+    renderHeatmap();
   }
-
-  days.forEach((day) => {
-    day.addEventListener("mouseenter", (e: any) => {
-      const date = day.getAttribute("data-date");
-      const count = day.getAttribute("data-count");
-      if (!date || !tooltip) return;
-
-      tooltip.textContent = `${date}: ${count} thought${count !== "1" ? "s" : ""}`;
-      tooltip.classList.remove("hidden");
-    });
-
-    day.addEventListener("mousemove", (e: any) => {
-      if (!tooltip) return;
-      const x = e.clientX + 10;
-      const y = e.clientY - 30;
-      tooltip.style.left = `${x}px`;
-      tooltip.style.top = `${y}px`;
-    });
-
-    day.addEventListener("mouseleave", () => {
-      tooltip?.classList.add("hidden");
-    });
-  });
 </script>
 
-<style>
-  .heatmap-container {
-    padding: 0;
+<style is:global>
+  .heatmap-card {
+    background: var(--md-surface-container-low);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--md-outline-variant);
+    padding: var(--space-4);
   }
 
-  .heatmap-header {
+  .heatmap-card .heatmap-header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-4);
   }
 
-  .section-title {
-    font-size: 0.875rem;
+  .heatmap-card .section-label {
+    font-size: 0.75rem;
     font-weight: 600;
-    margin: 0;
-    color: var(--md-on-surface-variant);
     text-transform: uppercase;
+    color: var(--md-on-surface-variant);
     letter-spacing: 0.05em;
   }
 
-  .heatmap-total {
-    font-size: 0.75rem;
-    color: var(--md-on-surface-variant);
-    opacity: 0.7;
+  .heatmap-card .year-selector {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    background: var(--md-surface-container-highest);
+    padding: 2px 6px;
+    border-radius: var(--radius-full);
   }
 
-  .heatmap-wrapper {
+  .heatmap-card .year-display {
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .heatmap-card .nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.125rem;
+    color: var(--md-on-surface-variant);
+    padding: 2px;
+    border-radius: 50%;
     display: flex;
-    gap: var(--space-2);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .heatmap-card .nav-btn:hover:not(:disabled) {
+    color: var(--md-primary);
+  }
+
+  .heatmap-card .nav-btn:disabled {
+    opacity: 0.3;
+  }
+
+  .heatmap-card .heatmap-content {
+    overflow: hidden;
+  }
+
+  .heatmap-card .heatmap-wrapper {
+    display: flex;
+    gap: var(--space-3);
     overflow-x: auto;
     padding-bottom: var(--space-2);
   }
 
-  .heatmap-labels {
+  .heatmap-card .heatmap-labels {
     display: flex;
     flex-direction: column;
     gap: 3px;
     font-size: 10px;
     color: var(--md-on-surface-variant);
     padding-top: 2px;
+    position: sticky;
+    left: 0;
+    background: var(--md-surface-container-low);
+    z-index: 5;
   }
 
-  .heatmap-labels span {
+  .heatmap-card .heatmap-labels span {
     height: 12px;
     line-height: 12px;
   }
 
-  .heatmap-labels span:nth-child(even) {
+  .heatmap-card .heatmap-labels span:nth-child(even) {
     visibility: hidden;
   }
 
-  .heatmap {
+  .heatmap-card .heatmap-grid {
     display: flex;
     gap: 3px;
   }
 
-  .heatmap-week {
+  .heatmap-card .heatmap-week {
     display: flex;
     flex-direction: column;
     gap: 3px;
+    flex-shrink: 0;
   }
 
-  .heatmap-day {
+  .heatmap-card .heatmap-day {
     width: 12px;
     height: 12px;
     border-radius: 2px;
     background: var(--heatmap-0);
-    transition:
-      transform 0.1s ease-in-out,
-      box-shadow 0.1s;
+    transition: transform 0.1s;
     cursor: pointer;
   }
 
-  .heatmap-day:hover {
+  .heatmap-card .heatmap-day.level-empty {
+    visibility: hidden;
+  }
+
+  .heatmap-card .heatmap-day:hover:not(.level-empty) {
     transform: scale(1.4);
     z-index: 10;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
-  .heatmap-day.level-1 {
+  .heatmap-card .heatmap-day.level-1 {
     background: var(--heatmap-1);
   }
-  .heatmap-day.level-2 {
+  .heatmap-card .heatmap-day.level-2 {
     background: var(--heatmap-2);
   }
-  .heatmap-day.level-3 {
+  .heatmap-card .heatmap-day.level-3 {
     background: var(--heatmap-3);
   }
-  .heatmap-day.level-4 {
+  .heatmap-card .heatmap-day.level-4 {
     background: var(--heatmap-4);
   }
 
-  .heatmap-day[data-count="-1"] {
-    visibility: hidden;
+  .heatmap-card .heatmap-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-4);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--md-outline-variant);
+  }
+
+  .heatmap-card .heatmap-total {
+    font-size: 0.75rem;
+    color: var(--md-on-surface-variant);
+  }
+
+  .heatmap-card .heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .heatmap-card .heatmap-legend .heatmap-day {
+    width: 10px;
+    height: 10px;
+    cursor: default;
+  }
+
+  .heatmap-card .text-tiny {
+    font-size: 10px;
+    color: var(--md-on-surface-variant);
+    opacity: 0.7;
   }
 
   .heatmap-tooltip {
@@ -231,7 +384,13 @@ const totalCount = data.reduce((sum, d) => sum + d.count, 0);
     box-shadow: var(--shadow-md);
   }
 
-  .hidden {
+  .heatmap-tooltip.hidden {
     display: none !important;
+  }
+
+  @media (max-width: 600px) {
+    .heatmap-card .heatmap-labels {
+      display: none;
+    }
   }
 </style>
