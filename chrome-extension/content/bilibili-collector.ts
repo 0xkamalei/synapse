@@ -245,7 +245,7 @@ function parseRelativeTimeBilibili(timeText: string): string {
         const year = parseInt(cnDateMatch[1]) || now.getFullYear();
         const month = parseInt(cnDateMatch[2]) - 1;
         const day = parseInt(cnDateMatch[3]);
-        
+
         // Create Date as UTC+8 (Beijing Time)
         const date = new Date(Date.UTC(year, month, day, 0, 0));
         date.setUTCHours(date.getUTCHours() - 8);
@@ -262,7 +262,7 @@ function parseRelativeTimeBilibili(timeText: string): string {
         const year = parseInt(yearStr);
         const month = parseInt(dateMatch[2]) - 1;
         const day = parseInt(dateMatch[3]);
-        
+
         // Create Date as UTC+8 (Beijing Time)
         const date = new Date(Date.UTC(year, month, day, 0, 0));
         date.setUTCHours(date.getUTCHours() - 8);
@@ -343,7 +343,7 @@ function extractAuthorInfoBilibili(dynamicElement: Element): AuthorInfo {
  * @param {Element} dynamicElement
  * @returns {Object}
  */
-export function collectDynamicDataBilibili(dynamicElement: Element): CollectedContent {
+function collectDynamicDataBilibili(dynamicElement: Element): CollectedContent {
     const text = extractDynamicTextBilibili(dynamicElement);
     const images = extractDynamicImagesBilibili(dynamicElement);
     const timestamp = extractDynamicTimestampBilibili(dynamicElement);
@@ -379,7 +379,7 @@ function getCurrentPageUID(): string {
  * Check if current page is a dynamic page
  * @returns {boolean}
  */
-export function isDynamicPage(): boolean {
+function isDynamicPage(): boolean {
     return window.location.hostname === 't.bilibili.com' ||
         (window.location.hostname === 'space.bilibili.com' && window.location.pathname.includes('/dynamic')) ||
         (window.location.hostname === 'www.bilibili.com' && window.location.pathname.startsWith('/v/dynamic'));
@@ -411,11 +411,26 @@ function findMainDynamicBilibili(): Element | null {
 }
 
 /**
+ * Find all dynamic posts on the page
+ */
+function findAllBilibiliPosts(): CollectedContent[] {
+    const dynamics = findAllDynamicsBilibili();
+    const pageUID = getCurrentPageUID();
+    return dynamics.map(element => {
+        const data = collectDynamicDataBilibili(element);
+        if (pageUID) {
+            data.author = { username: pageUID, displayName: pageUID };
+        }
+        return data;
+    }).filter(data => data.text && data.text.trim().length > 0);
+}
+
+/**
  * Find all visible dynamics on the page
  * Only selects top-level list items to avoid duplicates
  * @returns {Element[]}
  */
-export function findAllDynamicsBilibili(): Element[] {
+function findAllDynamicsBilibili(): Element[] {
     if (!isDynamicPage()) {
         return [];
     }
@@ -459,12 +474,11 @@ function getPageInfoBilibili(): PageInfo {
     } as PageInfo;
 }
 
-(window as any).getPageInfoBilibili = getPageInfoBilibili;
+
 
 // Listen for messages from popup/background
 chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) => {
     if (message.type === MessageTypeBilibili.COLLECT_CURRENT) {
-        // ...
         const mainDynamic = findMainDynamicBilibili();
 
         if (!mainDynamic) {
@@ -473,7 +487,6 @@ chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.Mess
         }
 
         const data = collectDynamicDataBilibili(mainDynamic);
-        // ...
         sendResponse({ success: true, data });
     } else if (message.type === 'MANUAL_COLLECT') {
         const pageUID = getCurrentPageUID();
@@ -488,7 +501,7 @@ chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.Mess
             const data = collectDynamicDataBilibili(element);
             data.author = { username: pageUID, displayName: pageUID };
             return data;
-        });
+        }).filter(data => data.text && data.text.trim().length > 0);
 
         // Send to background for processing (bypassing interval)
         chrome.runtime.sendMessage({
@@ -530,7 +543,7 @@ async function tryAutoCollectBilibili(): Promise<void> {
         data.author = { username: pageUID, displayName: pageUID };
 
         return data;
-    });
+    }).filter(data => data.text && data.text.trim().length > 0);
 
     // Send batch to background for processing
     chrome.runtime.sendMessage({

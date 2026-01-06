@@ -183,9 +183,9 @@ function extractAuthorInfoX(tweetElement: Element): AuthorInfo {
 }
 
 /**
- * Collect data from a single tweet element
+ * Extract all data from a tweet element
  */
-export function collectTweetDataX(tweetElement: Element): CollectedContent {
+function collectTweetDataX(tweetElement: Element): CollectedContent {
     const text = extractTweetText(tweetElement);
     const { images, videos } = extractTweetMedia(tweetElement);
     const timestamp = extractTweetTimestamp(tweetElement);
@@ -217,9 +217,9 @@ function findMainTweetX(): Element | null {
 }
 
 /**
- * Find all visible tweets on the page
+ * Find all tweet elements on the page
  */
-export function findAllTweetsX(): Element[] {
+function findAllTweetsX(): Element[] {
     return Array.from(document.querySelectorAll('article[data-testid="tweet"]'));
 }
 
@@ -257,7 +257,7 @@ function getPageInfoX(): any {
     };
 }
 
-(window as any).getPageInfoX = getPageInfoX;
+
 
 // Listen for messages from popup/background
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
@@ -310,7 +310,9 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
                 return true;
             }
 
-            const contents = tweets.map(t => collectTweetDataX(t));
+            const contents = tweets
+                .map(t => collectTweetDataX(t))
+                .filter(data => data.text && data.text.trim().length > 0);
             const pageUID = getCurrentPageUserX();
 
             chrome.runtime.sendMessage({
@@ -357,7 +359,9 @@ async function tryAutoCollectX(): Promise<void> {
     const tweets = findAllTweetsX();
     if (tweets.length === 0) return;
 
-    const contents = tweets.map(t => collectTweetDataX(t));
+    const contents = tweets
+        .map(t => collectTweetDataX(t))
+        .filter(data => data.text && data.text.trim().length > 0);
     const pageUID = getCurrentPageUserX();
 
     chrome.runtime.sendMessage({

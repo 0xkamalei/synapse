@@ -165,7 +165,7 @@ function parseQZoneTimeQZone(timeText: string): string {
         let day = parseInt(cnDateMatch[3]);
         let hour = parseInt(cnDateMatch[4]);
         let minute = parseInt(cnDateMatch[5]);
-        
+
         // Create Date as UTC+8 (Beijing Time)
         const date = new Date(Date.UTC(year, month, day, hour, minute));
         date.setUTCHours(date.getUTCHours() - 8);
@@ -180,7 +180,7 @@ function parseQZoneTimeQZone(timeText: string): string {
         let day = parseInt(dateMatch[3]);
         let hour = parseInt(dateMatch[4]);
         let minute = parseInt(dateMatch[5]);
-        
+
         // Create Date as UTC+8 (Beijing Time)
         const date = new Date(Date.UTC(year, month, day, hour, minute));
         date.setUTCHours(date.getUTCHours() - 8);
@@ -253,7 +253,7 @@ function extractAuthorInfoQZone(item: Element): AuthorInfo {
 /**
  * Collect data from a single feed element
  */
-export function collectFeedDataQZone(item: Element): CollectedContent {
+function collectFeedDataQZone(item: Element): CollectedContent {
     const text = extractFeedTextQZone(item);
     const images = extractFeedImagesQZone(item);
     const timestamp = extractFeedTimestampQZone(item);
@@ -276,7 +276,15 @@ export function collectFeedDataQZone(item: Element): CollectedContent {
 /**
  * Find all feed elements
  */
-export function findAllFeedsQZone(): Element[] {
+/**
+ * Find all feeds on the page and collect their data
+ */
+function findAllQzoneFeeds(): CollectedContent[] {
+    const feeds = findAllFeedsQZone();
+    return feeds.map(f => collectFeedDataQZone(f)).filter(data => data.text && data.text.trim().length > 0);
+}
+
+function findAllFeedsQZone(): Element[] {
     // Try both modern and classic selectors
     const selectors = [
         'li.f-single',
@@ -284,14 +292,14 @@ export function findAllFeedsQZone(): Element[] {
         'div[id^="feed_"]',
         'div[id^="f_"]'
     ];
-    
+
     for (const selector of selectors) {
         const elements = document.querySelectorAll(selector);
         if (elements.length > 0) {
             return Array.from(elements);
         }
     }
-    
+
     return [];
 }
 
@@ -325,7 +333,7 @@ function getPageInfoQZone(): PageInfo {
     } as PageInfo;
 }
 
-(window as any).getPageInfoQZone = getPageInfoQZone;
+
 
 // Listen for messages from popup/background
 chrome.runtime.onMessage.addListener((message: any, _sender, sendResponse) => {
@@ -358,7 +366,9 @@ chrome.runtime.onMessage.addListener((message: any, _sender, sendResponse) => {
         }
 
         const pageQQ = getPageQQ();
-        const contents = allFeeds.map(f => collectFeedDataQZone(f));
+        const contents = allFeeds
+            .map(f => collectFeedDataQZone(f))
+            .filter(data => data.text && data.text.trim().length > 0);
 
         chrome.runtime.sendMessage({
             type: 'MANUAL_COLLECT_BATCH',
@@ -384,7 +394,9 @@ async function tryAutoCollectQZone(): Promise<void> {
     if (feeds.length === 0) return;
 
     const pageQQ = getPageQQ();
-    const contents = feeds.map(f => collectFeedDataQZone(f));
+    const contents = feeds
+        .map(f => collectFeedDataQZone(f))
+        .filter(data => data.text && data.text.trim().length > 0);
 
     chrome.runtime.sendMessage({
         type: 'AUTO_COLLECT_BATCH' as const,

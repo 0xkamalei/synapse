@@ -8,15 +8,17 @@
   },
   "scripts": {
     "build": "tsc",
-    "watch": "tsc -w",
-    "test": "bun test content/collector.test.ts"
+    "watch": "tsc --watch",
+    "test": "bun run build && bun test content/collector.test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@types/bun": "^1.3.5",
     "@types/chrome": "^0.1.32",
+    "@types/node": "^25.0.3",
     "happy-dom": "^20.0.11",
     "typescript": "^5.9.3"
   }

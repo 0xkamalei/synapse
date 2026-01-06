@@ -13,6 +13,12 @@ import { validateConfig, getConfig, shouldCollect, updateLastCollectTime } from 
  * In debug mode: logs parsed JSON without saving
  */
 async function processContent(content: CollectedContent): Promise<any> {
+    // Requirement: text must be present to be saved
+    if (!content.text || content.text.trim().length === 0) {
+        console.log('[Synapse] Skipping content with empty text');
+        return null;
+    }
+
     const summary = truncateText(content.text);
     const config = await getConfig();
 
@@ -93,11 +99,11 @@ async function processContent(content: CollectedContent): Promise<any> {
 
     console.log('[Synapse] Content saved successfully to Notion:', result.url);
     await logger.success(`Saved from ${content.source}`, {
-        data: { 
+        data: {
             ...content,
-            notionPageId: result.id, 
+            notionPageId: result.id,
             notionUrl: result.url,
-            imagesUploaded: imageUrls.length 
+            imagesUploaded: imageUrls.length
         },
         summary: summary
     });
@@ -142,6 +148,9 @@ async function handleAutoCollect(content: CollectedContent, sender: chrome.runti
     // Process the content
     try {
         const result = await processContent(content);
+        if (!result) {
+            return { success: false, reason: 'empty_text' };
+        }
         return { success: true, data: result };
     } catch (err: any) {
         await logger.error(`Auto-collect failed: ${err.message}`, { summary: truncateText(content.text) });
@@ -191,8 +200,12 @@ async function handleAutoCollectBatch(contents: CollectedContent[], pageUID: str
                 }
             }
 
-            await processContent(content);
-            collected++;
+            const result = await processContent(content);
+            if (result) {
+                collected++;
+            } else {
+                skipped++;
+            }
         } catch (err: any) {
             if (err.message.includes('already saved')) {
                 skipped++;
@@ -217,6 +230,9 @@ async function handleAutoCollectBatch(contents: CollectedContent[], pageUID: str
 async function handleManualCollect(content: CollectedContent): Promise<any> {
     try {
         const result = await processContent(content);
+        if (!result) {
+            return { success: false, error: 'Empty text content' };
+        }
         return { success: true, data: result };
     } catch (err: any) {
         await logger.error(`Manual collect failed: ${err.message}`, { summary: truncateText(content.text) });
@@ -248,8 +264,10 @@ async function handleManualCollectBatch(contents: CollectedContent[], pageUID: s
             const isDup = await checkDuplicate(content.url);
             if (isDup) continue;
 
-            await processContent(content);
-            successCount++;
+            const result = await processContent(content);
+            if (result) {
+                successCount++;
+            }
         } catch (err: any) {
             errors.push(err.message);
         }

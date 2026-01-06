@@ -35,7 +35,7 @@ describe("Collectors", () => {
     let originalDate: any;
 
     beforeAll(async () => {
-        // Mock global variables before importing collectors
+        // Mock global variables before loading collectors
         globalThis.HTMLAnchorElement = initialWindow.HTMLAnchorElement as any;
 
         // Mock window.location more robustly
@@ -51,10 +51,39 @@ describe("Collectors", () => {
             writable: true
         });
 
-        // Dynamically import collectors after globals are set
-        xCollector = await import("./x-collector");
-        bilibiliCollector = await import("./bilibili-collector");
-        qzoneCollector = await import("./qzone-collector");
+        // Load collectors by reading the compiled JS files and evaluating them in global scope
+        const collectors = [
+            'dist/content/x-collector.js',
+            'dist/content/bilibili-collector.js',
+            'dist/content/qzone-collector.js'
+        ];
+
+        for (const relPath of collectors) {
+            const absPath = join(import.meta.dir, '..', relPath);
+            if (existsSync(absPath)) {
+                let content = readFileSync(absPath, 'utf8');
+                
+                // Remove "use strict" to allow eval to define globals
+                content = content.replace(/"use strict";/g, '');
+
+                // Strip export keywords for eval compatibility
+                content = content.replace(/^export\s+/gm, '');
+                content = content.replace(/^export\s+\{.*\};?\s*$/gm, '');
+                
+                // Replace const/let with var to avoid "already defined" errors in eval
+                content = content.replace(/^(const|let)\s+/gm, 'var ');
+                
+                try {
+                    // Execute in global scope using indirect eval
+                    const globalEval = eval;
+                    globalEval(content);
+                } catch (e) {
+                    console.error(`Error evaluating ${relPath}:`, e);
+                }
+            } else {
+                console.warn(`Warning: Compiled collector not found at ${absPath}. Run build first.`);
+            }
+        }
     });
 
     beforeEach(() => {
@@ -109,13 +138,13 @@ describe("Collectors", () => {
         
         updateDOMWithUrl(htmlPath, "https://x.com/home");
         
-        const tweets = xCollector.findAllTweetsX();
+        const tweets = (globalThis as any).findAllTweetsX();
         expect(tweets.length).toBeGreaterThan(0);
         
-        const results = tweets.map(t => xCollector.collectTweetDataX(t));
+        const results = tweets.map((t: any) => (globalThis as any).collectTweetDataX(t));
         
         // Only override collectedAt, but keep the parsed timestamp
-        results.forEach(r => {
+        results.forEach((r: any) => {
             r.collectedAt = "2024-01-01T00:00:00.000Z";
         });
 
@@ -134,13 +163,13 @@ describe("Collectors", () => {
         
         updateDOMWithUrl(htmlPath, "https://t.bilibili.com/");
   
-        const dynamics = bilibiliCollector.findAllDynamicsBilibili();
+        const dynamics = (globalThis as any).findAllDynamicsBilibili();
         expect(dynamics.length).toBeGreaterThan(0);
         
-        const results = dynamics.map(d => bilibiliCollector.collectDynamicDataBilibili(d));
+        const results = dynamics.map((d: any) => (globalThis as any).collectDynamicDataBilibili(d));
         
         // Only override collectedAt, but keep the parsed timestamp
-        results.forEach(r => {
+        results.forEach((r: any) => {
             r.collectedAt = "2024-01-01T00:00:00.000Z";
         });
 
@@ -160,13 +189,12 @@ describe("Collectors", () => {
         
         updateDOMWithUrl(htmlPath, "https://user.qzone.qq.com/852872578");
         
-        const feeds = qzoneCollector.findAllFeedsQZone();
-        console.log(`Found ${feeds.length} QZone feeds`);
+        const feeds = (globalThis as any).findAllFeedsQZone();
         
-        const results = feeds.map(f => qzoneCollector.collectFeedDataQZone(f));
+        const results = feeds.map((f: any) => (globalThis as any).collectFeedDataQZone(f));
         
         // Only override collectedAt, but keep the parsed timestamp
-        results.forEach(r => {
+        results.forEach((r: any) => {
             r.collectedAt = "2024-01-01T00:00:00.000Z";
         });
 
