@@ -5,10 +5,10 @@
 import { Client } from '@notionhq/client';
 
 const notion = new Client({
-    auth: import.meta.env.NOTION_TOKEN
+    auth: import.meta.env?.NOTION_TOKEN || process.env.NOTION_TOKEN
 });
 
-const databaseId = import.meta.env.NOTION_DATABASE_ID;
+const databaseId = import.meta.env?.NOTION_DATABASE_ID || process.env.NOTION_DATABASE_ID;
 
 export interface Thought {
     id: string;
@@ -58,19 +58,34 @@ function parseNotionPage(page: any, blocks: any[] = []): Thought {
 }
 
 /**
- * Fetch all published thoughts from Notion
+ * Fetch thoughts from Notion with optional incremental sync
  */
-export async function getAllThoughts(): Promise<Thought[]> {
+export async function getAllThoughts(since?: string): Promise<Thought[]> {
     const thoughts: Thought[] = [];
     let cursor: string | undefined;
+
+    const filter: any = {
+        and: [
+            {
+                property: 'Status',
+                select: { equals: 'Published' }
+            }
+        ]
+    };
+
+    if (since) {
+        filter.and.push({
+            property: 'CollectedAt',
+            created_time: {
+                after: since
+            }
+        });
+    }
 
     do {
         const response = await notion.databases.query({
             database_id: databaseId,
-            filter: {
-                property: 'Status',
-                select: { equals: 'Published' }
-            },
+            filter: filter,
             sorts: [
                 { property: 'OriginalDate', direction: 'descending' }
             ],

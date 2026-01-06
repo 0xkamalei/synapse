@@ -3,53 +3,46 @@
  * Extracts post content from X.com (Twitter) pages
  */
 
+
 // Message types for communication with background script
-const MessageType = {
+const MessageTypeX = {
     COLLECT_CURRENT: 'COLLECT_CURRENT',
     COLLECT_RESULT: 'COLLECT_RESULT',
     GET_PAGE_INFO: 'GET_PAGE_INFO'
-};
+} as const;
 
 /**
  * Extract text content from a tweet element
- * @param {Element} tweetElement
- * @returns {string}
  */
-function extractTweetText(tweetElement) {
+function extractTweetText(tweetElement: Element): string {
     const textElement = tweetElement.querySelector('[data-testid="tweetText"]');
     if (!textElement) return '';
-    return textElement.innerText || '';
+    return (textElement as HTMLElement).innerText || '';
 }
 
 /**
  * Extract images and videos from a tweet element
- * @param {Element} tweetElement
- * @returns {{images: string[], videos: string[]}}
  */
-function extractTweetMedia(tweetElement) {
-    const images = [];
-    const videos = [];
+function extractTweetMedia(tweetElement: Element): { images: string[]; videos: string[] } {
+    const images: string[] = [];
+    const videos: string[] = [];
 
     // Find video containers first to prioritize motion content
     const videoContainers = tweetElement.querySelectorAll('[data-testid="videoPlayer"]');
-    const videoPosters = new Set();
+    const videoPosters = new Set<string>();
 
-    videoContainers.forEach((container, index) => {
+    videoContainers.forEach((container) => {
         const video = container.querySelector('video');
         if (video) {
             const src = video.src;
             const poster = video.getAttribute('poster');
 
-            console.log(`[Synapse] Found video ${index}:`, { src, poster });
-
             if (src && !videos.includes(src)) {
                 videos.push(src);
             } else if (!src) {
-                // Try to find src in source elements if not on video tag directly
                 const source = video.querySelector('source');
                 if (source && source.src && !videos.includes(source.src)) {
                     videos.push(source.src);
-                    console.log(`[Synapse] Found video src in <source>:`, source.src);
                 }
             }
 
@@ -68,7 +61,6 @@ function extractTweetMedia(tweetElement) {
 
             // Skip if this image is a video poster to avoid duplicates
             if (videoPosters.has(src)) {
-                console.log('[Synapse] Skipping video poster image:', src);
                 return;
             }
 
@@ -83,16 +75,13 @@ function extractTweetMedia(tweetElement) {
         });
     });
 
-    console.log('[Synapse] Extracted media:', { imageCount: images.length, videoCount: videos.length });
     return { images, videos };
 }
 
 /**
  * Extract timestamp from a tweet element
- * @param {Element} tweetElement
- * @returns {string}
  */
-function extractTweetTimestamp(tweetElement) {
+function extractTweetTimestamp(tweetElement: Element): string {
     const timeElement = tweetElement.querySelector('time');
     if (timeElement) {
         return timeElement.getAttribute('datetime') || new Date().toISOString();
@@ -102,11 +91,8 @@ function extractTweetTimestamp(tweetElement) {
 
 /**
  * Extract tweet URL from a tweet element
- * @param {Element} tweetElement
- * @returns {string}
  */
-function extractTweetUrl(tweetElement) {
-    // Try to find the permalink
+function extractTweetUrl(tweetElement: Element): string {
     const timeElement = tweetElement.querySelector('time');
     if (timeElement) {
         const linkElement = timeElement.closest('a');
@@ -114,17 +100,13 @@ function extractTweetUrl(tweetElement) {
             return linkElement.href;
         }
     }
-
-    // Fallback to current URL
     return window.location.href;
 }
 
 /**
  * Extract author info from a tweet element
- * @param {Element} tweetElement
- * @returns {{username: string, displayName: string}}
  */
-function extractAuthorInfo(tweetElement) {
+function extractAuthorInfoX(tweetElement: Element): AuthorInfo {
     const userNameLink = tweetElement.querySelector('[data-testid="User-Name"] a');
     let username = '';
     let displayName = '';
@@ -136,7 +118,7 @@ function extractAuthorInfo(tweetElement) {
 
     const displayNameElement = tweetElement.querySelector('[data-testid="User-Name"] span');
     if (displayNameElement) {
-        displayName = displayNameElement.innerText || '';
+        displayName = (displayNameElement as HTMLElement).innerText || '';
     }
 
     return { username, displayName };
@@ -144,19 +126,17 @@ function extractAuthorInfo(tweetElement) {
 
 /**
  * Collect data from a single tweet element
- * @param {Element} tweetElement
- * @returns {Object}
  */
-function collectTweetData(tweetElement) {
+function collectTweetDataX(tweetElement: Element): CollectedContent {
     const text = extractTweetText(tweetElement);
     const { images, videos } = extractTweetMedia(tweetElement);
     const timestamp = extractTweetTimestamp(tweetElement);
     const url = extractTweetUrl(tweetElement);
-    const author = extractAuthorInfo(tweetElement);
+    const author = extractAuthorInfoX(tweetElement);
 
-    const data = {
-        source: 'X',
-        type: videos.length > 0 ? 'video' : 'text',
+    return {
+        source: 'X' as const,
+        type: videos.length > 0 ? 'video' : images.length > 0 ? 'image' : 'text',
         text,
         images,
         videos,
@@ -165,70 +145,46 @@ function collectTweetData(tweetElement) {
         author,
         collectedAt: new Date().toISOString()
     };
-
-    console.log('[Synapse] Collected tweet data:', data);
-    return data;
 }
 
 /**
  * Find the main/focused tweet on the page
- * @returns {Element|null}
  */
-function findMainTweet() {
-    // On tweet detail page, find the main tweet (usually the first article)
+function findMainTweetX(): Element | null {
     if (window.location.pathname.includes('/status/')) {
         const articles = document.querySelectorAll('article[data-testid="tweet"]');
-        // The main tweet is typically the first one on detail pages
         return articles[0] || null;
     }
-
-    // On timeline, return null (user should click specific tweet)
     return null;
 }
 
 /**
  * Find all visible tweets on the page
- * @returns {Element[]}
  */
-function findAllTweets() {
+function findAllTweetsX(): Element[] {
     return Array.from(document.querySelectorAll('article[data-testid="tweet"]'));
 }
 
 /**
- * Collect the current/main tweet on the page
- * @returns {Object|null}
- */
-function collectCurrentTweet() {
-    const mainTweet = findMainTweet();
-    if (!mainTweet) {
-        return null;
-    }
-    return collectTweetData(mainTweet);
-}
-
-/**
  * Get the username from current page URL
- * @returns {string}
  */
-function getCurrentPageUser() {
+function getCurrentPageUserX(): string {
     const path = window.location.pathname;
-    // URL format: /username/status/123 or /username
     const match = path.match(/^\/([^\/]+)/);
     return match ? match[1] : '';
 }
 
 /**
  * Get page info for the popup
- * @returns {Object}
  */
-function getPageInfo() {
-    const tweets = findAllTweets();
-    const mainTweet = findMainTweet();
-    const pageUser = getCurrentPageUser();
+function getPageInfoX(): any {
+    const tweets = findAllTweetsX();
+    const mainTweet = findMainTweetX();
+    const pageUser = getCurrentPageUserX();
 
     let tweetAuthor = '';
     if (mainTweet) {
-        const author = extractAuthorInfo(mainTweet);
+        const author = extractAuthorInfoX(mainTweet);
         tweetAuthor = author.username;
     }
 
@@ -243,19 +199,20 @@ function getPageInfo() {
     };
 }
 
-// Listen for messages from popup/background
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === MessageType.COLLECT_CURRENT) {
-        const mainTweet = findMainTweet();
+(window as any).getPageInfoX = getPageInfoX;
 
-        if (!mainTweet) {
+// Listen for messages from popup/background
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+    if (message.type === MessageTypeX.COLLECT_CURRENT) {
+        const mainTweetX = findMainTweetX();
+
+        if (!mainTweetX) {
             sendResponse({ success: false, error: 'No tweet found on page' });
             return true;
         }
 
-        const data = collectTweetData(mainTweet);
+        const data = collectTweetDataX(mainTweetX);
 
-        // Check if we have a target user to filter
         if (message.targetUser && data.author.username) {
             const targetUser = message.targetUser.toLowerCase();
             const tweetAuthor = data.author.username.toLowerCase();
@@ -274,15 +231,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const isDetail = window.location.pathname.includes('/status/');
 
         if (isDetail) {
-            const mainTweet = findMainTweet();
-            if (!mainTweet) {
+            const mainTweetX = findMainTweetX();
+            if (!mainTweetX) {
                 sendResponse({ success: false, error: 'No tweet found on page' });
                 return true;
             }
 
-            const data = collectTweetData(mainTweet);
+            const data = collectTweetDataX(mainTweetX);
 
-            // Send to background for processing (bypassing interval)
             chrome.runtime.sendMessage({
                 type: 'MANUAL_COLLECT',
                 content: data
@@ -290,15 +246,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 sendResponse(response);
             });
         } else {
-            // Batch collect from profile/timeline
-            const tweets = findAllTweets();
+            const tweets = findAllTweetsX();
             if (tweets.length === 0) {
                 sendResponse({ success: false, error: 'No tweets found on page' });
                 return true;
             }
 
-            const contents = tweets.map(t => collectTweetData(t));
-            const pageUID = getCurrentPageUser();
+            const contents = tweets.map(t => collectTweetDataX(t));
+            const pageUID = getCurrentPageUserX();
 
             chrome.runtime.sendMessage({
                 type: 'MANUAL_COLLECT_BATCH',
@@ -308,9 +263,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 sendResponse(response);
             });
         }
-        return true; // Keep channel open for async response
-    } else if (message.type === MessageType.GET_PAGE_INFO) {
-        sendResponse(getPageInfo());
+        return true;
+    } else if (message.type === MessageTypeX.GET_PAGE_INFO) {
+        sendResponse(getPageInfoX());
     }
     return true;
 });
@@ -318,9 +273,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 /**
  * Auto-collect on page load if on the target user's profile page
  */
-async function tryAutoCollect() {
-    // Get configuration
-    const response = await new Promise(resolve => {
+async function tryAutoCollectX(): Promise<void> {
+    const response: any = await new Promise(resolve => {
         chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
     });
 
@@ -329,39 +283,25 @@ async function tryAutoCollect() {
     const config = response.config;
     let targetXUser = config.targetXUser;
 
-    if (!targetXUser) {
-        console.log('[Synapse] No target X user configured, skipping auto-collect');
-        return;
-    }
+    if (!targetXUser) return;
 
-    // Clean up target username (remove @ if present)
     targetXUser = targetXUser.startsWith('@') ? targetXUser.substring(1) : targetXUser;
 
-    // Check if current page is the target user's profile page
-    // Path should be exactly /username (ignore case)
     const currentPath = window.location.pathname.toLowerCase();
     const targetPath = `/${targetXUser.toLowerCase()}`;
 
     if (currentPath !== targetPath) {
-        console.log(`[Synapse] Not on target profile page (${targetPath}), current: ${currentPath}. Skipping auto-collect.`);
         return;
     }
 
-    console.log(`[Synapse] On target profile page @${targetXUser}, starting auto-collect...`);
-
-    // Wait for content to load
     await new Promise(resolve => setTimeout(resolve, 3000));
 
-    const tweets = findAllTweets();
-    if (tweets.length === 0) {
-        console.log('[Synapse] No tweets found for auto-collect');
-        return;
-    }
+    const tweets = findAllTweetsX();
+    if (tweets.length === 0) return;
 
-    const contents = tweets.map(t => collectTweetData(t));
-    const pageUID = getCurrentPageUser();
+    const contents = tweets.map(t => collectTweetDataX(t));
+    const pageUID = getCurrentPageUserX();
 
-    // Send to background for processing (respecting interval)
     chrome.runtime.sendMessage({
         type: 'AUTO_COLLECT_BATCH',
         contents,
@@ -370,32 +310,19 @@ async function tryAutoCollect() {
     }, response => {
         if (response?.success) {
             console.log(`[Synapse] Auto-collected ${response.collected} tweets successfully`);
-        } else if (response?.reason === 'interval') {
-            console.log('[Synapse] Skipped - collection interval not reached');
-        } else if (response?.error) {
-            console.log('[Synapse] Auto-collect failed:', response.error);
         }
     });
 }
 
-// Notify background script that content script is ready
 chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'x' });
+tryAutoCollectX();
 
-// Try auto-collect after page loads
-tryAutoCollect();
-
-// Since X is a single-page app, we need to detect navigation changes
 let lastUrl = window.location.href;
 const observer = new MutationObserver(() => {
     if (window.location.href !== lastUrl) {
         lastUrl = window.location.href;
-        console.log('[Synapse] URL changed, checking for auto-collect...');
-        tryAutoCollect();
+        tryAutoCollectX();
     }
 });
 
 observer.observe(document.body, { childList: true, subtree: true });
-
-console.log('[Synapse] X.com collector loaded');
-
-

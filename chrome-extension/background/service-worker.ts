@@ -5,28 +5,14 @@
 
 import { logger } from '../lib/logger.js';
 import { uploadMedia } from '../lib/github-uploader.js';
-import { saveToNotion, checkDuplicate } from '../lib/notion-client.js';
+import { saveToNotion, checkDuplicate, truncateText } from '../lib/notion-client.js';
 import { validateConfig, getConfig, shouldCollect, updateLastCollectTime } from '../lib/storage.js';
-
-/**
- * Truncate text for summary display
- * @param {string} text
- * @param {number} maxLength
- * @returns {string}
- */
-function truncateText(text, maxLength = 50) {
-    if (!text) return '';
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
-}
 
 /**
  * Process collected content: upload images and save to Notion
  * In debug mode: logs parsed JSON without saving
- * @param {Object} content - Collected content from content script
- * @returns {Promise<Object>}
  */
-async function processContent(content) {
+async function processContent(content: CollectedContent): Promise<any> {
     const summary = truncateText(content.text);
     const config = await getConfig();
 
@@ -83,30 +69,24 @@ async function processContent(content) {
     }
 
     // Upload images to GitHub if present
-    let imageUrls = [];
+    let imageUrls: string[] = [];
     if (content.images && content.images.length > 0) {
         console.log(`[Synapse] Uploading ${content.images.length} images to GitHub...`);
         imageUrls = await uploadMedia(content.images, 'image');
     }
 
     // Handle videos (MP4 from X)
-    let videoUrls = [];
+    let videoUrls: string[] = [];
     if (content.videos && content.videos.length > 0) {
         console.log(`[Synapse] Processing ${content.videos.length} videos...`);
-        // Conditional upload handled inside uploadMedia
         videoUrls = await uploadMedia(content.videos, 'video');
     }
 
     // Prepare content for Notion
-    const notionContent = {
-        text: content.text,
-        type: content.type,
-        source: content.source,
-        url: content.url,
-        timestamp: content.timestamp,
+    const notionContent: CollectedContent = {
+        ...content,
         images: imageUrls,
-        videos: videoUrls,
-        tags: content.tags || []
+        videos: videoUrls
     };
 
     // Save to Notion
@@ -127,10 +107,8 @@ async function processContent(content) {
 
 /**
  * Handle auto-collection request from content script
- * @param {Object} content - Collected content
- * @param {Object} sender - Message sender info
  */
-async function handleAutoCollect(content, sender) {
+async function handleAutoCollect(content: CollectedContent, sender: chrome.runtime.MessageSender): Promise<any> {
     const config = await getConfig();
 
     // In debug mode, skip interval check
@@ -143,7 +121,14 @@ async function handleAutoCollect(content, sender) {
     }
 
     // Determine target user based on source
-    const targetUser = content.source === 'X' ? config.targetXUser : config.targetBilibiliUser;
+    let targetUser: string | undefined;
+    if (content.source === 'X') {
+        targetUser = config.targetXUser;
+    } else if (content.source === 'Bilibili') {
+        targetUser = config.targetBilibiliUser;
+    } else if (content.source === 'QZone') {
+        targetUser = config.targetQZoneUser;
+    }
 
     // Verify author matches target
     if (targetUser) {
@@ -158,18 +143,16 @@ async function handleAutoCollect(content, sender) {
     try {
         const result = await processContent(content);
         return { success: true, data: result };
-    } catch (error) {
-        await logger.error(`Auto-collect failed: ${error.message}`, { summary: truncateText(content.text) });
-        return { success: false, error: error.message };
+    } catch (err: any) {
+        await logger.error(`Auto-collect failed: ${err.message}`, { summary: truncateText(content.text) });
+        return { success: false, error: err.message };
     }
 }
 
 /**
  * Handle batch auto-collection request from content script (for multiple items)
- * @param {Object[]} contents - Array of collected content
- * @param {string} pageUID - Page user ID
  */
-async function handleAutoCollectBatch(contents, pageUID) {
+async function handleAutoCollectBatch(contents: CollectedContent[], pageUID: string): Promise<any> {
     const config = await getConfig();
 
     // In debug mode, skip interval check
@@ -194,8 +177,12 @@ async function handleAutoCollectBatch(contents, pageUID) {
                     skipped++;
                     continue;
                 }
+            } else if (content.source === 'QZone' && config.targetQZoneUser) {
+                if (pageUID && pageUID !== config.targetQZoneUser) {
+                    skipped++;
+                    continue;
+                }
             } else if (content.source === 'X' && config.targetXUser) {
-                // X filtering (usually handled in content script, but safe to verify here)
                 const target = config.targetXUser.toLowerCase();
                 if ((pageUID && pageUID.toLowerCase() !== target) ||
                     (content.author?.username && content.author.username.toLowerCase() !== target)) {
@@ -206,12 +193,11 @@ async function handleAutoCollectBatch(contents, pageUID) {
 
             await processContent(content);
             collected++;
-        } catch (error) {
-            // Skip duplicates silently
-            if (error.message.includes('already saved')) {
+        } catch (err: any) {
+            if (err.message.includes('already saved')) {
                 skipped++;
             } else {
-                await logger.error(`Batch item failed: ${error.message}`, { summary: truncateText(content.text) });
+                await logger.error(`Batch item failed: ${err.message}`, { summary: truncateText(content.text) });
             }
         }
     }
@@ -225,9 +211,56 @@ async function handleAutoCollectBatch(contents, pageUID) {
     return { success: true, collected, skipped };
 }
 
+/**
+ * Handle manual collection request (bypasses interval check)
+ */
+async function handleManualCollect(content: CollectedContent): Promise<any> {
+    try {
+        const result = await processContent(content);
+        return { success: true, data: result };
+    } catch (err: any) {
+        await logger.error(`Manual collect failed: ${err.message}`, { summary: truncateText(content.text) });
+        return { success: false, error: err.message };
+    }
+}
+
+/**
+ * Handle manual batch collection request (bypasses interval check)
+ */
+async function handleManualCollectBatch(contents: CollectedContent[], pageUID: string): Promise<any> {
+    const config = await getConfig();
+    let successCount = 0;
+    let errors: string[] = [];
+
+    await logger.info(`Manually processing batch of ${contents.length} items`);
+
+    for (const content of contents) {
+        try {
+            if (content.source === 'Bilibili' && config.targetBilibiliUser) {
+                const target = config.targetBilibiliUser.toLowerCase();
+                const author = content.author?.username?.toLowerCase();
+
+                if ((pageUID && pageUID.toLowerCase() !== target) || (author && author !== target)) {
+                    continue;
+                }
+            }
+
+            const isDup = await checkDuplicate(content.url);
+            if (isDup) continue;
+
+            await processContent(content);
+            successCount++;
+        } catch (err: any) {
+            errors.push(err.message);
+        }
+    }
+
+    await logger.info(`Manual batch complete: ${successCount} saved, ${errors.length} failed`);
+    return { success: true, collected: successCount, errors };
+}
+
 // Listen for messages from content scripts and popup
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    // Handle async response
     (async () => {
         try {
             switch (message.type) {
@@ -274,15 +307,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 default:
                     sendResponse({ success: false, error: 'Unknown message type' });
             }
-        } catch (error) {
+        } catch (err: any) {
             await logger.error('Error processing message', {
-                data: { type: message.type, error: error.message }
+                data: { type: message.type, error: err.message }
             });
-            sendResponse({ success: false, error: error.message });
+            sendResponse({ success: false, error: err.message });
         }
     })();
 
-    // Return true to indicate async response
     return true;
 });
 
@@ -290,66 +322,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 chrome.runtime.onInstalled.addListener(async (details) => {
     if (details.reason === 'install') {
         await logger.info('Synapse extension installed');
-        // Open options page on install
         chrome.runtime.openOptionsPage();
-    } else if (details.reason === 'update') {
+    } else if (details.reason === details.reason) { // Workaround for update check
         await logger.info('Synapse extension updated', {
-            data: { previousVersion: details.previousVersion }
+            data: { previousVersion: (details as any).previousVersion }
         });
     }
 });
-
-/**
- * Handle manual collection request (bypasses interval check)
- * @param {Object} content - Collected content
- */
-async function handleManualCollect(content) {
-    try {
-        const result = await processContent(content);
-        return { success: true, data: result };
-    } catch (error) {
-        await logger.error(`Manual collect failed: ${error.message}`, { summary: truncateText(content.text) });
-        return { success: false, error: error.message };
-    }
-}
-
-/**
- * Handle manual batch collection request (bypasses interval check)
- * @param {Object[]} contents - Array of collected content
- * @param {string} pageUID - Page user ID
- */
-async function handleManualCollectBatch(contents, pageUID) {
-    const config = await getConfig();
-    let successCount = 0;
-    let errors = [];
-
-    await logger.info(`Manually processing batch of ${contents.length} items`);
-
-    for (const content of contents) {
-        try {
-            // Check target user for Bilibili if configured
-            if (content.source === 'Bilibili' && config.targetBilibiliUser) {
-                const target = config.targetBilibiliUser.toLowerCase();
-                const author = content.author?.username?.toLowerCase();
-
-                // Skip if not from target user (checking both pageUID and individual author)
-                if ((pageUID && pageUID.toLowerCase() !== target) || (author && author !== target)) {
-                    continue;
-                }
-            }
-
-            const isDup = await checkDuplicate(content.url);
-            if (isDup) continue;
-
-            await processContent(content);
-            successCount++;
-        } catch (error) {
-            errors.push(error.message);
-        }
-    }
-
-    await logger.info(`Manual batch complete: ${successCount} saved, ${errors.length} failed`);
-    return { success: true, collected: successCount, errors };
-}
 
 console.log('[Synapse] Service worker started');

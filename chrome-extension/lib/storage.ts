@@ -1,9 +1,4 @@
-/**
- * Synapse Storage Utility
- * Manages Chrome storage for configuration and data
- */
-
-const STORAGE_KEYS = {
+export const STORAGE_KEYS = {
   NOTION_TOKEN: 'notionToken',
   NOTION_DATABASE_ID: 'notionDatabaseId',
   GITHUB_TOKEN: 'githubToken',
@@ -12,66 +7,62 @@ const STORAGE_KEYS = {
   ENABLED_SOURCES: 'enabledSources',
   TARGET_X_USER: 'targetXUser',
   TARGET_BILIBILI_USER: 'targetBilibiliUser',
+  TARGET_QZONE_USER: 'targetQZoneUser',
   COLLECT_INTERVAL_HOURS: 'collectIntervalHours',
   LAST_COLLECT_TIME: 'lastCollectTime',
-  DEBUG_MODE: 'debugMode'  // Skip Notion save, just log parsed content
-};
+  DEBUG_MODE: 'debugMode'
+} as const;
 
-const DEFAULT_CONFIG = {
-  [STORAGE_KEYS.ENABLED_SOURCES]: ['x', 'bilibili'],
-  [STORAGE_KEYS.COLLECT_INTERVAL_HOURS]: 4,
-  [STORAGE_KEYS.DEBUG_MODE]: false
+
+
+const DEFAULT_CONFIG: Partial<AppConfig> = {
+  enabledSources: ['x', 'bilibili', 'qzone'],
+  collectIntervalHours: 4,
+  debugMode: false
 };
 
 /**
  * Get a value from Chrome sync storage
- * @param {string} key - Storage key
- * @returns {Promise<any>}
  */
-async function getStorage(key) {
+async function getStorage<T>(key: string): Promise<T | null> {
   const result = await chrome.storage.sync.get(key);
-  return result[key] ?? DEFAULT_CONFIG[key] ?? null;
+  return (result[key] as T) ?? (DEFAULT_CONFIG[key as keyof AppConfig] as unknown as T) ?? null;
 }
 
 /**
  * Set a value in Chrome sync storage
- * @param {string} key - Storage key
- * @param {any} value - Value to store
- * @returns {Promise<void>}
  */
-async function setStorage(key, value) {
+async function setStorage(key: string, value: any): Promise<void> {
   await chrome.storage.sync.set({ [key]: value });
 }
 
 /**
  * Get all configuration values
- * @returns {Promise<Object>}
  */
-async function getConfig() {
+async function getConfig(): Promise<AppConfig> {
   const keys = Object.values(STORAGE_KEYS);
   const result = await chrome.storage.sync.get(keys);
 
   return {
-    notionToken: result[STORAGE_KEYS.NOTION_TOKEN] || '',
-    notionDatabaseId: result[STORAGE_KEYS.NOTION_DATABASE_ID] || '',
-    githubToken: result[STORAGE_KEYS.GITHUB_TOKEN] || '',
-    githubOwner: result[STORAGE_KEYS.GITHUB_OWNER] || '',
-    githubRepo: result[STORAGE_KEYS.GITHUB_REPO] || '',
-    enabledSources: result[STORAGE_KEYS.ENABLED_SOURCES] || DEFAULT_CONFIG[STORAGE_KEYS.ENABLED_SOURCES],
-    targetXUser: result[STORAGE_KEYS.TARGET_X_USER] || '',
-    targetBilibiliUser: result[STORAGE_KEYS.TARGET_BILIBILI_USER] || '',
-    collectIntervalHours: result[STORAGE_KEYS.COLLECT_INTERVAL_HOURS] ?? DEFAULT_CONFIG[STORAGE_KEYS.COLLECT_INTERVAL_HOURS],
-    lastCollectTime: result[STORAGE_KEYS.LAST_COLLECT_TIME] || null,
-    debugMode: result[STORAGE_KEYS.DEBUG_MODE] ?? DEFAULT_CONFIG[STORAGE_KEYS.DEBUG_MODE]
+    notionToken: (result[STORAGE_KEYS.NOTION_TOKEN] as string) || '',
+    notionDatabaseId: (result[STORAGE_KEYS.NOTION_DATABASE_ID] as string) || '',
+    githubToken: (result[STORAGE_KEYS.GITHUB_TOKEN] as string) || '',
+    githubOwner: (result[STORAGE_KEYS.GITHUB_OWNER] as string) || '',
+    githubRepo: (result[STORAGE_KEYS.GITHUB_REPO] as string) || '',
+    enabledSources: (result[STORAGE_KEYS.ENABLED_SOURCES] as string[]) || (DEFAULT_CONFIG.enabledSources as string[]),
+    targetXUser: (result[STORAGE_KEYS.TARGET_X_USER] as string) || '',
+    targetBilibiliUser: (result[STORAGE_KEYS.TARGET_BILIBILI_USER] as string) || '',
+    targetQZoneUser: (result[STORAGE_KEYS.TARGET_QZONE_USER] as string) || '',
+    collectIntervalHours: (result[STORAGE_KEYS.COLLECT_INTERVAL_HOURS] as number) ?? (DEFAULT_CONFIG.collectIntervalHours as number),
+    lastCollectTime: (result[STORAGE_KEYS.LAST_COLLECT_TIME] as string) || null,
+    debugMode: (result[STORAGE_KEYS.DEBUG_MODE] as boolean) ?? (DEFAULT_CONFIG.debugMode as boolean)
   };
 }
 
 /**
  * Save all configuration values
- * @param {Object} config - Configuration object
- * @returns {Promise<void>}
  */
-async function saveConfig(config) {
+async function saveConfig(config: AppConfig): Promise<void> {
   await chrome.storage.sync.set({
     [STORAGE_KEYS.NOTION_TOKEN]: config.notionToken,
     [STORAGE_KEYS.NOTION_DATABASE_ID]: config.notionDatabaseId,
@@ -81,6 +72,7 @@ async function saveConfig(config) {
     [STORAGE_KEYS.ENABLED_SOURCES]: config.enabledSources,
     [STORAGE_KEYS.TARGET_X_USER]: config.targetXUser,
     [STORAGE_KEYS.TARGET_BILIBILI_USER]: config.targetBilibiliUser,
+    [STORAGE_KEYS.TARGET_QZONE_USER]: config.targetQZoneUser,
     [STORAGE_KEYS.COLLECT_INTERVAL_HOURS]: config.collectIntervalHours,
     [STORAGE_KEYS.DEBUG_MODE]: config.debugMode
   });
@@ -88,9 +80,8 @@ async function saveConfig(config) {
 
 /**
  * Update last collect time to now
- * @returns {Promise<void>}
  */
-async function updateLastCollectTime() {
+async function updateLastCollectTime(): Promise<void> {
   await chrome.storage.sync.set({
     [STORAGE_KEYS.LAST_COLLECT_TIME]: new Date().toISOString()
   });
@@ -98,10 +89,8 @@ async function updateLastCollectTime() {
 
 /**
  * Check if enough time has passed for next collection
- * If collectIntervalHours is 0, always return true (no interval control)
- * @returns {Promise<boolean>}
  */
-async function shouldCollect() {
+async function shouldCollect(): Promise<boolean> {
   const config = await getConfig();
 
   // If interval is 0, disable control
@@ -122,11 +111,10 @@ async function shouldCollect() {
 
 /**
  * Check if configuration is complete
- * @returns {Promise<{valid: boolean, missing: string[]}>}
  */
-async function validateConfig() {
+async function validateConfig(): Promise<{ valid: boolean; missing: string[] }> {
   const config = await getConfig();
-  const missing = [];
+  const missing: string[] = [];
 
   if (!config.notionToken) missing.push('Notion Token');
   if (!config.notionDatabaseId) missing.push('Notion Database ID');
@@ -141,7 +129,6 @@ async function validateConfig() {
 }
 
 export {
-  STORAGE_KEYS,
   getStorage,
   setStorage,
   getConfig,

@@ -11,11 +11,8 @@ const NOTION_API_BASE = 'https://api.notion.com/v1';
 
 /**
  * Truncate text to specified length
- * @param {string} text
- * @param {number} maxLength
- * @returns {string}
  */
-function truncateText(text, maxLength = 50) {
+export function truncateText(text: string, maxLength: number = 50): string {
     if (!text) return '';
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + '...';
@@ -23,15 +20,12 @@ function truncateText(text, maxLength = 50) {
 
 /**
  * Create rich text array for Notion
- * @param {string} content
- * @returns {Array}
  */
-function createRichText(content) {
+function createRichText(content: string) {
     if (!content) return [];
 
-    // Notion has a 2000 character limit per rich text block
     const MAX_LENGTH = 2000;
-    const chunks = [];
+    const chunks: any[] = [];
 
     for (let i = 0; i < content.length; i += MAX_LENGTH) {
         chunks.push({
@@ -45,17 +39,8 @@ function createRichText(content) {
 
 /**
  * Save content to Notion database
- * @param {Object} content - Content object
- * @param {string} content.title - Title/summary (first 50 chars of text)
- * @param {string} content.text - Full content text
- * @param {string} content.source - Source platform (X, Bilibili, Manual)
- * @param {string} content.url - Original URL
- * @param {string} content.timestamp - Original publish time (ISO format)
- * @param {string[]} content.images - Array of image CDN URLs
- * @param {string[]} content.tags - Optional tags
- * @returns {Promise<Object>} - Created page object
  */
-async function saveToNotion(content) {
+export async function saveToNotion(content: CollectedContent): Promise<any> {
     const config = await getConfig();
 
     if (!config.notionToken || !config.notionDatabaseId) {
@@ -63,24 +48,20 @@ async function saveToNotion(content) {
     }
 
     await logger.info('Saving to Notion', {
-        source: content.source,
-        url: content.url,
-        hasImages: content.images?.length > 0,
-        hasVideos: content.videos?.length > 0
-    });
-
-    console.log('[Synapse] Notion Save Payload Data:', {
-        text: content.text?.substring(0, 30) + '...',
-        images: content.images,
-        videos: content.videos
+        data: {
+            source: content.source,
+            url: content.url,
+            hasImages: content.images?.length > 0,
+            hasVideos: content.videos?.length > 0
+        }
     });
 
     // Build page properties
-    const properties = {
+    const properties: any = {
         Title: {
             title: [{
                 text: {
-                    content: (content.source === 'Bilibili' && content.type === 'text') ? "" : truncateText(content.text, 50)
+                    content: truncateText(content.text, 10)
                 }
             }]
         },
@@ -104,17 +85,9 @@ async function saveToNotion(content) {
         }
     };
 
-    // Add tags if provided
-    if (content.tags && content.tags.length > 0) {
-        properties.Tags = {
-            multi_select: content.tags.map(tag => ({ name: tag }))
-        };
-    }
-
     // Build page children (content blocks)
-    const children = [];
+    const children: any[] = [];
 
-    // Add main text as paragraph
     if (content.text) {
         children.push({
             object: 'block',
@@ -125,7 +98,6 @@ async function saveToNotion(content) {
         });
     }
 
-    // Add images as image blocks
     if (content.images && content.images.length > 0) {
         for (const imageUrl of content.images) {
             children.push({
@@ -139,7 +111,6 @@ async function saveToNotion(content) {
         }
     }
 
-    // Add videos as video blocks
     if (content.videos && content.videos.length > 0) {
         for (const videoUrl of content.videos) {
             children.push({
@@ -153,14 +124,11 @@ async function saveToNotion(content) {
         }
     }
 
-    // Create page in Notion
     const payload = {
         parent: { database_id: config.notionDatabaseId },
         properties,
         children
     };
-
-    console.log('[Synapse] Notion API Request Body:', JSON.stringify(payload, null, 2));
 
     const response = await fetch(`${NOTION_API_BASE}/pages`, {
         method: 'POST',
@@ -174,15 +142,17 @@ async function saveToNotion(content) {
 
     if (!response.ok) {
         const error = await response.json();
-        await logger.error('Notion API error', { error, status: response.status });
+        await logger.error('Notion API error', { data: { error, status: response.status } });
         throw new Error(`Notion API error: ${error.message || response.statusText}`);
     }
 
     const result = await response.json();
 
     await logger.success('Saved to Notion', {
-        pageId: result.id,
-        url: result.url
+        data: {
+            pageId: result.id,
+            url: result.url
+        }
     });
 
     return result;
@@ -190,10 +160,8 @@ async function saveToNotion(content) {
 
 /**
  * Check if content already exists in Notion (by URL)
- * @param {string} url - Original URL to check
- * @returns {Promise<boolean>}
  */
-async function checkDuplicate(url) {
+export async function checkDuplicate(url: string): Promise<boolean> {
     const config = await getConfig();
 
     if (!config.notionToken || !config.notionDatabaseId) {
@@ -221,11 +189,5 @@ async function checkDuplicate(url) {
     }
 
     const result = await response.json();
-    const isDup = result.results.length > 0;
-    if (isDup) {
-        console.log('[Synapse] Found existing record in Notion:', result.results[0].url);
-    }
-    return isDup;
+    return result.results.length > 0;
 }
-
-export { saveToNotion, checkDuplicate, truncateText };

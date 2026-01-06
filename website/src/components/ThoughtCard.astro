@@ -56,11 +56,8 @@ const dateISO = thought.originalDate.split("T")[0];
     }
     {
       thought.originalUrl &&
-        !(
-          thought.source === "Bilibili" &&
-          thought.images.length === 0 &&
-          thought.videos.length === 0
-        ) && (
+        thought.originalUrl.startsWith("https://") &&
+        (
           <a
             href={thought.originalUrl}
             target="_blank"

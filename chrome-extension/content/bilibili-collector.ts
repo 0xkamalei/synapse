@@ -3,19 +3,20 @@
  * Extracts dynamic/post content from Bilibili pages
  */
 
+
 // Message types for communication with background script
-const MessageType = {
+const MessageTypeBilibili = {
     COLLECT_CURRENT: 'COLLECT_CURRENT',
     COLLECT_RESULT: 'COLLECT_RESULT',
     GET_PAGE_INFO: 'GET_PAGE_INFO'
-};
+} as const;
 
 /**
  * Detect the type of dynamic
  * @param {Element} dynamicElement
  * @returns {'text' | 'video' | 'article' | 'unknown'}
  */
-function detectDynamicType(dynamicElement) {
+function detectDynamicTypeBilibili(dynamicElement: Element): 'text' | 'video' | 'article' | 'unknown' {
     // Check for video dynamic (投稿了视频)
     if (dynamicElement.querySelector('.bili-dyn-card-video')) return 'video';
 
@@ -26,7 +27,8 @@ function detectDynamicType(dynamicElement) {
     if (dynamicElement.querySelector('.dyn-card-opus, .bili-dyn-content__orig__desc, .bili-rich-text, .opus-module-content')) return 'text';
 
     // Fallback: If it has any text or images, it's likely a text dynamic
-    if (dynamicElement.innerText?.trim() || dynamicElement.querySelector('img')) return 'text';
+    const text = (dynamicElement as HTMLElement).innerText?.trim();
+    if (text || dynamicElement.querySelector('img')) return 'text';
 
     return 'unknown';
 }
@@ -37,22 +39,22 @@ function detectDynamicType(dynamicElement) {
  * @param {Element} dynamicElement
  * @returns {string}
  */
-function extractDynamicText(dynamicElement) {
-    const dynamicType = detectDynamicType(dynamicElement);
+function extractDynamicTextBilibili(dynamicElement: Element): string {
+    const dynamicType = detectDynamicTypeBilibili(dynamicElement);
 
     // For VIDEO dynamics: combine title + description
     if (dynamicType === 'video') {
         const titleElement = dynamicElement.querySelector('.bili-dyn-card-video__title');
         const descElement = dynamicElement.querySelector('.bili-dyn-card-video__desc');
 
-        const title = titleElement?.innerText?.trim() || '';
-        const desc = descElement?.innerText?.trim() || '';
+        const title = (titleElement as HTMLElement)?.innerText?.trim() || '';
+        const desc = (descElement as HTMLElement)?.innerText?.trim() || '';
 
         // Combine: [视频] Title\nDescription
         if (title && desc && desc !== '-') {
-            return `[视频] ${title}\n${desc}`;
+            return `[视频] ${title} \n${desc} `;
         } else if (title) {
-            return `[视频] ${title}`;
+            return `[视频] ${title} `;
         }
     }
 
@@ -60,7 +62,7 @@ function extractDynamicText(dynamicElement) {
     const opusSummary = dynamicElement.querySelector('.dyn-card-opus__summary, .opus-module-content');
     if (opusSummary) {
         // Get all text content from nested elements
-        return opusSummary.innerText.trim() || '';
+        return (opusSummary as HTMLElement).innerText.trim() || '';
     }
 
     // Fallback selectors
@@ -73,7 +75,7 @@ function extractDynamicText(dynamicElement) {
     for (const selector of textSelectors) {
         const textElement = dynamicElement.querySelector(selector);
         if (textElement) {
-            return textElement.innerText.trim() || '';
+            return (textElement as HTMLElement).innerText.trim() || '';
         }
     }
 
@@ -86,9 +88,9 @@ function extractDynamicText(dynamicElement) {
  * @param {Element} dynamicElement
  * @returns {string[]}
  */
-function extractDynamicImages(dynamicElement) {
-    const images = [];
-    const dynamicType = detectDynamicType(dynamicElement);
+function extractDynamicImagesBilibili(dynamicElement: Element): string[] {
+    const images: string[] = [];
+    const dynamicType = detectDynamicTypeBilibili(dynamicElement);
 
     // For VIDEO dynamics: extract video cover/thumbnail
     if (dynamicType === 'video') {
@@ -99,7 +101,7 @@ function extractDynamicImages(dynamicElement) {
         ];
 
         for (const selector of coverSelectors) {
-            const coverImg = dynamicElement.querySelector(selector);
+            const coverImg = dynamicElement.querySelector(selector) as HTMLImageElement;
             if (coverImg) {
                 let src = coverImg.src || coverImg.getAttribute('data-src');
                 if (src) {
@@ -122,7 +124,8 @@ function extractDynamicImages(dynamicElement) {
     for (const selector of imageSelectors) {
         const imgElements = dynamicElement.querySelectorAll(selector);
         imgElements.forEach(img => {
-            let src = img.src || img.getAttribute('data-src');
+            const htmlImg = img as HTMLImageElement;
+            let src = htmlImg.src || htmlImg.getAttribute('data-src');
             if (src) {
                 // Get higher quality version
                 src = src.replace(/@\d+w_\d+h.*/, '');
@@ -139,26 +142,45 @@ function extractDynamicImages(dynamicElement) {
  * @param {Element} dynamicElement
  * @returns {string}
  */
-function extractDynamicTimestamp(dynamicElement) {
+function extractDynamicTimestampBilibili(dynamicElement: Element): string {
     // Try to find time element
     const timeSelectors = [
         '.bili-dyn-time',
         '.dyn-card-opus__head__time',
-        'time'
+        '.bili-dyn-item__header__info__time',
+        'time',
+        '.time'
     ];
 
     for (const selector of timeSelectors) {
         const timeElement = dynamicElement.querySelector(selector);
         if (timeElement) {
-            const timeText = timeElement.innerText || timeElement.getAttribute('datetime');
+            // Priority 1: Check title attribute (often has full date/time)
+            const titleTime = timeElement.getAttribute('title');
+            if (titleTime && titleTime.match(/\d{4}-\d{1,2}-\d{1,2}/)) {
+                // Handle formats like "2024-12-30 14:00" or "2024/12/30 14:00"
+                const date = new Date(titleTime.replace(/-/g, '/'));
+                if (!isNaN(date.getTime())) return date.toISOString();
+            }
+
+            // Priority 2: Check datetime attribute (semantic standard)
+            const dateTimeAttr = timeElement.getAttribute('datetime');
+            if (dateTimeAttr) {
+                const date = new Date(dateTimeAttr);
+                if (!isNaN(date.getTime())) return date.toISOString();
+            }
+
+            // Priority 3: Parse the visible text
+            const timeText = (timeElement as HTMLElement).innerText || timeElement.getAttribute('datetime');
             if (timeText) {
-                // Try to parse relative time like "2小时前"
-                return parseRelativeTime(timeText);
+                return parseRelativeTimeBilibili(timeText);
             }
         }
     }
 
-    return new Date().toISOString();
+    const now = new Date();
+    now.setSeconds(0, 0);
+    return now.toISOString();
 }
 
 /**
@@ -166,8 +188,15 @@ function extractDynamicTimestamp(dynamicElement) {
  * @param {string} timeText
  * @returns {string}
  */
-function parseRelativeTime(timeText) {
+function parseRelativeTimeBilibili(timeText: string): string {
     const now = new Date();
+    // Normalize to minute to ensure stable URLs for deduplication
+    now.setSeconds(0, 0);
+
+    // Handle "刚刚"
+    if (timeText.includes('刚刚')) {
+        return now.toISOString();
+    }
 
     // Handle "X分钟前", "X小时前", "X天前"
     const minuteMatch = timeText.match(/(\d+)\s*分钟前/);
@@ -190,14 +219,30 @@ function parseRelativeTime(timeText) {
 
     // Handle "昨天"
     if (timeText.includes('昨天')) {
+        const timePart = timeText.match(/\d{1,2}:\d{2}/);
         now.setDate(now.getDate() - 1);
+        if (timePart) {
+            const [h, m] = timePart[0].split(':');
+            now.setHours(parseInt(h), parseInt(m), 0, 0);
+        }
+        return now.toISOString();
+    }
+
+    // Handle "前天"
+    if (timeText.includes('前天')) {
+        const timePart = timeText.match(/\d{1,2}:\d{2}/);
+        now.setDate(now.getDate() - 2);
+        if (timePart) {
+            const [h, m] = timePart[0].split(':');
+            now.setHours(parseInt(h), parseInt(m), 0, 0);
+        }
         return now.toISOString();
     }
 
     // Handle date format like "2025年12月17日" or "12月17日"
     const cnDateMatch = timeText.match(/(?:(\d{4})年)?\s*(\d{1,2})月\s*(\d{1,2})日/);
     if (cnDateMatch) {
-        let year = cnDateMatch[1] || now.getFullYear();
+        let year = parseInt(cnDateMatch[1]) || now.getFullYear();
         let month = parseInt(cnDateMatch[2]) - 1;
         let day = parseInt(cnDateMatch[3]);
         return new Date(year, month, day).toISOString();
@@ -206,31 +251,19 @@ function parseRelativeTime(timeText) {
     // Handle date format like "01-05" or "2026-01-05"
     const dateMatch = timeText.match(/(?:(\d{2,4})-)?(\d{1,2})-(\d{1,2})/);
     if (dateMatch) {
-        let year = dateMatch[1] || now.getFullYear().toString();
-        if (year.length === 2) {
-            year = '20' + year;
+        let yearStr = dateMatch[1] || now.getFullYear().toString();
+        if (yearStr.length === 2) {
+            yearStr = '20' + yearStr;
         }
-        return new Date(`${year}-${dateMatch[2].padStart(2, '0')}-${dateMatch[3].padStart(2, '0')}`).toISOString();
+        const year = parseInt(yearStr);
+        const month = parseInt(dateMatch[2]) - 1;
+        const day = parseInt(dateMatch[3]);
+        return new Date(year, month, day).toISOString();
     }
 
     return now.toISOString();
 }
 
-/**
- * Simple hash function for content
- * @param {string} str
- * @returns {string}
- */
-function generateContentHash(str) {
-    if (!str) return 'empty';
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Convert to 32bit integer
-    }
-    return Math.abs(hash).toString(36);
-}
 
 /**
  * Extract dynamic URL
@@ -238,43 +271,14 @@ function generateContentHash(str) {
  * @param {Element} dynamicElement
  * @returns {string}
  */
-function extractDynamicUrl(dynamicElement) {
-    const dynamicType = detectDynamicType(dynamicElement);
-
-    // For VIDEO dynamics: find the video link
-    if (dynamicType === 'video') {
-        const videoLink = dynamicElement.querySelector('a[href*="/video/"]');
-        if (videoLink && videoLink.href) {
-            // Clean up URL: remove query params
-            return videoLink.href.split('?')[0];
-        }
+function extractDynamicUrlBilibili(dynamicElement: Element): string {
+    // 1. Try to find a direct video/opus link first
+    const linkElement = dynamicElement.querySelector('a[href*="/video/"], a[href*="/opus/"]') as HTMLAnchorElement;
+    if (linkElement && linkElement.href && !linkElement.href.includes('space.bilibili.com')) {
+        return linkElement.href.split('?')[0];
     }
 
-    // Try to find dynamic/opus permalink (timestamp link is best)
-    const timeElement = dynamicElement.querySelector('.bili-dyn-time, .dyn-card-opus__head__time, time');
-    if (timeElement) {
-        const linkElement = timeElement.closest('a');
-        if (linkElement && linkElement.href && !linkElement.href.includes('space.bilibili.com')) {
-            return linkElement.href.split('?')[0];
-        }
-    }
-
-    // Try other specific link selectors
-    const linkSelectors = [
-        'a[href*="/opus/"]',
-        'a[href*="/dynamic/"]',
-        '.bili-dyn-item__main a[href*="/opus/"]',
-        '.bili-dyn-item__main a[href*="/video/"]'
-    ];
-
-    for (const selector of linkSelectors) {
-        const linkElement = dynamicElement.querySelector(selector);
-        if (linkElement && linkElement.href) {
-            return linkElement.href.split('?')[0];
-        }
-    }
-
-    // Use data-id if available
+    // 2. Try to find dynamic ID from attributes
     const dynamicId = dynamicElement.getAttribute('data-id') ||
         dynamicElement.getAttribute('data-dynamic-id') ||
         dynamicElement.querySelector('[data-id]')?.getAttribute('data-id');
@@ -283,13 +287,21 @@ function extractDynamicUrl(dynamicElement) {
         return `https://www.bilibili.com/opus/${dynamicId}`;
     }
 
-    // Fallback: Use the user's space dynamic page instead of a non-existent opus URL
-    const pageUID = getCurrentPageUID();
-    if (pageUID) {
-        return `https://space.bilibili.com/${pageUID}/dynamic`;
+    // 3. For text dynamics without ID, use Space URL + Text Highlight (#:~:text=...)
+    const pageUID = getCurrentPageUID() || 'unknown';
+    const text = extractDynamicTextBilibili(dynamicElement);
+    const timestamp = extractDynamicTimestampBilibili(dynamicElement);
+
+    // Use first 100 chars of text for highlight to keep URL reasonable
+    const highlightText = text.substring(0, 100).trim();
+    if (highlightText) {
+        const encodedText = encodeURIComponent(highlightText);
+        // Add timestamp-based salt to ensure uniqueness for same-text posts
+        const salt = btoa(timestamp).substring(0, 8);
+        return `https://space.bilibili.com/${pageUID}/dynamic#:~:text=${encodedText}&synapse=${salt}`;
     }
 
-    return `${window.location.href}#dyn-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
+    return `https://space.bilibili.com/${pageUID}/dynamic#synapse-${Date.now()}`;
 }
 
 /**
@@ -297,7 +309,7 @@ function extractDynamicUrl(dynamicElement) {
  * @param {Element} dynamicElement
  * @returns {{username: string, displayName: string}}
  */
-function extractAuthorInfo(dynamicElement) {
+function extractAuthorInfoBilibili(dynamicElement: Element): AuthorInfo {
     const nameSelectors = [
         '.bili-dyn-title__text',
         '.dyn-card-opus__head__name',
@@ -307,9 +319,10 @@ function extractAuthorInfo(dynamicElement) {
     for (const selector of nameSelectors) {
         const nameElement = dynamicElement.querySelector(selector);
         if (nameElement) {
+            const name = (nameElement as HTMLElement).innerText.trim();
             return {
-                username: nameElement.innerText.trim(),
-                displayName: nameElement.innerText.trim()
+                username: name,
+                displayName: name
             };
         }
     }
@@ -322,19 +335,20 @@ function extractAuthorInfo(dynamicElement) {
  * @param {Element} dynamicElement
  * @returns {Object}
  */
-function collectDynamicData(dynamicElement) {
-    const text = extractDynamicText(dynamicElement);
-    const images = extractDynamicImages(dynamicElement);
-    const timestamp = extractDynamicTimestamp(dynamicElement);
-    const url = extractDynamicUrl(dynamicElement);
-    const author = extractAuthorInfo(dynamicElement);
-    const type = detectDynamicType(dynamicElement);
+function collectDynamicDataBilibili(dynamicElement: Element): CollectedContent {
+    const text = extractDynamicTextBilibili(dynamicElement);
+    const images = extractDynamicImagesBilibili(dynamicElement);
+    const timestamp = extractDynamicTimestampBilibili(dynamicElement);
+    const url = extractDynamicUrlBilibili(dynamicElement);
+    const author = extractAuthorInfoBilibili(dynamicElement);
+    const type = detectDynamicTypeBilibili(dynamicElement);
 
     return {
-        source: 'Bilibili',
+        source: 'Bilibili' as const,
         type,
         text,
         images,
+        videos: [], // Bilibili dynamics might contain videos, but currently not extracted as a separate array
         timestamp,
         url,
         author,
@@ -347,7 +361,7 @@ function collectDynamicData(dynamicElement) {
  * URL format: https://space.bilibili.com/{uid}/dynamic
  * @returns {string}
  */
-function getCurrentPageUID() {
+function getCurrentPageUID(): string {
     const path = window.location.pathname;
     const match = path.match(/^\/(\d+)/);
     return match ? match[1] : '';
@@ -357,7 +371,7 @@ function getCurrentPageUID() {
  * Check if current page is a dynamic page
  * @returns {boolean}
  */
-function isDynamicPage() {
+function isDynamicPage(): boolean {
     // Must be on space.bilibili.com/{uid}/dynamic
     return window.location.hostname === 'space.bilibili.com' &&
         window.location.pathname.includes('/dynamic');
@@ -367,7 +381,7 @@ function isDynamicPage() {
  * Find the main dynamic on the page
  * @returns {Element|null}
  */
-function findMainDynamic() {
+function findMainDynamicBilibili(): Element | null {
     // Only collect from dynamic pages
     if (!isDynamicPage()) {
         return null;
@@ -393,7 +407,7 @@ function findMainDynamic() {
  * Only selects top-level list items to avoid duplicates
  * @returns {Element[]}
  */
-function findAllDynamics() {
+function findAllDynamicsBilibili(): Element[] {
     if (!isDynamicPage()) {
         return [];
     }
@@ -410,21 +424,21 @@ function findAllDynamics() {
  * Collect the current/main dynamic on the page
  * @returns {Object|null}
  */
-function collectCurrentDynamic() {
-    const mainDynamic = findMainDynamic();
+function collectCurrentDynamicBilibili(): CollectedContent | null {
+    const mainDynamic = findMainDynamicBilibili();
     if (!mainDynamic) {
         return null;
     }
-    return collectDynamicData(mainDynamic);
+    return collectDynamicDataBilibili(mainDynamic);
 }
 
 /**
  * Get page info for the popup
  * @returns {Object}
  */
-function getPageInfo() {
-    const dynamics = findAllDynamics();
-    const mainDynamic = findMainDynamic();
+function getPageInfoBilibili(): PageInfo {
+    const dynamics = findAllDynamicsBilibili();
+    const mainDynamic = findMainDynamicBilibili();
     const pageUID = getCurrentPageUID();
 
     return {
@@ -434,47 +448,28 @@ function getPageInfo() {
         hasMainDynamic: mainDynamic !== null,
         currentUrl: window.location.href,
         pageUID: pageUID
-    };
+    } as PageInfo;
 }
 
-// Listen for messages from popup/background
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === MessageType.COLLECT_CURRENT) {
-        // Check if on dynamic page
-        if (!isDynamicPage()) {
-            sendResponse({
-                success: false,
-                error: '请进入用户动态页面采集 (space.bilibili.com/{uid}/dynamic)'
-            });
-            return true;
-        }
+(window as any).getPageInfoBilibili = getPageInfoBilibili;
 
-        const mainDynamic = findMainDynamic();
+// Listen for messages from popup/background
+chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) => {
+    if (message.type === MessageTypeBilibili.COLLECT_CURRENT) {
+        // ...
+        const mainDynamic = findMainDynamicBilibili();
 
         if (!mainDynamic) {
             sendResponse({ success: false, error: '未找到动态内容' });
             return true;
         }
 
-        const data = collectDynamicData(mainDynamic);
-
-        // Check if we have a target UID to filter
-        if (message.targetUser) {
-            const pageUID = getCurrentPageUID();
-
-            if (pageUID !== message.targetUser) {
-                sendResponse({
-                    success: false,
-                    error: `当前页面为 UID ${pageUID}，不是目标用户 ${message.targetUser}`
-                });
-                return true;
-            }
-        }
-
+        const data = collectDynamicDataBilibili(mainDynamic);
+        // ...
         sendResponse({ success: true, data });
     } else if (message.type === 'MANUAL_COLLECT') {
         const pageUID = getCurrentPageUID();
-        const allDynamics = findAllDynamics();
+        const allDynamics = findAllDynamicsBilibili();
 
         if (allDynamics.length === 0) {
             sendResponse({ success: false, error: 'No dynamics found on page' });
@@ -482,8 +477,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
 
         const allContent = allDynamics.map(element => {
-            const data = collectDynamicData(element);
-            data.author = { username: pageUID };
+            const data = collectDynamicDataBilibili(element);
+            data.author = { username: pageUID, displayName: pageUID };
             return data;
         });
 
@@ -496,8 +491,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             sendResponse(response);
         });
         return true; // Keep channel open for async response
-    } else if (message.type === MessageType.GET_PAGE_INFO) {
-        sendResponse(getPageInfo());
+    } else if (message.type === MessageTypeBilibili.GET_PAGE_INFO) {
+        sendResponse(getPageInfoBilibili());
     }
     return true;
 });
@@ -505,7 +500,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 /**
  * Auto-collect ALL visible dynamics on page load
  */
-async function tryAutoCollect() {
+async function tryAutoCollectBilibili(): Promise<void> {
     // Only auto-collect on dynamic pages
     if (!isDynamicPage()) {
         return;
@@ -514,29 +509,17 @@ async function tryAutoCollect() {
     // Wait for content to load
     await new Promise(resolve => setTimeout(resolve, 3000));
 
-    const allDynamics = findAllDynamics();
+    const allDynamics = findAllDynamicsBilibili();
     if (allDynamics.length === 0) {
-        console.log('[Synapse] No dynamics found for auto-collect');
         return;
     }
-
-    console.log(`[Synapse] Found ${allDynamics.length} dynamics to collect`);
 
     // Collect all dynamic data
     const pageUID = getCurrentPageUID();
     const allContent = allDynamics.map((element, index) => {
-        const data = collectDynamicData(element);
+        const data = collectDynamicDataBilibili(element);
         // Add UID as username for target user verification
-        data.author = { username: pageUID };
-
-        // Debug: Log each parsed dynamic
-        console.log(`[Synapse DEBUG] Dynamic ${index + 1}/${allDynamics.length}:`, JSON.stringify({
-            type: detectDynamicType(element),
-            text: data.text?.substring(0, 100) + (data.text?.length > 100 ? '...' : ''),
-            images: data.images?.length || 0,
-            url: data.url,
-            timestamp: data.timestamp
-        }, null, 2));
+        data.author = { username: pageUID, displayName: pageUID };
 
         return data;
     });
@@ -547,15 +530,7 @@ async function tryAutoCollect() {
         contents: allContent,
         pageUID: pageUID
     }, response => {
-        if (response?.success) {
-            console.log(`[Synapse] Auto-collected ${response.collected || 0} dynamics successfully`);
-        } else if (response?.reason === 'interval') {
-            console.log('[Synapse] Skipped - collection interval not reached');
-        } else if (response?.reason === 'not_target_user') {
-            console.log('[Synapse] Skipped - not target user');
-        } else if (response?.error) {
-            console.log('[Synapse] Auto-collect failed:', response.error);
-        }
+        // Silent success/fail
     });
 }
 
@@ -563,6 +538,4 @@ async function tryAutoCollect() {
 chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'bilibili' });
 
 // Try auto-collect after page loads
-tryAutoCollect();
-
-console.log('[Synapse] Bilibili collector loaded');
+tryAutoCollectBilibili();

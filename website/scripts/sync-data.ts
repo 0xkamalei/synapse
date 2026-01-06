@@ -1,4 +1,4 @@
-import { getAllThoughts, getDailyCounts } from '../src/lib/notion';
+import { getAllThoughts } from '../src/lib/notion';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -7,59 +7,122 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DATA_DIR = path.join(__dirname, '../src/data');
+const THOUGHTS_FILE = path.join(DATA_DIR, 'thoughts.json');
+const METADATA_FILE = path.join(DATA_DIR, 'sync-metadata.json');
+const DAILY_COUNTS_FILE = path.join(DATA_DIR, 'daily-counts.json');
+
+/**
+ * Rebuilds the daily-counts.json file from the provided thoughts array.
+ * This ensures the counts are always fresh and calculated from the source of truth.
+ */
+function rebuildDailyCounts(allThoughts: any[]) {
+    const counts = new Map<string, number>();
+
+    if (allThoughts.length > 0) {
+        // Find the earliest date
+        const dates = allThoughts.map(t => new Date(t.originalDate.split('T')[0]));
+        const minDate = new Date(Math.min(...dates.map(d => d.getTime())));
+        const today = new Date();
+
+        // Fill the map from minDate to today with 0s to ensure no gaps in heatmap
+        let current = new Date(minDate);
+        while (current <= today) {
+            const dateStr = current.toISOString().split('T')[0];
+            counts.set(dateStr, 0);
+            current.setDate(current.getDate() + 1);
+        }
+
+        // Count thoughts per day from the full dataset
+        for (const thought of allThoughts) {
+            const date = thought.originalDate.split('T')[0];
+            if (counts.has(date)) {
+                counts.set(date, (counts.get(date) || 0) + 1);
+            }
+        }
+    }
+
+    const dailyCounts = Array.from(counts.entries())
+        .map(([date, count]) => ({ date, count }))
+        .sort((a, b) => a.date.localeCompare(b.date));
+
+    fs.writeFileSync(
+        DAILY_COUNTS_FILE,
+        JSON.stringify(dailyCounts, null, 2)
+    );
+
+    return dailyCounts;
+}
 
 async function sync() {
-    console.log('🚀 Starting Notion data sync...');
+    console.log('🚀 Starting incremental Notion data sync...');
 
     if (!fs.existsSync(DATA_DIR)) {
         fs.mkdirSync(DATA_DIR, { recursive: true });
     }
 
     try {
-        const thoughts = await getAllThoughts();
+        // 1. Get last sync time from metadata
+        let lastSyncTime: string | undefined;
+        if (fs.existsSync(METADATA_FILE)) {
+            const metadata = JSON.parse(fs.readFileSync(METADATA_FILE, 'utf-8'));
+            lastSyncTime = metadata.lastSyncTime;
+            console.log(`   Last sync time: ${lastSyncTime}`);
+        } else {
+            console.log('   No metadata found, performing full sync...');
+        }
 
-        // Calculate daily counts locally across the full range of data
-        const counts = new Map<string, number>();
+        // Record start time for this sync
+        const currentSyncStartTime = new Date().toISOString();
 
-        if (thoughts.length > 0) {
-            // Find the earliest date
-            const dates = thoughts.map(t => new Date(t.originalDate.split('T')[0]));
-            const minDate = new Date(Math.min(...dates.map(d => d.getTime())));
-            const today = new Date();
+        // 2. Fetch new thoughts since last sync
+        const newThoughts = await getAllThoughts(lastSyncTime);
+        console.log(`   Fetched ${newThoughts.length} new thoughts.`);
 
-            // Fill the map from minDate to today
-            let current = new Date(minDate);
-            while (current <= today) {
-                const dateStr = current.toISOString().split('T')[0];
-                counts.set(dateStr, 0);
-                current.setDate(current.getDate() + 1);
-            }
-
-            // Count thoughts per day
-            for (const thought of thoughts) {
-                const date = thought.originalDate.split('T')[0];
-                if (counts.has(date)) {
-                    counts.set(date, (counts.get(date) || 0) + 1);
-                }
+        // 3. Load existing thoughts from the local source of truth
+        let allThoughts: any[] = [];
+        if (fs.existsSync(THOUGHTS_FILE)) {
+            try {
+                allThoughts = JSON.parse(fs.readFileSync(THOUGHTS_FILE, 'utf-8'));
+            } catch (e) {
+                console.warn('   Could not parse existing thoughts.json, starting fresh.');
+                allThoughts = [];
             }
         }
 
-        const dailyCounts = Array.from(counts.entries())
-            .map(([date, count]) => ({ date, count }))
-            .sort((a, b) => a.date.localeCompare(b.date));
+        // 4. Merge and deduplicate by ID
+        const thoughtMap = new Map();
+        // Add existing thoughts first
+        allThoughts.forEach(t => thoughtMap.set(t.id, t));
+        // Add/overwrite with new thoughts from Notion
+        newThoughts.forEach(t => thoughtMap.set(t.id, t));
+        
+        // Convert back to array and sort by date descending
+        allThoughts = Array.from(thoughtMap.values())
+            .sort((a, b) => b.originalDate.localeCompare(a.originalDate));
 
+        // 5. Rebuild daily counts from the combined full dataset
+        console.log('   Rebuilding daily counts from full dataset...');
+        const dailyCounts = rebuildDailyCounts(allThoughts);
+
+        // 6. Write updated thoughts data
         fs.writeFileSync(
-            path.join(DATA_DIR, 'thoughts.json'),
-            JSON.stringify(thoughts, null, 2)
+            THOUGHTS_FILE,
+            JSON.stringify(allThoughts, null, 2)
         );
 
+        // 7. Update metadata
         fs.writeFileSync(
-            path.join(DATA_DIR, 'daily-counts.json'),
-            JSON.stringify(dailyCounts, null, 2)
+            METADATA_FILE,
+            JSON.stringify({
+                lastSyncTime: currentSyncStartTime,
+                updatedAt: new Date().toISOString(),
+                newItemsCount: newThoughts.length,
+                totalItemsCount: allThoughts.length
+            }, null, 2)
         );
 
         console.log(`✅ Sync complete!`);
-        console.log(`📝 Thoughts: ${thoughts.length}`);
+        console.log(`📝 Total Thoughts: ${allThoughts.length} (+${newThoughts.length} new)`);
         console.log(`📊 Daily Counts: ${dailyCounts.filter(d => d.count > 0).length} active days`);
     } catch (error) {
         console.error('❌ Sync failed:', error);

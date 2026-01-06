@@ -1,0 +1,47 @@
+name: Sync Notion Data
+
+on:
+  schedule:
+    # 每天 UTC 0:00 (北京时间 8:00) 执行一次
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        working-directory: ./website
+        run: bun install
+
+      - name: Run sync script
+        working-directory: ./website
+        run: bun run sync
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git add website/src/data/
+          git status --porcelain
+          echo "changed=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
+
+      - name: Commit and Push changes
+        if: steps.git-check.outputs.changed > 0
+        run: |
+          git config --global user.name "0xkamalei"
+          git config --global user.email "kamalei.zhang@gmail.com"
+          git commit -m "chore: auto-sync notion data [skip ci]"
+          git push
