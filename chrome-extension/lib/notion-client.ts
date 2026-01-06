@@ -47,15 +47,6 @@ export async function saveToNotion(content: CollectedContent): Promise<any> {
         throw new Error('Notion configuration incomplete');
     }
 
-    await logger.info('Saving to Notion', {
-        data: {
-            source: content.source,
-            url: content.url,
-            hasImages: content.images?.length > 0,
-            hasVideos: content.videos?.length > 0
-        }
-    });
-
     // Build page properties
     const properties: any = {
         Title: {
@@ -147,13 +138,6 @@ export async function saveToNotion(content: CollectedContent): Promise<any> {
     }
 
     const result = await response.json();
-
-    await logger.success('Saved to Notion', {
-        data: {
-            pageId: result.id,
-            url: result.url
-        }
-    });
 
     return result;
 }

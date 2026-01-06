@@ -79,12 +79,70 @@ function extractTweetMedia(tweetElement: Element): { images: string[]; videos: s
 }
 
 /**
+ * Parse X.com time string to ISO format
+ */
+function parseXTime(timeText: string): string {
+    const now = new Date();
+    timeText = timeText.trim();
+
+    // Handle relative: "5h", "2m", "10s"
+    const relativeMatch = timeText.match(/^(\d+)([hms])$/);
+    if (relativeMatch) {
+        const value = parseInt(relativeMatch[1]);
+        const unit = relativeMatch[2];
+        const date = new Date(now);
+        if (unit === 'h') date.setHours(date.getHours() - value);
+        if (unit === 'm') date.setMinutes(date.getMinutes() - value);
+        if (unit === 's') date.setSeconds(date.getSeconds() - value);
+        return date.toISOString();
+    }
+
+    // Handle "Jan 6"
+    const monthDayMatch = timeText.match(/^([A-Z][a-z]{2})\s+(\d{1,2})$/);
+    if (monthDayMatch) {
+        const months: Record<string, number> = {
+            Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+            Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+        };
+        const month = months[monthDayMatch[1]];
+        const day = parseInt(monthDayMatch[2]);
+        const date = new Date(now.getFullYear(), month, day);
+        // If date is in future, assume last year
+        if (date > now) date.setFullYear(date.getFullYear() - 1);
+        return date.toISOString();
+    }
+
+    // Handle "Jan 6, 2024"
+    const fullDateMatch = timeText.match(/^([A-Z][a-z]{2})\s+(\d{1,2}),\s+(\d{4})$/);
+    if (fullDateMatch) {
+        const months: Record<string, number> = {
+            Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+            Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+        };
+        const month = months[fullDateMatch[1]];
+        const day = parseInt(fullDateMatch[2]);
+        const year = parseInt(fullDateMatch[3]);
+        return new Date(year, month, day).toISOString();
+    }
+
+    // Fallback to native parsing
+    const parsed = new Date(timeText);
+    return !isNaN(parsed.getTime()) ? parsed.toISOString() : now.toISOString();
+}
+
+/**
  * Extract timestamp from a tweet element
  */
 function extractTweetTimestamp(tweetElement: Element): string {
     const timeElement = tweetElement.querySelector('time');
     if (timeElement) {
-        return timeElement.getAttribute('datetime') || new Date().toISOString();
+        // Priority 1: ISO datetime attribute
+        const isoString = timeElement.getAttribute('datetime');
+        if (isoString) return isoString;
+
+        // Priority 2: Visual text parsing
+        const visualText = timeElement.textContent || '';
+        if (visualText) return parseXTime(visualText);
     }
     return new Date().toISOString();
 }
@@ -127,7 +185,7 @@ function extractAuthorInfoX(tweetElement: Element): AuthorInfo {
 /**
  * Collect data from a single tweet element
  */
-function collectTweetDataX(tweetElement: Element): CollectedContent {
+export function collectTweetDataX(tweetElement: Element): CollectedContent {
     const text = extractTweetText(tweetElement);
     const { images, videos } = extractTweetMedia(tweetElement);
     const timestamp = extractTweetTimestamp(tweetElement);
@@ -161,7 +219,7 @@ function findMainTweetX(): Element | null {
 /**
  * Find all visible tweets on the page
  */
-function findAllTweetsX(): Element[] {
+export function findAllTweetsX(): Element[] {
     return Array.from(document.querySelectorAll('article[data-testid="tweet"]'));
 }
 

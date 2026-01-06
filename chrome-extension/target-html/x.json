@@ -1,0 +1,78 @@
+[
+  {
+    "source": "X",
+    "type": "text",
+    "text": "我做了个人媒体工具,自动采集多个社交媒体平台的内容同步到notion database,在通过astro构建成为一个timeline website,目前支持B站,X,QQ空间,朋友圈。项目原因我想追忆一下自己以前的想法，但是这些thoughts可能散落在各个平台，我想有一个属于自己host的site来拥有它们",
+    "images": [],
+    "videos": [],
+    "timestamp": "2026-01-05T09:15:10.000Z",
+    "url": "https://x.com/KamaleiZhang/status/2008104979949834420",
+    "author": {
+      "username": "KamaleiZhang",
+      "displayName": "Kamalei"
+    },
+    "collectedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "source": "X",
+    "type": "image",
+    "text": "现在AI模型确实强了，之前一直没做出来app现在用Gemini3pro做出来了，和AI沟通越来越简单了\n欢迎使用这个复刻的timingapp;原app订阅10欧每个月，之后再也不用订阅了\n\nhttps://github.com/0xkamalei/mac-time-trace/releases/tag/0.0.2…",
+    "images": [
+      "https://pbs.twimg.com/media/G9Vb3Ama4AA4ATZ?format=jpg&name=large"
+    ],
+    "videos": [],
+    "timestamp": "2025-12-29T12:03:29.000Z",
+    "url": "https://x.com/KamaleiZhang/status/2005610623594578222",
+    "author": {
+      "username": "KamaleiZhang",
+      "displayName": "Kamalei"
+    },
+    "collectedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "source": "X",
+    "type": "text",
+    "text": "AI is now so powerful. I built my long-pending app with Gemini 3 Pro, and AI interaction is way easier.Welcome to this replica of Timing App. No more €10/month subscription like the original.",
+    "images": [],
+    "videos": [],
+    "timestamp": "2025-12-29T12:03:54.000Z",
+    "url": "https://x.com/KamaleiZhang/status/2005610727122542715",
+    "author": {
+      "username": "KamaleiZhang",
+      "displayName": "Kamalei"
+    },
+    "collectedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "source": "X",
+    "type": "image",
+    "text": "My personal time-tracking app is 50% complete.",
+    "images": [
+      "https://pbs.twimg.com/media/GxZLCe7bcAAiJa9?format=jpg&name=large"
+    ],
+    "videos": [],
+    "timestamp": "2025-08-03T02:20:23.000Z",
+    "url": "https://x.com/KamaleiZhang/status/1951830475892547787",
+    "author": {
+      "username": "KamaleiZhang",
+      "displayName": "Kamalei"
+    },
+    "collectedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "source": "X",
+    "type": "image",
+    "text": "我们写的单元测试比目标代码多三倍，它的价值不是为了检测潜在BUG，而是为了避免将来的修改引入BUG。The unit tests we write are three times more than the target code. Their value is not to detect potential bugs, but to prevent introducing bugs in future modifications.",
+    "images": [
+      "https://pbs.twimg.com/media/GxAl3iNbUAEe_qJ?format=jpg&name=large"
+    ],
+    "videos": [],
+    "timestamp": "2025-07-29T07:45:13.000Z",
+    "url": "https://x.com/KamaleiZhang/status/1950100285902479669",
+    "author": {
+      "username": "KamaleiZhang",
+      "displayName": "Kamalei"
+    },
+    "collectedAt": "2024-01-01T00:00:00.000Z"
+  }
+]

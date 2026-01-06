@@ -242,10 +242,14 @@ function parseRelativeTimeBilibili(timeText: string): string {
     // Handle date format like "2025年12月17日" or "12月17日"
     const cnDateMatch = timeText.match(/(?:(\d{4})年)?\s*(\d{1,2})月\s*(\d{1,2})日/);
     if (cnDateMatch) {
-        let year = parseInt(cnDateMatch[1]) || now.getFullYear();
-        let month = parseInt(cnDateMatch[2]) - 1;
-        let day = parseInt(cnDateMatch[3]);
-        return new Date(year, month, day).toISOString();
+        const year = parseInt(cnDateMatch[1]) || now.getFullYear();
+        const month = parseInt(cnDateMatch[2]) - 1;
+        const day = parseInt(cnDateMatch[3]);
+        
+        // Create Date as UTC+8 (Beijing Time)
+        const date = new Date(Date.UTC(year, month, day, 0, 0));
+        date.setUTCHours(date.getUTCHours() - 8);
+        return date.toISOString();
     }
 
     // Handle date format like "01-05" or "2026-01-05"
@@ -258,7 +262,11 @@ function parseRelativeTimeBilibili(timeText: string): string {
         const year = parseInt(yearStr);
         const month = parseInt(dateMatch[2]) - 1;
         const day = parseInt(dateMatch[3]);
-        return new Date(year, month, day).toISOString();
+        
+        // Create Date as UTC+8 (Beijing Time)
+        const date = new Date(Date.UTC(year, month, day, 0, 0));
+        date.setUTCHours(date.getUTCHours() - 8);
+        return date.toISOString();
     }
 
     return now.toISOString();
@@ -335,7 +343,7 @@ function extractAuthorInfoBilibili(dynamicElement: Element): AuthorInfo {
  * @param {Element} dynamicElement
  * @returns {Object}
  */
-function collectDynamicDataBilibili(dynamicElement: Element): CollectedContent {
+export function collectDynamicDataBilibili(dynamicElement: Element): CollectedContent {
     const text = extractDynamicTextBilibili(dynamicElement);
     const images = extractDynamicImagesBilibili(dynamicElement);
     const timestamp = extractDynamicTimestampBilibili(dynamicElement);
@@ -371,10 +379,10 @@ function getCurrentPageUID(): string {
  * Check if current page is a dynamic page
  * @returns {boolean}
  */
-function isDynamicPage(): boolean {
-    // Must be on space.bilibili.com/{uid}/dynamic
-    return window.location.hostname === 'space.bilibili.com' &&
-        window.location.pathname.includes('/dynamic');
+export function isDynamicPage(): boolean {
+    return window.location.hostname === 't.bilibili.com' ||
+        (window.location.hostname === 'space.bilibili.com' && window.location.pathname.includes('/dynamic')) ||
+        (window.location.hostname === 'www.bilibili.com' && window.location.pathname.startsWith('/v/dynamic'));
 }
 
 /**
@@ -407,7 +415,7 @@ function findMainDynamicBilibili(): Element | null {
  * Only selects top-level list items to avoid duplicates
  * @returns {Element[]}
  */
-function findAllDynamicsBilibili(): Element[] {
+export function findAllDynamicsBilibili(): Element[] {
     if (!isDynamicPage()) {
         return [];
     }

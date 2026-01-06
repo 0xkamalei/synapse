@@ -157,17 +157,6 @@ function parseQZoneTimeQZone(timeText: string): string {
         return now.toISOString();
     }
 
-    // Handle absolute: "2024-12-30 14:00" or "12-30 14:00"
-    const dateMatch = timeText.match(/(?:(\d{4})-)?(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})/);
-    if (dateMatch) {
-        let year = parseInt(dateMatch[1]) || now.getFullYear();
-        let month = parseInt(dateMatch[2]) - 1;
-        let day = parseInt(dateMatch[3]);
-        let hour = parseInt(dateMatch[4]);
-        let minute = parseInt(dateMatch[5]);
-        return new Date(year, month, day, hour, minute).toISOString();
-    }
-
     // Handle Chinese absolute: "2025年8月23日 11:58" or "8月23日 11:58"
     const cnDateMatch = timeText.match(/(?:(\d{4})年)?\s*(\d{1,2})月\s*(\d{1,2})日\s+(\d{1,2}):(\d{2})/);
     if (cnDateMatch) {
@@ -176,7 +165,26 @@ function parseQZoneTimeQZone(timeText: string): string {
         let day = parseInt(cnDateMatch[3]);
         let hour = parseInt(cnDateMatch[4]);
         let minute = parseInt(cnDateMatch[5]);
-        return new Date(year, month, day, hour, minute).toISOString();
+        
+        // Create Date as UTC+8 (Beijing Time)
+        const date = new Date(Date.UTC(year, month, day, hour, minute));
+        date.setUTCHours(date.getUTCHours() - 8);
+        return date.toISOString();
+    }
+
+    // Handle absolute: "2024-12-30 14:00" or "12-30 14:00"
+    const dateMatch = timeText.match(/(?:(\d{4})-)?(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})/);
+    if (dateMatch) {
+        let year = parseInt(dateMatch[1]) || now.getFullYear();
+        let month = parseInt(dateMatch[2]) - 1;
+        let day = parseInt(dateMatch[3]);
+        let hour = parseInt(dateMatch[4]);
+        let minute = parseInt(dateMatch[5]);
+        
+        // Create Date as UTC+8 (Beijing Time)
+        const date = new Date(Date.UTC(year, month, day, hour, minute));
+        date.setUTCHours(date.getUTCHours() - 8);
+        return date.toISOString();
     }
 
     return now.toISOString();
@@ -245,7 +253,7 @@ function extractAuthorInfoQZone(item: Element): AuthorInfo {
 /**
  * Collect data from a single feed element
  */
-function collectFeedDataQZone(item: Element): CollectedContent {
+export function collectFeedDataQZone(item: Element): CollectedContent {
     const text = extractFeedTextQZone(item);
     const images = extractFeedImagesQZone(item);
     const timestamp = extractFeedTimestampQZone(item);
@@ -266,12 +274,25 @@ function collectFeedDataQZone(item: Element): CollectedContent {
 }
 
 /**
- * Find all visible feeds on the page
+ * Find all feed elements
  */
-function findAllFeedsQZone(): Element[] {
-    const container = document.getElementById('host_home_feeds');
-    if (!container) return [];
-    return Array.from(container.querySelectorAll('li.f-single'));
+export function findAllFeedsQZone(): Element[] {
+    // Try both modern and classic selectors
+    const selectors = [
+        'li.f-single',
+        '.feed_item',
+        'div[id^="feed_"]',
+        'div[id^="f_"]'
+    ];
+    
+    for (const selector of selectors) {
+        const elements = document.querySelectorAll(selector);
+        if (elements.length > 0) {
+            return Array.from(elements);
+        }
+    }
+    
+    return [];
 }
 
 /**

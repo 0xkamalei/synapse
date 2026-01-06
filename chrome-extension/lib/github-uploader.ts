@@ -47,10 +47,9 @@ export async function uploadMedia(urls: string[], type: string = 'media'): Promi
  */
 async function uploadBase64ToGitHub(base64: string, mimeType: string, type: string, originalUrl: string): Promise<string> {
     const config = await getConfig();
-    const filename = generateFilename(mimeType);
+    const hash = await calculateHash(base64);
+    const filename = generateFilename(hash, mimeType);
     const path = getFilePath(filename);
-
-    await logger.info(`Uploading ${type} to GitHub`, { data: { path, originalUrl } });
 
     const apiUrl = `https://api.github.com/repos/${config.githubOwner}/${config.githubRepo}/contents/${path}`;
 
@@ -68,6 +67,10 @@ async function uploadBase64ToGitHub(base64: string, mimeType: string, type: stri
     });
 
     if (!response.ok) {
+        // If file already exists, GitHub returns 422 if no sha is provided
+        if (response.status === 422) {
+            return `https://cdn.jsdelivr.net/gh/${config.githubOwner}/${config.githubRepo}@main/${path}`;
+        }
         throw new Error(`GitHub API error: ${response.status}`);
     }
 
@@ -106,14 +109,20 @@ export async function fileUrlToBase64(url: string): Promise<Base64Result> {
     });
 }
 
-function generateFilename(mimeType: string): string {
+function generateFilename(hash: string, mimeType: string): string {
     const extension = mimeType.split('/')[1] || 'bin';
-    return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${extension}`;
+    return `${hash}.${extension}`;
+}
+
+async function calculateHash(text: string): Promise<string> {
+    const msgUint8 = new TextEncoder().encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 function getFilePath(filename: string): string {
     const now = new Date();
     const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    return `media/${year}/${month}/${filename}`;
+    return `media/${year}/${filename}`;
 }

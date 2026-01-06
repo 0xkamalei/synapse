@@ -32,7 +32,7 @@
         <span class="status-dot"></span>
         <span class="status-text">Checking...</span>
       </div>
-      <div id="collectStatus" class="status-item">
+      <div id="lastSync" class="status-item last-sync-status">
         <span class="status-text">Last: --</span>
       </div>
     </section>
@@ -44,18 +44,11 @@
         <span class="btn-text">Collect Now</span>
       </button>
 
-      <div class="secondary-actions">
-        <button id="viewLogs" class="secondary-btn">
-          <span class="btn-icon">📋</span>
-          <span class="btn-text">View Logs</span>
-        </button>
-      </div>
+      <button id="viewLogs" class="secondary-btn">
+        <span class="btn-icon">📋</span>
+        <span class="btn-text">View Logs</span>
+      </button>
     </section>
-
-    <!-- Footer with simple status -->
-    <footer class="footer">
-      <div id="lastSync" class="last-sync">Last sync: --</div>
-    </footer>
   </div>
 
   <script type="module" src="../dist/popup/popup.js"></script>

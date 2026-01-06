@@ -45,13 +45,18 @@ async function checkConfigStatus() {
  */
 async function updateLastSync() {
     const config = await getConfig();
-    const text = elements.lastSync;
+    const container = elements.lastSync;
+    const textElement = container.querySelector('.status-text');
+    if (!textElement) return;
 
     if (config.lastCollectTime) {
         const date = new Date(config.lastCollectTime);
-        text.textContent = `Last sync: ${date.toLocaleString()}`;
+        // Use a shorter format for the status bar
+        const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        textElement.textContent = `Last: ${timeStr}`;
+        container.title = `Last sync: ${date.toLocaleString()}`;
     } else {
-        text.textContent = 'Last sync: Never';
+        textElement.textContent = 'Last: Never';
     }
 }
 
@@ -112,9 +117,11 @@ async function handleManualCollect() {
         if (!tab || !tab.id) throw new Error('No active tab found');
 
         // Broadcast to all frames
-        const frames = await new Promise<chrome.webNavigation.GetAllFramesResultDetails[]>((resolve) => {
+        const frames = await new Promise<chrome.webNavigation.GetAllFrameResultDetails[] | null>((resolve) => {
             chrome.webNavigation.getAllFrames({ tabId: tab.id! }, resolve);
         });
+
+        if (!frames) throw new Error('Could not get frames');
 
         let success = false;
         let lastError = 'No content found to collect';

@@ -45,11 +45,6 @@ async function processContent(content: CollectedContent): Promise<any> {
         return { debug: true, content: debugData };
     }
 
-    await logger.info('Processing content', {
-        data: { source: content.source, hasImages: content.images?.length > 0, hasVideos: content.videos?.length > 0 },
-        summary: summary
-    });
-
     // Check configuration
     const configStatus = await validateConfig();
     if (!configStatus.valid) {
@@ -98,7 +93,12 @@ async function processContent(content: CollectedContent): Promise<any> {
 
     console.log('[Synapse] Content saved successfully to Notion:', result.url);
     await logger.success(`Saved from ${content.source}`, {
-        data: { source: content.source, notionPageId: result.id, imagesUploaded: imageUrls.length },
+        data: { 
+            ...content,
+            notionPageId: result.id, 
+            notionUrl: result.url,
+            imagesUploaded: imageUrls.length 
+        },
         summary: summary
     });
 
