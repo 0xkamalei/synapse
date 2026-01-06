@@ -13,6 +13,9 @@ env:
   NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
   NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
