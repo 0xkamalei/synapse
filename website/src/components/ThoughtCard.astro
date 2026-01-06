@@ -83,6 +83,7 @@ const dateISO = thought.originalDate.split("T")[0];
     transition:
       box-shadow 0.2s,
       border-color 0.2s;
+    overflow: hidden;
   }
 
   .thought-card:hover {
@@ -115,8 +116,10 @@ const dateISO = thought.originalDate.split("T")[0];
   .card-media video {
     border-radius: var(--radius-md);
     width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
     background: var(--md-surface-container);
   }
 
