@@ -406,6 +406,18 @@ async function tryAutoCollectQZone(): Promise<void> {
 
     if (!response || !response.config) return;
     const config = response.config;
+    const interval = config.collectIntervalHours ?? 4;
+    const lastCollect = config.lastCollectTime ? new Date(config.lastCollectTime).getTime() : 0;
+    const now = Date.now();
+
+    // Check interval (if interval > 0)
+    if (interval > 0 && lastCollect > 0) {
+        const hoursSinceLast = (now - lastCollect) / (1000 * 60 * 60);
+        if (hoursSinceLast < interval) {
+            console.log(`[Synapse] Skipping auto-collect for QZone: last collect was ${hoursSinceLast.toFixed(2)} hours ago (interval: ${interval}h)`);
+            return;
+        }
+    }
 
     if (!config.targetQZoneUser || pageQQ !== config.targetQZoneUser) {
         console.log('[Synapse] QZone QQ mismatch, skipping auto-collect', { current: pageQQ, target: config.targetQZoneUser });

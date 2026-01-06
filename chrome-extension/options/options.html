@@ -77,8 +77,8 @@
                 <h2>Auto-Collect</h2>
                 <div class="input-group">
                     <label for="collectIntervalHours">Collect Interval (hours)</label>
-                    <input type="number" id="collectIntervalHours" min="0" max="168" value="4">
-                    <p class="hint">Hours between auto-collections. Set to 0 to disable interval check.</p>
+                    <input type="number" id="collectIntervalHours" max="168" value="4">
+                    <p class="hint">Hours between auto-collections. Set to 0 or negative to collect every time (useful for debugging).</p>
                 </div>
                 <div class="info-card">
                     <span id="lastCollectInfo">Last collected: Never</span>

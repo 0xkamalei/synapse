@@ -10,6 +10,7 @@ export const STORAGE_KEYS = {
   TARGET_BILIBILI_USER: 'targetBilibiliUser',
   TARGET_QZONE_USER: 'targetQZoneUser',
   LAST_COLLECT_TIME: 'lastCollectTime',
+  COLLECT_INTERVAL_HOURS: 'collectIntervalHours',
   DEBUG_MODE: 'debugMode'
 } as const;
 
@@ -17,7 +18,8 @@ export const STORAGE_KEYS = {
 
 const DEFAULT_CONFIG: Partial<AppConfig> = {
   enabledSources: ['x', 'bilibili', 'qzone'],
-  debugMode: false
+  debugMode: false,
+  collectIntervalHours: 4
 };
 
 /**
@@ -54,6 +56,7 @@ async function getConfig(): Promise<AppConfig> {
     targetBilibiliUser: (result[STORAGE_KEYS.TARGET_BILIBILI_USER] as string) || '',
     targetQZoneUser: (result[STORAGE_KEYS.TARGET_QZONE_USER] as string) || '',
     lastCollectTime: (result[STORAGE_KEYS.LAST_COLLECT_TIME] as string) || null,
+    collectIntervalHours: (result[STORAGE_KEYS.COLLECT_INTERVAL_HOURS] as number) ?? (DEFAULT_CONFIG.collectIntervalHours as number),
     debugMode: (result[STORAGE_KEYS.DEBUG_MODE] as boolean) ?? (DEFAULT_CONFIG.debugMode as boolean)
   };
 }
@@ -73,6 +76,7 @@ async function saveConfig(config: AppConfig): Promise<void> {
     [STORAGE_KEYS.TARGET_X_USER]: config.targetXUser,
     [STORAGE_KEYS.TARGET_BILIBILI_USER]: config.targetBilibiliUser,
     [STORAGE_KEYS.TARGET_QZONE_USER]: config.targetQZoneUser,
+    [STORAGE_KEYS.COLLECT_INTERVAL_HOURS]: config.collectIntervalHours,
     [STORAGE_KEYS.DEBUG_MODE]: config.debugMode
   });
 }
