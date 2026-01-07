@@ -66,38 +66,40 @@ async function updateLastSync() {
 async function checkPageStatus() {
     try {
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        if (!tab || !tab.id || !tab.url) return;
+        if (!tab || !tab.url) return;
 
-        // Check supported domains
-        const isSupported = tab.url.includes('bilibili.com') ||
-            tab.url.includes('x.com') ||
-            tab.url.includes('twitter.com') ||
-            tab.url.includes('qzone.qq.com');
+        const config = await getConfig();
+        const url = tab.url.toLowerCase();
+        let isMatched = false;
 
-        if (!isSupported) {
-            elements.collectNow.style.display = 'none';
-            return;
+        // 1. Check Bilibili: https://space.bilibili.com/[UID]/dynamic
+        if (config.targetBilibiliUser && url.includes(`space.bilibili.com/${config.targetBilibiliUser.toLowerCase()}/dynamic`)) {
+            isMatched = true;
         }
 
-        // Check if content is actually available (query all frames)
-        const frameInfos = await chrome.scripting.executeScript({
-            target: { tabId: tab.id, allFrames: true },
-            func: () => {
-                const win = window as any;
-                const info = (win.getPageInfoBilibili?.()) || (win.getPageInfoQZone?.()) || (win.getPageInfoX?.());
-                return info || null;
+        // 2. Check X: https://x.com/[Username]
+        if (!isMatched && config.targetXUser) {
+            const targetX = config.targetXUser.startsWith('@') ? config.targetXUser.substring(1) : config.targetXUser;
+            // Matches https://x.com/username or https://twitter.com/username
+            const xPattern = new RegExp(`^(https?://)?(www\\.)?(x|twitter)\\.com/${targetX.toLowerCase()}(/|\\?|#|$)`, 'i');
+            if (xPattern.test(url)) {
+                isMatched = true;
             }
-        });
+        }
 
-        const hasContent = frameInfos.some(f => f.result && (f.result.dynamicCount > 0 || f.result.feedCount > 0 || f.result.hasMainDynamic || f.result.tweetCount > 0));
+        // 3. Check QZone: https://user.qzone.qq.com/[QQ]/main
+        if (!isMatched && config.targetQZoneUser && url.includes(`user.qzone.qq.com/${config.targetQZoneUser.toLowerCase()}/main`)) {
+            isMatched = true;
+        }
 
-        if (!hasContent) {
-            elements.collectNow.style.display = 'none';
-        } else {
+        if (isMatched) {
             elements.collectNow.style.display = 'flex';
+        } else {
+            elements.collectNow.style.display = 'none';
         }
     } catch (e) {
         console.error('Error checking page status:', e);
+        elements.collectNow.style.display = 'none';
     }
 }
 

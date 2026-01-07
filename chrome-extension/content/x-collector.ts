@@ -235,10 +235,22 @@ function getCurrentPageUserX(): string {
 /**
  * Get page info for the popup
  */
-function getPageInfoX(): any {
+async function getPageInfoX(): Promise<any> {
     const tweets = findAllTweetsX();
     const mainTweet = findMainTweetX();
     const pageUser = getCurrentPageUserX();
+
+    // Get config to check if this is the target page
+    const response: any = await new Promise(resolve => {
+        chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
+    });
+    
+    let targetXUser = response?.config?.targetXUser;
+    if (targetXUser) {
+        targetXUser = targetXUser.startsWith('@') ? targetXUser.substring(1) : targetXUser;
+    }
+    
+    const isMatched = (targetXUser && pageUser.toLowerCase() === targetXUser.toLowerCase()) || false;
 
     let tweetAuthor = '';
     if (mainTweet) {
@@ -247,7 +259,7 @@ function getPageInfoX(): any {
     }
 
     return {
-        isXPage: true,
+        isXPage: isMatched,
         isTweetDetail: window.location.pathname.includes('/status/'),
         tweetCount: tweets.length,
         hasMainTweet: mainTweet !== null,
@@ -326,30 +338,53 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         }
         return true;
     } else if (message.type === MessageTypeX.GET_PAGE_INFO) {
-        sendResponse(getPageInfoX());
+        getPageInfoX().then(info => sendResponse(info));
+        return true;
     }
     return true;
 });
 
 /**
+ * Check if the current URL is the target user's profile page
+ */
+function isTargetURLX(targetUser: string): boolean {
+    if (!targetUser) return false;
+    
+    const normalizedTarget = targetUser.startsWith('@') ? targetUser.substring(1).toLowerCase() : targetUser.toLowerCase();
+    const currentPath = window.location.pathname.toLowerCase();
+    
+    // Exact match for profile page: /username
+    return currentPath === `/${normalizedTarget}`;
+}
+
+/**
  * Auto-collect on page load if on the target user's profile page
  */
 async function tryAutoCollectX(): Promise<void> {
+    // 0. Get config and check if target user is configured
     const response: any = await new Promise(resolve => {
         chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
     });
 
     if (!response || !response.config) return;
-
     const config = response.config;
-    const interval = config.collectIntervalHours ?? 4;
     
-    // Check source-specific last collect time
+    if (!config.targetXUser) {
+        console.log('[Synapse] Target X user not configured, skipping auto-collect');
+        return;
+    }
+
+    // 1. isTargetURL check
+    if (!isTargetURLX(config.targetXUser)) {
+        return;
+    }
+
+    // 2. Check interval
+    const interval = config.collectIntervalHours ?? 4;
     const lastCollectForSource = config.lastCollectTimes?.x;
     const lastCollect = lastCollectForSource ? new Date(lastCollectForSource).getTime() : 0;
     const now = Date.now();
 
-    // Check interval (if interval > 0)
     if (interval > 0 && lastCollect > 0) {
         const hoursSinceLast = (now - lastCollect) / (1000 * 60 * 60);
         if (hoursSinceLast < interval) {
@@ -358,29 +393,22 @@ async function tryAutoCollectX(): Promise<void> {
         }
     }
 
-    let targetXUser = config.targetXUser;
-
-    if (!targetXUser) return;
-
-    targetXUser = targetXUser.startsWith('@') ? targetXUser.substring(1) : targetXUser;
-
-    const currentPath = window.location.pathname.toLowerCase();
-    const targetPath = `/${targetXUser.toLowerCase()}`;
-
-    if (currentPath !== targetPath) {
+    // 3. Get page elements (Wait for content to load)
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    const tweets = findAllTweetsX();
+    
+    if (tweets.length === 0) {
+        console.log('[Synapse] No tweets found to collect');
         return;
     }
 
-    await new Promise(resolve => setTimeout(resolve, 3000));
-
-    const tweets = findAllTweetsX();
-    if (tweets.length === 0) return;
-
+    // 4. Parse content
     const contents = tweets
         .map(t => collectTweetDataX(t))
         .filter(data => data.text && data.text.trim().length > 0);
     const pageUID = getCurrentPageUserX();
 
+    // 5. Send to background for saving
     chrome.runtime.sendMessage({
         type: 'CONTENT_TO_BG_PROCESS',
         contents,

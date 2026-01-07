@@ -193,32 +193,32 @@ function parseRelativeTimeBilibili(timeText: string): string {
     // Normalize to minute to ensure stable URLs for deduplication
     now.setSeconds(0, 0);
 
-    // Handle "刚刚"
-    if (timeText.includes('刚刚')) {
+    // Handle "Just now" (刚刚)
+    if (timeText.includes('刚刚') || timeText.toLowerCase().includes('just now')) {
         return now.toISOString();
     }
 
-    // Handle "X分钟前", "X小时前", "X天前"
-    const minuteMatch = timeText.match(/(\d+)\s*分钟前/);
+    // Handle "X minutes ago", "X hours ago", "X days ago"
+    const minuteMatch = timeText.match(/(\d+)\s*(?:分钟前|minutes ago)/);
     if (minuteMatch) {
         now.setMinutes(now.getMinutes() - parseInt(minuteMatch[1]));
         return now.toISOString();
     }
 
-    const hourMatch = timeText.match(/(\d+)\s*小时前/);
+    const hourMatch = timeText.match(/(\d+)\s*(?:小时前|hours ago)/);
     if (hourMatch) {
         now.setHours(now.getHours() - parseInt(hourMatch[1]));
         return now.toISOString();
     }
 
-    const dayMatch = timeText.match(/(\d+)\s*天前/);
+    const dayMatch = timeText.match(/(\d+)\s*(?:天前|days ago)/);
     if (dayMatch) {
         now.setDate(now.getDate() - parseInt(dayMatch[1]));
         return now.toISOString();
     }
 
-    // Handle "昨天"
-    if (timeText.includes('昨天')) {
+    // Handle "Yesterday" (昨天)
+    if (timeText.includes('昨天') || timeText.toLowerCase().includes('yesterday')) {
         const timePart = timeText.match(/\d{1,2}:\d{2}/);
         now.setDate(now.getDate() - 1);
         if (timePart) {
@@ -228,8 +228,8 @@ function parseRelativeTimeBilibili(timeText: string): string {
         return now.toISOString();
     }
 
-    // Handle "前天"
-    if (timeText.includes('前天')) {
+    // Handle "Day before yesterday" (前天)
+    if (timeText.includes('前天') || timeText.toLowerCase().includes('day before yesterday')) {
         const timePart = timeText.match(/\d{1,2}:\d{2}/);
         now.setDate(now.getDate() - 2);
         if (timePart) {
@@ -240,7 +240,7 @@ function parseRelativeTimeBilibili(timeText: string): string {
     }
 
     // Handle date format like "2025年12月17日" or "12月17日"
-    const cnDateMatch = timeText.match(/(?:(\d{4})年)?\s*(\d{1,2})月\s*(\d{1,2})日/);
+    const cnDateMatch = timeText.match(/(?:(\d{4})(?:年|[-/]))?\s*(\d{1,2})(?:月|[-/])\s*(\d{1,2})日?/);
     if (cnDateMatch) {
         const year = parseInt(cnDateMatch[1]) || now.getFullYear();
         const month = parseInt(cnDateMatch[2]) - 1;
@@ -457,13 +457,21 @@ function collectCurrentDynamicBilibili(): CollectedContent | null {
  * Get page info for the popup
  * @returns {Object}
  */
-function getPageInfoBilibili(): PageInfo {
+async function getPageInfoBilibili(): Promise<PageInfo> {
     const dynamics = findAllDynamicsBilibili();
     const mainDynamic = findMainDynamicBilibili();
     const pageUID = getCurrentPageUID();
 
+    // Get config to check if this is the target page
+    const response: any = await new Promise(resolve => {
+        chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
+    });
+    
+    const targetUID = response?.config?.targetBilibiliUser;
+    const isMatched = (targetUID && pageUID === targetUID) || false;
+
     return {
-        isBilibiliPage: true,
+        isBilibiliPage: isMatched,
         isDynamicPage: isDynamicPage(),
         dynamicCount: dynamics.length,
         hasMainDynamic: mainDynamic !== null,
@@ -480,7 +488,7 @@ chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.Mess
         const mainDynamic = findMainDynamicBilibili();
 
         if (!mainDynamic) {
-            sendResponse({ success: false, error: '未找到动态内容' });
+            sendResponse({ success: false, error: 'No dynamic content found' });
             return true;
         }
 
@@ -511,34 +519,53 @@ chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.Mess
         });
         return true; // Keep channel open for async response
     } else if (message.type === MessageTypeBilibili.GET_PAGE_INFO) {
-        sendResponse(getPageInfoBilibili());
+        getPageInfoBilibili().then(info => sendResponse(info));
+        return true;
     }
     return true;
 });
 
 /**
+ * Check if current page is the target user's dynamic page
+ */
+function isTargetURLBilibili(targetUID: string): boolean {
+    if (!targetUID) return false;
+    
+    const pageUID = getCurrentPageUID();
+    const isSpaceDynamic = window.location.hostname === 'space.bilibili.com' && 
+                          window.location.pathname.includes('/dynamic');
+    
+    return isSpaceDynamic && pageUID === targetUID;
+}
+
+/**
  * Auto-collect ALL visible dynamics on page load
  */
 async function tryAutoCollectBilibili(): Promise<void> {
-    // Only auto-collect on dynamic pages
-    if (!isDynamicPage()) {
-        return;
-    }
-
+    // 0. Get config and check if target user is configured
     const response: any = await new Promise(resolve => {
         chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
     });
 
     if (!response || !response.config) return;
     const config = response.config;
+
+    if (!config.targetBilibiliUser) {
+        console.log('[Synapse] Target Bilibili user not configured, skipping auto-collect');
+        return;
+    }
+
+    // 1. isTargetURL check
+    if (!isTargetURLBilibili(config.targetBilibiliUser)) {
+        return;
+    }
+
+    // 2. Check interval
     const interval = config.collectIntervalHours ?? 4;
-    
-    // Check source-specific last collect time
     const lastCollectForSource = config.lastCollectTimes?.bilibili;
     const lastCollect = lastCollectForSource ? new Date(lastCollectForSource).getTime() : 0;
     const now = Date.now();
 
-    // Check interval (if interval > 0)
     if (interval > 0 && lastCollect > 0) {
         const hoursSinceLast = (now - lastCollect) / (1000 * 60 * 60);
         if (hoursSinceLast < interval) {
@@ -547,32 +574,26 @@ async function tryAutoCollectBilibili(): Promise<void> {
         }
     }
 
-    const pageUID = getCurrentPageUID();
-    if (!pageUID || !config.targetBilibiliUser) return;
-
-    if (pageUID !== config.targetBilibiliUser) {
-        console.log('[Synapse] Bilibili UID mismatch, skipping auto-collect', { current: pageUID, target: config.targetBilibiliUser });
-        return;
-    }
-
-    // Wait for content to load
+    // 3. Get page elements (Wait for content to load)
     await new Promise(resolve => setTimeout(resolve, 3000));
-
     const allDynamics = findAllDynamicsBilibili();
+    
     if (allDynamics.length === 0) {
+        console.log('[Synapse] No dynamics found to collect');
         return;
     }
 
-    // Collect all dynamic data
-    const allContent = allDynamics.map((element, index) => {
+    const pageUID = getCurrentPageUID();
+
+    // 4. Parse content
+    const allContent = allDynamics.map((element) => {
         const data = collectDynamicDataBilibili(element);
         // Add UID as username for target user verification
         data.author = { username: pageUID, displayName: pageUID };
-
         return data;
     }).filter(data => data.text && data.text.trim().length > 0);
 
-    // Send batch to background for processing
+    // 5. Send to background for saving
     chrome.runtime.sendMessage({
         type: 'CONTENT_TO_BG_PROCESS',
         contents: allContent,
