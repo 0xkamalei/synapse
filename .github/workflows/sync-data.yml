@@ -30,6 +30,7 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          NOTION_DATASOURCE_ID: ${{ secrets.NOTION_DATASOURCE_ID }}
 
       - name: Check for changes
         id: git-check
