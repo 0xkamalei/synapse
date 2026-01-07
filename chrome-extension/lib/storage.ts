@@ -10,6 +10,7 @@ export const STORAGE_KEYS = {
   TARGET_BILIBILI_USER: 'targetBilibiliUser',
   TARGET_QZONE_USER: 'targetQZoneUser',
   LAST_COLLECT_TIME: 'lastCollectTime',
+  LAST_COLLECT_TIMES: 'lastCollectTimes',
   COLLECT_INTERVAL_HOURS: 'collectIntervalHours',
   DEBUG_MODE: 'debugMode'
 } as const;
@@ -56,6 +57,7 @@ async function getConfig(): Promise<AppConfig> {
     targetBilibiliUser: (result[STORAGE_KEYS.TARGET_BILIBILI_USER] as string) || '',
     targetQZoneUser: (result[STORAGE_KEYS.TARGET_QZONE_USER] as string) || '',
     lastCollectTime: (result[STORAGE_KEYS.LAST_COLLECT_TIME] as string) || null,
+    lastCollectTimes: (result[STORAGE_KEYS.LAST_COLLECT_TIMES] as Record<string, string>) || {},
     collectIntervalHours: (result[STORAGE_KEYS.COLLECT_INTERVAL_HOURS] as number) ?? (DEFAULT_CONFIG.collectIntervalHours as number),
     debugMode: (result[STORAGE_KEYS.DEBUG_MODE] as boolean) ?? (DEFAULT_CONFIG.debugMode as boolean)
   };
@@ -84,10 +86,20 @@ async function saveConfig(config: AppConfig): Promise<void> {
 /**
  * Update last collect time to now
  */
-async function updateLastCollectTime(): Promise<void> {
-  await chrome.storage.sync.set({
-    [STORAGE_KEYS.LAST_COLLECT_TIME]: new Date().toISOString()
-  });
+async function updateLastCollectTime(source?: string): Promise<void> {
+  const now = new Date().toISOString();
+  const update: any = {
+    [STORAGE_KEYS.LAST_COLLECT_TIME]: now
+  };
+
+  if (source) {
+    const result = await chrome.storage.sync.get(STORAGE_KEYS.LAST_COLLECT_TIMES);
+    const times = result[STORAGE_KEYS.LAST_COLLECT_TIMES] || {};
+    times[source.toLowerCase()] = now;
+    update[STORAGE_KEYS.LAST_COLLECT_TIMES] = times;
+  }
+
+  await chrome.storage.sync.set(update);
 }
 
 /**

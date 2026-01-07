@@ -85,8 +85,8 @@ async function processContent(content: CollectedContent): Promise<any> {
     console.log('[Synapse] Saving to Notion database...');
     const result = await saveToNotion(notionContent);
 
-    // Update last collect time
-    await updateLastCollectTime();
+    // Update last collect time for this source
+    await updateLastCollectTime(content.source);
 
     console.log('[Synapse] Content saved successfully to Notion:', result.url);
     await logger.success(`Saved from ${content.source}`, {

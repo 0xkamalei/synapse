@@ -343,7 +343,10 @@ async function tryAutoCollectX(): Promise<void> {
 
     const config = response.config;
     const interval = config.collectIntervalHours ?? 4;
-    const lastCollect = config.lastCollectTime ? new Date(config.lastCollectTime).getTime() : 0;
+    
+    // Check source-specific last collect time
+    const lastCollectForSource = config.lastCollectTimes?.x;
+    const lastCollect = lastCollectForSource ? new Date(lastCollectForSource).getTime() : 0;
     const now = Date.now();
 
     // Check interval (if interval > 0)

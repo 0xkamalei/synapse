@@ -283,7 +283,10 @@ function findAllQzoneFeeds(): CollectedContent[] {
 function findAllFeedsQZone(): Element[] {
     // Try both modern and classic selectors
     const selectors = [
-        'li.f-single',
+        '#host_home_feeds li.f-single', // Most specific
+        '#host_home_feeds li',          // Your identified container
+        'li.f-single',                  // General QZone feed item
+        'li[id^="fct_"]',               // ID based items
         '.feed_item',
         'div[id^="feed_"]',
         'div[id^="f_"]'
@@ -292,31 +295,85 @@ function findAllFeedsQZone(): Element[] {
     for (const selector of selectors) {
         const elements = document.querySelectorAll(selector);
         if (elements.length > 0) {
+            console.log(`[Synapse] Found ${elements.length} feeds in frame ${window.location.pathname} using selector: ${selector}`);
             return Array.from(elements);
         }
     }
 
+    // If we are in the top frame, we still might want to check iframes 
+    // BUT only as a fallback if the script inside those iframes isn't doing its job.
+    // However, to keep it simple and prevent duplicates, we'll rely on the frame-specific script injection.
+    
     return [];
 }
 
 /**
- * Get the QQ number from current page URL
- * QZone URL format: user.qzone.qq.com/[QQ]/main or user.qzone.qq.com/[QQ]/infocenter
+ * Check if current page is a valid QZone page (main page or feed iframe)
  */
-function getPageQQ(): string {
+function isQZonePage(): boolean {
     const url = window.location.href;
-    // Check for user.qzone.qq.com/[QQ]/main or similar
-    const match = url.match(/user\.qzone\.qq\.com\/(\d+)/);
-    return match ? match[1] : '';
+    const hostname = window.location.hostname;
+    
+    // 1. Top window main pages
+    if (url.includes('user.qzone.qq.com')) {
+        return true;
+    }
+    // 2. Feed iframes and other relevant subdomains
+    if (hostname.includes('qzone.qq.com')) {
+        if (url.includes('feeds_html_act_all') || 
+            url.includes('cgi-bin/feeds/feeds_html_module') ||
+            url.includes('cgi-bin/new_feeds/feeds_html_act_all')) return true;
+    }
+    
+    // 3. Fallback: check if the key element exists
+    if (document.getElementById('host_home_feeds') || 
+        document.querySelector('.f-single') ||
+        document.querySelector('#feed_friend_list')) return true;
+    
+    return false;
 }
 
 /**
- * Check if current page is the main feed page
+ * Get the QQ number from current page
  */
-function isQZoneMainPage(): boolean {
+function getPageQQ(): string {
     const url = window.location.href;
-    // Main feed is usually at /main or /infocenter
-    return url.includes('/main') || url.includes('/infocenter');
+    
+    // 1. From URL path (main page)
+    const match = url.match(/user\.qzone\.qq\.com\/(\d+)/);
+    if (match) return match[1];
+    
+    // 2. From URL parameters (iframe)
+    const urlObj = new URL(url);
+    const uin = urlObj.searchParams.get('uin') || urlObj.searchParams.get('ownerUin');
+    if (uin && /^\d+$/.test(uin)) return uin;
+
+    // 3. From global variables (if accessible)
+    try {
+        const win = window as any;
+        if (win.g_iUin) return win.g_iUin.toString();
+        
+        // Try parent if it's a same-origin frame
+        if (win.parent) {
+             try {
+                if (win.parent.g_iUin) return win.parent.g_iUin.toString();
+                const parentUrl = win.parent.location.href;
+                const pMatch = parentUrl.match(/user\.qzone\.qq\.com\/(\d+)/);
+                if (pMatch) return pMatch[1];
+             } catch (pe) { /* cross-origin parent */ }
+        }
+    } catch (e) { /* ignore cross-origin */ }
+
+    // 4. Try to find from script contents
+    const scripts = document.querySelectorAll('script');
+    for (const script of Array.from(scripts)) {
+        const content = script.textContent || '';
+        const uinMatch = content.match(/g_iUin\s*=\s*["']?(\d+)["']?/) || 
+                         content.match(/ownerUin\s*[:=]\s*["']?(\d+)["']?/);
+        if (uinMatch) return uinMatch[1];
+    }
+
+    return '';
 }
 
 /**
@@ -390,12 +447,8 @@ chrome.runtime.onMessage.addListener((message: any, _sender, sendResponse) => {
  */
 async function tryAutoCollectQZone(): Promise<void> {
     // 1. Check URL pattern first
-    if (!isQZoneMainPage()) {
-        return;
-    }
-
-    const pageQQ = getPageQQ();
-    if (!pageQQ) {
+    if (!isQZonePage()) {
+        console.log(`[Synapse] Not a QZone page: ${window.location.href}`);
         return;
     }
 
@@ -404,10 +457,21 @@ async function tryAutoCollectQZone(): Promise<void> {
         chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
     });
 
-    if (!response || !response.config) return;
+    if (!response || !response.config) {
+        console.log('[Synapse] Could not get config for QZone auto-collect');
+        return;
+    }
+    
     const config = response.config;
+    if (!config.enabledSources?.includes('qzone')) {
+        return;
+    }
+
     const interval = config.collectIntervalHours ?? 4;
-    const lastCollect = config.lastCollectTime ? new Date(config.lastCollectTime).getTime() : 0;
+    
+    // Check source-specific last collect time
+    const lastCollectForSource = config.lastCollectTimes?.qzone;
+    const lastCollect = lastCollectForSource ? new Date(lastCollectForSource).getTime() : 0;
     const now = Date.now();
 
     // Check interval (if interval > 0)
@@ -419,25 +483,49 @@ async function tryAutoCollectQZone(): Promise<void> {
         }
     }
 
+    console.log(`[Synapse] QZone auto-collect started for frame ${window.location.hostname}${window.location.pathname}`);
+
+    // 3. Wait for both QQ and feeds using polling (max 15 seconds)
+    let feeds: Element[] = [];
+    let pageQQ = '';
+    
+    for (let i = 0; i < 30; i++) { // 30 * 500ms = 15s
+        pageQQ = getPageQQ();
+        feeds = findAllFeedsQZone();
+        
+        if (pageQQ && feeds.length > 0) {
+            console.log(`[Synapse] Found QQ ${pageQQ} and ${feeds.length} feeds after ${i * 0.5}s`);
+            break;
+        }
+        
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+
+    if (!pageQQ) {
+        console.log('[Synapse] Could not identify QZone QQ after waiting');
+        return;
+    }
+
     if (!config.targetQZoneUser || pageQQ !== config.targetQZoneUser) {
         console.log('[Synapse] QZone QQ mismatch, skipping auto-collect', { current: pageQQ, target: config.targetQZoneUser });
         return;
     }
 
-    console.log(`[Synapse] QZone matched target user ${pageQQ}, preparing to parse DOM...`);
-
-    // 3. Wait for content and parse DOM
-    await new Promise(resolve => setTimeout(resolve, 5000)); // QZone is slow
-
-    const feeds = findAllFeedsQZone();
     if (feeds.length === 0) {
         console.log('[Synapse] No feeds found on QZone page after waiting');
         return;
     }
 
+    console.log(`[Synapse] QZone matched target user ${pageQQ}, auto-collecting ${feeds.length} feeds...`);
+
     const contents = feeds
         .map(f => collectFeedDataQZone(f))
         .filter(data => data.text && data.text.trim().length > 0);
+
+    if (contents.length === 0) {
+        console.log('[Synapse] No valid feed content found after parsing');
+        return;
+    }
 
     chrome.runtime.sendMessage({
         type: 'CONTENT_TO_BG_PROCESS' as const,
@@ -446,46 +534,12 @@ async function tryAutoCollectQZone(): Promise<void> {
         source: 'QZone' as const
     }, response => {
         if (response?.success) {
-            console.log(`[Synapse] QZone auto-collected ${response.collected} feeds`);
+            console.log(`[Synapse] QZone auto-collected ${response.collected} feeds from frame ${window.location.pathname}`);
+        } else {
+            console.error('[Synapse] QZone auto-collect failed in background:', response?.error);
         }
     });
 }
 
-/**
- * Initialization logic
- */
-(() => {
-    chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'qzone' });
-    tryAutoCollectQZone();
-
-    let lastUrl = window.location.href;
-    let lastScrollTop = 0;
-    let debounceTimer: number | undefined;
-
-    const triggerCollect = () => {
-        if (debounceTimer) clearTimeout(debounceTimer);
-        debounceTimer = window.setTimeout(() => {
-            tryAutoCollectQZone();
-        }, 10000); // Wait 10 seconds
-    };
-
-    // 1. Listen for URL changes (immediate)
-    const observer = new MutationObserver(() => {
-        if (window.location.href !== lastUrl) {
-            lastUrl = window.location.href;
-            if (debounceTimer) clearTimeout(debounceTimer);
-            tryAutoCollectQZone();
-        }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // 2. Listen for scroll down events (debounced)
-    window.addEventListener('scroll', () => {
-        const st = window.pageYOffset || document.documentElement.scrollTop;
-        if (st > lastScrollTop) {
-            // Scrolling down
-            triggerCollect();
-        }
-        lastScrollTop = st <= 0 ? 0 : st;
-    }, { passive: true });
-})();
+chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'qzone' });
+tryAutoCollectQZone();

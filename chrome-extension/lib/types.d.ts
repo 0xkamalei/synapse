@@ -52,5 +52,6 @@ interface AppConfig {
     targetQZoneUser: string;
     collectIntervalHours?: number;
     lastCollectTime: string | null;
+    lastCollectTimes?: Record<string, string>;
     debugMode: boolean;
 }
