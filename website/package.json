@@ -6,7 +6,7 @@
         "sync": "bun scripts/sync-data.ts",
         "dev": "astro dev",
         "start": "bun run dev",
-        "build": "bun run sync && astro build",
+        "build": "astro build",
         "preview": "astro preview",
         "astro": "astro"
     },
