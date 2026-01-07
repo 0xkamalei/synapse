@@ -190,6 +190,11 @@ p {
     color: white;
 }
 
+.badge.qzone {
+    background: #FFCE00;
+    color: #000000;
+}
+
 /* Utility Classes */
 .text-muted {
     color: var(--md-on-surface-variant);

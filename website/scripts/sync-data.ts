@@ -78,6 +78,12 @@ async function sync() {
         const newThoughts = await getAllThoughts(lastSyncTime);
         console.log(`   Fetched ${newThoughts.length} new thoughts.`);
 
+        // Optimization: If no new thoughts and thoughts file exists, skip writing
+        if (newThoughts.length === 0 && fs.existsSync(THOUGHTS_FILE)) {
+            console.log(`✅ No new thoughts found. Skipping file updates to avoid unnecessary commits.`);
+            return;
+        }
+
         // 3. Load existing thoughts from the local source of truth
         let allThoughts: any[] = [];
         if (fs.existsSync(THOUGHTS_FILE)) {
