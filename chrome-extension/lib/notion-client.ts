@@ -55,8 +55,8 @@ async function hashUrl(url: string): Promise<string> {
 export async function saveToNotion(content: CollectedContent): Promise<any> {
     const config = await getConfig();
 
-    if (!config.notionToken || !config.notionDatabaseId || !config.notionDataSourceId) {
-        throw new Error('Notion configuration incomplete');
+    if (!config.notionToken || !config.notionDataSourceId) {
+        throw new Error('Notion configuration incomplete (Token or Data Source ID missing)');
     }
 
     const urlHash = await hashUrl(content.url);
@@ -130,7 +130,7 @@ export async function saveToNotion(content: CollectedContent): Promise<any> {
     }
 
     const payload = {
-        parent: { database_id: config.notionDatabaseId },
+        parent: { data_source_id: config.notionDataSourceId },
         properties,
         children
     };
@@ -167,7 +167,7 @@ export async function batchCheckDuplicates(urls: string[]): Promise<Set<string>>
     // 1. Deduplicate input URLs
     const uniqueUrls = Array.from(new Set(urls.filter(Boolean)));
 
-    if (!config.notionToken || !config.notionDatabaseId || !config.notionDataSourceId || uniqueUrls.length === 0) {
+    if (!config.notionToken || !config.notionDataSourceId || uniqueUrls.length === 0) {
         return existingUrls;
     }
 

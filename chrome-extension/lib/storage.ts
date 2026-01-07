@@ -110,7 +110,7 @@ async function validateConfig(): Promise<{ valid: boolean; missing: string[] }> 
   const missing: string[] = [];
 
   if (!config.notionToken) missing.push('Notion Token');
-  if (!config.notionDatabaseId) missing.push('Notion Database ID');
+  if (!config.notionDataSourceId) missing.push('Notion Data Source ID');
   if (!config.githubToken) missing.push('GitHub Token');
   if (!config.githubOwner) missing.push('GitHub Owner');
   if (!config.githubRepo) missing.push('GitHub Repo');

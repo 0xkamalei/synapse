@@ -8,6 +8,37 @@ import { uploadMedia } from '../lib/github-uploader.js';
 import { saveToNotion, batchCheckDuplicates, truncateText } from '../lib/notion-client.js';
 import { validateConfig, getConfig, updateLastCollectTime } from '../lib/storage.js';
 
+// Global lock to prevent concurrent processing of batches
+let isProcessing = false;
+const processingQueue: Array<() => Promise<void>> = [];
+const recentlyProcessedUrls = new Set<string>();
+
+// Clear recently processed URLs every 10 minutes to prevent memory leaks
+setInterval(() => {
+    recentlyProcessedUrls.clear();
+}, 10 * 60 * 1000);
+
+async function acquireLock(): Promise<void> {
+    if (!isProcessing) {
+        isProcessing = true;
+        return;
+    }
+    return new Promise(resolve => {
+        processingQueue.push(async () => {
+            isProcessing = true;
+            resolve();
+        });
+    });
+}
+
+function releaseLock(): void {
+    isProcessing = false;
+    if (processingQueue.length > 0) {
+        const next = processingQueue.shift();
+        if (next) next();
+    }
+}
+
 /**
  * Process collected content: upload images and save to Notion
  * In debug mode: logs parsed JSON without saving
@@ -106,74 +137,80 @@ async function processContent(content: CollectedContent): Promise<any> {
  * Handle batch collection request from content script (for multiple items)
  */
 async function handleCollectBatch(contents: CollectedContent[], pageUID: string): Promise<any> {
-    const config = await getConfig();
+    await acquireLock();
+    try {
+        const config = await getConfig();
 
-    // Process each content item
-    let collected = 0;
-    let skipped = 0;
-    let firstSource = contents[0]?.source || 'Unknown';
+        // Process each content item
+        let collected = 0;
+        let skipped = 0;
+        let firstSource = contents[0]?.source || 'Unknown';
 
-    // Filter by user target first to avoid unnecessary duplicate checks
-    const filteredContents = contents.filter(content => {
-        if (content.source === 'Bilibili' && config.targetBilibiliUser) {
-            return !pageUID || pageUID === config.targetBilibiliUser;
-        } else if (content.source === 'QZone' && config.targetQZoneUser) {
-            return !pageUID || pageUID === config.targetQZoneUser;
-        } else if (content.source === 'X' && config.targetXUser) {
-            const target = config.targetXUser.toLowerCase();
-            return !((pageUID && pageUID.toLowerCase() !== target) ||
-                (content.author?.username && content.author.username.toLowerCase() !== target));
-        }
-        return true;
-    });
-
-    skipped += (contents.length - filteredContents.length);
-
-    // Batch check duplicates for remaining items
-    const urls = filteredContents.map(c => c.url).filter(Boolean);
-    const existingUrls = await batchCheckDuplicates(urls);
-    const processedInThisBatch = new Set<string>();
-
-    if (urls.length > 0) {
-        await logger.info(`Batch check duplicates: ${existingUrls.size} existing items found in ${urls.length} items`, {
-            data: {
-                totalChecked: urls.length,
-                duplicatesFound: existingUrls.size,
-                existingUrls: Array.from(existingUrls)
+        // Filter by user target first to avoid unnecessary duplicate checks
+        const filteredContents = contents.filter(content => {
+            if (content.source === 'Bilibili' && config.targetBilibiliUser) {
+                return !pageUID || pageUID === config.targetBilibiliUser;
+            } else if (content.source === 'QZone' && config.targetQZoneUser) {
+                return !pageUID || pageUID === config.targetQZoneUser;
+            } else if (content.source === 'X' && config.targetXUser) {
+                const target = config.targetXUser.toLowerCase();
+                return !((pageUID && pageUID.toLowerCase() !== target) ||
+                    (content.author?.username && content.author.username.toLowerCase() !== target));
             }
+            return true;
         });
-    }
 
-    for (const content of filteredContents) {
-        try {
-            if (existingUrls.has(content.url) || processedInThisBatch.has(content.url)) {
-                skipped++;
-                continue;
-            }
+        skipped += (contents.length - filteredContents.length);
 
-            const result = await processContent(content);
-            if (result) {
-                collected++;
-                processedInThisBatch.add(content.url);
-            } else {
-                skipped++;
-            }
-        } catch (err: any) {
-            if (err.message.includes('already saved')) {
-                skipped++;
-            } else {
-                await logger.error(`Batch item failed: ${err.message}`, { summary: truncateText(content.text) });
+        // Batch check duplicates for remaining items
+        const urls = filteredContents.map(c => c.url).filter(Boolean);
+        const existingUrls = await batchCheckDuplicates(urls);
+        const processedInThisBatch = new Set<string>();
+
+        if (urls.length > 0) {
+            await logger.info(`Batch check duplicates: ${existingUrls.size} existing items found in ${urls.length} items`, {
+                data: {
+                    totalChecked: urls.length,
+                    duplicatesFound: existingUrls.size,
+                    existingUrls: Array.from(existingUrls)
+                }
+            });
+        }
+
+        for (const content of filteredContents) {
+            try {
+                if (existingUrls.has(content.url) || processedInThisBatch.has(content.url) || recentlyProcessedUrls.has(content.url)) {
+                    skipped++;
+                    continue;
+                }
+
+                const result = await processContent(content);
+                if (result) {
+                    collected++;
+                    processedInThisBatch.add(content.url);
+                    recentlyProcessedUrls.add(content.url);
+                } else {
+                    skipped++;
+                }
+            } catch (err: any) {
+                if (err.message.includes('already saved')) {
+                    skipped++;
+                } else {
+                    await logger.error(`Batch item failed: ${err.message}`, { summary: truncateText(content.text) });
+                }
             }
         }
-    }
 
-    if (collected > 0) {
-        await logger.success(`Batch complete: ${collected} saved, ${skipped} skipped`, {
-            summary: `Collected ${collected} items from ${firstSource}`
-        });
-    }
+        if (collected > 0) {
+            await logger.success(`Batch complete: ${collected} saved, ${skipped} skipped`, {
+                summary: `Collected ${collected} items from ${firstSource}`
+            });
+        }
 
-    return { success: true, collected, skipped };
+        return { success: true, collected, skipped };
+    } finally {
+        releaseLock();
+    }
 }
 
 // Listen for messages from content scripts and popup

@@ -89,12 +89,33 @@ async function sync() {
             }
         }
 
-        // 4. Merge and deduplicate by ID
-        const thoughtMap = new Map();
+        // 4. Merge and deduplicate by ID and Title
+        // Use title (URL hash) as the primary key for deduplication to handle concurrent saves
+        const thoughtMap = new Map<string, any>();
+        const idToTitleMap = new Map<string, string>();
+
+        const processThought = (t: any) => {
+            const title = t.title || '';
+            const id = t.id;
+            
+            if (title) {
+                // If we already have this title, keep the existing one (or we could compare dates)
+                if (!thoughtMap.has(title)) {
+                    thoughtMap.set(title, t);
+                    idToTitleMap.set(id, title);
+                } else {
+                    console.log(`   Found duplicate title: ${title} (ID: ${id}), skipping.`);
+                }
+            } else {
+                // Fallback to ID if title is missing
+                thoughtMap.set(id, t);
+            }
+        };
+
         // Add existing thoughts first
-        allThoughts.forEach(t => thoughtMap.set(t.id, t));
-        // Add/overwrite with new thoughts from Notion
-        newThoughts.forEach(t => thoughtMap.set(t.id, t));
+        allThoughts.forEach(processThought);
+        // Add new thoughts from Notion
+        newThoughts.forEach(processThought);
         
         // Convert back to array and sort by date descending
         allThoughts = Array.from(thoughtMap.values())

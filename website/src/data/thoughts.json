@@ -1,7 +1,7 @@
 [
   {
-    "id": "2df6dd2f-2d12-816e-8d98-e364e214dc61",
-    "title": "我做了个人媒体工具,自动采集多个社交媒体平台的内容同步到notion database,在通过ast...",
+    "id": "2e16dd2f-2d12-81f0-8720-e768cf1b2281",
+    "title": "a7af224e7a418498b66ac449402f1b63f1d35c63fef7a9007a9d2b51c10d8bc6",
     "content": "我做了个人媒体工具,自动采集多个社交媒体平台的内容同步到notion database,在通过astro构建成为一个timeline website,目前支持B站,X,QQ空间,朋友圈。项目原因我想追忆一下自己以前的想法，但是这些thoughts可能散落在各个平台，我想有一个属于自己host的site来拥有它们",
     "source": "X",
     "originalUrl": "https://x.com/KamaleiZhang/status/2008104979949834420",
@@ -9,59 +9,49 @@
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:19:00.000Z"
+    "createdAt": "2026-01-07T04:03:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-817e-9fff-e87d651a7f84",
-    "title": "要实现从“卖时间”到...",
+    "id": "2e16dd2f-2d12-818a-b20c-d9e4b9ea0434",
+    "title": "af679f55519a694ec096b3e5c66f3626a80441ed8f45e2b23dc62123f851d511",
     "content": "要实现从“卖时间”到“卖作品”的跨越，核心不在于代码，而在于思维的重构。",
     "source": "Bilibili",
-    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E8%A6%81%E5%AE%9E%E7%8E%B0%E4%BB%8E%E2%80%9C%E5%8D%96%E6%97%B6%E9%97%B4%E2%80%9D%E5%88%B0%E2%80%9C%E5%8D%96%E4%BD%9C%E5%93%81%E2%80%9D%E7%9A%84%E8%B7%A8%E8%B6%8A%EF%BC%8C%E6%A0%B8%E5%BF%83%E4%B8%8D%E5%9C%A8%E4%BA%8E%E4%BB%A3%E7%A0%81%EF%BC%8C%E8%80%8C%E5%9C%A8%E4%BA%8E%E6%80%9D%E7%BB%B4%E7%9A%84%E9%87%8D%E6%9E%84%E3%80%82",
-    "originalDate": "2026-01-03T10:38:00.000+00:00",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E8%A6%81%E5%AE%9E%E7%8E%B0%E4%BB%8E%E2%80%9C%E5%8D%96%E6%97%B6%E9%97%B4%E2%80%9D%E5%88%B0%E2%80%9C%E5%8D%96%E4%BD%9C%E5%93%81%E2%80%9D%E7%9A%84%E8%B7%A8%E8%B6%8A%EF%BC%8C%E6%A0%B8%E5%BF%83%E4%B8%8D%E5%9C%A8%E4%BA%8E%E4%BB%A3%E7%A0%81%EF%BC%8C%E8%80%8C%E5%9C%A8%E4%BA%8E%E6%80%9D%E7%BB%B4%E7%9A%84%E9%87%8D%E6%9E%84%E3%80%82&synapse=MjAyNi0w",
+    "originalDate": "2026-01-02T16:00:00.000+00:00",
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T10:38:00.000Z"
+    "createdAt": "2026-01-07T04:04:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-81b5-8d01-fd75deabd3b8",
-    "title": "别把“赚钱”看成了一...",
+    "id": "2e16dd2f-2d12-8113-987d-dd125a80c920",
+    "title": "4bc65b107c64e8fae8510c0dc7b490954c5430dd6791ff5c36585bd51669fea4",
     "content": "别把“赚钱”看成了一个结果，而它其实是一个实验过程",
     "source": "Bilibili",
-    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E5%88%AB%E6%8A%8A%E2%80%9C%E8%B5%9A%E9%92%B1%E2%80%9D%E7%9C%8B%E6%88%90%E4%BA%86%E4%B8%80%E4%B8%AA%E7%BB%93%E6%9E%9C%EF%BC%8C%E8%80%8C%E5%AE%83%E5%85%B6%E5%AE%9E%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B",
-    "originalDate": "2026-01-03T10:38:00.000+00:00",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E5%88%AB%E6%8A%8A%E2%80%9C%E8%B5%9A%E9%92%B1%E2%80%9D%E7%9C%8B%E6%88%90%E4%BA%86%E4%B8%80%E4%B8%AA%E7%BB%93%E6%9E%9C%EF%BC%8C%E8%80%8C%E5%AE%83%E5%85%B6%E5%AE%9E%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B&synapse=MjAyNi0w",
+    "originalDate": "2026-01-02T16:00:00.000+00:00",
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T10:38:00.000Z"
+    "createdAt": "2026-01-07T04:04:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8103-9457-e426ce2291dc",
-    "title": "",
-    "content": "要实现从“卖时间”到“卖作品”的跨越，核心不在于代码，而在于思维的重构。",
-    "source": "Bilibili",
-    "originalUrl": "https://www.bilibili.com/opus/gen-g6sz3g",
-    "originalDate": "2026-01-03T08:51:00.000+00:00",
-    "images": [],
+    "id": "2e16dd2f-2d12-81e8-b72e-c92087c964c4",
+    "title": "58711a04148801b41962b8ec6061d5904a7162cb85d3a6b7e700281097590a5e",
+    "content": "现在AI模型确实强了，之前一直没做出来app现在用Gemini3pro做出来了，和AI沟通越来越简单了\n\n欢迎使用这个复刻的timingapp;原app订阅10欧每个月，之后再也不用订阅了\n\n\nhttps://\ngithub.com/0xkamalei/mac-\ntime-trace/releases/tag/0.0.2\n…",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/2005610623594578222",
+    "originalDate": "2025-12-29T12:03:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/8464fc08754b900467e6befed4d0b73dfc0468124fa39d8f9a5e5bbdc927ad04.jpeg"
+    ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:03:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-81c7-b5ba-f962ec8f37dd",
-    "title": "",
-    "content": "别把“赚钱”看成了一个结果，而它其实是一个实验过程",
-    "source": "Bilibili",
-    "originalUrl": "https://www.bilibili.com/opus/gen-yn3hhn",
-    "originalDate": "2026-01-03T08:51:00.000+00:00",
-    "images": [],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
-  },
-  {
-    "id": "2df6dd2f-2d12-81b3-ab3f-efb024ceea88",
-    "title": "AI is now so powerful. I built my long-pending app...",
+    "id": "2e16dd2f-2d12-8110-bf88-d78b423d9958",
+    "title": "32485027b72c0d6c2b7eda68e51b99f51eac65ac9c0258f655448d0d91e121a3",
     "content": "AI is now so powerful. I built my long-pending app with Gemini 3 Pro, and AI interaction is way easier.Welcome to this replica of Timing App. No more €10/month subscription like the original.",
     "source": "X",
     "originalUrl": "https://x.com/KamaleiZhang/status/2005610727122542715",
@@ -69,506 +59,957 @@
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:19:00.000Z"
+    "createdAt": "2026-01-07T04:02:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-81e2-aa1b-eeeb0d4f574b",
-    "title": "现在AI模型确实强了，之前一直没做出来app现在用Gemini3pro做出来了，和AI沟通越来越简单...",
-    "content": "现在AI模型确实强了，之前一直没做出来app现在用Gemini3pro做出来了，和AI沟通越来越简单了\n\n欢迎使用这个复刻的timingapp;原app订阅10欧每个月，之后再也不用订阅了\n\n\nhttps://\ngithub.com/0xkamalei/mac-\ntime-trace/releases/tag/0.0.2\n…",
-    "source": "X",
-    "originalUrl": "https://x.com/KamaleiZhang/status/2005610623594578222",
-    "originalDate": "2025-12-29T12:03:00.000+00:00",
-    "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767604790666-0fs9t6jn.jpeg"
-    ],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-01-05T09:19:00.000Z"
-  },
-  {
-    "id": "2df6dd2f-2d12-8174-aa31-d19ad11d62e4",
-    "title": "[视频] Philingo使用介绍\ntry it out : philingo.leix.dev",
-    "content": "[视频] Philingo使用介绍\ntry it out : philingo.leix.dev",
+    "id": "2e16dd2f-2d12-81c4-b448-df34c8423557",
+    "title": "16fc0be1730748480ac2bc148ecc7f942796714f72a8afb204f744cb8ddb0c6d",
+    "content": "[视频] Philingo使用介绍 \ntry it out : philingo.leix.dev ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1qGqGBWEVt/",
     "originalDate": "2025-12-16T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603068151-asxwtj2d.jpeg"
+      "https://i0.hdslb.com/bfs/archive/9bc73f632120934743bd58dc516bdacd4ca56e5f.jpg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-8134-acb4-e67dc261156a",
-    "title": "这段Claude c...",
+    "id": "2e16dd2f-2d12-8153-85ea-ff40e767bcd0",
+    "title": "ca1fb1d1422e2df4c02715d0ed61b7ddb6f18181631654e6e279ec9dc9d447da",
     "content": "这段Claude code plan mode 提示词 是挺资深的了",
     "source": "QZone",
-    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%BF%99%E6%AE%B5Claude%20code%20plan%20mode%20%E6%8F%90%E7%A4%BA%E8%AF%8D%20%E6%98%AF%E6%8C%BA%E8%B5%84%E6%B7%B1%E7%9A%84%E4%BA%86&synapse=id-fct_852872578_311_0_1765686365_0_1",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%BF%99%E6%AE%B5Claude%20code%20plan%20mode%20%E6%8F%90%E7%A4%BA%E8%AF%8D%20%E6%98%AF%E6%8C%BA%E8%B5%84%E6%B7%B1%E7%9A%84%E4%BA%86&synapse=h-ODUyOD-6L+Z5q61Q2xh-MjAyNS0xMi",
     "originalDate": "2025-12-14T04:26:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/01/1767705393956-n5ty3f6.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d8e93f1f01f1db1133ad8b3afd3cdb1c406ea79ffd130818ae3fdc5318490636.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T13:16:00.000Z"
+    "createdAt": "2026-01-07T04:13:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-81a7-8bbf-f53e59dc3836",
-    "title": "开始的时候很多不熟悉...",
+    "id": "2e16dd2f-2d12-81a7-9404-cad2e86f343d",
+    "title": "d6c0fd1a5358299375be930dc047067554d329736d6f423405feb7c2ced06fe4",
     "content": "开始的时候很多不熟悉，纪念",
     "source": "QZone",
-    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%BC%80%E5%A7%8B%E7%9A%84%E6%97%B6%E5%80%99%E5%BE%88%E5%A4%9A%E4%B8%8D%E7%86%9F%E6%82%89%EF%BC%8C%E7%BA%AA%E5%BF%B5&synapse=id-fct_852872578_311_0_1765642420_0_1",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%BC%80%E5%A7%8B%E7%9A%84%E6%97%B6%E5%80%99%E5%BE%88%E5%A4%9A%E4%B8%8D%E7%86%9F%E6%82%89%EF%BC%8C%E7%BA%AA%E5%BF%B5&synapse=h-ODUyOD-5byA5aeL55qE-MjAyNS0xMi",
     "originalDate": "2025-12-13T16:13:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/01/1767705398604-4b7i40w.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e88eb1a2cb11411b03adabcee0f52ccc411104fb930c74b1a755eb480aaf3c8e.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T13:16:00.000Z"
+    "createdAt": "2026-01-07T04:13:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-810e-b8b4-d0b5cc295dba",
-    "title": "",
+    "id": "2e16dd2f-2d12-81d0-a4c4-ffdf4212e535",
+    "title": "849c051d56c41667711c840c833ab131afad84f9c0c68d56cc3c57defeb7f7ed",
     "content": "网页链接  加入了爱发电",
     "source": "Bilibili",
-    "originalUrl": "https://www.bilibili.com/opus/gen-skgkz8",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E7%BD%91%E9%A1%B5%E9%93%BE%E6%8E%A5%E2%80%8B%20%20%E5%8A%A0%E5%85%A5%E4%BA%86%E7%88%B1%E5%8F%91%E7%94%B5&synapse=MjAyNS0x",
     "originalDate": "2025-12-13T16:00:00.000+00:00",
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-81b2-98fb-da4966aafe7d",
-    "title": "网页链接  加入了...",
-    "content": "网页链接  加入了爱发电",
-    "source": "Bilibili",
-    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E7%BD%91%E9%A1%B5%E9%93%BE%E6%8E%A5%E2%80%8B%20%20%E5%8A%A0%E5%85%A5%E4%BA%86%E7%88%B1%E5%8F%91%E7%94%B5",
-    "originalDate": "2025-12-13T16:00:00.000+00:00",
-    "images": [],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-01-06T10:38:00.000Z"
-  },
-  {
-    "id": "2e06dd2f-2d12-815d-b5ff-df935ff12c4d",
-    "title": "升级 tahoe了，...",
+    "id": "2e16dd2f-2d12-8143-a647-f5145353f323",
+    "title": "54fbcfa5c978f5f3e7a4529ecaad27eb899646062e1ee9be8ffcb56af1568ac0",
     "content": "升级 tahoe了， launcher 留念",
     "source": "QZone",
-    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%8D%87%E7%BA%A7%20tahoe%E4%BA%86%EF%BC%8C%20launcher%20%E7%95%99%E5%BF%B5&synapse=id-fct_852872578_311_0_1765637546_0_1",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%8D%87%E7%BA%A7%20tahoe%E4%BA%86%EF%BC%8C%20launcher%20%E7%95%99%E5%BF%B5&synapse=h-ODUyOD-5Y2H57qnIHRh-MjAyNS0xMi",
     "originalDate": "2025-12-13T14:52:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/01/1767705401001-gqnm5vk.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/85c607275f267bf300e1a102d293bc68ba4fa1ff0314ee06136969881bbca638.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T13:16:00.000Z"
+    "createdAt": "2026-01-07T04:13:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8182-b7c7-f4ca9f7c978a",
-    "title": "[视频] 202512121056_今日英语练习\n视频中使用软件为自制webapp",
-    "content": "[视频] 202512121056_今日英语练习\n视频中使用软件为自制webapp",
+    "id": "2e16dd2f-2d12-810a-a2f7-c5cd649a9bf1",
+    "title": "df6cb5ea35b07d98b5f48e8425eb9ce7255c96984a84d1ec7bc78621a131cc25",
+    "content": "[视频] 202512121056_今日英语练习 \n视频中使用软件为自制webapp ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1qAm7BcEGB/",
     "originalDate": "2025-12-11T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603071520-fphm6a6t.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d6406084eab3256e5e7138d4a89768fde63d5a7643b17467e60ae78db73065e5.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-817f-9095-d3762244ef59",
-    "title": "[视频] 防被裁编程法",
-    "content": "[视频] 防被裁编程法",
+    "id": "2e16dd2f-2d12-8199-a9a0-d16decda34bb",
+    "title": "a44750e79f1509a0b5c0aa4590cf017d79c0cc530620856b3c42709cf17e4369",
+    "content": "[视频] 防被裁编程法 ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1XJmgBKEMJ/",
     "originalDate": "2025-12-10T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603073729-bfdt0con.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/23a6fcd4c9b6aaed0d883438fd6d68904f050ed7197d2525911ff6eb546813c6.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-810e-95fe-fb18f2d1bed3",
-    "title": "[视频] 英语练习记录",
-    "content": "[视频] 英语练习记录",
+    "id": "2e16dd2f-2d12-81fb-837a-fc08e0d1ae77",
+    "title": "90694201b33729aebf6c1561aad68e6164b3c467e513d89fbc00dff11770af7a",
+    "content": "[视频] 英语练习记录 ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1NhmJBDEZ6/",
     "originalDate": "2025-12-08T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603076799-9bjbxb2r.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/3b9eead776aae591e3e99f8df346de4f626ccbac3ac2238de4925d31cda43a6a.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-81a4-bcde-fc6720a8c405",
-    "title": "> 请如实的客观的回...",
+    "id": "2e16dd2f-2d12-81b0-a603-c928f5079ee8",
+    "title": "da012162c3c853b7ecebf8fd402d901b9fd21313300dfc5d606e2af20b17f932",
     "content": "> 请如实的客观的回答，我接受真相有效避免马屁精式答案的 prompt",
     "source": "QZone",
-    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%3E%20%E8%AF%B7%E5%A6%82%E5%AE%9E%E7%9A%84%E5%AE%A2%E8%A7%82%E7%9A%84%E5%9B%9E%E7%AD%94%EF%BC%8C%E6%88%91%E6%8E%A5%E5%8F%97%E7%9C%9F%E7%9B%B8%E6%9C%89%E6%95%88%E9%81%BF%E5%85%8D%E9%A9%AC%E5%B1%81%E7%B2%BE%E5%BC%8F%E7%AD%94%E6%A1%88%E7%9A%84%20prompt&synapse=id-fct_852872578_311_0_1761625769_0_1",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%3E%20%E8%AF%B7%E5%A6%82%E5%AE%9E%E7%9A%84%E5%AE%A2%E8%A7%82%E7%9A%84%E5%9B%9E%E7%AD%94%EF%BC%8C%E6%88%91%E6%8E%A5%E5%8F%97%E7%9C%9F%E7%9B%B8%E6%9C%89%E6%95%88%E9%81%BF%E5%85%8D%E9%A9%AC%E5%B1%81%E7%B2%BE%E5%BC%8F%E7%AD%94%E6%A1%88%E7%9A%84%20prompt&synapse=h-ODUyOD-PiDor7flpoLl-MjAyNS0xMC",
     "originalDate": "2025-10-28T04:29:00.000+00:00",
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T13:16:00.000Z"
+    "createdAt": "2026-01-07T04:13:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8178-b136-f5e134a0b27f",
-    "title": "[视频] 2025#5 AI成为一中新的material",
-    "content": "[视频] 2025#5 AI成为一中新的material",
+    "id": "2e16dd2f-2d12-815d-a5e3-dafc9ee629a8",
+    "title": "cebded190ef11e7b5458fd156825f997b6b7709bb7c572588b6d1e750f6ab723",
+    "content": "[视频] 2025#5 AI成为一中新的material ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1kFsnzgEuk/",
     "originalDate": "2025-10-23T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603079166-51iwolwn.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9a40e0d40f0909fb28d342852ece1054ce4ea4ca196b5c2f0a68e495d25f0cca.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-81e8-b7e3-ebfdbe9239d2",
-    "title": "[视频] 2025#4 一镜到底外出上班",
-    "content": "[视频] 2025#4 一镜到底外出上班",
+    "id": "2e16dd2f-2d12-8177-8221-c33f2e617262",
+    "title": "26e0a285c9c86701c2b0003f0e98b08904df95c81c7d4b81c158bdd9389542b8",
+    "content": "[视频] 2025#4 一镜到底外出上班 ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV11TsbzqEqR/",
     "originalDate": "2025-10-21T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603082470-m9lm0bg6.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e1d293038bcce8a8f65c502e29f0f41ab1c628b6f2d773bdda0c5941eaec388e.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-81f4-a1bc-cc9ab7ff0d96",
-    "title": "我是一只青蛙 呱呱呜...",
+    "id": "2e16dd2f-2d12-8196-8093-efd0d1917b36",
+    "title": "646d487f59a8ac022cb64366a93cbad5dcc6aba09ec6e456e2466a08e87c59f2",
     "content": "我是一只青蛙 呱呱呜呜呜",
     "source": "QZone",
-    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%88%91%E6%98%AF%E4%B8%80%E5%8F%AA%E9%9D%92%E8%9B%99%20%E5%91%B1%E5%91%B1%E5%91%9C%E5%91%9C%E5%91%9C&synapse=id-fct_852872578_202_2_1761013374_0_1",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%88%91%E6%98%AF%E4%B8%80%E5%8F%AA%E9%9D%92%E8%9B%99%20%E5%91%B1%E5%91%B1%E5%91%9C%E5%91%9C%E5%91%9C&synapse=h-ODUyOD-5oiR5piv5LiA-MjAyNS0xMC",
     "originalDate": "2025-10-21T02:22:00.000+00:00",
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T13:16:00.000Z"
+    "createdAt": "2026-01-07T04:13:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-818c-a074-f328ccf533e2",
-    "title": "[视频] 2025#3 我是只青蛙",
-    "content": "[视频] 2025#3 我是只青蛙",
+    "id": "2e16dd2f-2d12-8185-b422-c428fd9a3ce5",
+    "title": "766a627bcb83368cdadda866bb73abaf7748034e0269bf1e4439a97b5f74626d",
+    "content": "[视频] 2025#3 我是只青蛙 ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1vEWDz1EkY/",
     "originalDate": "2025-10-20T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603085927-r7or37dd.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/6ca0b19447d3026277a11f94c74c7fef4738b912e32fe516fd2abbdcb048c4b4.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-81ec-9f77-fd9f35a4fa83",
-    "title": "[视频] 2025#1 寡人张磊",
-    "content": "[视频] 2025#1 寡人张磊",
+    "id": "2e16dd2f-2d12-8132-b767-e15def59059f",
+    "title": "0f62d9ddc3e91006f042979b81140b1400fea7e73ca2b18d9625c85ff0022e6a",
+    "content": "[视频] 2025#1 寡人张磊 ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1GBsMzdEpT/",
     "originalDate": "2025-10-19T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603092253-csll9urz.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/f8da958b8ee10169f2df874fa355b1f86eef74bc5b5af756d0827de5066bd29a.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-813e-8c59-e504235dd3db",
-    "title": "[视频] 2025#2 为什么要工作",
-    "content": "[视频] 2025#2 为什么要工作",
+    "id": "2e16dd2f-2d12-813e-bdae-c0424c04837d",
+    "title": "d1e4b2122cfa3e3e5236e6fc6c0aefa3b75025d57e732044b568b37e4efd5e5b",
+    "content": "[视频] 2025#2 为什么要工作 ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV15DWyz8EH8/",
     "originalDate": "2025-10-19T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603088398-csk77fpy.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9771715c354d3b45d16a1719213497a500d5ce5ff03ae203a4ece3668ba54fc0.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T08:51:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8159-954f-e5d62097ed33",
-    "title": "[视频] 2023-5-2-程序员如何打造专属信息源 [ETWRFQkxs_o]",
-    "content": "[视频] 2023-5-2-程序员如何打造专属信息源 [ETWRFQkxs_o]",
+    "id": "2e16dd2f-2d12-81ef-9352-e0627348c7aa",
+    "title": "6ed08b32b5828fe60c0e6e3489b869e1e3ad925efe7c5f5e695fcadc6e63eb9e",
+    "content": "[视频] 2023-5-2-程序员如何打造专属信息源 [ETWRFQkxs_o] ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1oY4izSEdc/",
     "originalDate": "2025-10-14T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603688891-ktsf6z95.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/31b9cc3e2d5385a95e2411d3becc02d576d29ba38f63dce125fb08bd228675cf.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8134-835d-e382e534548b",
-    "title": "[视频] 2023-4-28-BUG 写入成功却读不到 [6pTUqkbnkUk]",
-    "content": "[视频] 2023-4-28-BUG 写入成功却读不到 [6pTUqkbnkUk]",
+    "id": "2e16dd2f-2d12-8152-9e81-ce2e70c3689e",
+    "title": "0e4e35edd5bf842cec26e47d3b221fed6bf1128413b6b79398e2246f9140c795",
+    "content": "[视频] 2023-4-28-BUG 写入成功却读不到 [6pTUqkbnkUk] ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1RB4izjE1v/",
     "originalDate": "2025-10-14T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603686258-qnh7p0k8.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/4b969e9816c1eb3c36ec72974ae7ea4c2608a4cf3def6949c2b9950f5a795468.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8115-b82f-f3e868e3dc93",
-    "title": "[视频] 2023-3-28-十年工作经历 vs 十年工作经验 [zbk02Z1E-_Y]",
-    "content": "[视频] 2023-3-28-十年工作经历 vs 十年工作经验 [zbk02Z1E-_Y]",
+    "id": "2e16dd2f-2d12-8159-a8ff-ffb72c30c906",
+    "title": "334a435f919ef8fd7aaab24530fc65fe78af500fbd7aa5cfbf015692ad4aab8b",
+    "content": "[视频] 2023-3-28-十年工作经历 vs 十年工作经验 [zbk02Z1E-_Y] ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1iB4iz7Epx/",
     "originalDate": "2025-10-14T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603683126-tj7ps1g3.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/607cdf1c2f771d711a0626531435c98a139127d84f5a29b11d3f6887dab93503.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8199-ba4e-d3f73cdf85cf",
-    "title": "[视频] 2022-11-8-追求深度还是追求广度这是一个问题 [27lG4v_HWPc]",
-    "content": "[视频] 2022-11-8-追求深度还是追求广度这是一个问题 [27lG4v_HWPc]",
+    "id": "2e16dd2f-2d12-8178-92cd-ea6b249c20e8",
+    "title": "1786ee863ea2cec2b21f50da97ef96de0816e17b66b56d28e380f9cbcb480113",
+    "content": "[视频] 2022-11-8-追求深度还是追求广度这是一个问题 [27lG4v_HWPc] ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1LB4iz7Ezc/",
     "originalDate": "2025-10-14T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603679530-u6sdag0c.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/1035212aacb478796f327840c0b7a0ef204ba1bcb5b161c4f904880678e12e12.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8193-bd32-f1e8172778de",
-    "title": "[视频] 2022-11-7-实事求是有时候我们应该承认自己是码农 [z2iWAkkxoKw]",
-    "content": "[视频] 2022-11-7-实事求是有时候我们应该承认自己是码农 [z2iWAkkxoKw]",
+    "id": "2e16dd2f-2d12-8175-b3f9-d988a8e0203b",
+    "title": "d22ec280a81fc6453c8e261ff55c1fd79c80fd42a9383d23c13c2e0b88e5c858",
+    "content": "[视频] 2022-11-7-实事求是有时候我们应该承认自己是码农 [z2iWAkkxoKw] ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1jB4iz7ETg/",
     "originalDate": "2025-10-14T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603673991-aej3bd5w.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/61726b2ac13e54f0b788d1494699bb820098c1fef952dbc6fd5a810eeead0f65.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-81a9-81e6-e98360df7001",
-    "title": "[视频] AWS SQS 死信队列究竟是怎么回事？",
-    "content": "[视频] AWS SQS 死信队列究竟是怎么回事？",
+    "id": "2e16dd2f-2d12-8172-95f0-ff635d842584",
+    "title": "431633dabb12fa2a35b2a6497091812d46d5002ad58d4b5c206d9f071aea70a1",
+    "content": "[视频] AWS SQS 死信队列究竟是怎么回事？ ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1ii4izUESi/",
     "originalDate": "2025-10-14T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603671554-zxi7msck.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/920e30f965572aba76e2338236224f655c11a1b4439510d19b528a101c092833.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-810a-9563-faf191ae0696",
-    "title": "[视频] 2023-3-3-对人不对事可能吗？ [Wv7Sjtu5IQw]",
-    "content": "[视频] 2023-3-3-对人不对事可能吗？ [Wv7Sjtu5IQw]",
+    "id": "2e16dd2f-2d12-8169-b8f2-fa7182648c3b",
+    "title": "077450b0461fda90b157c46ba6869111445f8743a96507a3a126564e3b7cbbe5",
+    "content": "[视频] 2023-3-3-对人不对事可能吗？ [Wv7Sjtu5IQw] ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1RB4izjE9E/",
     "originalDate": "2025-10-14T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603667362-x20plt3d.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a5999f3c70afc8c5f5d7b595c914e7fc8992835255f5746c05333bff2cd2924f.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8172-906c-c7e9b3f0a53f",
-    "title": "[视频] 2023-4-30-NAS选购避坑 [GwDKNOwop1g]",
-    "content": "[视频] 2023-4-30-NAS选购避坑 [GwDKNOwop1g]",
+    "id": "2e16dd2f-2d12-8135-a51b-d2c252eedb3e",
+    "title": "581c11a481f52ca6ecd738d66ba191e2dca2672df8af4ef9e78b58f44b024305",
+    "content": "[视频] 2023-4-30-NAS选购避坑 [GwDKNOwop1g] ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1dB4izjEzo/",
     "originalDate": "2025-10-14T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603654159-5ffx3r1y.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/f4204e98d60d3bdebdc0fa8282f49686e5434fce4043d46e27883cca7b58b2d2.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8105-8991-fabaf0f3a260",
-    "title": "[视频] 2023-5-1-为什么中国公司很少要求写单元测试 [XoQDzeXUVvM]",
-    "content": "[视频] 2023-5-1-为什么中国公司很少要求写单元测试 [XoQDzeXUVvM]",
+    "id": "2e16dd2f-2d12-81d9-90bb-f2235fe5297f",
+    "title": "14502f188f7893a0bcc162f2cb6e9d1395e5d941d61ee716b08321367fbacd56",
+    "content": "[视频] 2023-5-1-为什么中国公司很少要求写单元测试 [XoQDzeXUVvM] ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1iB4iz7EnM/",
     "originalDate": "2025-10-14T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603651058-z9j0u98o.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7e2fd5305fd11618b87b0d63f645fed71914940ee874d9262e2990edce14ca57.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:00:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-81a3-a448-dd0da2092730",
-    "title": "Avoid bein...",
+    "id": "2e16dd2f-2d12-81c5-a723-e990efa6d7d9",
+    "title": "21420c4d04bd07a5b53ed3002679e6d4a4cc7fce6e424c763544f05027dccb9f",
     "content": "Avoid being flattered by AI",
     "source": "QZone",
-    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=Avoid%20being%20flattered%20by%20AI&synapse=id-fct_852872578_311_0_1758979916_0_1",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=Avoid%20being%20flattered%20by%20AI&synapse=h-ODUyOD-QXZvaWQgYmVp-MjAyNS0wOS",
     "originalDate": "2025-09-27T13:31:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/01/1767705405457-gcx76wg.jpeg",
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/01/1767705406880-iio1tod.jpeg",
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/01/1767705408070-h17zx6t.jpeg",
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/01/1767705409412-xgbt9ur.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/f7bbead5af9fdaf1a1130bd527c6b774ecb1f0d217e037561ec2f7693efb4fbf.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/4e938237ae128570c46c54b0c1a21588aff4736238ce9d2650635798129395c8.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5373ae4f4c640539e316b82ea13695c3ac1dd6e59d09c57c8e7c1856777fc7c7.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/58febc8b0d47c384ac1b0b2c069ec5e6792ea46989e1375b0724af726a4e4d89.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T13:16:00.000Z"
+    "createdAt": "2026-01-07T04:13:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-81f2-8afb-f1926a29efc7",
-    "title": "干两份工作真累已经没...",
+    "id": "2e16dd2f-2d12-81f7-8faf-d55443415312",
+    "title": "12b998d93417b4bbc35263eb1c7a5383ea4c6a15c5014cfc8296c75f649d03d0",
     "content": "干两份工作真累已经没有精力搞自己的side project了。特别是还要oncall更累。其实也可以摆烂一些，但是要把事情做好确实需要花费更多精力，总之还是控制一下工作量吧，做好而不是做多。",
     "source": "QZone",
-    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%B9%B2%E4%B8%A4%E4%BB%BD%E5%B7%A5%E4%BD%9C%E7%9C%9F%E7%B4%AF%E5%B7%B2%E7%BB%8F%E6%B2%A1%E6%9C%89%E7%B2%BE%E5%8A%9B%E6%90%9E%E8%87%AA%E5%B7%B1%E7%9A%84side%20project%E4%BA%86%E3%80%82%E7%89%B9%E5%88%AB%E6%98%AF%E8%BF%98%E8%A6%81oncall%E6%9B%B4%E7%B4%AF%E3%80%82%E5%85%B6%E5%AE%9E%E4%B9%9F%E5%8F%AF%E4%BB%A5%E6%91%86%E7%83%82%E4%B8%80%E4%BA%9B%EF%BC%8C%E4%BD%86%E6%98%AF%E8%A6%81%E6%8A%8A%E4%BA%8B%E6%83%85%E5%81%9A%E5%A5%BD%E7%A1%AE%E5%AE%9E%E9%9C%80%E8%A6%81%E8%8A%B1%E8%B4%B9%E6%9B%B4%E5%A4%9A%E7%B2%BE%E5%8A%9B%EF%BC%8C%E6%80%BB%E4%B9%8B%E8%BF%98%E6%98%AF%E6%8E%A7%E5%88%B6%E4%B8%80%E4%B8%8B%E5%B7%A5%E4%BD%9C%E9%87%8F%E5%90%A7%EF%BC%8C%E5%81%9A%E5%A5%BD%E8%80%8C%E4%B8%8D%E6%98%AF%E5%81%9A%E5%A4%9A%E3%80%82&synapse=id-fct_852872578_311_0_1757515484_0_1",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%B9%B2%E4%B8%A4%E4%BB%BD%E5%B7%A5%E4%BD%9C%E7%9C%9F%E7%B4%AF%E5%B7%B2%E7%BB%8F%E6%B2%A1%E6%9C%89%E7%B2%BE%E5%8A%9B%E6%90%9E%E8%87%AA%E5%B7%B1%E7%9A%84side%20project%E4%BA%86%E3%80%82%E7%89%B9%E5%88%AB%E6%98%AF%E8%BF%98%E8%A6%81oncall%E6%9B%B4%E7%B4%AF%E3%80%82%E5%85%B6%E5%AE%9E%E4%B9%9F%E5%8F%AF%E4%BB%A5&synapse=h-ODUyOD-5bmy5Lik5Lu9-MjAyNS0wOS",
     "originalDate": "2025-09-10T14:44:00.000+00:00",
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T13:16:00.000Z"
+    "createdAt": "2026-01-07T04:13:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-8114-85dd-e5d18fa8a880",
-    "title": "你已拥有你所追求的一...",
+    "id": "2e16dd2f-2d12-81de-b153-d66f01a363b6",
+    "title": "1a942d0be424a05d9db7124bcc54edc9edc8fcd33ab642e9096a257736d5b44f",
     "content": "你已拥有你所追求的一切在没出发之前！",
     "source": "QZone",
-    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E4%BD%A0%E5%B7%B2%E6%8B%A5%E6%9C%89%E4%BD%A0%E6%89%80%E8%BF%BD%E6%B1%82%E7%9A%84%E4%B8%80%E5%88%87%E5%9C%A8%E6%B2%A1%E5%87%BA%E5%8F%91%E4%B9%8B%E5%89%8D%EF%BC%81&synapse=id-fct_852872578_311_0_1755921480_0_1",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E4%BD%A0%E5%B7%B2%E6%8B%A5%E6%9C%89%E4%BD%A0%E6%89%80%E8%BF%BD%E6%B1%82%E7%9A%84%E4%B8%80%E5%88%87%E5%9C%A8%E6%B2%A1%E5%87%BA%E5%8F%91%E4%B9%8B%E5%89%8D%EF%BC%81&synapse=h-ODUyOD-5L2g5bey5oul-MjAyNS0wOC",
     "originalDate": "2025-08-23T03:58:00.000+00:00",
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T13:17:00.000Z"
+    "createdAt": "2026-01-07T04:13:00.000Z"
   },
   {
-    "id": "2e06dd2f-2d12-8158-9908-e0a867ca79e6",
-    "title": "这就是我为什么会买入...",
+    "id": "2e16dd2f-2d12-81d5-b802-ed95c1bd3ce8",
+    "title": "887ca7f26f9124d98ec44583d658d4322f07507a908122bb82ee8b1c4ef627e7",
     "content": "这就是我为什么会买入英伟达的原因，是上一波DeepSeek行情看空英伟达给了我入场的机会，最近芯片后门事件没有砸下去要不然还能继续加码",
     "source": "QZone",
-    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%BF%99%E5%B0%B1%E6%98%AF%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E4%B9%B0%E5%85%A5%E8%8B%B1%E4%BC%9F%E8%BE%BE%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%8C%E6%98%AF%E4%B8%8A%E4%B8%80%E6%B3%A2DeepSeek%E8%A1%8C%E6%83%85%E7%9C%8B%E7%A9%BA%E8%8B%B1%E4%BC%9F%E8%BE%BE%E7%BB%99%E4%BA%86%E6%88%91%E5%85%A5%E5%9C%BA%E7%9A%84%E6%9C%BA%E4%BC%9A%EF%BC%8C%E6%9C%80%E8%BF%91%E8%8A%AF%E7%89%87%E5%90%8E%E9%97%A8%E4%BA%8B%E4%BB%B6%E6%B2%A1%E6%9C%89%E7%A0%B8%E4%B8%8B%E5%8E%BB%E8%A6%81%E4%B8%8D%E7%84%B6%E8%BF%98%E8%83%BD%E7%BB%A7%E7%BB%AD%E5%8A%A0%E7%A0%81&synapse=id-fct_852872578_311_0_1755410343_0_1",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%BF%99%E5%B0%B1%E6%98%AF%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E4%B9%B0%E5%85%A5%E8%8B%B1%E4%BC%9F%E8%BE%BE%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%8C%E6%98%AF%E4%B8%8A%E4%B8%80%E6%B3%A2DeepSeek%E8%A1%8C%E6%83%85%E7%9C%8B%E7%A9%BA%E8%8B%B1%E4%BC%9F%E8%BE%BE%E7%BB%99%E4%BA%86%E6%88%91%E5%85%A5%E5%9C%BA%E7%9A%84%E6%9C%BA%E4%BC%9A%EF%BC%8C%E6%9C%80%E8%BF%91%E8%8A%AF%E7%89%87%E5%90%8E&synapse=h-ODUyOD-6L+Z5bCx5piv-MjAyNS0wOC",
     "originalDate": "2025-08-17T05:59:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/01/1767705423665-668dn12.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/ec2c8b736600dc6308442ac524794840d8852aee8b8c1b2fdb21a91d988dae48.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-06T13:17:00.000Z"
+    "createdAt": "2026-01-07T04:14:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8131-93d9-e3a6af69dd92",
-    "title": "[视频] 【VUP自我介绍】大家好，今天我正式出道啦！",
-    "content": "[视频] 【VUP自我介绍】大家好，今天我正式出道啦！",
+    "id": "2e16dd2f-2d12-8108-bf04-e9902740d01d",
+    "title": "f8a7a0234ffe9cc7c4072cf3349b3a5bdabcccf9c972918227953e6988c785dc",
+    "content": "看完 DHH 6小时采访感慨良多，很多摇摆的想法得到了答案。推荐给每一个programmer看。总结一下对我的impact ：- 优秀的程序员要有自己的taste- 每周工作不要超过40hour- 直接decline掉不想参加的会议- What you do is what matters not will you think or say, or plan.",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E7%9C%8B%E5%AE%8C%20DHH%206%E5%B0%8F%E6%97%B6%E9%87%87%E8%AE%BF%E6%84%9F%E6%85%A8%E8%89%AF%E5%A4%9A%EF%BC%8C%E5%BE%88%E5%A4%9A%E6%91%87%E6%91%86%E7%9A%84%E6%83%B3%E6%B3%95%E5%BE%97%E5%88%B0%E4%BA%86%E7%AD%94%E6%A1%88%E3%80%82%E6%8E%A8%E8%8D%90%E7%BB%99%E6%AF%8F%E4%B8%80%E4%B8%AAprogrammer%E7%9C%8B%E3%80%82%E6%80%BB%E7%BB%93&synapse=h-ODUyOD-55yL5a6MIERI-MjAyNS0wOC",
+    "originalDate": "2025-08-16T18:04:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-819c-ae95-fbf64292e465",
+    "title": "eb3508137f589fcfd9c1842620fe99c39683177a497e1280982af45c4b5ef362",
+    "content": "[视频] 【VUP自我介绍】大家好，今天我正式出道啦！ ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1LcYCz7EuN/",
     "originalDate": "2025-08-16T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603692438-ztjrbfcz.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/8d004807b3de3c930691c3f80c580e0964c7a275efa050b99fbc74daab1cf6e0.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-819d-bf01-fc812015cb77",
-    "title": "My personal time-tracking app is 50% complete.",
+    "id": "2e16dd2f-2d12-810f-924e-cdbf3938f8c0",
+    "title": "7e038d9fee181e407baf895398dad9d7edfc8a0020308922a1f33138db28a2bf",
+    "content": "day one of part time job.杀鸡焉用牛刀，虽然transformer很火但是并不是所以问题一定要上transformer架构。对于简单的分类问题用xgboost 足矣！",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=day%20one%20of%20part%20time%20job.%E6%9D%80%E9%B8%A1%E7%84%89%E7%94%A8%E7%89%9B%E5%88%80%EF%BC%8C%E8%99%BD%E7%84%B6transformer%E5%BE%88%E7%81%AB%E4%BD%86%E6%98%AF%E5%B9%B6&synapse=h-ODUyOD-ZGF5IG9uZSBv-MjAyNS0wOC",
+    "originalDate": "2025-08-13T07:44:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8179-9073-ef2d7852818d",
+    "title": "7986b55885bf5afcae3ed498797a51de13a8095468dea928e9e277ab29ca884e",
+    "content": "Transformers 封装的更简单了！ 完全不用再学 pytorch 了，太好了！",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=Transformers%20%E5%B0%81%E8%A3%85%E7%9A%84%E6%9B%B4%E7%AE%80%E5%8D%95%E4%BA%86%EF%BC%81%20%E5%AE%8C%E5%85%A8%E4%B8%8D%E7%94%A8%E5%86%8D%E5%AD%A6%20pytorch%20%E4%BA%86%EF%BC%8C%E5%A4%AA%E5%A5%BD%E4%BA%86%EF%BC%81&synapse=h-ODUyOD-VHJhbnNmb3Jt-MjAyNS0wOC",
+    "originalDate": "2025-08-12T13:48:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8110-a928-c6b9e2fc5c6c",
+    "title": "6bd4bdc692af3777202957af024737fcb954fb5734fc7971689faffd8a38cb56",
+    "content": "《白鹿原》多年前读过小说本都忘了，电视剧断断续续3～4个月终于一口气看完了；comment：故事是个好故事但是没拍好，多条故事线就像按了快进键刻画的不够深刻；但是对于新时代的人了解宗族社会封建压迫是挺好的素材；以前的宗族社会是建立在农耕文明土地是最核心的生产材料，生产关系决定了社会结构；反观现代文明最核心的生产要素是什么呢？maybe 知识+数据？；所以奶头乐这种东西可能也为了知识资源的垄断；甚至将有害的知识广泛传播也是为了知识垄断；maybe but who care?收起",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E3%80%8A%E7%99%BD%E9%B9%BF%E5%8E%9F%E3%80%8B%E5%A4%9A%E5%B9%B4%E5%89%8D%E8%AF%BB%E8%BF%87%E5%B0%8F%E8%AF%B4%E6%9C%AC%E9%83%BD%E5%BF%98%E4%BA%86%EF%BC%8C%E7%94%B5%E8%A7%86%E5%89%A7%E6%96%AD%E6%96%AD%E7%BB%AD%E7%BB%AD3%EF%BD%9E4%E4%B8%AA%E6%9C%88%E7%BB%88%E4%BA%8E%E4%B8%80%E5%8F%A3%E6%B0%94%E7%9C%8B%E5%AE%8C%E4%BA%86%EF%BC%9Bcomment%EF%BC%9A%E6%95%85%E4%BA%8B%E6%98%AF%E4%B8%AA&synapse=h-ODUyOD-44CK55m96bm/-MjAyNS0wOC",
+    "originalDate": "2025-08-06T08:05:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/35b9e4a9ddf2ba1b31161b0f60b7b43b997d70e1ac78b9b03d0ca2c9e8fc8e2f.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81c2-be22-c1cd697c0195",
+    "title": "ce07ce83073e1c07f3f0f64359a7911dbd301656282d995ca02977e2ef3aad42",
+    "content": "本来想早点睡的，can't stop vibe coding",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%9C%AC%E6%9D%A5%E6%83%B3%E6%97%A9%E7%82%B9%E7%9D%A1%E7%9A%84%EF%BC%8Ccan't%20stop%20vibe%20coding&synapse=h-ODUyOD-5pys5p2l5oOz-MjAyNS0wOC",
+    "originalDate": "2025-08-05T19:56:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/cffbb5ea5f04a5eeb60954a6d0fa1fc765a30e6757ef5510a313571e5bdeb6fc.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8155-9c87-db7d41a7c02b",
+    "title": "e3dcc2a3fb4610d30f1c1320baa1c1c156053c017a3dd1489518da449e4bc079",
+    "content": "宇宙基本结构（量子场、时空）↓基本粒子（夸克、电子等）↓原子与分子↓生命的化学基础（DNA、蛋白质等）↓生物本质（基因、演化规律）↓生物本能→ (潜意识情绪 → 核心信念 → 身份认同 → 价值观 → 使命 → 愿景 → 战略 → 目标 → 行动) （体验 → 反思 → 认知跃迁）-- 和 4o 聊目标管理，聊着聊着发现跑偏了，我不断追问底层是什么，一直追问到宇宙起源；只有潜意识之后是可以人为干预影响的。之后我再追问行动之后是什么，发现了一个有意思的point；很像深度学习的反向传播，行动之后就是反馈，向后传播修改参数的过程；所以最最核心的是在训练；行动=训练；行动之上=架构；架构再先进没有训练模型能力等于0。再一次深层次理解执行力的重要性。 #chatlog#收起",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%AE%87%E5%AE%99%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%EF%BC%88%E9%87%8F%E5%AD%90%E5%9C%BA%E3%80%81%E6%97%B6%E7%A9%BA%EF%BC%89%E2%86%93%E5%9F%BA%E6%9C%AC%E7%B2%92%E5%AD%90%EF%BC%88%E5%A4%B8%E5%85%8B%E3%80%81%E7%94%B5%E5%AD%90%E7%AD%89%EF%BC%89%E2%86%93%E5%8E%9F%E5%AD%90%E4%B8%8E%E5%88%86%E5%AD%90%E2%86%93%E7%94%9F%E5%91%BD%E7%9A%84%E5%8C%96%E5%AD%A6%E5%9F%BA%E7%A1%80%EF%BC%88DNA%E3%80%81%E8%9B%8B%E7%99%BD%E8%B4%A8%E7%AD%89&synapse=h-ODUyOD-5a6H5a6Z5Z+6-MjAyNS0wOC",
+    "originalDate": "2025-08-03T17:28:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8129-a32e-c144acc92e3b",
+    "title": "889a69a883667953fa2c4cdd806cb27e108b9a4f669da68438463353d1eace4b",
     "content": "My personal time-tracking app is 50% complete.",
     "source": "X",
     "originalUrl": "https://x.com/KamaleiZhang/status/1951830475892547787",
     "originalDate": "2025-08-03T02:20:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767604794343-yfsqdpla.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/fe8d50e48af0071d655452114e02eaf56524ae8055d10c451f0d17f87f0bd3b3.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:19:00.000Z"
+    "createdAt": "2026-01-07T04:02:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-81dd-a47f-ca1727fccd30",
-    "title": "我们写的单元测试比目标代码多三倍，它的价值不是为了检测潜在BUG，而是为了避免将来的修改引入BUG。...",
+    "id": "2e16dd2f-2d12-8145-9a5b-c7fdce1acd10",
+    "title": "72241d9e493e5208e2440ab1da072b79c28e185a42cfa9ae7eebf5eface975c5",
+    "content": "> 没现金流，你没法活。没产品，你永远是给别人打工。没英语，你很难赚到跨境的钱。没认知提升，你会卡在一个平台期--今天和AI聊时间管理",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%3E%20%E6%B2%A1%E7%8E%B0%E9%87%91%E6%B5%81%EF%BC%8C%E4%BD%A0%E6%B2%A1%E6%B3%95%E6%B4%BB%E3%80%82%E6%B2%A1%E4%BA%A7%E5%93%81%EF%BC%8C%E4%BD%A0%E6%B0%B8%E8%BF%9C%E6%98%AF%E7%BB%99%E5%88%AB%E4%BA%BA%E6%89%93%E5%B7%A5%E3%80%82%E6%B2%A1%E8%8B%B1%E8%AF%AD%EF%BC%8C%E4%BD%A0%E5%BE%88%E9%9A%BE%E8%B5%9A%E5%88%B0%E8%B7%A8%E5%A2%83%E7%9A%84%E9%92%B1%E3%80%82%E6%B2%A1%E8%AE%A4%E7%9F%A5%E6%8F%90%E5%8D%87%EF%BC%8C%E4%BD%A0%E4%BC%9A%E5%8D%A1%E5%9C%A8&synapse=h-ODUyOD-PiDmsqHnjrDp-MjAyNS0wOC",
+    "originalDate": "2025-08-02T14:47:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-813f-bc4d-c8e1ce4d24f1",
+    "title": "360a3e3645a0b14380c5d8239959b129f11a6345a6a7e1388e7b6c3dd45a6d33",
+    "content": "谁痛苦 谁改变",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%B0%81%E7%97%9B%E8%8B%A6%20%E8%B0%81%E6%94%B9%E5%8F%98&synapse=h-ODUyOD-6LCB55eb6Ium-MjAyNS0wNy",
+    "originalDate": "2025-07-30T13:13:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81a9-bd67-c771897c82f4",
+    "title": "5d64a62b1164d3346ac943d561059b750caff48e2d52dd1577c3dba42361247b",
+    "content": "现在的AI创业潮像是[寒武纪大爆发]，之前使用的有些AI产品已经凉了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E7%8E%B0%E5%9C%A8%E7%9A%84AI%E5%88%9B%E4%B8%9A%E6%BD%AE%E5%83%8F%E6%98%AF%5B%E5%AF%92%E6%AD%A6%E7%BA%AA%E5%A4%A7%E7%88%86%E5%8F%91%5D%EF%BC%8C%E4%B9%8B%E5%89%8D%E4%BD%BF%E7%94%A8%E7%9A%84%E6%9C%89%E4%BA%9BAI%E4%BA%A7%E5%93%81%E5%B7%B2%E7%BB%8F%E5%87%89%E4%BA%86&synapse=h-ODUyOD-546w5Zyo55qE-MjAyNS0wNy",
+    "originalDate": "2025-07-30T12:44:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-819f-a431-f73452074f9d",
+    "title": "9d9a1ac8655fd704fcfa1383dc3d9a305b2829943f9a478cbc71ac02c00232fd",
     "content": "我们写的单元测试比目标代码多三倍，它的价值不是为了检测潜在BUG，而是为了避免将来的修改引入BUG。\nThe unit tests we write are three times more than the target code. Their value is not to detect potential bugs, but to prevent introducing bugs in future modifications.",
     "source": "X",
     "originalUrl": "https://x.com/KamaleiZhang/status/1950100285902479669",
     "originalDate": "2025-07-29T07:45:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767604797680-kzpbsdvj.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d857c33a2fabc5f6a9108aad190e0dec7fa7890ba334991040ac8a9b59773616.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:19:00.000Z"
+    "createdAt": "2026-01-07T04:02:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8143-812e-f8617e4b62f0",
-    "title": "[视频] copy timing\n帮我生成软件的功能列表",
-    "content": "[视频] copy timing\n帮我生成软件的功能列表",
+    "id": "2e16dd2f-2d12-8115-b8df-c01bbd1c1d22",
+    "title": "095eca2cab03159e20ddf2a48bd4fbe651bffdaea090eaca6a30a00b0ac5caff",
+    "content": "自从用了 AI agent写代码 回不去了，就像之前没有代码提示写不了代码一样",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%87%AA%E4%BB%8E%E7%94%A8%E4%BA%86%20AI%20agent%E5%86%99%E4%BB%A3%E7%A0%81%20%E5%9B%9E%E4%B8%8D%E5%8E%BB%E4%BA%86%EF%BC%8C%E5%B0%B1%E5%83%8F%E4%B9%8B%E5%89%8D%E6%B2%A1%E6%9C%89%E4%BB%A3%E7%A0%81%E6%8F%90%E7%A4%BA%E5%86%99%E4%B8%8D%E4%BA%86%E4%BB%A3%E7%A0%81%E4%B8%80%E6%A0%B7&synapse=h-ODUyOD-6Ieq5LuO55So-MjAyNS0wNy",
+    "originalDate": "2025-07-24T04:05:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-816e-8a0a-ed82659da858",
+    "title": "9d5eb948330c3a25208087d0f0a3cfd539c850baafb52405331c3f40028d747a",
+    "content": "[视频] copy timing \n帮我生成软件的功能列表 ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1pKutzxEGu/",
     "originalDate": "2025-07-15T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603697465-a64r6m0l.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e13590ea606ea1085e392d17a00f9bbee2f16c6dd7d6b6bb5320a8d16b3751ab.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-81ec-b8b6-e3f0d51727b2",
-    "title": "[视频] 不要将程序员思维代入你的生活",
-    "content": "[视频] 不要将程序员思维代入你的生活",
+    "id": "2e16dd2f-2d12-8103-ae28-ec4ba61afb9c",
+    "title": "29fe1a9143bd34d058cc8471052852f666cc8a7cafa601b1f7a7a3249901240a",
+    "content": "左边IDE，右边gemini cli;屏幕快不够用了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%B7%A6%E8%BE%B9IDE%EF%BC%8C%E5%8F%B3%E8%BE%B9gemini%20cli%3B%E5%B1%8F%E5%B9%95%E5%BF%AB%E4%B8%8D%E5%A4%9F%E7%94%A8%E4%BA%86&synapse=h-ODUyOD-5bem6L65SURF-MjAyNS0wNy",
+    "originalDate": "2025-07-11T14:29:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8143-9b20-d419ea764591",
+    "title": "a399f6abd1554339c2c7e7d5cadf49aa3fa24765a19f8c49a9a44198a332bea1",
+    "content": "gemini cli 相较于 GitHub copilot 可以直接运行Xcode构建检查错误，而不仅仅是像copilot生成代码，将build error build in agent loop 方便很多",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=gemini%20cli%20%E7%9B%B8%E8%BE%83%E4%BA%8E%20GitHub%20copilot%20%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E8%BF%90%E8%A1%8CXcode%E6%9E%84%E5%BB%BA%E6%A3%80%E6%9F%A5%E9%94%99%E8%AF%AF%EF%BC%8C%E8%80%8C%E4%B8%8D&synapse=h-ODUyOD-Z2VtaW5pIGNs-MjAyNS0wNy",
+    "originalDate": "2025-07-02T08:30:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-817d-bd4f-c748e80a4551",
+    "title": "ced70d4a5490fd8c49db35b095a412f2ecd76878c5ba1f4479301ebb64fa5618",
+    "content": "现在编程就是对agent下命令，然后检查agent的工作结果。好的agent等同于好的程序员，不需要过多干预能够输出有效的结果。甚至需求模糊它也能要求更多细节输入而不是乱搞。",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E7%8E%B0%E5%9C%A8%E7%BC%96%E7%A8%8B%E5%B0%B1%E6%98%AF%E5%AF%B9agent%E4%B8%8B%E5%91%BD%E4%BB%A4%EF%BC%8C%E7%84%B6%E5%90%8E%E6%A3%80%E6%9F%A5agent%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%BB%93%E6%9E%9C%E3%80%82%E5%A5%BD%E7%9A%84agent%E7%AD%89%E5%90%8C%E4%BA%8E%E5%A5%BD%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98%EF%BC%8C%E4%B8%8D%E9%9C%80%E8%A6%81&synapse=h-ODUyOD-546w5Zyo57yW-MjAyNS0wNy",
+    "originalDate": "2025-07-02T06:47:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8164-a925-cbb43949c3f7",
+    "title": "bb0d57fdb54c9792f6243e391984643ff5444d7b08ffb55a28c6c6f258b77ced",
+    "content": "> 适者生存 优胜劣汰",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%3E%20%E9%80%82%E8%80%85%E7%94%9F%E5%AD%98%20%E4%BC%98%E8%83%9C%E5%8A%A3%E6%B1%B0&synapse=h-ODUyOD-PiDpgILogIXn-MjAyNS0wNi",
+    "originalDate": "2025-06-09T11:10:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/eaaecf33d06374500f00e31661ac2941e18b81b503497842479dce6e667465d0.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/37dd11b6c5d91b11af3a269fe9ed66ff0b119c9e3280315841000dea42602000.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/915f7a579cf7a74afba35ad8b29cbdbcb310132dccc2bf7425ff3888ca36fef3.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/fc7ca4e5926b77f6ea6fdc29d1d50f895e9813894482a5762d729d9156b89070.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a1e1fd408dcb93655dd6d9c464888b3a382103e4ff82c2f2d85ac23ca7c65e18.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-816f-8781-d3894efe3b03",
+    "title": "e1ea18084c42b36a3fba09ad0b14202a23ed1b3ae9299603636373b7782c6f4f",
+    "content": "谁痛苦 谁改变",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%B0%81%E7%97%9B%E8%8B%A6%20%E8%B0%81%E6%94%B9%E5%8F%98&synapse=h-ODUyOD-6LCB55eb6Ium-MjAyNS0wNS",
+    "originalDate": "2025-05-27T09:22:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81c1-9df3-f6c0dcc255ac",
+    "title": "3b33952a85668f7d5119506553b901027630814699b3f147c9f0457a5e73caa4",
+    "content": "> 改变不是“推翻过去” 而是“带着觉察生长”",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%3E%20%E6%94%B9%E5%8F%98%E4%B8%8D%E6%98%AF%E2%80%9C%E6%8E%A8%E7%BF%BB%E8%BF%87%E5%8E%BB%E2%80%9D%20%E8%80%8C%E6%98%AF%E2%80%9C%E5%B8%A6%E7%9D%80%E8%A7%89%E5%AF%9F%E7%94%9F%E9%95%BF%E2%80%9D&synapse=h-ODUyOD-PiDmlLnlj5jk-MjAyNS0wNS",
+    "originalDate": "2025-05-27T08:21:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/167246dfd5ab3aff3d323cb59a0347f3b172ce499b3436e77d1a25fe6522e015.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/78edf40b0010f73319f313d062daf0140942f94071ebfe571a0633628bc19b12.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a726d472a04d6bce32799acab5479e76ade55df06612b9d6f343c5472f16d02f.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/b49d6c3368570df47ea58e097b11d8dfd98ac224c3f6cd3642846cb062da6291.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81cb-b224-d12abb0b0958",
+    "title": "0f19b77b018dd3abb2004ed654da765a87eba1c6f8bf81c0d27fa6d338a2cda4",
+    "content": "[视频] 不要将程序员思维代入你的生活 ",
     "source": "Bilibili",
     "originalUrl": "https://www.bilibili.com/video/BV1DEjdzvEsA/",
     "originalDate": "2025-05-26T16:00:00.000+00:00",
     "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/images/2026/01/1767603703295-0my5f2h5.jpeg"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7dbbb5d2239d8fa80585e176f15e1c87172cd3433f34f47907cd179f290a61f3.jpeg"
     ],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:01:00.000Z"
+    "createdAt": "2026-01-07T04:06:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8136-8473-efdaf8fce3b9",
-    "title": "how engineer fix bug",
+    "id": "2e16dd2f-2d12-81bc-a976-e1f6ab2d9dcb",
+    "title": "08f6825efd0838e14d0ddb40fa736eca470d90bfa7e08b09d5d63fdbe9f7923d",
+    "content": "和平精英没人玩了吗 匹配不到人什么情况",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%92%8C%E5%B9%B3%E7%B2%BE%E8%8B%B1%E6%B2%A1%E4%BA%BA%E7%8E%A9%E4%BA%86%E5%90%97%20%E5%8C%B9%E9%85%8D%E4%B8%8D%E5%88%B0%E4%BA%BA%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5&synapse=h-ODUyOD-5ZKM5bmz57K+-MjAyNS0wMy",
+    "originalDate": "2025-03-21T13:02:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/f1bf38521af7a0054c95f2c69703311b04c8f02829d8a11fd5d7111d5d6bcb91.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-813c-9af7-f5dee7389163",
+    "title": "aed174d2c9db085b336aa553bfe80cbb82ff5d43744142d6a23ca296c027389c",
+    "content": "[视频] deepseek,grok,chatgpt 斗地主测试 \n提示词 我们现在玩一种斗地主的游戏 你的牌是 大王和小王和4个A和1个J1和个10； 对手是4个2和1个Q 。 现在到你出牌 ，不能四带二。你要怎么出牌才能赢？ 并且我来扮演对手，你出牌之后等待我告诉你我的出牌，你在继续出牌；请你先出牌 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1xY9tYYEjF/",
+    "originalDate": "2025-03-01T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/c1993a1851671010779b444137db826e88f68dda575c9d8b1a439ad37ce025d3.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81cf-a016-ce09015998cc",
+    "title": "40203034813a8dd75ef128cc3ccceb488a9ccce22982e7b98c398fcd978c80b6",
+    "content": "年前的时候真好看",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%B9%B4%E5%89%8D%E7%9A%84%E6%97%B6%E5%80%99%E7%9C%9F%E5%A5%BD%E7%9C%8B&synapse=h-ODUyOD-5bm05YmN55qE-MjAyNS0wMy",
+    "originalDate": "2025-03-01T13:04:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e7-8de9-fcf8467e7dad",
+    "title": "4c71a2198ba982c21a422b5769723541312a40d91ed91a3f5b12701e49629210",
+    "content": "[视频] 什么是code interpreter ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1NakHYSEkr/",
+    "originalDate": "2024-12-16T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/4de83311ec56c24dfad0331afb4145c635b22ee79492aef7be3caa3f7283374d.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-818b-8b6d-de56c90af186",
+    "title": "aea8572fe1398203bade6694183d5e0f4b3e4c182959a758e2f602d9bcc43cca",
+    "content": "打卡",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%89%93%E5%8D%A1&synapse=h-ODUyOD-5omT5Y2h-MjAyNC0wOS",
+    "originalDate": "2024-09-27T04:01:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7bbc1370079a06838f447a5f48bec5290a795054d7f3726344e2c92ba9f6a79d.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/96f8f31fb1f7f190bab17b68a3da090fe48557e104c87efa37f4314529eef14a.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/cc964aff7a8ee505d1e4cee9a971f80a0e799842469b600c77116de6c1c9f380.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/daf334e9b5bc4c923423f1ec2bf306abef51ce7ea33b809c66a832909b045278.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/24d12cc5094ade2b261f3825d32a0a0d0c9d3a6899dc1a6b0c4dc8c58dc8b0c7.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/0806a4ca3fe4e3cfa2236023dc16295e56c79569652986cb0f07b8dc798bf81e.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/1e91dddc89236556cad96efb344fcc4fb43392527442f2c88be005d6b40af64d.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/739d401cf6f31e096971351e5bbf4ee35d3e5f449f09bfb504c57dd31e7c4704.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f5-9ded-ee384cc5012e",
+    "title": "e5b8223965a2dd13caae4eadaee7392e017ee55bd94cd74c24813a4c92963cd6",
+    "content": "这4o也不行啊！",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%BF%994o%E4%B9%9F%E4%B8%8D%E8%A1%8C%E5%95%8A%EF%BC%81&synapse=h-ODUyOD-6L+ZNG/kuZ/k-MjAyNC0wNS",
+    "originalDate": "2024-05-19T07:25:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/8ce5699642bcbfb47ebc5b32bbdaef5a2de9601fd2f46f9afc7f4baa665b088e.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a2c3303723cad7c39c02d8ef7f0e6a47d186f71e5242a13f21d81e8529a4435b.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-812e-8a8c-d09477721da6",
+    "title": "461ce46a0e141d5b15b132c8c90c79fe4ea9c328c231f7694abca8c4a269e07b",
+    "content": "以前 ctrl+c ctrl+v现在 tab + ↵",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E4%BB%A5%E5%89%8D%20ctrl%2Bc%20ctrl%2Bv%E7%8E%B0%E5%9C%A8%20tab%20%2B%20%E2%86%B5&synapse=h-ODUyOD-5Lul5YmNIGN0-MjAyNC0wNC",
+    "originalDate": "2024-04-16T03:34:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f1-92ed-d33257deccd5",
+    "title": "5ec3b59fe0b786ab23dd64e709d4a44ada7ab29b37f0650e0b600388462fb53f",
+    "content": "烦死了！",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E7%83%A6%E6%AD%BB%E4%BA%86%EF%BC%81&synapse=h-ODUyOD-54Om5q275LqG-MjAyNC0wMy",
+    "originalDate": "2024-03-30T12:59:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81a8-b400-f56cb9bb8807",
+    "title": "d2814f108f43ec69cb2af80fb8d7c605c99255613009afb900347faa5c275b53",
+    "content": "抽到了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%8A%BD%E5%88%B0%E4%BA%86&synapse=h-ODUyOD-5oq95Yiw5LqG-MjAyNC0wMy",
+    "originalDate": "2024-03-19T02:54:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/8af16e7e8c3329c22211f9a9f0ef6b758cbcf897385cadb4c4bfc6bff1c26c7b.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8115-9e23-e62223bf85be",
+    "title": "c95b990e5e645eb675d71b4d2a315d9851928b5c70fb22bb2ca58f946d523788",
+    "content": "[视频] 谁发明的这个玩意 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1vC4y1S7iN/",
+    "originalDate": "2023-12-20T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/dc1e870c1194164f58c4dc69211f2a3d6e57f62b13826dba9592659d3633d2a1.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81c7-997a-c0ae679ad2f4",
+    "title": "d24233d2693e05c15f8d7cfc61a3267624f8f959dc92a7e9eeeb661e2f8c7eaf",
+    "content": "现在吃方便面这么麻烦了要熬6个小时",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E7%8E%B0%E5%9C%A8%E5%90%83%E6%96%B9%E4%BE%BF%E9%9D%A2%E8%BF%99%E4%B9%88%E9%BA%BB%E7%83%A6%E4%BA%86%E8%A6%81%E7%86%AC6%E4%B8%AA%E5%B0%8F%E6%97%B6&synapse=h-ODUyOD-546w5Zyo5ZCD-MjAyMy0xMi",
+    "originalDate": "2023-12-12T13:07:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d31c17d6bcc745f405743e0dd7f56552863116ced4309af318588b4ec898132f.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:15:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8116-b4f6-c760491b8d6a",
+    "title": "1b5a6794a51ba6eac3bf0ce8afdceb1129b2ea01c1a2653567ec5a76eb6b3c2c",
+    "content": "十年了！ 这里仍是城中村",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%8D%81%E5%B9%B4%E4%BA%86%EF%BC%81%20%E8%BF%99%E9%87%8C%E4%BB%8D%E6%98%AF%E5%9F%8E%E4%B8%AD%E6%9D%91&synapse=h-ODUyOD-5Y2B5bm05LqG-MjAyMy0xMi",
+    "originalDate": "2023-12-08T12:38:00.000+00:00",
+    "images": [
+      "http://szmmsns.qpic.cn/mmsns/wHgs0aa83RtNreTcNvqdoTBIvngyvicNSJQiaBSfibQnHBgau6hCmibTZk1vHdNen79znlzZBSfAm2o/0/0",
+      "http://szmmsns.qpic.cn/mmsns/wHgs0aa83RtNreTcNvqdoQPj73iafSmwpcianrbqf0EI9LKCyR120glNlAiatiaH1oSnuuy2czGnld0/0/0"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e1-a051-fcc00bfaff3d",
+    "title": "8271ba0ea301ef9a3f45aa43833d77b9d9f12427f72c989d81db96474fb2f3d6",
+    "content": "lol",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=lol&synapse=h-ODUyOD-bG9s-MjAyMy0xMi",
+    "originalDate": "2023-12-07T17:08:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/391f527b76280afa6ed72ad671e919a27250546895ecc4a70d9f1d809b8e64d1.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8167-9b10-c97aacfe3763",
+    "title": "86f56a8786018003518e36ce3053f6d430d804a979d3dec47198cbd040d1adb7",
+    "content": "来了 开了 看了 吃了 买了 走了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%9D%A5%E4%BA%86%20%E5%BC%80%E4%BA%86%20%E7%9C%8B%E4%BA%86%20%E5%90%83%E4%BA%86%20%E4%B9%B0%E4%BA%86%20%E8%B5%B0%E4%BA%86&synapse=h-ODUyOD-5p2l5LqGIOW8-MjAyMy0xMi",
+    "originalDate": "2023-12-06T05:15:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/0b8d225d76b65958fc93895b8612875c1e37ab521cc3af985291146ed66ac368.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/123310eeaaff45bfaa27e936502da50a7c7c058f284a5faeceaac5a8140ff537.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/3c5ea7a9c47deeea4d3deaf41bbafa161656d9d256c9ea1d20e81157e24990ce.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/83b20f1ee14e13a8321a19ab6134faf43f1e94ae2ecf91c72ea4556b4f58a7ec.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8129-9c79-e35f0592e753",
+    "title": "fcf4c6540cfcbd305359b7306c5176048f0e4d2c5b0404d61115ddfcc2df70ca",
+    "content": "[视频] tailwindcss 优雅！ ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1qw411q7MY/",
+    "originalDate": "2023-10-29T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/4aed2d079c5f45149b811d9d74bbc2a177b1de68f5263c52371148dc35c3e368.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8162-a3fb-e3d410777b43",
+    "title": "aa62ef496015b64abe5f70ff52dc595a61606e7430eb2ba6f94cd2a94608fd8e",
+    "content": "[视频] 优雅永不过时 tailwindcss！ ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1fz4y1P7Eh/",
+    "originalDate": "2023-10-29T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/39b5bfcc2e3ef7f212feb6650570e6c3b2a37486e79ba1e8f88cbac7e5f7a5b3.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8111-8169-cccc99df828f",
+    "title": "fa68ea97fece2c945ffac8910c3e73b8d25afa50ea7b6235a66d3fd89441eb21",
+    "content": "一点也不快乐",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E4%B8%80%E7%82%B9%E4%B9%9F%E4%B8%8D%E5%BF%AB%E4%B9%90&synapse=h-ODUyOD-5LiA54K55Lmf-MjAyMy0wOS",
+    "originalDate": "2023-09-17T16:29:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81b4-8621-ef6617eacd44",
+    "title": "c8f6ded5e4f71b728870747ff8759cb68fb80b92fdb58c412f55aabf3ba7687b",
+    "content": "[视频] 分享 离线网课脚本 \n有需要的朋友加入我的星球 《跟磊哥学技术》领取 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Ju411w752/",
+    "originalDate": "2023-09-05T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/4abaaa8bf010db8380ee43913e99a8c5b7720d6844e1b882eb8bcf069ba1897e.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e2-9a11-d3e038da27f8",
+    "title": "dc11f7d0dc60b7cbf40ddc95f5003e2d8092f5a86adcd398b37d79359ffaef4c",
     "content": "how engineer fix bug",
     "source": "X",
     "originalUrl": "https://x.com/KamaleiZhang/status/1694553064718696892",
     "originalDate": "2023-08-24T03:31:00.000+00:00",
     "images": [],
     "videos": [
-      "https://video.twimg.com/tweet_video/F4RC5tpbEAAbqc-.mp4"
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/0fd8f4758960dbdaff4cf7310d61e8ce79c67f4ba4f1467f68514f9fc0dae984.mp4"
     ],
     "tags": [],
-    "createdAt": "2026-01-05T09:41:00.000Z"
+    "createdAt": "2026-01-07T04:02:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8168-a5f4-ef8747943113",
-    "title": "Never stop think about thinking",
+    "id": "2e16dd2f-2d12-8173-832e-e679c59ab0c6",
+    "title": "c81c3664df98a7fb9dee2c463437b410e46b94e3d42e21cd98f2f818f2082a98",
+    "content": "以上四种发现方式对比如何 以表格形式给我答案",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E4%BB%A5%E4%B8%8A%E5%9B%9B%E7%A7%8D%E5%8F%91%E7%8E%B0%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94%E5%A6%82%E4%BD%95%20%E4%BB%A5%E8%A1%A8%E6%A0%BC%E5%BD%A2%E5%BC%8F%E7%BB%99%E6%88%91%E7%AD%94%E6%A1%88&synapse=h-ODUyOD-5Lul5LiK5Zub-MjAyMy0wNi",
+    "originalDate": "2023-06-08T15:31:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9159412623258113e2292f6eddc84ea91a9cdd15e06c01f451f82638bb9fdee3.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-815b-9e37-e816c53dbaf9",
+    "title": "0a8e30754e42dfcf5a8e5288ae91a2453c522858cda7c31cbc936b52024dfc94",
     "content": "Never stop think about thinking",
     "source": "X",
     "originalUrl": "https://x.com/KamaleiZhang/status/1652299724391874562",
@@ -576,11 +1017,25 @@
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:31:00.000Z"
+    "createdAt": "2026-01-07T04:02:00.000Z"
   },
   {
-    "id": "2df6dd2f-2d12-8134-a5ba-ed83b1fc31d2",
-    "title": "Ask yourself everyday \nWhat’s your goal? \nAnd does...",
+    "id": "2e16dd2f-2d12-81f1-a0cb-d0df83023913",
+    "title": "fbdd16afb8290884e8564a533b3f928711fafa8960d9b8371ffdaf2ac79f3a07",
+    "content": "更新了头像",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%9B%B4%E6%96%B0%E4%BA%86%E5%A4%B4%E5%83%8F&synapse=h-ODUyOD-5pu05paw5LqG-MjAyMy0wNC",
+    "originalDate": "2023-04-28T13:33:00.000+00:00",
+    "images": [
+      "http://q1.qlogo.cn/qhis/U2AwYj2d8ibSRo1pAaibGsRcZUnoFMM1y3mf0Azqe9u3wRBVxFl2pLwvI4dkQbDfCRCSKH62Mibeqo/0"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81bc-9c84-d8639ddac19e",
+    "title": "363126245744fd77d78c36eaffff16a448cd80dfa507fa8dfa803603e3ea8755",
     "content": "Ask yourself everyday \nWhat’s your goal? \nAnd does your actions can implement your goal?",
     "source": "X",
     "originalUrl": "https://x.com/KamaleiZhang/status/1650524592195407873",
@@ -588,6 +1043,2163 @@
     "images": [],
     "videos": [],
     "tags": [],
-    "createdAt": "2026-01-05T09:31:00.000Z"
+    "createdAt": "2026-01-07T04:02:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-815c-bb18-c038ec21704f",
+    "title": "aff1049a97e218b06c0da07a3c9c4a648f23bbad1d93d18ed34cd6c5c93e40ce",
+    "content": "长时间不上线，上线就送五星 ，氪氪氪",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E9%95%BF%E6%97%B6%E9%97%B4%E4%B8%8D%E4%B8%8A%E7%BA%BF%EF%BC%8C%E4%B8%8A%E7%BA%BF%E5%B0%B1%E9%80%81%E4%BA%94%E6%98%9F%20%EF%BC%8C%E6%B0%AA%E6%B0%AA%E6%B0%AA&synapse=h-ODUyOD-6ZW/5pe26Ze0-MjAyMy0wNC",
+    "originalDate": "2023-04-22T12:45:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/76a97fc710e0f46c37e28034a23004e93eb0279fc2e0996a60be3a4085647230.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8178-99cc-f152a484abf6",
+    "title": "55df8dcdc4d3af7c4c6931d5424b29c7c585db092ace6bffc05d263c46ddad8f",
+    "content": "年难人",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%B9%B4%E9%9A%BE%E4%BA%BA&synapse=h-ODUyOD-5bm06Zq+5Lq6-MjAyMy0wNC",
+    "originalDate": "2023-04-11T12:48:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/fd9220175e502ff681559df0320224b65ef5362090b24a1b4c3c5b712679dd44.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/bc6a4240f442c1ac999b892bdc2454b97d796da81c61c4355cb96642539af5aa.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81c9-b219-dafa57ae7692",
+    "title": "1663110476832f109b671db347a3aba9114da7445fb2a3f7b80fe59674e5cbdd",
+    "content": "跟chat-gpt学英语",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%B7%9Fchat-gpt%E5%AD%A6%E8%8B%B1%E8%AF%AD&synapse=h-ODUyOD-6LefY2hhdC1n-MjAyMy0wMy",
+    "originalDate": "2023-03-01T06:26:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/8beb90a260563e39eeb68e4f294a41ede531173726480c4c43dbd2ae35fde9c7.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-814d-b2e1-c7ec6e41ddd8",
+    "title": "ec39988078c6142fdca71c612a4676b2dafe82b139e1ab11f9b4481e8f335e97",
+    "content": "说chat-gpt是个人助理格局就小了，它可能会是你的家庭医生，全科家教老师，模拟面试官，职业规划师，心理辅导师，教练甚至人生导师……可能未来还需要一个人来充当交互界面，背后的支撑系统和决策系统可能都会交给AI",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%AF%B4chat-gpt%E6%98%AF%E4%B8%AA%E4%BA%BA%E5%8A%A9%E7%90%86%E6%A0%BC%E5%B1%80%E5%B0%B1%E5%B0%8F%E4%BA%86%EF%BC%8C%E5%AE%83%E5%8F%AF%E8%83%BD%E4%BC%9A%E6%98%AF%E4%BD%A0%E7%9A%84%E5%AE%B6%E5%BA%AD%E5%8C%BB%E7%94%9F%EF%BC%8C%E5%85%A8%E7%A7%91%E5%AE%B6%E6%95%99%E8%80%81%E5%B8%88%EF%BC%8C%E6%A8%A1%E6%8B%9F%E9%9D%A2%E8%AF%95%E5%AE%98%EF%BC%8C%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92%E5%B8%88&synapse=h-ODUyOD-6K+0Y2hhdC1n-MjAyMy0wMi",
+    "originalDate": "2023-02-18T08:52:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/adf55923ff873e3bc41a2b33e950ddabb7f55890d4bd40f897f0bc103b98ada3.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/713ee2473cdf67016d0c95b1890100c3f70a32dee1179fca4f78602b038e762e.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8187-9b55-cff2cb841d39",
+    "title": "19c1b70d9d147b077b35bed1dc2442e246dbe86b1edc98949cbf16b04304b54d",
+    "content": "升职加薪迎娶白富美",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%8D%87%E8%81%8C%E5%8A%A0%E8%96%AA%E8%BF%8E%E5%A8%B6%E7%99%BD%E5%AF%8C%E7%BE%8E&synapse=h-ODUyOD-5Y2H6IGM5Yqg-MjAyMy0wMi",
+    "originalDate": "2023-02-17T15:12:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/b66bcbf2f214ac1cb7db7704675532bc409afe7a54b6a142457008831729a0f2.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8103-9f52-c1b51ec471d8",
+    "title": "d80b98166f27c68c9531f059bd1d8750a7c6faac047dad245d06ce8ced62632c",
+    "content": "chat-gpt 区别与其他AI哪些地方？<div></div>",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=chat-gpt%20%E5%8C%BA%E5%88%AB%E4%B8%8E%E5%85%B6%E4%BB%96AI%E5%93%AA%E4%BA%9B%E5%9C%B0%E6%96%B9%EF%BC%9F%3Cdiv%3E%3C%2Fdiv%3E&synapse=h-ODUyOD-Y2hhdC1ncHQg-MjAyMy0wMi",
+    "originalDate": "2023-02-16T08:36:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/85e52f5276138c81e3639bfa60b627100bf1b91dc7840ba0fe2e89bc1a3b9545.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f8-a890-fc6f97ee8698",
+    "title": "b84f497046d73f102046cd75535dcff07b4c9b1a510bc86218f26b726f70f8f0",
+    "content": "2022挺进决赛圈吃鸡",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=2022%E6%8C%BA%E8%BF%9B%E5%86%B3%E8%B5%9B%E5%9C%88%E5%90%83%E9%B8%A1&synapse=h-ODUyOD-MjAyMuaMuui/-MjAyMi0xMi",
+    "originalDate": "2022-12-24T04:50:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/6431125b5dae354e27a909ed61f3a73921121ca24359276036a7ee45c6f2a1f7.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f7-ab49-f0f3fa313ab8",
+    "title": "869354b43404716b824c21cf61e0651ce919fde2f3c452445f287fcfb5309b4e",
+    "content": "150kcal/day",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=150kcal%2Fday&synapse=h-ODUyOD-MTUwa2NhbC9k-MjAyMi0xMi",
+    "originalDate": "2022-12-07T04:40:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9e39e42a0b2413b49492a39fb25245cf3b23fc5e5f881634307497bcb9c3526b.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81cc-a1cc-f30a4adbaaf4",
+    "title": "09269ffac699e1ba1f5e3af15c4b486c49d406fd10c685bc6edfb0e25357aa22",
+    "content": "如果你知道自己哪天死你会怎么活？",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9F%A5%E9%81%93%E8%87%AA%E5%B7%B1%E5%93%AA%E5%A4%A9%E6%AD%BB%E4%BD%A0%E4%BC%9A%E6%80%8E%E4%B9%88%E6%B4%BB%EF%BC%9F&synapse=h-ODUyOD-5aaC5p6c5L2g-MjAyMi0xMS",
+    "originalDate": "2022-11-19T14:53:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81b0-9491-f9a2b825dff9",
+    "title": "be7fff31405977aa406cf2695cc611673caeec0586b83fb8e81adaf18caf830f",
+    "content": "白嫖这么多次好书支持一下正版",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E7%99%BD%E5%AB%96%E8%BF%99%E4%B9%88%E5%A4%9A%E6%AC%A1%E5%A5%BD%E4%B9%A6%E6%94%AF%E6%8C%81%E4%B8%80%E4%B8%8B%E6%AD%A3%E7%89%88&synapse=h-ODUyOD-55m95auW6L+Z-MjAyMi0xMS",
+    "originalDate": "2022-11-10T04:34:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/927aa6ccf520b3a7721e0c80ee062409c2715732d2076e04190d2c56c05d7699.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8107-94d7-ce69b6d7d169",
+    "title": "7c574477819f6c560be722d429a36b6c05a15a30decbf610038aed468f58400d",
+    "content": "冬天了到货了可以边晒太阳边打码了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%86%AC%E5%A4%A9%E4%BA%86%E5%88%B0%E8%B4%A7%E4%BA%86%E5%8F%AF%E4%BB%A5%E8%BE%B9%E6%99%92%E5%A4%AA%E9%98%B3%E8%BE%B9%E6%89%93%E7%A0%81%E4%BA%86&synapse=h-ODUyOD-5Yas5aSp5LqG-MjAyMi0xMS",
+    "originalDate": "2022-11-07T04:07:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/14497ef3b0526632a7247c4e43b212f10c33e86844580158380f62b418485a67.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8132-9d53-eeabdf1dca5e",
+    "title": "dfc03a40a87390829c8c7eaa815d2f82286cccf8ab2fada650adda95f74beee0",
+    "content": "像是在梦里过了一生，醒来就又忘了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%83%8F%E6%98%AF%E5%9C%A8%E6%A2%A6%E9%87%8C%E8%BF%87%E4%BA%86%E4%B8%80%E7%94%9F%EF%BC%8C%E9%86%92%E6%9D%A5%E5%B0%B1%E5%8F%88%E5%BF%98%E4%BA%86&synapse=h-ODUyOD-5YOP5piv5Zyo-MjAyMi0xMS",
+    "originalDate": "2022-11-03T00:11:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-819d-a8e0-cfa66a66759b",
+    "title": "7af8c5a1834ddc48de1cfea302911105534cc3d4b7fc838895f30f03ba498887",
+    "content": "妈的差点死了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%A6%88%E7%9A%84%E5%B7%AE%E7%82%B9%E6%AD%BB%E4%BA%86&synapse=h-ODUyOD-5aaI55qE5beu-MjAyMi0xMS",
+    "originalDate": "2022-11-02T15:47:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-817a-b51e-ff54cb335ad3",
+    "title": "4bc07037bedc67feb7ede05ec23a3bf56171f1cf3bb24b3430f55d5b67a0eee3",
+    "content": "电池不经用啊",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E7%94%B5%E6%B1%A0%E4%B8%8D%E7%BB%8F%E7%94%A8%E5%95%8A&synapse=h-ODUyOD-55S15rGg5LiN-MjAyMi0xMC",
+    "originalDate": "2022-10-28T01:38:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e8-8ad5-ec7a46c8177c",
+    "title": "4bdbf806236f0b9251de526a2cfde4cb2373b54e455f88d02e87d8d1df5ba738",
+    "content": "nice day",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=nice%20day&synapse=h-ODUyOD-bmljZSBkYXk=-MjAyMi0xMC",
+    "originalDate": "2022-10-25T00:40:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/67799b203e1e8630fff351d5e18d8903279a09633450d54c229a3dc2d03e5b1e.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/667db7399c258b3c047ff69054c6ff9f4980b52446c1840b917606718eab683a.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/1ace31cf9be1ec7438977b2f299fe0a9212bc9809c99566aa19089d70978cd8b.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/230e4ec8ad29f288bcecf084c2cbe125ebbd1c6836a83175d95de0fe68b84230.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7ec2ebe2422bae621e5dd831d6dc87c60ce5d9708133082100ac2b4b464dd2a8.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81ee-b44c-dac13f6c8079",
+    "title": "8549674a36975209a1213944b12304b7dc97b02718315821b241e7b9f3eaa17c",
+    "content": "[视频] 我为什么在b站发布视频 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1iV4y1V7G6/",
+    "originalDate": "2022-10-16T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/01f733443d1fb0f0305b4ac7f8ebbb202ff6a2f2264540052b1562ef5e3afefa.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e6-af7e-f1ef29abc4a2",
+    "title": "3dbebcb71d33a801eacf82573d54702844a5891e7d2a53ddd06d84e14396bd0f",
+    "content": "[视频] 困在角色里的程序员-2022-10-16 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1214y1L75x/",
+    "originalDate": "2022-10-15T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/152606bd6ea841b17876fb19b1dacca085934cae5418d020fc35553307b9ec29.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81cf-b1ae-c680497c37b6",
+    "title": "9b178992f777140d5128bacb6ede523bfa2129b874e96ad13918c7da46d28025",
+    "content": "[视频] crontab on Mac 的坑-2022-10-15 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV14e4y1E7z6/",
+    "originalDate": "2022-10-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7f397413e4a60b87366742916eaef04008fcd34517212aa63554acff2e2b5ddb.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-811b-89ae-f0afaa1ca3fd",
+    "title": "da9560365a35ba69c2cc8be5673ba624105b0a9d63785077a350005c27153b33",
+    "content": "[视频] webassembly有什么用-2022-10-14 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1j8411s7Gu/",
+    "originalDate": "2022-10-13T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/ea0f91653fb93145eb42276452100e74348f09c224fa1eb2446023157e21bad4.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8100-8fb2-ee84330c6774",
+    "title": "6da364e6f7a682294074b7f2cd62c9f5107f3f76d8864ea79f31e9dfa0c61ac5",
+    "content": "[视频] 给大家聊聊收汇的方式 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Be4y1S7MR/",
+    "originalDate": "2022-10-12T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/24f17b2330ad728597a8379a873a66b27e2b304907ac8536dd7dc8c702c3419c.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8164-ba97-f6ad401aed4c",
+    "title": "92c774885e13d20ec73efee810c910c4c7eeb95cabcaf78cc75c8fd222e9d747",
+    "content": "unbelievable",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=unbelievable&synapse=h-ODUyOD-dW5iZWxpZXZh-MjAyMi0xMC",
+    "originalDate": "2022-10-11T06:35:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5804dd657d39ac7370bde708bb03c91e25de9daca23a58a8e4fca0aaf2b729af.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81dc-9743-f57366b10170",
+    "title": "fa63eaaa8ce0258a27cb0c35e344401459216b0eaa01bb4dcd1d537fab18f05e",
+    "content": "[视频] 小工具自动检查gmail注册用户名是否可用 \npython是真有生产力 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV12D4y1k7LM/",
+    "originalDate": "2022-10-10T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/631aaabe3f7802bf4c59f97a3ac46fd7c04384b12a5dc1e021f0233616226ec3.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8109-b33d-c1096a44c47d",
+    "title": "a4a750c7428b691477267bcee1d47c33b9c6db047306ca1c131ba0c0bd759f53",
+    "content": "[视频] 小工具一键下载保存B站视频 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV11N4y1A73A/",
+    "originalDate": "2022-10-10T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9eb702ce2c93f3898709405ea3d54c912ba962014c1ec63457c32c312c2216a0.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:06:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8174-aaef-e0377377adcb",
+    "title": "8d377a4fb834bf339727db333e31813e6e9bed5d4ba4ee0c3ae762bbf0a66fa9",
+    "content": "[视频] 如何使用playwright实现web自动化演示 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1qW4y1n7fi/",
+    "originalDate": "2022-10-05T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/be080f14c9fc23033b5f0d24230a54b84db939e65d8ef50666fc34909442035d.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f9-a960-f50cc459776f",
+    "title": "68d6585808dc699b1562a8359a8a669356acd852e2ac83196dfb1e2d49d5c819",
+    "content": "不要去学英语而是用英语去学习自己感兴趣的东西",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E4%B8%8D%E8%A6%81%E5%8E%BB%E5%AD%A6%E8%8B%B1%E8%AF%AD%E8%80%8C%E6%98%AF%E7%94%A8%E8%8B%B1%E8%AF%AD%E5%8E%BB%E5%AD%A6%E4%B9%A0%E8%87%AA%E5%B7%B1%E6%84%9F%E5%85%B4%E8%B6%A3%E7%9A%84%E4%B8%9C%E8%A5%BF&synapse=h-ODUyOD-5LiN6KaB5Y67-MjAyMi0xMC",
+    "originalDate": "2022-10-04T06:28:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e6-a699-e6cea58eda30",
+    "title": "ec83df12a787d30f5b091b3b409895e31f2c80f282e78060753dbe8715ff1324",
+    "content": "[视频] 如何实现自动上传发布视频-技术选型 \n# RPA Windows自动化 X  ## UIBot https://www.uibot.com.cn/ ## UIPath https://www.uipath.com/ 收费 window ## 按键精灵 http://www.anjian.com/ ## autoitscript https://www.autoitscript.com/site/ # 框架+语言 web网页自动化 V **playwright+python** selenium + python puppet ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1kD4y1C7o9/",
+    "originalDate": "2022-10-03T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e6673116b0e57f47495eecfc79f1e6d8421f74353f024fcb5f236eaf3319c781.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-814f-bf2c-f30f0cd31cdb",
+    "title": "3a9449b6860dd028545fe11fcc1e85cf6514b521c741766cf1633666d040ef4a",
+    "content": "[视频] 如何生成好看的PDF报告 \n文档：https://github.com/seven4x/note-learn/blob/master/engineering/backend/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E6%8A%A5%E5%91%8A%E6%96%87%E4%BB%B6.md ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1fP411E7cB/",
+    "originalDate": "2022-10-02T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/31ebb549a4cb8d3049074f20bffc3ee517f9bd6785cb3260dd75284e1a0db5d0.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-816a-8f45-d09dd0cfe73a",
+    "title": "2d2503b8f21fba7389a0cfa55f55165325e71aeae26a9fb56c44934cdc350460",
+    "content": "今天终于了结了一件烦心事--阳台隔音",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E4%BB%8A%E5%A4%A9%E7%BB%88%E4%BA%8E%E4%BA%86%E7%BB%93%E4%BA%86%E4%B8%80%E4%BB%B6%E7%83%A6%E5%BF%83%E4%BA%8B--%E9%98%B3%E5%8F%B0%E9%9A%94%E9%9F%B3&synapse=h-ODUyOD-5LuK5aSp57uI-MjAyMi0xMC",
+    "originalDate": "2022-10-01T09:55:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e9-a67b-fd77391c5b5e",
+    "title": "1c558830a89c4940271048aa57664c23783e49a68b08f4000f223fe52bb0ca12",
+    "content": "学技术搞钱 欢迎加入： 网页链接",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%AD%A6%E6%8A%80%E6%9C%AF%E6%90%9E%E9%92%B1%20%E6%AC%A2%E8%BF%8E%E5%8A%A0%E5%85%A5%EF%BC%9A%C2%A0%E7%BD%91%E9%A1%B5%E9%93%BE%E6%8E%A5&synapse=h-ODUyOD-5a2m5oqA5pyv-MjAyMi0wOS",
+    "originalDate": "2022-09-29T13:57:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8174-9003-e9ecacfb011a",
+    "title": "01864fcff195b3058abbd8ef44efdaf1936ab1807b6b5c6e4bca133af0ecf8aa",
+    "content": "互动抽奖  抽真车真的来啦！为庆祝B站粉丝突破100万和五菱新能源销量突破100万辆。  划重点！【关注@五菱汽车 +转发本条动态】， 10月30日抽一人送出【价值5万元内的宏光MINIEV马卡龙一台 】  点击视频（五菱汽车抽汽车，百万粉丝福利来啦！）看五菱福利官霸气battle大片1  人民需要什么，五菱就造什么，未来的路，五菱汽车将与万千用户和视频前的你一道风雨携手，相伴同行！   10月30日开奖后我们将私信联系中奖者，并将五菱宏光MINIEV送车上门！  PS：车辆不可折现，中奖者需要按照国家法律规定缴纳相关税费 #转发抽奖##供电局福利社#",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Zt4y1c7Wx/",
+    "originalDate": "2022-09-26T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/3315864d66d08ea903d08ce52781cd65f7ef78c9b51021f2e8646740ebe28c50.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/07e8595ca163e1ed006b51344199c5414b7e879c14901ec96be33e621824b791.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/dd5acd2598af4d4635f1a09d22f861ff82b101f065bd746f9db9f735547d9551.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/cac6a44383f8ef40b91eba2244d4eb0b3e64b245f65544125c60f5faf69aca56.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/12be52b0a80d2db9d0b57126264663b407ef95e5bc26b8cebe95afb0b26a184f.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/00619ff3a2cfa803f82be5bedc119c004e9b156fcff7dfbacce568677d252846.jpeg",
+      "https://i0.hdslb.com/bfs/new_dyn/f24e740547f444aefda595301db40e1c439868658.jpg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d0920490558561a382f6e55e5cad9f8a5190bf69b15700db8ca6f3087365b610.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/11d06323075d66688fa62d8e17cd7aa9f6b376c09fb181b55346de641f741ddd.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/38d39185c5ae327766277b71fbdbcbc971de87da487d5d60d99f63e64285b9b4.html"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8186-9843-d960a419a1a3",
+    "title": "a2d5367e2cf3b946f45491a23f87b2dc2c11c293f727cadce7b2ee40d131ee6f",
+    "content": "[视频] 斐讯T1变废为宝刷机实录 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1g24y1o7Eu/",
+    "originalDate": "2022-09-22T16:00:00.000+00:00",
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/07051d1a5c35764dd9fa48ad35beef3a5dfb12c1.jpg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81be-b30f-c26e25735dcb",
+    "title": "0de88ca20ecc0f712dbe2cea6f9e5b84d24b867b1915760c8b2d49baae9facee",
+    "content": "[视频] 友善 R5S jellyfin 无法硬解的问题 \n更多资料访问 https://github.com/seven4x/note-learn/tree/master/CS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/openwrt ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Kg411m7bz/",
+    "originalDate": "2022-09-20T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/ccd5e51f03ec19cbc7701149e2ae6b7da113f8a1bfb2cba8b9a8c9118ae40747.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81be-a6fa-dbe0770ccaae",
+    "title": "901a92d866efb54f8b43c984d4040037517421c6b1a24cb4807725fd6143ec3a",
+    "content": "[视频] 正向解释版本 友善 R5S jellyfin 无法硬解的问题 \n更多资料 https://github.com/seven4x/note-learn/tree/master/CS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/openwrt ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1V24y1o76x/",
+    "originalDate": "2022-09-20T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/2fe101a582d6e72585680f2fb355c14480112d9ec333833086e30c4e1b8945c4.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8108-9147-de3369ce1587",
+    "title": "30043a8d829c12e0bc8416dc1a67d0c90bf1360a4675c3c9032c924f4c7a5108",
+    "content": "[视频] iOS开发文档体系 \n将iOS开发的文档结构化起来 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1EP4y1f7Qz/",
+    "originalDate": "2022-08-29T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/565b3081c1d1feb45b4a704f9e6b77aad8a78b4bf4e122dc90aa455d2e787624.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8136-9686-edfd45eef2e0",
+    "title": "664fce3c0297c1fb42525a2d20ffd7d4441f3212368b66b7abd7a66567a36e46",
+    "content": "好书推荐，阶级意识逐渐觉醒",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%A5%BD%E4%B9%A6%E6%8E%A8%E8%8D%90%EF%BC%8C%E9%98%B6%E7%BA%A7%E6%84%8F%E8%AF%86%E9%80%90%E6%B8%90%E8%A7%89%E9%86%92&synapse=h-ODUyOD-5aW95Lmm5o6o-MjAyMi0wOC",
+    "originalDate": "2022-08-26T16:54:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/42f6db3d8eadd93d8aa878ff84c583668afe513a683c673a2ba2bfe2149f77ca.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81d2-8529-d474d7a75d9d",
+    "title": "922b6c2e6b81e6653975b1621082b7a21385081faf8957a0bfe92ab92874ad86",
+    "content": "喝了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%96%9D%E4%BA%86&synapse=h-ODUyOD-5Zad5LqG-MjAyMi0wOC",
+    "originalDate": "2022-08-17T12:11:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a1e6ab3e6c0fbaae4c965f30327cbcefd4ac4c60f4f2d190e99e3aa1e490025c.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81bc-8b4d-cb79816c1ded",
+    "title": "8ba1c5d6ecdffaf498d1e12a44abfbde83cdfa99e03cd0adeaffc2fea8804b99",
+    "content": "冥想训练第一周冥想步骤：诱导->识别->承认与宣告->臣服->重新定义->创造与演练平均每个步骤训练一周，告别旧我创造新我",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%86%A5%E6%83%B3%E8%AE%AD%E7%BB%83%E7%AC%AC%E4%B8%80%E5%91%A8%E5%86%A5%E6%83%B3%E2%80%8B%E6%AD%A5%E9%AA%A4%EF%BC%9A%E8%AF%B1%E5%AF%BC-%3E%E8%AF%86%E5%88%AB-%3E%E6%89%BF%E8%AE%A4%E4%B8%8E%E5%AE%A3%E5%91%8A-%3E%E8%87%A3%E6%9C%8D-%3E%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89-%3E%E5%88%9B%E9%80%A0%E4%B8%8E%E6%BC%94%E7%BB%83%E2%80%8B%E5%B9%B3%E5%9D%87%E6%AF%8F%E4%B8%AA%E6%AD%A5%E9%AA%A4&synapse=h-ODUyOD-5Yal5oOz6K6t-MjAyMi0wOC",
+    "originalDate": "2022-08-14T14:54:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/2ddcfa97450c3f102374a5d1897bc5f031d290033e067c3ddf1554c792582519.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/b928d08c9a810a36841dc6a865b27f0b56b06c111978f0a5ca1607b8604ca345.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:16:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-818c-91ed-f150fa0fc1b4",
+    "title": "e17b9fb3d615f116d90551b1c2caf3632822fae9b88b577e1ae7a9d399b3fc69",
+    "content": "生病也是一种人体调节行为，生病之前有些前兆就是身体在提醒，如果生活方式不加改变病症就会出现，当开始体会到疾病痛苦，压力焦虑欲望都靠边站了，身体本能只奢求不那么痛苦，吃辣睡能正常",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E7%94%9F%E7%97%85%E4%B9%9F%E6%98%AF%E4%B8%80%E7%A7%8D%E4%BA%BA%E4%BD%93%E8%B0%83%E8%8A%82%E8%A1%8C%E4%B8%BA%EF%BC%8C%E7%94%9F%E7%97%85%E4%B9%8B%E5%89%8D%E6%9C%89%E4%BA%9B%E5%89%8D%E5%85%86%E5%B0%B1%E6%98%AF%E8%BA%AB%E4%BD%93%E5%9C%A8%E6%8F%90%E9%86%92%EF%BC%8C%E5%A6%82%E6%9E%9C%E7%94%9F%E6%B4%BB%E6%96%B9%E5%BC%8F%E4%B8%8D%E5%8A%A0%E6%94%B9%E5%8F%98%E7%97%85%E7%97%87%E5%B0%B1%E4%BC%9A%E5%87%BA%E7%8E%B0%EF%BC%8C%E5%BD%93%E5%BC%80%E5%A7%8B%E4%BD%93&synapse=h-ODUyOD-55Sf55eF5Lmf-MjAyMi0wNy",
+    "originalDate": "2022-07-29T14:09:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:17:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8143-9d56-fce019d3a6a6",
+    "title": "df8dd645eb51bba52e9808c4ee856a31ef190cc6c7ad2b6c95c26b2aadf2884e",
+    "content": "吃拉睡不要吃饱 不要吃饱 接受吃不了就扔，别被浪费绑架 不吃不新鲜食材水果不喝酒 不吸烟 不吃油腻 不吃油面混合物 不饮浓茶不喝奶茶 不喝汽水多睡觉 多遛弯运动 一日三餐按时吃饭定期体检",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%90%83%E6%8B%89%E7%9D%A1%E4%B8%8D%E8%A6%81%E5%90%83%E9%A5%B1%20%E4%B8%8D%E8%A6%81%E5%90%83%E9%A5%B1%20%E6%8E%A5%E5%8F%97%E5%90%83%E4%B8%8D%E4%BA%86%E5%B0%B1%E6%89%94%EF%BC%8C%E5%88%AB%E8%A2%AB%E6%B5%AA%E8%B4%B9%E7%BB%91%E6%9E%B6%20%E4%B8%8D%E5%90%83%E4%B8%8D%E6%96%B0%E9%B2%9C%E9%A3%9F%E6%9D%90%E6%B0%B4%E6%9E%9C%E4%B8%8D%E5%96%9D%E9%85%92%20%E4%B8%8D%E5%90%B8%E7%83%9F%20%E4%B8%8D%E5%90%83%E6%B2%B9%E8%85%BB&synapse=h-ODUyOD-5ZCD5ouJ552h-MjAyMi0wNy",
+    "originalDate": "2022-07-29T13:54:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:17:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81c3-9e80-d85a1be2b88d",
+    "title": "f9c9178dd989d27d028ae2b9ecc89ca09cba540c09e80a5fa7805f002d2ee250",
+    "content": "一篇闲文《程序员的分工》https://bitseatech.cn/20220727_%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E5%88%86%E5%B7%A5/",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E4%B8%80%E7%AF%87%E9%97%B2%E6%96%87%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E5%88%86%E5%B7%A5%E3%80%8Bhttps%3A%2F%2Fbitseatech.cn%2F20220727_%25E7%25A8%258B%25E5%25BA%258F%25E5%2591%2598%25E7%259A%2584%25E5%2588%2586%25E5%25B7%25A5%2F&synapse=MjAyMi0w",
+    "originalDate": "2022-07-26T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8104-9b14-f6f53edebbe7",
+    "title": "75928037c0de7461274105a6121b3e73ed100e9ed871804f1241b42994fc2c27",
+    "content": "[视频] 又写了一个BUG Python如何正确求时间差 \ninterval.seconds vs interval.total_seconds() ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Qg411y74y/",
+    "originalDate": "2022-07-25T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/326fe3084e21af29dd47ba35398936c2aa79ae04eddf0d5e836e4f2b74597401.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-816c-93a4-c757ab51b32e",
+    "title": "90044b30ac9f952c8531b380a723953eb9f8f889de1c0d242d8215312d741a04",
+    "content": "[视频] 生日这天焦虑了 \n我是如何排解焦虑找到新目标的 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1rF411P7Dq/",
+    "originalDate": "2022-07-24T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/281edcc479fb782a5870c6163a91105c0f0a16320f8c3c8068b7036e990e3baf.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8163-b3f2-f981ef513ada",
+    "title": "02efbf0f4801448bdb4d83dd2440c04a88a7a49546cce6cfa474dc2f97621b71",
+    "content": "belief 普通用词，指单纯从主观上的相信，不着重这种相信是否有根据。faith 语气较强，强调完全相信；有时也能仅凭感觉产生的相信。confidence 指对某人某事有充分信心，断定不会使人失望，因而给予信任。conviction 多指根据长期交往或实践，对某人某事有了认识和了解后产生的信心和相信，侧重其坚定性。credit 语气最弱，着重以声誉为信任的基础。trust 强调相信、信任的完全可靠。",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=belief%20%E6%99%AE%E9%80%9A%E7%94%A8%E8%AF%8D%EF%BC%8C%E6%8C%87%E5%8D%95%E7%BA%AF%E4%BB%8E%E4%B8%BB%E8%A7%82%E4%B8%8A%E7%9A%84%E7%9B%B8%E4%BF%A1%EF%BC%8C%E4%B8%8D%E7%9D%80%E9%87%8D%E8%BF%99%E7%A7%8D%E7%9B%B8%E4%BF%A1%E6%98%AF%E5%90%A6%E6%9C%89%E6%A0%B9%E6%8D%AE%E3%80%82faith%20%E8%AF%AD%E6%B0%94%E8%BE%83%E5%BC%BA%EF%BC%8C%E5%BC%BA%E8%B0%83%E5%AE%8C&synapse=h-ODUyOD-YmVsaWVmIOaZ-MjAyMi0wNi",
+    "originalDate": "2022-06-25T00:29:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:17:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e1-95db-d25aaf6d29ca",
+    "title": "64cf896e87e71c4aaff35a94eacc53080a5ff4e1378b49b502dce4c2420127d0",
+    "content": "story",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=story&synapse=h-ODUyOD-c3Rvcnk=-MjAyMi0wNi",
+    "originalDate": "2022-06-23T15:57:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/824b18b5d6de828b65062a69646949e0bb7a6b424b5f7249e6d7044972810374.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/2132dcda516f7009b39528ea14668ca7f2ca5c722d23c1d1b99ef64591bdc9df.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/3f47c10ba8e172d6feb6411b89250d476d08ab42e889d28cbb50bfd703b827aa.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7c033f406146b32b1999962c51eb9654054e131431d6af6f30ea40c85759b0e5.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/2ffffe0de153b48153fa85bbaedda8cb27275240bc3ff9a91892d8449bf0e64d.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/bad42737a1b9cdb7420364759ab0ec5cfed4b8aabfc9a4c69bb9f3661407d9fe.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/bdd98ef78e3671dbb70d1cd5866f0427c11b326051588b3a4d11295742e46127.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5cb721608043b1f93f6a2943038766b310794ef70b8270d7455ab6b30a50b772.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/058f0ce14cca4fcbd0bf80e5c65bd865ba77d90271ee76f06b9021a6a3264291.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:17:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8160-8510-f55938861814",
+    "title": "03f452589f01ecb86a73438084002062c957ad11f9a14789612b4bea8ec29b08",
+    "content": "每个月的「攒钱系列」多亏了你们的支持，这就来安排一波福利送给大家互动抽奖  马上暑假了，我这次特意准备了Ipad mini、Switch OLED和游戏外设，贴心不 另外这个月中下旬还有1个攒钱稿件，希望到时候大家再多多支持一下~后面攒到钱都会给大家安排福利的 【抽奖参与方式：1、转发这条动态  2、关注我（两个条件必须都要满足）】 一等奖：1台ipad mini  256GB （颜色自选） 二等奖：2台Switch OLED版 （颜色自选） 三等奖：4个 罗技 GPW鼠标 【开奖日期】：2022年6月25日21点25分 冲冲冲，祝大家欧气满满，这次就中 PS:本次抽奖使用B站官方工具，确保公平公正公开，注意中奖条件",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E6%AF%8F%E4%B8%AA%E6%9C%88%E7%9A%84%E3%80%8C%E6%94%92%E9%92%B1%E7%B3%BB%E5%88%97%E3%80%8D%E5%A4%9A%E4%BA%8F%E4%BA%86%E4%BD%A0%E4%BB%AC%E7%9A%84%E6%94%AF%E6%8C%81%EF%BC%8C%E8%BF%99%E5%B0%B1%E6%9D%A5%E5%AE%89%E6%8E%92%E4%B8%80%E6%B3%A2%E7%A6%8F%E5%88%A9%E9%80%81%E7%BB%99%E5%A4%A7%E5%AE%B6%E4%BA%92%E5%8A%A8%E6%8A%BD%E5%A5%96%E2%80%8B%20%20%E9%A9%AC%E4%B8%8A%E6%9A%91%E5%81%87%E4%BA%86%EF%BC%8C%E6%88%91%E8%BF%99%E6%AC%A1%E7%89%B9%E6%84%8F%E5%87%86%E5%A4%87%E4%BA%86Ipad%20mini%E3%80%81Switch%20OLED%E5%92%8C%E6%B8%B8%E6%88%8F%E5%A4%96%E8%AE%BE%EF%BC%8C%E8%B4%B4%E5%BF%83%E4%B8%8D%20%E5%8F%A6%E5%A4%96%E8%BF%99%E4%B8%AA%E6%9C%88%E4%B8%AD%E4%B8%8B%E6%97%AC%E8%BF%98%E6%9C%891%E4%B8%AA%E6%94%92%E9%92%B1%E7%A8%BF%E4%BB%B6&synapse=MjAyMi0w",
+    "originalDate": "2022-06-21T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5b31e39cb317bed96d1853e3171d3d08ccf7b4da6547b2e872e61daa1a1bfb67.png",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/38d39185c5ae327766277b71fbdbcbc971de87da487d5d60d99f63e64285b9b4.html"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f5-b18b-f136aaaf19ec",
+    "title": "5dd076303e3a181e08c26209903e7dad173e9f4c4bfad3e0b36f82c8e72da395",
+    "content": "breast 指人或动物的胸部或胸部的前面，也指男人或女人的乳房。bosom 文学用词，与breast同义，特指女性的乳房，也可用作比喻。chest 指胸膛，即肋骨所包围的部分。",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=breast%20%E6%8C%87%E4%BA%BA%E6%88%96%E5%8A%A8%E7%89%A9%E7%9A%84%E8%83%B8%E9%83%A8%E6%88%96%E8%83%B8%E9%83%A8%E7%9A%84%E5%89%8D%E9%9D%A2%EF%BC%8C%E4%B9%9F%E6%8C%87%E7%94%B7%E4%BA%BA%E6%88%96%E5%A5%B3%E4%BA%BA%E7%9A%84%E4%B9%B3%E6%88%BF%E3%80%82bosom%20%E6%96%87%E5%AD%A6%E7%94%A8%E8%AF%8D%EF%BC%8C%E4%B8%8Ebreas&synapse=h-ODUyOD-YnJlYXN0IOaM-MjAyMi0wNi",
+    "originalDate": "2022-06-21T13:55:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:17:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8164-9d3f-de8507363506",
+    "title": "68e195ceb9e18b2234326a720fd767f56af1199dde6ca6e74e2de49ba2edb481",
+    "content": "[视频] 拥抱AI辅助编程-我的观点及效果演示 \nintellicode 自动补全 doxygen 自动生成注释 GitHub Copilot 自动生成代码 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1fL4y1A7XU/",
+    "originalDate": "2022-06-19T16:00:00.000+00:00",
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/2c313962b4e7e2c3aa2601d03f6dae486e071ddf.jpg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:07:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e8-be84-ef22748c0265",
+    "title": "9030a4b6cf42d51f65c136f201f7b53056467cad1290399823944e719cd0fd13",
+    "content": "看了这么些唐山实名举报的视频，我想起来我之前在唐山工作的那一年多里也被官商勾结的恶势力坑过，衙门不管不问，我在和朋友打电话的时候说要暴力报复医院和医生，应该被衙门听到了，后来衙门联系了医院，很长一段时间都恨这这种类似的莆田系医院",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E7%9C%8B%E4%BA%86%E8%BF%99%E4%B9%88%E4%BA%9B%E5%94%90%E5%B1%B1%E5%AE%9E%E5%90%8D%E4%B8%BE%E6%8A%A5%E7%9A%84%E8%A7%86%E9%A2%91%EF%BC%8C%E6%88%91%E6%83%B3%E8%B5%B7%E6%9D%A5%E6%88%91%E4%B9%8B%E5%89%8D%E5%9C%A8%E5%94%90%E5%B1%B1%E5%B7%A5%E4%BD%9C%E7%9A%84%E9%82%A3%E4%B8%80%E5%B9%B4%E5%A4%9A%E9%87%8C%E4%B9%9F%E8%A2%AB%E5%AE%98%E5%95%86%E5%8B%BE%E7%BB%93%E7%9A%84%E6%81%B6%E5%8A%BF%E5%8A%9B%E5%9D%91%E8%BF%87%EF%BC%8C%E8%A1%99%E9%97%A8%E4%B8%8D%E7%AE%A1&synapse=h-ODUyOD-55yL5LqG6L+Z-MjAyMi0wNi",
+    "originalDate": "2022-06-19T13:55:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:17:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-811f-965a-c15f9606fee2",
+    "title": "0a0ed4dfa552b2ec3a3d269ba2a2819361e20fb709c90d82372c8f60cf37c11e",
+    "content": "面向人 or 面向机器编程 - 17 June 2022 \nhttps://loom.com/share/85bf117e0e534c81946f85938c1b183f",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E9%9D%A2%E5%90%91%E4%BA%BA%20or%20%E9%9D%A2%E5%90%91%E6%9C%BA%E5%99%A8%E7%BC%96%E7%A8%8B%20-%2017%20June%202022%20%0Ahttps%3A%2F%2Floom.com%2Fshare%2F85bf117e0e534c81946f85938c1b183f&synapse=MjAyMi0w",
+    "originalDate": "2022-06-16T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8161-8879-f095fd8b685d",
+    "title": "f76eb37088267c105fa3944b50332cb28d67eed1e125b587457f77099bd3fbe0",
+    "content": "[视频] 面向人 or 面向机器编程 - 17 June 2022 \nhttps://www.loom.com/share/85bf117e0e534c81946f85938c1b183f ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1iB4y1S7w6/",
+    "originalDate": "2022-06-16T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/1bf7b9500e016a03f9072d66dade316f2f9b057faf482e02d85fa3dc5a75cc18.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-815d-a1bf-fba45807fb71",
+    "title": "f9cfe05a5c24fdfcfb6f8e5649f439095d3d9bb3dab6b314e356258332dbfa80",
+    "content": "剩下两本翻了不超过三次的原版书，拿走，再啃啃",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%89%A9%E4%B8%8B%E4%B8%A4%E6%9C%AC%E7%BF%BB%E4%BA%86%E4%B8%8D%E8%B6%85%E8%BF%87%E4%B8%89%E6%AC%A1%E7%9A%84%E5%8E%9F%E7%89%88%E4%B9%A6%EF%BC%8C%E6%8B%BF%E8%B5%B0%EF%BC%8C%E5%86%8D%E5%95%83%E5%95%83&synapse=h-ODUyOD-5Ymp5LiL5Lik-MjAyMi0wNi",
+    "originalDate": "2022-06-11T07:53:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/6661b8f15416a209754fc128f0bfcb8165adf68b0292a9ecb0bc5d0231b1cb0a.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:17:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81ef-a2e5-cff179f64a7f",
+    "title": "13edeced3063f7827ed97b9dc7e3526dd6ee6ef43bfb51c5cd4d3a5857689f18",
+    "content": "Nice",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=Nice&synapse=h-ODUyOD-TmljZQ==-MjAyMi0wNi",
+    "originalDate": "2022-06-10T16:08:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:17:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-816d-8481-eee7287effb7",
+    "title": "508ef7498a5f9d804692cd45068efcc680242124b88562b2aed21dc41c2c457c",
+    "content": "about DeFI you should know .",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=about%20DeFI%20you%20should%20know%20.&synapse=h-ODUyOD-YWJvdXQgRGVG-MjAyMi0wNi",
+    "originalDate": "2022-06-06T15:25:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/3f2a0315ccb2930cb8bcb81f9e079f1cb4fafa63836aa2133d9b939cac29f81d.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/df40d2e2ba1ca38597b25cffa885dc917197d297f8ef6118d3d508dc9343ef22.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:17:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8105-8cef-e2a294a2a336",
+    "title": "3bba75bbf7a72379336e5b3b56347785f4981f978e9c4fb946f35ef9251726f9",
+    "content": "[视频] 【发明null的人后悔了】 Null References The Billion Dollar Mistake-YYkOWzrO3xg \nhttps://www.youtube.com/watch?v=ybrQvs4x0Ps ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1WY4y1x7po/",
+    "originalDate": "2022-05-31T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/53385f893d9162288b477d89f67878c55c0b3f19ff2480ffb6c11562b6f1a19c.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8170-9d54-c73abe35a42a",
+    "title": "58e297d7e8e0d5b1a6d689fe48be2dd26ae7a08dc9b098be7372bd31a38ac131",
+    "content": "[视频] 英语学习工具资源分享 \ntool eudic grammarly online-dictionary-helper youglish exchange episoden cambly language.exchange tandem resource edx.org youtube DappUniversity ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1SS4y1q7ku/",
+    "originalDate": "2022-05-30T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/239f88dcf57c7b8cce1f293b93426363a31251df82f113b68808fb1e9099793f.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e1-81b6-e73710fb25b6",
+    "title": "668a46f70aacb64304da64627646e2d49ff713b1c0b733093ad539a5abbd07bb",
+    "content": "能不能出B服iPhone版",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E8%83%BD%E4%B8%8D%E8%83%BD%E5%87%BAB%E6%9C%8DiPhone%E7%89%88&synapse=MjAyMi0w",
+    "originalDate": "2022-05-18T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8106-9dd6-f87b96eb9974",
+    "title": "ba9280e608791854d581576b153a0e28961cf315b50b60dce4a37d55cabc5032",
+    "content": "affair 含义较广，侧重指已发生或必须去做的任何事情或事务。复数形式多指重大或较复杂的事务。business 通常指较重要或较难而又必须承担的事情，也可指商事。matter 普通用词，着重指一件考虑中的或需要处理的事。concern 往往强调与个人或团体利害有直接或重大关系的事。thing 用作“事情”解时，词义较笼统、含糊，多用于指不很具体的事。",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=affair%20%E5%90%AB%E4%B9%89%E8%BE%83%E5%B9%BF%EF%BC%8C%E4%BE%A7%E9%87%8D%E6%8C%87%E5%B7%B2%E5%8F%91%E7%94%9F%E6%88%96%E5%BF%85%E9%A1%BB%E5%8E%BB%E5%81%9A%E7%9A%84%E4%BB%BB%E4%BD%95%E4%BA%8B%E6%83%85%E6%88%96%E4%BA%8B%E5%8A%A1%E3%80%82%E5%A4%8D%E6%95%B0%E5%BD%A2%E5%BC%8F%E5%A4%9A%E6%8C%87%E9%87%8D%E5%A4%A7%E6%88%96%E8%BE%83%E5%A4%8D%E6%9D%82%E7%9A%84%E4%BA%8B%E5%8A%A1%E3%80%82bu&synapse=h-ODUyOD-YWZmYWlyIOWQ-MjAyMi0wNS",
+    "originalDate": "2022-05-17T09:38:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81b8-871f-d2151944fc0e",
+    "title": "1ba18eff50c3d87733b6f2d5dc8731d140f599b9bd985bbdaad39b17db28f749",
+    "content": "[视频] 聊聊BUG.16 DynamoDB的自动设置时间戳不生效的问题DynamoDBAutoGeneratedTimestamp \n又一个bug分享。 FYI：https://github.com/aws/aws-sdk-java/blob/master/aws-java-sdk-dynamodb/src/main/java/com/amazonaws/services/dynamodbv2/datamodeling/DynamoDBAutoGenerator.java https://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/DynamoDBMapp ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Rv4y1P7wD/",
+    "originalDate": "2022-05-13T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/65746408fd2f787f2d702794eadab306081df3dab7a790d996e6ce2d545b436a.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-815b-a1cd-d4fc12a0c2d2",
+    "title": "d1182a6e548024a5375a3c33860f22c723cf35163f9570deb9510a4053e0815a",
+    "content": "answer 常用词，指用书面、口头或行动对他人的请求、询问、质问等作出回答或反应。reply 较正式用词，较少用于口语。侧重经过考虑的较正式答复。respond 正式用词，指即刻的，以口头或行动对外来的号召、请求或刺激等作出回答或响应。retort 指对不同意见、批评或控诉作出迅速、有力的回答，即“反驳”。return 正式用词，从本义“归来，回去”引申作“回答、答辨”讲时，含反驳或反唇相讥之意。",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=answer%20%E5%B8%B8%E7%94%A8%E8%AF%8D%EF%BC%8C%E6%8C%87%E7%94%A8%E4%B9%A6%E9%9D%A2%E3%80%81%E5%8F%A3%E5%A4%B4%E6%88%96%E8%A1%8C%E5%8A%A8%E5%AF%B9%E4%BB%96%E4%BA%BA%E7%9A%84%E8%AF%B7%E6%B1%82%E3%80%81%E8%AF%A2%E9%97%AE%E3%80%81%E8%B4%A8%E9%97%AE%E7%AD%89%E4%BD%9C%E5%87%BA%E5%9B%9E%E7%AD%94%E6%88%96%E5%8F%8D%E5%BA%94%E3%80%82reply%20%E8%BE%83%E6%AD%A3&synapse=h-ODUyOD-YW5zd2VyIOW4-MjAyMi0wNS",
+    "originalDate": "2022-05-11T03:48:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e3-8413-c8913d5353bf",
+    "title": "4508fbbc685fb733e1a77dae4d6c22f8cb3229dc090b4194d372012876c36687",
+    "content": "桃花岛不种桃",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%A1%83%E8%8A%B1%E5%B2%9B%E4%B8%8D%E7%A7%8D%E6%A1%83&synapse=h-ODUyOD-5qGD6Iqx5bKb-MjAyMi0wNS",
+    "originalDate": "2022-05-07T15:12:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7580e5f1d6b7c6639ce5946b7205abe6f0007cc83538408ce69e4a04aaa594fa.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/cb35e4c4676f175c85f325607528c87e6096f39700b2783aba49710e2d206d0e.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81a6-b31a-e1345e40b980",
+    "title": "741bb37b0fd2c3f28ced6ef9010b5db33680cc89f2548be658a13f240b0789db",
+    "content": "马哲讨论阶级社会学讨论阶层",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E9%A9%AC%E5%93%B2%E8%AE%A8%E8%AE%BA%E9%98%B6%E7%BA%A7%E7%A4%BE%E4%BC%9A%E5%AD%A6%E8%AE%A8%E8%AE%BA%E9%98%B6%E5%B1%82&synapse=h-ODUyOD-6ams5ZOy6K6o-MjAyMi0wNS",
+    "originalDate": "2022-05-01T03:35:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d2993eb10f1e0b59031ab98e7dd4f0c161e786225f0f0e8c46c134adfd6c554f.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81db-a752-ea515c87d268",
+    "title": "e3336aa8a10012aab1662512e66c7e1eda36e9ac864d6f347552c916c26862fb",
+    "content": "人生在世，吃喝二字",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E4%BA%BA%E7%94%9F%E5%9C%A8%E4%B8%96%EF%BC%8C%E5%90%83%E5%96%9D%E4%BA%8C%E5%AD%97&synapse=h-ODUyOD-5Lq655Sf5Zyo-MjAyMi0wNC",
+    "originalDate": "2022-04-20T12:19:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e2fdb9191c1ce2fe357fbbc96caefbf53bcf02488578888ac958b48aaab630a8.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5d235e793f2039185709f1016214e3e435a502c7540b20b9372828e99dfe97a4.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/30f17820ebbe80c00e9d68c004e4910246e8edb51cba1e62e2df420e08ebfb80.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-812e-9ab1-eacf715f016c",
+    "title": "4378d912e79955ea1d674baed91ee90280bdff5a179d1587f159bec5a7d8a477",
+    "content": "[视频] 2022年最值得学习的编程语言--闲聊系列 \nWHY ? can reading english document ,example IFC can find a remote job HOW？ two factor goal Age ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1144y1P78a/",
+    "originalDate": "2022-04-06T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/075251d3e9ebac48e8f2bc657275260c46d7db6f9dbd8205ccdaeb8a629f0d1a.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-816b-9516-c9443051c564",
+    "title": "21519631e797fe5b3f9e1e460d8235fda4d1b405eedd44c25fc14175061866e6",
+    "content": "[视频] k8s test infra prow系列结束语 \n两点 源码编程技巧的收获，CI/CD理念上有了inside的认识 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1cP4y1K76c/",
+    "originalDate": "2022-04-02T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/82df8f2b84f310743e3fdb8dee72f781b33a5840131395674e7712a1a32daa47.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8154-be7f-c8d988459008",
+    "title": "26204208570a8de3febc2c8a010863f62ddac6b9d2d9ba9653b372d6f55ef0cc",
+    "content": "[视频] k8s test infra prow sinker模块源码解读 \nk8s prow sinker 模块源码学习心得 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Kq4y1e7nX/",
+    "originalDate": "2022-03-29T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/c0c45385b4d6d8555bc4d4a5f13771c360bf888b598ccd6cdfeaee8cc5fabdd4.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8166-9fc0-d84f2f3319a9",
+    "title": "ee5cfa9de0ae074ad16345ffa9ec6b2f14d25b561446644d8959f95ffd11c93a",
+    "content": "公司配的m1电脑用了一段时间的最大感受：后悔买intel i9芯片的了。bazel跑编译i9芯片风扇就呼呼转聒死人，m1风扇就没转过。历史上好的设计又回来了，hdmi接口，磁吸充电，编织线替换成硅胶线，没用的smartbar去掉了，总结一句 m1真香 感谢公司 奥利给",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%85%AC%E5%8F%B8%E9%85%8D%E7%9A%84m1%E7%94%B5%E8%84%91%E7%94%A8%E4%BA%86%E4%B8%80%E6%AE%B5%E6%97%B6%E9%97%B4%E7%9A%84%E6%9C%80%E5%A4%A7%E6%84%9F%E5%8F%97%EF%BC%9A%E5%90%8E%E6%82%94%E4%B9%B0intel%20i9%E8%8A%AF%E7%89%87%E7%9A%84%E4%BA%86%E3%80%82bazel%E8%B7%91%E7%BC%96%E8%AF%91i9%E8%8A%AF%E7%89%87%E9%A3%8E%E6%89%87&synapse=h-ODUyOD-5YWs5Y+46YWN-MjAyMi0wMy",
+    "originalDate": "2022-03-23T11:28:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/271f168d917f6130b09a1ab90ff4e1b3f069f93e4e44eb39a31bec7a7870ac8a.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9cb0b7dc6c227fd7b34c82749c53c2f5a2c16f52583325a86c3b26eb130af4ff.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-812a-8c9f-e00879806fe2",
+    "title": "cd5b525734c215ae694ccf5a37dc061dd878fb6d21b978d6ae5c6eaf398efe53",
+    "content": "[视频] k8s test infra prow ghproxy模块源码解读 \nghproxy源码解读 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Ki4y1C7xQ/",
+    "originalDate": "2022-03-05T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/8d643f59ec3b99ff65418a8b3d0db65a5c9deb06834310dce3a1bd207483b875.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-817d-81f9-f63d7249a20e",
+    "title": "c99a502d2db25b74d3d8889577abbadf54ac87f84cc6f20082456b8d4c8485a3",
+    "content": "超级qq秀",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%B6%85%E7%BA%A7qq%E7%A7%80&synapse=h-ODUyOD-6LaF57qncXHn-MjAyMi0wMi",
+    "originalDate": "2022-02-09T12:11:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/35af8a58339fa56e0ec01cdb22aee0997e4d19ba115c9e67759d8537e964d078.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81dd-b117-febe49477ae1",
+    "title": "4186fcfdcd3e12e4e13c5d85d19fa4d28ef3be4fbb653becee5126ac52d87910",
+    "content": "吃胖了又",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%90%83%E8%83%96%E4%BA%86%E5%8F%88&synapse=h-ODUyOD-5ZCD6IOW5LqG-MjAyMi0wMS",
+    "originalDate": "2022-01-21T14:31:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/bc1cfe26c3e8d2e3d934adb68e7d70b5059c505f4d8eaccd2ae2a4a0e8fcd0a0.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/93f8c6c387564feb2f3e247117a5d1f1efca24a27e9a99f1e8ad4f49a93ee69d.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9eea30bec6a381aa051992e0a7c7c8533b58d998f54083c4559a7b42e18d117e.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/abc9b5b95ebb17edbf3b2a5b2f59fb97feb1ab97787da6e2a76143c94a80e336.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e6492902fd2ea60c13578ba6954061d9420ecf1e5b977ca8b9c738e6d79180bd.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/374e011233160850c962485710bbecc0d53e3e14ac83d15ceb9b464530a89a6f.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/386a05e26dff38ee102cf8e121b036ce724673404711144df66f3811293952a0.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9cb47e175b5c4bcb5bd3880ef49bb29a496a3d4b980ea89fd349d92e43f6c891.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/b129aebc7dc02d124d038e93849f6f5a7ae66eed84a0f2418edeb7be9790324c.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8154-9e6b-f3fede4eddf5",
+    "title": "291551696253d9a56db7f2961e493d10cbed4a1b1ce304083f957029d3b4d64e",
+    "content": "[视频] 如何选一款适合自己的笔记软件漫谈 \n遇到obsidian特别欣喜想起来聊聊这个话题，从云笔记到语雀到obsidian，聊聊选择适合自己的笔记软件的思考维度 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1ZP4y1E7bn/",
+    "originalDate": "2022-01-08T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e04ed2046b801be1053f1caff3fe7e3631c578705b13b228930da1e4e0bc5a49.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81de-bf47-d210f96b7541",
+    "title": "119e5e63d92d0f995c0163dc669254afcf095b50c706133b8cb897283362bcf9",
+    "content": "有好长时间没买过实体书了，本来想买一本为了凑单...",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%9C%89%E5%A5%BD%E9%95%BF%E6%97%B6%E9%97%B4%E6%B2%A1%E4%B9%B0%E8%BF%87%E5%AE%9E%E4%BD%93%E4%B9%A6%E4%BA%86%EF%BC%8C%E6%9C%AC%E6%9D%A5%E6%83%B3%E4%B9%B0%E4%B8%80%E6%9C%AC%E4%B8%BA%E4%BA%86%E5%87%91%E5%8D%95...&synapse=h-ODUyOD-5pyJ5aW96ZW/-MjAyMi0wMS",
+    "originalDate": "2022-01-08T04:44:00.000+00:00",
+    "images": [
+      "http://shmmsns.qpic.cn/mmsns/wHgs0aa83Ru3lSo2ljuicIlJV2HAGmxxngRtGQbKnr1VcoyNoy473JWhfehAdwVPSjHNO8tibzp5M/0/0"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8147-ad20-d5700c6b98ab",
+    "title": "581c72caffa02c4ef469a28d98a3f09d086c4ff21c26d6daa9605c7dad4e5043",
+    "content": "[视频] 阿里云如何跨账户授权使用资源 \n视频演示如何跨阿里云账号的资源授权 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Y44y157Ea/",
+    "originalDate": "2022-01-07T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/287f11eea873a804ed5939b6aa8501fa184c87ca8453bb4b570a31c7d33669ac.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-814b-98a7-db5f1999f7aa",
+    "title": "6060ca37d74bdd742cfdb601a2d97f7cee9dfd2b8326da73889da035af8e8e75",
+    "content": "[视频] k8s test infra prow tide模块源码解读 \ntide模块负责将已经打上approved标签的PR合并 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1c44y1E7mK/",
+    "originalDate": "2022-01-02T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d87f4e6bcecb74291f9b35f8c0e33c6be17e77836bdbec0bac7d9ea1e705b2fd.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8154-9657-faf60d5a415f",
+    "title": "914ed93e94e47a3e901a1d726ee3ae9ce2d39bd862400a324807ced7c07e247d",
+    "content": "[视频] k8s test infra prow horologium周期性任务创建源码解读 \nhorologium模块负责创建周期性任务，代码量较少，未作预习现场展示阅读代码的方法 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1tF411q79Y/",
+    "originalDate": "2022-01-02T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/0301f1a0a12c3e3ef3e6ba3f2ca2255e68a3e90b96ee2497a155b8a14f30bea2.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81af-82dd-fd1aad991242",
+    "title": "359c3d4f22193198267d18f30df70c61fc8d9ea38d59ef2ad6ea6bc8422969ae",
+    "content": "[视频] k8s test infra prow hook模块源码解读 \n资料：https://www.yuque.com/seven4x/kb/goelku prow hook模块源码解读 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Ma411z7He/",
+    "originalDate": "2022-01-01T16:00:00.000+00:00",
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/04687d45a8e5270964d209a71de137c81629c533.jpg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81bf-af1a-c7c6a0ccf22e",
+    "title": "beb5cab906b863880240555f2a7c11555b6098d86ba11cd21d24337eaaa1a654",
+    "content": "[视频] 破茧.05-如何通过浏览器收藏夹采集信息网址信息 \n通过收藏夹功能收集网址url、标题自动填写到表单 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1kD4y1F7HG/",
+    "originalDate": "2022-01-01T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/063aeeede99c1cf812fb32ef33e2ec9a4a6935e1059c40b71af774cb5e108c84.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81ea-bc4c-d988e15d2f7e",
+    "title": "6a42d93a1dc859b5dcb219a8ff719b328581a3d5b192df2854c1121e6c2afcf2",
+    "content": "[视频] 【年度报告】码翁的2021时光机 \n一键闪回2021>> https://www.bilibili.com/blackboard/redpack/tm2021.html?msource=postdesc&navhide=1 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1G44y1E7p7/",
+    "originalDate": "2021-12-30T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7aad02404607bc6c246e9b336bb59f2edb9f83c6c5f7fc64e6f8c81e46298c2c.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8107-a7e6-fd6e8867e26b",
+    "title": "df6e476184823f5318853d9a3ba1ed479a32e0830250ef56c8a8a616e5a93432",
+    "content": "过年啦!",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E8%BF%87%E5%B9%B4%E5%95%A6!&synapse=h-ODUyOD-6L+H5bm05ZWm-MjAyMS0xMi",
+    "originalDate": "2021-12-23T12:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/cd58f0cce1fa04f2f9573a63a7cf58f244b0a3213923b39e567f9f04d043d356.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8105-b952-cde0892fc55d",
+    "title": "3409da461a0965b67b5163448abeef329f123b666850a0b612d87a6f36a183b4",
+    "content": "[视频] 如何用caddy2反向代理部署前后端项目 \n视频讲解通过caddy2部署react前端和golang后端项目如何配置，示例：https://bitseatech.com 文稿：https://www.yuque.com/docs/share/c7829fcf-a3f4-4c1b-b587-b7f749e53988?# 《caddy2+react router + reverse_proxy》 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1c44y1J75p/",
+    "originalDate": "2021-12-19T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a13c090dccc0dd99ec4e22457178cfcb4cc06323194cfdfd9382194435872f02.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f4-985e-f374a4f7c85e",
+    "title": "0b71afc0c5a3df74d00d00450bcc44780245a1f4cc157bc90d9d009f839bba0f",
+    "content": "backup",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=backup&synapse=h-ODUyOD-YmFja3Vw-MjAyMS0xMi",
+    "originalDate": "2021-12-19T12:50:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/ecc9eb400c95bd55c18f84f3f06752249fb5ff1e1ee4813ca3558cb2a29cbfba.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/1df79b85cbbd3f23e8235404e75e4b9f5e5eabaf081ae5a2227bf19b53b96db2.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/02e7d0b32e3b628eac1a117564acc15e4b2a9a63838cc9cd50fdfdd9bb98131a.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8148-8acd-d9c28b550ea6",
+    "title": "9033dc95ffad1a89b30d7836d97fa6e6c4cfb1bbec935c626184de8d15bd22bb",
+    "content": "[视频] k8s test-infra prow plank模块源码解读 \n视频解释了为什么我们可以部署prow到aliyun或青云存储日志，着重解读了日志写入过程 你会学习到这些go CDK, sidecar，init-container，函数式编程的实际应用方式 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1HY411H78a/",
+    "originalDate": "2021-12-18T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/23dc2c4c1988d102ee8ae677c1b90e8e333936a69e9037df397405fe93c812b8.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81b2-995a-c355831301e8",
+    "title": "513bc43b793bfa837e672b68e7dfdf03fdc8cef56c8d1722cebbf01250e10c2d",
+    "content": "https://t.bitseatech.com  今天部署了一套mastodon可以理解为自托管的Twitter，没有广告也没有大数据分析，手机客户端用的tusky可以用f-droid下载，欢迎胖友来玩#自托管 这是部署的第三套自托管服务了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=https%3A%2F%2Ft.bitseatech.com%C2%A0%20%E4%BB%8A%E5%A4%A9%E9%83%A8%E7%BD%B2%E4%BA%86%E4%B8%80%E5%A5%97mastodon%E5%8F%AF%E4%BB%A5%E7%90%86%E8%A7%A3%E4%B8%BA%E8%87%AA%E6%89%98%E7%AE%A1%E7%9A%84&synapse=h-ODUyOD-aHR0cHM6Ly90-MjAyMS0xMi",
+    "originalDate": "2021-12-18T14:26:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/f5e5309709cef560c35516a3fac6a4b4147a97e345479d9ebbda32eaf2ee53e0.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/f94a1c96432be180d627cfc6d03f19a530d40d6f85f5d11f86853b86aa0c3e9e.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:18:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81cf-9775-ecf0f2cfe555",
+    "title": "5b1f2d38855a8771b70395327eee16e2367071229102ccdeecd883661c8f48f7",
+    "content": "[视频] 如何实现热评功能 \n如何实现类似B站的热评功能代码走读，p1主要是单体应用小网站通过sql实现方式，p2是微服务架构下应对高流量高性能要求如何设计实现。 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1yL411L7Ud/",
+    "originalDate": "2021-12-11T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/21f7472968306a7103295f45912002c936ff570c109087e0ebfd1237f189a2de.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8138-8cd1-dc287ebb0ea0",
+    "title": "0e400f7d6af065452820db0e9dcf3e13ed9a2be78bc3010edcce9bea1e165c5d",
+    "content": "haha",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=haha&synapse=h-ODUyOD-aGFoYQ==-MjAyMS0xMi",
+    "originalDate": "2021-12-06T13:11:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/972f98bcd32c3d7d779912cf303e5ca8252b757ea9ea8b5e16cb1b495e0acfcf.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8115-b787-e10fd5cf14ce",
+    "title": "a47332a4add2b4da52aa94ec21769a57c33e0407a5e49a32168dfd6321e1ba83",
+    "content": "[视频] k8s test infra prow的整体架构 \n文稿版：https://www.yuque.com/seven4x/kb/goelku 介绍了prow核心的组件作用及组件关系 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1xZ4y197kL/",
+    "originalDate": "2021-12-04T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/ef6b987b6396db5e392978d9bb951a1052804ab05920517678c107b60bce35d2.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8182-a25a-f4fbe688e39f",
+    "title": "cf5c3b0b587557606ac59f69dfa1d3893cdc704ebf09df40f4ae26077713f49c",
+    "content": "[视频] k8s社区如何协作开发的简介 \n简单介绍一下k8s社区如何协作开发的，引入我们关系的prow，从而了解prow的使用场景 解读了kubectl的部分源码 文字版：https://www.yuque.com/seven4x/kb/lllv0s ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1bZ4y197xG/",
+    "originalDate": "2021-12-04T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/c173a01891f753f2dd8676eaa84dc1b7fbc4c454011edec6e47530bb86ef753c.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8163-932f-eb453e02104c",
+    "title": "6f1708d233991a3ef4cbc0faf2dff3a898c985b1f898fd03936525c65ab57265",
+    "content": "有些人既不是左派也谈不上右派他们总是反对的一派",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%9C%89%E4%BA%9B%E4%BA%BA%E6%97%A2%E4%B8%8D%E6%98%AF%E5%B7%A6%E6%B4%BE%E4%B9%9F%E8%B0%88%E4%B8%8D%E4%B8%8A%E5%8F%B3%E6%B4%BE%E4%BB%96%E4%BB%AC%E6%80%BB%E6%98%AF%E5%8F%8D%E5%AF%B9%E7%9A%84%E4%B8%80%E6%B4%BE&synapse=h-ODUyOD-5pyJ5Lqb5Lq6-MjAyMS0xMS",
+    "originalDate": "2021-11-30T08:12:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8128-9ab4-f4979bd0aea6",
+    "title": "03d3da316e78d47ec9df168fb76e3c98e758e932d35ddd111e0d98c417102338",
+    "content": "前几日有几个特别有意思的想法一直想写下来，到现在有时间写的时候却忘记了，人的记忆真的是不可靠的事情",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E5%89%8D%E5%87%A0%E6%97%A5%E6%9C%89%E5%87%A0%E4%B8%AA%E7%89%B9%E5%88%AB%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E6%83%B3%E6%B3%95%E4%B8%80%E7%9B%B4%E6%83%B3%E5%86%99%E4%B8%8B%E6%9D%A5%EF%BC%8C%E5%88%B0%E7%8E%B0%E5%9C%A8%E6%9C%89%E6%97%B6%E9%97%B4%E5%86%99%E7%9A%84%E6%97%B6%E5%80%99%E5%8D%B4%E5%BF%98%E8%AE%B0%E4%BA%86%EF%BC%8C%E4%BA%BA%E7%9A%84%E8%AE%B0%E5%BF%86%E7%9C%9F%E7%9A%84%E6%98%AF%E4%B8%8D%E5%8F%AF%E9%9D%A0%E7%9A%84%E4%BA%8B%E6%83%85&synapse=MjAyMS0x",
+    "originalDate": "2021-11-29T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/48f0f531f7e37a4b82a0d85856ddc7f19d3ed76f790c8bd8b8f6b0671cf37d96.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/38d39185c5ae327766277b71fbdbcbc971de87da487d5d60d99f63e64285b9b4.html"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8166-9fc2-f1e0af03c72f",
+    "title": "23899864a14f213f20443e30b3ede16d51862f0de26e0a0f2c246ab490f17f96",
+    "content": "[视频] raft从论文到源码Etcd源码解读 \n文稿地址：https://www.yuque.com/docs/share/d13bbdce-9e66-4b87-93c7-fcf96420ee0e?# 《raft从论文到源码Etcd源码解读》 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1iq4y1B7hG/",
+    "originalDate": "2021-11-29T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/6c126c2fdfbe8f4e8bd46a7175a9903de7b8d963e3a1c37759ed1f55f26c04d9.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:08:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81c2-a346-ec51a6d61229",
+    "title": "02aa65f56155be14ca3c96e300cdc56d9527fe9308a3ce0c742b61bec3f733a7",
+    "content": "[视频] 聊聊BUG.15 Mysql错误的分页查询引起的BUG \n文稿地址：https://www.yuque.com/docs/share/3b9f778c-1c7d-45f8-abbc-67c1c9a5eeb0?# 《#15 Mysql错误的分页查询引起的BUG》 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1kL4y1p7JY/",
+    "originalDate": "2021-11-27T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5f62e3faa1a45ac57f7b1c83f0f8bd0c7ee517a33a2150d528bb67926309b2eb.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8157-ba44-eadb614e3d5b",
+    "title": "66099e416efea479a7d6773d7e319750d907ad3248f73cd665ddde2ff70e9d39",
+    "content": "在这个到处是系统推荐的时代用RSS阅读器算是一种“”文艺复兴”了系统推荐逻辑下平台决定用户能看什么，投喂圈养用户，快速构筑信息茧房奶头乐于其中。互联网的确有大量的有趣知识只不过更多的人用的是局域网罢了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%9C%A8%E8%BF%99%E4%B8%AA%E5%88%B0%E5%A4%84%E6%98%AF%E7%B3%BB%E7%BB%9F%E6%8E%A8%E8%8D%90%E7%9A%84%E6%97%B6%E4%BB%A3%E7%94%A8RSS%E9%98%85%E8%AF%BB%E5%99%A8%E7%AE%97%E6%98%AF%E4%B8%80%E7%A7%8D%E2%80%9C%E2%80%9D%E6%96%87%E8%89%BA%E5%A4%8D%E5%85%B4%E2%80%9D%E4%BA%86%E7%B3%BB%E7%BB%9F%E6%8E%A8%E8%8D%90%E9%80%BB%E8%BE%91%E4%B8%8B%E5%B9%B3%E5%8F%B0%E5%86%B3%E5%AE%9A%E7%94%A8%E6%88%B7%E8%83%BD%E7%9C%8B%E4%BB%80%E4%B9%88%EF%BC%8C&synapse=h-ODUyOD-5Zyo6L+Z5Liq-MjAyMS0xMS",
+    "originalDate": "2021-11-26T15:27:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9e3db7be7f1e5ad823410a3533e56217ce39c0c9645a7fe7446b531145f0c109.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81da-9374-f298f39a423a",
+    "title": "947e70aa5a60ea111fa480793f4024099717cb3c0869c86aafde53bd699b44d8",
+    "content": "目之所及几乎所有青年女性都染发。这种行为是怎么流行起来的，推动力是什么？为什么她们做出这样的选择？西欧韩文化影响？理发店商业行为驱动？由于女性基因里对爱美的心理驱动做出的自由选择？那么不禁要问美是什么？不得其解！",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E7%9B%AE%E4%B9%8B%E6%89%80%E5%8F%8A%E5%87%A0%E4%B9%8E%E6%89%80%E6%9C%89%E9%9D%92%E5%B9%B4%E5%A5%B3%E6%80%A7%E9%83%BD%E6%9F%93%E5%8F%91%E3%80%82%E8%BF%99%E7%A7%8D%E8%A1%8C%E4%B8%BA%E6%98%AF%E6%80%8E%E4%B9%88%E6%B5%81%E8%A1%8C%E8%B5%B7%E6%9D%A5%E7%9A%84%EF%BC%8C%E6%8E%A8%E5%8A%A8%E5%8A%9B%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A5%B9%E4%BB%AC%E5%81%9A%E5%87%BA%E8%BF%99%E6%A0%B7%E7%9A%84%E9%80%89%E6%8B%A9%EF%BC%9F%E8%A5%BF&synapse=h-ODUyOD-55uu5LmL5omA-MjAyMS0xMS",
+    "originalDate": "2021-11-23T12:38:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-814c-a4bd-dc24d01e5ffd",
+    "title": "80bbf7a4cb5b5ce01163289c544a3dc439a9fc7bff32e3b10863e1960949e73c",
+    "content": "好久没有投稿了 借着这次技术分享录屏更新一期，后面关于raft的分享已经准备中了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%A5%BD%E4%B9%85%E6%B2%A1%E6%9C%89%E6%8A%95%E7%A8%BF%E4%BA%86%20%E5%80%9F%E7%9D%80%E8%BF%99%E6%AC%A1%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E5%BD%95%E5%B1%8F%E6%9B%B4%E6%96%B0%E4%B8%80%E6%9C%9F%EF%BC%8C%E5%90%8E%E9%9D%A2%E5%85%B3%E4%BA%8Eraft%E7%9A%84%E5%88%86%E4%BA%AB%E5%B7%B2%E7%BB%8F%E5%87%86%E5%A4%87%E4%B8%AD%E4%BA%86&synapse=h-ODUyOD-5aW95LmF5rKh-MjAyMS0xMS",
+    "originalDate": "2021-11-12T11:30:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81b7-8f9d-e6e7907e6706",
+    "title": "2c7fa41471aab5b49acb375fa3e2a4dff6ee29fe13594dd36a9ad3c0e0bcfdcc",
+    "content": "[视频] HyperLoglog从论文到源码redis源码解读 \n文案：https://www.yuque.com/docs/share/a755e2a0-6f59-4709-bbe5-a97cc0eabc09?# 《HyperLoglog从论文到源码redis源码解读》 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Wq4y1k7Dy/",
+    "originalDate": "2021-11-11T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/13c2da72f5bf7570b130859ac67ce4bb3b6750ed6a359a071410128415b1737a.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-814a-bb2c-d6f5707010fe",
+    "title": "ae02d958546e0a400b583caad99007c24e69526533adbf3642d4003c68f5b492",
+    "content": "又梦到自己在飞",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%8F%88%E6%A2%A6%E5%88%B0%E8%87%AA%E5%B7%B1%E5%9C%A8%E9%A3%9E&synapse=h-ODUyOD-5Y+I5qKm5Yiw-MjAyMS0xMS",
+    "originalDate": "2021-11-05T14:36:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/3927b5e2523d351858c66a2e601827b12e286ae44505acddb4e55e51970a79cb.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/eb32b23dde73c184db80f2e7db869ff506b02d9b8df749b404f085cdab0ebd22.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a593bc9eab25eff738c4d53fbfaf11c38c0b35f8239b8dc279529b0505a46595.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/67f601aafa211c4f693a2b7aa3c20998d7fc63fb726a23533dac4461874ec3a4.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/45d64ef6cc1a7cef2f92d2b914fad5669e291cf8218ce974e35e84c3882c8c96.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/92da23e190cafffb05c4569c2f7747be8a6e62cd711d092aea4c82fc57321102.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/cb93e6803ca4d712dba39b96f067cb78e7f7f2868a04ea6bb3b3bd9b27da251e.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/3f74b8bfb1a7b822b6b971ac1218e97e0d51ce662fc3b543d65e57ead5d60fe0.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/4de093458744f627361afdc554882894c92a65dc4183b1d13d3c7aef5ab2526d.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81d3-94bf-f33f8fff8a70",
+    "title": "13855a10b21382c387379f31ae75ef97e815570f95dc702dc3d40a4b833e44de",
+    "content": "应当周期性地对自己进行梳理追问复盘，黑话讲叫沉淀深挖，用产品领域的话讲叫服务能力不断转化成产品能力，包括：失败 知识 资源 欲望 思绪 环境 桌面 关系",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%BA%94%E5%BD%93%E5%91%A8%E6%9C%9F%E6%80%A7%E5%9C%B0%E5%AF%B9%E8%87%AA%E5%B7%B1%E8%BF%9B%E8%A1%8C%E6%A2%B3%E7%90%86%E8%BF%BD%E9%97%AE%E5%A4%8D%E7%9B%98%EF%BC%8C%E9%BB%91%E8%AF%9D%E8%AE%B2%E5%8F%AB%E6%B2%89%E6%B7%80%E6%B7%B1%E6%8C%96%EF%BC%8C%E7%94%A8%E4%BA%A7%E5%93%81%E9%A2%86%E5%9F%9F%E7%9A%84%E8%AF%9D%E8%AE%B2%E5%8F%AB%E6%9C%8D%E5%8A%A1%E8%83%BD%E5%8A%9B%E4%B8%8D%E6%96%AD%E8%BD%AC%E5%8C%96%E6%88%90%E4%BA%A7%E5%93%81%E8%83%BD%E5%8A%9B%EF%BC%8C&synapse=h-ODUyOD-5bqU5b2T5ZGo-MjAyMS0xMC",
+    "originalDate": "2021-10-28T13:12:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-812d-9f59-ce2cddc8737a",
+    "title": "46f91b7adcee0881aee83705a71f773c00180b3523569448c5b2fceacf714b27",
+    "content": "小米yyds",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%B0%8F%E7%B1%B3yyds&synapse=h-ODUyOD-5bCP57GzeXlk-MjAyMS0wOC",
+    "originalDate": "2021-08-11T01:18:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/33924862133409198743a38f30ce8144f9ec67dfe383736d3932d64b240d9157.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/11ca0ddd7a3ad0222239b3232ffc5de4c01c39f6842349a525bf07a7916e2ef6.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/079ce7f2bcdc08d0667363ed94220363f36ebf4bc63d7b89e6bf54e5f46e6b1e.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7e24a78f1a6ae262c8d9c415dedb3a9310914036db779cabe60a26b6e5b4e12d.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/3415acd8ff1cbbbd05cfd722622f73d9fb650bc3990654d2d6370aa7d5331a8c.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81ee-99ee-d36c352f0ecc",
+    "title": "b2d25950f379b1b1dc50c49240d9cf0004f376388936bfef0da703e2d93bd1a6",
+    "content": "160=>140=…>130",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=160%3D%3E140%3D%E2%80%A6%3E130&synapse=h-ODUyOD-MTYwPT4xNDA9-MjAyMS0wOC",
+    "originalDate": "2021-08-10T00:13:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/c991f20670dba1361e1739054e81a6a4e41ccf4d013ee08ddbad932dce2678c5.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-814f-a476-fd6e842c5900",
+    "title": "71590284576002113fc35ca56ef48aa0475e07e589faea96ea448e62f970f0b4",
+    "content": "原神很像魔兽世界啊",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%8E%9F%E7%A5%9E%E5%BE%88%E5%83%8F%E9%AD%94%E5%85%BD%E4%B8%96%E7%95%8C%E5%95%8A&synapse=h-ODUyOD-5Y6f56We5b6I-MjAyMS0wNy",
+    "originalDate": "2021-07-23T11:16:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8143-98a5-d4555576b8e9",
+    "title": "847915e9eca9216c7d26a99dc2086b5ace3598c91c06fcc32f9eebd4214ee6c2",
+    "content": "[视频] Google I/O 2010 - Go Programming \nhttps://www.youtube.com/watch?v=jgVhBThJdXc Tech Talks Rob Pike, Russ Cox ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1A64y1x7J6/",
+    "originalDate": "2021-07-22T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/c4785777b0315060484fe39c8c0033a3aeb831c044b9e00355c0b174307c5306.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8112-ba7a-e38ba4bc08ce",
+    "title": "6a4864290f790f0403dc262a9759605102f373aa4b7d2a26c65072fb3748aa09",
+    "content": "[视频] 聊聊BUG.14 js懒加载出错原理分析及修复BUG过程心路历程 \n很早之前遇到的一个生产BUG，这次简化了一下模型分享一下相关的技术 文稿版（暂未完善）：https://www.yuque.com/go/doc/47293932 涉及document.write与appendChild 什么都没改为什么不行了? ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1R54y1E7u9/",
+    "originalDate": "2021-07-21T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/c2613fa5ac3af60e489e0f389bab6a05991c6c49cf35891eaec364f4749aed2d.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81b4-b0f9-c7ed184a7696",
+    "title": "baf0aede36b86577db5073fbfbbfc17a3fba78ee77a9846891665366ecdfc7ec",
+    "content": "[视频] 聊聊BUG.13使用schedulerx遇到的NoSuchBeanDefinitionException涉及spring bean加载原理源码分析 \n聊聊BUG.13使用schedulerx遇到的NoSuchBeanDefinitionException涉及spring bean加载原理源码分析 涉及类加载器，spring如何通过class查找bean的，spring如何解决循环依赖 文档版：https://www.yuque.com/seven4x/kb/upiv7g https://www.yuque.com/seven4x/kb/biufs4 云产品https://schedulerx2.console.aliyun.com ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1J44y1m7TZ/",
+    "originalDate": "2021-07-20T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/970cd0561ccd905a483d2a2f411703e7e410fa6ddb3c7ad484c57ff56cf8edf9.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81ff-93fc-d88fcd84541e",
+    "title": "d0fcda150335a7b5588a98327c020061da26bfcfd7431d7881a8b4309f18a547",
+    "content": "活在未来容易焦虑，活在过去容易忧郁，活在当下吧！",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%B4%BB%E5%9C%A8%E6%9C%AA%E6%9D%A5%E5%AE%B9%E6%98%93%E7%84%A6%E8%99%91%EF%BC%8C%E6%B4%BB%E5%9C%A8%E8%BF%87%E5%8E%BB%E5%AE%B9%E6%98%93%E5%BF%A7%E9%83%81%EF%BC%8C%E6%B4%BB%E5%9C%A8%E5%BD%93%E4%B8%8B%E5%90%A7%EF%BC%81&synapse=h-ODUyOD-5rS75Zyo5pyq-MjAyMS0wNy",
+    "originalDate": "2021-07-20T06:33:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81ed-b172-d08d26d03397",
+    "title": "01534a5923bb93b27fd8748d6d2fe9298b35ab48bdb32212d106517e44467723",
+    "content": "逼自己一把才能知道自己不行",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E9%80%BC%E8%87%AA%E5%B7%B1%E4%B8%80%E6%8A%8A%E6%89%8D%E8%83%BD%E7%9F%A5%E9%81%93%E8%87%AA%E5%B7%B1%E4%B8%8D%E8%A1%8C&synapse=h-ODUyOD-6YC86Ieq5bex-MjAyMS0wNy",
+    "originalDate": "2021-07-19T08:28:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f4-affe-c0983c37bf16",
+    "title": "92dc7dc586d55b73e3768ea712adf0832ff434975b4f2257164c3fd9e45e627c",
+    "content": "人性会在持续的颓废时发出示警，却也容易被无效的努力所欺骗",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E4%BA%BA%E6%80%A7%E4%BC%9A%E5%9C%A8%E6%8C%81%E7%BB%AD%E7%9A%84%E9%A2%93%E5%BA%9F%E6%97%B6%E5%8F%91%E5%87%BA%E7%A4%BA%E8%AD%A6%EF%BC%8C%E5%8D%B4%E4%B9%9F%E5%AE%B9%E6%98%93%E8%A2%AB%E6%97%A0%E6%95%88%E7%9A%84%E5%8A%AA%E5%8A%9B%E6%89%80%E6%AC%BA%E9%AA%97&synapse=h-ODUyOD-5Lq65oCn5Lya-MjAyMS0wNy",
+    "originalDate": "2021-07-16T01:33:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e4-8d91-f802bd9abd66",
+    "title": "132b745fc0192f51e58ee972ca456cd6b2c06e9ae486dafddfa5e9cf5620e916",
+    "content": "借口先生",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%80%9F%E5%8F%A3%E5%85%88%E7%94%9F&synapse=h-ODUyOD-5YCf5Y+j5YWI-MjAyMS0wNy",
+    "originalDate": "2021-07-14T00:38:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8108-887f-e5b3e3e881e3",
+    "title": "7176cb9bcb2e38f1cf8981e5f65cfc2582eada400781e22d764b2bbb5e25e7d5",
+    "content": "[视频] Google I/O 2013 - Fireside Chat with the Go Team \nhttps://www.youtube.com/watch?v=p9VUCp98ay4 搬运https://www.youtube.com/watch?v=p9VUCp98ay4 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV11h41167jS/",
+    "originalDate": "2021-07-13T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/03a63710e0bc9327f83376b2b921c664c525b0057aa7368ad3075b37f4564cff.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-819f-b656-fd6592c8c658",
+    "title": "ece8744880430f53af3a08684362f7688b7a0dbc00b7c3e1b49200186ed54d9d",
+    "content": "[视频] Google I/O 2012 - Meet the Go Team \nhttps://www.youtube.com/watch?v=sln-gJaURzk 搬运https://www.youtube.com/watch?v=sln-gJaURzk ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV19g411T73E/",
+    "originalDate": "2021-07-13T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/2887b840a87d32d059858347fefb54915852c1c4ab8db5e6b48dc5f0de94ea1b.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8182-a601-f1cb98425621",
+    "title": "2e4114533cb0bf93c8f38b3687bd75ff7b4b47cc15c591ab9082c596782f7aa6",
+    "content": "抗争到底！",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%8A%97%E4%BA%89%E5%88%B0%E5%BA%95%EF%BC%81&synapse=h-ODUyOD-5oqX5LqJ5Yiw-MjAyMS0wNy",
+    "originalDate": "2021-07-13T08:05:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8152-9089-ff92dc486884",
+    "title": "f1ce99bb9dcf031b32a8648625d1f783c341315213f1481ed6c7084cf649ede4",
+    "content": "1/2= 下载新版手机QQ",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=1%2F2%3D%C2%A0%E4%B8%8B%E8%BD%BD%E6%96%B0%E7%89%88%E6%89%8B%E6%9C%BAQQ&synapse=h-ODUyOD-MS8yPcKg5LiL-MjAyMS0wNy",
+    "originalDate": "2021-07-12T01:57:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-812c-b090-d8ed3b19d817",
+    "title": "bf00c5ff1ec72081d495843c2ed74546d8eac5bdbf9bbfc5fdd3e4d24cd0ce7d",
+    "content": "respect",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=respect&synapse=h-ODUyOD-cmVzcGVjdA==-MjAyMS0wNy",
+    "originalDate": "2021-07-12T01:54:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8117-9f34-cbc1fb0d025f",
+    "title": "bd9295a5ad2ec15b080321480d921ba200fa2debb4b23e624c9a525373c26699",
+    "content": "[视频] 如何写出测试友好的代码 \n可测试=控制逻辑和状态管理分离 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1fv411n7kS/",
+    "originalDate": "2021-06-27T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/063ebe38e2b4d38a518bb1a52986d6375fe860ec336f7db149c23ab2169151fe.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-811a-811d-cb5c4bedfc6b",
+    "title": "0c467438e1274384a752033a9a531e5b2842659384273e1826031a69d20bd97c",
+    "content": "[视频] 如何优雅停机(Java版) \n文字版：https://www.yuque.com/seven4x/blog/hsmy5a ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1RK4y1u7RD/",
+    "originalDate": "2021-06-27T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/f1bb06f1d3addba4cf9021b3ad40ceab16e7398fbe8aebe2a8bc789a41e8c9b4.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81ea-97b5-cd5c5b67368f",
+    "title": "fc655695c2ecf61652c6f98c98bba315d7a44c16415722cff3c71438bba8560e",
+    "content": "来杭州一年了",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%9D%A5%E6%9D%AD%E5%B7%9E%E4%B8%80%E5%B9%B4%E4%BA%86&synapse=h-ODUyOD-5p2l5p2t5bee-MjAyMS0wNi",
+    "originalDate": "2021-06-22T13:12:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/83015fff43f9c7a4653708d3baccca3c43d2e8c52fe48b3b2c74d1f8adf050c3.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/8300e6e2834924ac33718346b7042eb66c1c9d0cdfa646d69cadcb2f4ec38b5b.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81b7-9822-de044f4d2952",
+    "title": "9f031ee887142223a3eb70b23a4ca48828da0c3bbaf056b40832c0cf8c9596d3",
+    "content": "《DDIA》插图",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E3%80%8ADDIA%E3%80%8B%E6%8F%92%E5%9B%BE&synapse=h-ODUyOD-44CKRERJQeOA-MjAyMS0wNi",
+    "originalDate": "2021-06-08T06:15:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/8bac418da710656b839d0ab8fc83f7f65ba12d74f5456ff6d4437d537f88284e.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e65a54572c1b6d743f2df7d0139e2e224c746fdb3128255d59fa6f40c2b5829c.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/aa0aae80dc97e6ddd015ffa1da1983ecbfc9560b64038fa88d2f48d5c6987f6a.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5dea2fda5c68ad4bdaf5d09f4817487f1751687910deb5a249e3816cec500826.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/f631f5e971dabb6e949d7481af79125aea7013b556652e9e989a3f0cd1fc5e84.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5a0032c44f42311f58151cb6239966db2cb92de3a6141dc7255df32e6a855f24.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d7213bffd990476ddf21e8afb6c37d8e69c980f1b513abcf161ae89fe79066f4.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/688b4bddc90ee0288eb5e69a3c5f146c2b685f5227ae0166852a5b1acc6be1cd.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/1a398bdc194ef7dda2c03dbd95ded8c0f9e8b1ae54d1a4fcd15b4a85e4acd318.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:19:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f2-ab6f-faf87c46132d",
+    "title": "39f3b21b8d265bf6480a9e5309edc44126a82f87df1de626654eaa9612661e75",
+    "content": "梳理了一下学习架构的待看书单 https://www.yuque.com/seven4x/kb/oiuvfv 有边界了就有进度了就有动力了就有方向了。 配图中的资料有想要的朋友加微信#书单#",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E6%A2%B3%E7%90%86%E4%BA%86%E4%B8%80%E4%B8%8B%E5%AD%A6%E4%B9%A0%E6%9E%B6%E6%9E%84%E7%9A%84%E5%BE%85%E7%9C%8B%E4%B9%A6%E5%8D%95%20https%3A%2F%2Fwww.yuque.com%2Fseven4x%2Fkb%2Foiuvfv%20%E6%9C%89%E8%BE%B9%E7%95%8C%E4%BA%86%E5%B0%B1%E6%9C%89%E8%BF%9B%E5%BA%A6%E4%BA%86%E5%B0%B1%E6%9C%89%E5%8A%A8%E5%8A%9B%E4%BA%86%E5%B0%B1%E6%9C%89%E6%96%B9%E5%90%91%E4%BA%86%E3%80%82%20%E9%85%8D%E5%9B%BE%E4%B8%AD%E7%9A%84%E8%B5%84%E6%96%99%E6%9C%89%E6%83%B3%E8%A6%81%E7%9A%84%E6%9C%8B%E5%8F%8B%E5%8A%A0%E5%BE%AE%E4%BF%A1%23%E4%B9%A6%E5%8D%95%23%E2%80%8B&synapse=MjAyMS0w",
+    "originalDate": "2021-04-08T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/36fd0fedbd51bb8cef69ec6565cce153a20416108eed70bba5fa2dd66df3828f.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/96aeb440d578b84eeccd1a7ecff12f40d88f0f78f78f12eeffbf28e26fbf337e.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/38d39185c5ae327766277b71fbdbcbc971de87da487d5d60d99f63e64285b9b4.html"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-813f-a810-c1e4a40712e1",
+    "title": "64e8e011a210598768554ad4b98371668302eea19f5ea1b4276babee522b1f1c",
+    "content": "中间件学习的几个层次： 1.会用 1-2年工作经验考察 2.弄清设计原理与实现 3-5年考察 3.宏观与抽象与上下层关系（架构）与代码实现细节（源码） 4.历史演化与技术前沿 #学习心得#  #图文无关#",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%87%A0%E4%B8%AA%E5%B1%82%E6%AC%A1%EF%BC%9A%201.%E4%BC%9A%E7%94%A8%201-2%E5%B9%B4%E5%B7%A5%E4%BD%9C%E7%BB%8F%E9%AA%8C%E8%80%83%E5%AF%9F%202.%E5%BC%84%E6%B8%85%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0%203-5%E5%B9%B4%E8%80%83%E5%AF%9F%203.%E5%AE%8F%E8%A7%82%E4%B8%8E%E6%8A%BD%E8%B1%A1%E4%B8%8E%E4%B8%8A%E4%B8%8B%E5%B1%82%E5%85%B3%E7%B3%BB%EF%BC%88%E6%9E%B6%E6%9E%84%EF%BC%89%E4%B8%8E%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82%EF%BC%88%E6%BA%90%E7%A0%81%EF%BC%89%204.%E5%8E%86%E5%8F%B2%E6%BC%94%E5%8C%96%E4%B8%8E%E6%8A%80%E6%9C%AF%E5%89%8D%E6%B2%BF%20%23%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97%23%E2%80%8B%20%20%23%E5%9B%BE%E6%96%87&synapse=MjAyMS0w",
+    "originalDate": "2021-03-30T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/4d2390d77382f3aaf1ff35f1f085c59b98d88831472cb26e430d38c4fff53c40.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/38d39185c5ae327766277b71fbdbcbc971de87da487d5d60d99f63e64285b9b4.html"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-810f-a559-f18d306f95a0",
+    "title": "434c6af1d8cb537f5216f7d76fa94b04ee4a9b2e0e8c746b3a8f147cc79b5b73",
+    "content": "#用户反馈论坛# 播放器能不能做个通过键盘方向左键快进5秒的功能",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%23%E7%94%A8%E6%88%B7%E5%8F%8D%E9%A6%88%E8%AE%BA%E5%9D%9B%23%E2%80%8B%20%E6%92%AD%E6%94%BE%E5%99%A8%E8%83%BD%E4%B8%8D%E8%83%BD%E5%81%9A%E4%B8%AA%E9%80%9A%E8%BF%87%E9%94%AE%E7%9B%98%E6%96%B9%E5%90%91%E5%B7%A6%E9%94%AE%E5%BF%AB%E8%BF%9B5%E7%A7%92%E7%9A%84%E5%8A%9F%E8%83%BD&synapse=MjAyMS0w",
+    "originalDate": "2021-03-20T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81a7-8acc-c6dc090934c5",
+    "title": "4c1d4c06c6378c9a872db8724d8aea3d2031acbe6ebaf706b12bbaf126b76251",
+    "content": "[视频] 如何实现实时的热搜榜 find-top-k-in-time-sliding-window \n#如何实现系列# 网上有静态数据的topk方案，暂时没有滑动时间的topk资料，这是我参考了一些论文实现的一个方案 源码：https://github.com/Seven4X/top-k-in-time-sliding-window ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1t5411K7hR/",
+    "originalDate": "2021-03-06T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d58d62de7c6bb0711926daf0fa000bf18f426bedeb052c3c7cff8bd9737a7263.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8144-8d38-fdb0857384d5",
+    "title": "db764945f4af98a6a84ce24f5210fc712acb20f27d417701d739e3a2c89c32b5",
+    "content": "[视频] 聊聊BUG.11-一个数值越界导致的BUG \n又一个bug分享 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1cy4y1p72B/",
+    "originalDate": "2021-01-19T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5a11686aceefb20df3bf7f5d8d1c0d677ac4593646a4802457130da4c6017709.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8105-a3a5-fd18a81a3d87",
+    "title": "0f5963ca3740cfbfee8d2e72aa6771e155379c927a0d01694ff6c0181638423f",
+    "content": "[视频] 聊聊BUG.12-base64加密参数作为URL一部分，服务端解析错误BUG分析 \n又一个bug分享，比较简单老项目代码遇到的，希望同学们注意 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1NT4y1P7kP/",
+    "originalDate": "2021-01-19T16:00:00.000+00:00",
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/25d415ebe2a72f75221d2d2abd0b3d76454f4756.jpg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8152-a3e0-d525e2a94294",
+    "title": "b9dd7024e86fedc85a7797ba193863762cb62ccd16a8454638515fc8186bc365",
+    "content": "[视频] 【年度报告】张三石写代码的2020时光机 \n一键闪回2020>> https://www.bilibili.com/blackboard/redpack/tm2020.html?msource=postdesc&navhide=1 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV12T4y1T7bc/",
+    "originalDate": "2020-12-30T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/8c8cfbd497e7756d3c0065cd25dd03b7ada251760ce2a6a41388dc190cd5e0c0.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-813e-84e9-d693a5d776b5",
+    "title": "0e68757b8e3cb0fb43d7058b36a35678fd2eefbaa07c0aabe8d031fe7f7575de",
+    "content": "[视频] 高可用技术漫谈 \n这期录的不太满意，很多东西没法扼要的展开，如果不想听我BB直接看文稿 https://www.yuque.com/docs/share/38ea6950-8702-40a5-aba8-13179966b9e8?# 《高可用系统建设》 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1si4y1w7C3/",
+    "originalDate": "2020-12-22T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/c13d939cb0b8afdbb00f1e036fd2641b747f56a85aaea3edb297f971405bea5d.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-813e-8038-d3db0905a094",
+    "title": "bab610583922bfa9be6fb27cd307a13764ef3bbf0f7d9f00886f3cdefcc4fd24",
+    "content": "[视频] 聊聊BUG.10-long类型后端传到前端数值对不上的原因 \n经典问题：long类型后端传递给前端数值对不上的问题，最近开发又遇到了分享给大家，希望对你有帮助。 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV17v41147zK/",
+    "originalDate": "2020-12-19T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/50effdf4df13e9ca5cd10c3b1ebc53dffa3f1452512028b69a50e699d3e03697.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:09:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-814e-8782-f0c82e26b879",
+    "title": "94a99328efb9f3fa772ecb3f927736cc5512c9751c0095bda55d7608a170463d",
+    "content": "[视频] gossip protocol从理论到实现 cockroachdb源码解读 \ngossip是在分布式系统中广泛应用的一项技术，本系列分享让你在懂得gossip理论后，能够自己模仿应用到自己的项目中，视频中提到了常见的设计模式，阅读代码的方式方法，cockroachdb 中gossip的设计细节，#硬核系列# ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV11h411Z73Q/",
+    "originalDate": "2020-12-13T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/043885ca65c768a4b9e917d544adf97c9d686bda163c4772ed5ac75e3b7b26b9.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-814a-abaa-f48de3b39df6",
+    "title": "57692bb74c33b57877e89b7b7eb0dd031769fcca9d228dd14004bd23359a61d3",
+    "content": "[视频] cuckoo filter 从理论到实践 -海量数据校重之道 \nB站首个全面讲解cuckoo filter的视频，从算法理论到编码实战，帮你将cuckoo filter应用到生产环境 视频口误：& 运算是与11111111进行计算 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1gZ4y1G7MF/",
+    "originalDate": "2020-11-28T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/10400d10e58e1974824d790cd6705b06e79910f82c8dcbaca411307080956621.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81a6-8dce-eaa3271b8170",
+    "title": "0253cb291ba0f8e93a6ebf7d90aeaa5449bd8b6dad5aa7b48a03d82048716ef7",
+    "content": "[视频] 数据库选型漫谈 \n这么多数据库除了MySQL+redis还有什么选择呢？ 本期视频就来聊聊有哪些？怎么选 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV19a4y1p715/",
+    "originalDate": "2020-11-28T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/10f7a06a54850446466ff80c99a1ea7e5d319fe970ea1b5a27171b1cc325571c.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81ba-8d9d-dd5da56fb229",
+    "title": "33db64ccbb770410615eedc01a4f57deae93d9090ded7ece78f5c7591e48b382",
+    "content": "[视频] 破茧.04-站点文案国际化整体方案 \n#golang# #react# #项目实战# 可落地的站点国际化方案，前后端架构设计 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1ot4y1a7U9/",
+    "originalDate": "2020-11-27T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/65395099274ce04d35f2c1b212504eb896af6ddce9479dea32effcfca911b1d7.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8186-a98c-c7a4f01a3aff",
+    "title": "9a30ba22c8cb9fb19a27829d95636073bc520d3d8713f2b48734687b9262d099",
+    "content": "[视频] 聊聊BUG.09-xorm配合go-sqlmock单元测试不生效BUG分析 \n详细拆解xorm+sqlmock出现BUG的原理，分享遇到类似问题的方法论，喜欢对你有帮助 https://github.com/DATA-DOG/go-sqlmock ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1R541137ht/",
+    "originalDate": "2020-11-22T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e38f4e5bb0cc03fa363b5962bfd81da5e6e5772c8e105e7dadbb4df9d7bc2f93.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8149-9458-f2666d0b9452",
+    "title": "09615138d83470cd78a8f296fd5b6e3dae69f1cf182568593f95fe4240d7b05d",
+    "content": "[视频] 破茧.02-前端技术选型 \nreact+antd+ts+.....轮子 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV11A411j7JU/",
+    "originalDate": "2020-11-19T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/1d2b981e0e4a6cae72c02ef7427236c44d4755f59c97a34e6f182463e031b01a.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81ae-8cb5-f7121cc565cb",
+    "title": "34dca9ff4d400444fa67343a0ffa0f1f016b3c6e28668666da30d73e1dbbd919",
+    "content": "[视频] 破茧.01-项目简介 \n产品介绍 开发工具链介绍 产品的思考 项目地址：https:://bitseatech.com ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1A541157Eh/",
+    "originalDate": "2020-11-19T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/39b3338963fe04f8e28026b93653be9a8f986a37b00730a82d459a3570b5094a.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81be-87c8-ca9b17a35ac2",
+    "title": "d9c16469eda3205a0eda1d2158321c29a04069d1b4ecf3f67451f09709ff6f44",
+    "content": "[视频] 破茧.03-后端技术选型 \nGolang echo xorm-plus ...轮子 docker postgresql redis ... c4model.架构分层设计 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Mt4y1v7ah/",
+    "originalDate": "2020-11-19T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/3907874462563f0d710869ec3cb7d69cf558e240b5d31f59f135054d80f177a2.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-813e-8ddb-c85bd5fe3301",
+    "title": "ee73c3129dd15084a69a0e708b9e63b56731642bc0247b9f97cd4e32b5e293c1",
+    "content": "先收藏一下 无节制消费的元凶 【纪录片/BBC】无节制消费的元凶 The Men Who Made Us Spend （2014） 但是还有书籍 【纪录片】但是还有书籍 第1集 书海编舟记 万物与虚无 【纪录片】万物与无物-Everything and Nothing 抽象：设计的艺术 【抽象：设计的艺术】双语字幕 全8集 积极心理学 BV1jb411B7DY 粒子狂热 【蓝光压制中英文字幕超清1080P画质收藏版】粒子狂热 Particle Fever 2013 维度：数学漫步 维度_数学漫步【第一季】 公司的力量 BV1Y4411i7tJ 混沌之谜 【纪录片】混沌之谜-The Secret Life of Chaos 人生果实 BV1Fk4y1k7tf  （复制的）",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/av11663590",
+    "originalDate": "2020-09-25T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81e0-9940-d55dfe832fb8",
+    "title": "abb5d487679a366a03082a544a209bd47f2ab222e789ddc65673d2b04dbf854a",
+    "content": "读很多书，具有很多知识，点开了很多技能，如果不能转换成社会价值，我觉得是无用的",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E8%AF%BB%E5%BE%88%E5%A4%9A%E4%B9%A6%EF%BC%8C%E5%85%B7%E6%9C%89%E5%BE%88%E5%A4%9A%E7%9F%A5%E8%AF%86%EF%BC%8C%E7%82%B9%E5%BC%80%E4%BA%86%E5%BE%88%E5%A4%9A%E6%8A%80%E8%83%BD%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%B8%8D%E8%83%BD%E8%BD%AC%E6%8D%A2%E6%88%90%E7%A4%BE%E4%BC%9A%E4%BB%B7%E5%80%BC%EF%BC%8C%E6%88%91%E8%A7%89%E5%BE%97%E6%98%AF%E6%97%A0%E7%94%A8%E7%9A%84&synapse=MjAyMC0w",
+    "originalDate": "2020-04-13T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/64fae0cbd02287bb60d44dec296f3f0689507f7dc9ee37c8bf12da79707e5007.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/38d39185c5ae327766277b71fbdbcbc971de87da487d5d60d99f63e64285b9b4.html"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8112-bb63-f2ce7c925491",
+    "title": "fa76ad1c7171739c9996b5997bb702af5af92228a09ff535d78de72d1c856e78",
+    "content": "[视频] 聊聊BUG.07-错误使用volatile关键字导致xxl-job定时任务调度BUG分析 \n分享了并发控制方式 主要分享了对volatile 的理解，工作内存，主内存，happens before，指令重排序 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV19a4y1t74w/",
+    "originalDate": "2020-04-11T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/2265b8a7cf48b3324c51964023583f425bfe4737c8b5a5c11dd38348c93986b8.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81fa-8246-c45409012b50",
+    "title": "0ec5207c8448d0d2efb561d17a5d03b510e34a0a150d37e18b5b30ec3c724825",
+    "content": "[视频] 如何解决shardingjdbc使用主键查询全局路由的问题 \n通过改写snowflake算法，自定义主键生成规则，通过id反推sharding-column的值，填充到shardingsphere查询条件中 解决shardingjdbc使用主键查询、更新全局路由的问题，从而提高性能[bugtalk] ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1F5411t7xf/",
+    "originalDate": "2020-04-11T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5bbc4665ec797ebc45bbd12129f20d083508c530fa539064d5dd1ea701085b85.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8106-8748-f52636993cca",
+    "title": "897f4276c81e8c737df7485bde5a72055f6294cd7225c84331045c5bc05e9d04",
+    "content": "[视频] 聊聊BUG.08-使用Aliyun-GTS分布式事务组件遇到的问题分析 \n因为自定义了WebMvcConfig 继承自WebMvcConfigurationSupport 于是txc-springcloud jar里面的TxcInboundHandler 配置 因为BeanConditional的关系就没有加载，导致无法自动处理TxcContext bind。 使用分布式事务组件GTS遇到的小BUG分享【bugtalk】 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1hV411o7eA/",
+    "originalDate": "2020-04-11T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/ec4f32470c906b67b4786c4a9092d62eb319adeff78f8c77576919cfc5961828.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8125-adc3-efda247d8fbc",
+    "title": "458f036cd52f9733d14910c6d9ef1b7392fe959ac8767e548d589b40f9576b83",
+    "content": "[视频] 如何给类命名（Java版） \n代码整洁之道，有经验的程序员经验分享--如何给类命名？ 有大神说过软件工程一直只有两件难题，命名，缓存失效 命名一直时很重要却最容易被忽视的问题。视频总结了常见的类命名，希望对你有帮助。 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV18A411h7DR/",
+    "originalDate": "2020-04-11T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/09fab2479c3d81ebfafda824c3d24aa2d37f15b005825f3cb72f762690ea6d4e.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-812d-a159-c476004503cc",
+    "title": "821fef1c818729486fdc6109bab209ed1a3973760b72f766bc99ec6b6d0e5536",
+    "content": "我发明了一小小游戏，幼儿园和小学一年级的家长可以和孩子一起玩。练习简单的加减法。 1.拿一副扑克牌打乱后背面朝上。 2.两人各抽一张牌，一起翻开。 3.两张牌的数字相加（A1，J11，Q12，K13，小王14，大王15） 4.两人的数字相加，如果超过15就减去15 5.两人把所有牌翻过来，看谁先找到最后的得数那张牌。先拿到正确牌的得一分。 这个小游戏可以练习加减法，推荐给各位家长试试看。",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E6%88%91%E5%8F%91%E6%98%8E%E4%BA%86%E4%B8%80%E5%B0%8F%E5%B0%8F%E6%B8%B8%E6%88%8F%EF%BC%8C%E5%B9%BC%E5%84%BF%E5%9B%AD%E5%92%8C%E5%B0%8F%E5%AD%A6%E4%B8%80%E5%B9%B4%E7%BA%A7%E7%9A%84%E5%AE%B6%E9%95%BF%E5%8F%AF%E4%BB%A5%E5%92%8C%E5%AD%A9%E5%AD%90%E4%B8%80%E8%B5%B7%E7%8E%A9%E3%80%82%E7%BB%83%E4%B9%A0%E7%AE%80%E5%8D%95%E7%9A%84%E5%8A%A0%E5%87%8F%E6%B3%95%E3%80%82%201.%E6%8B%BF%E4%B8%80%E5%89%AF%E6%89%91%E5%85%8B%E7%89%8C%E6%89%93%E4%B9%B1%E5%90%8E%E8%83%8C%E9%9D%A2%E6%9C%9D%E4%B8%8A%E3%80%82%202.%E4%B8%A4%E4%BA%BA%E5%90%84%E6%8A%BD%E4%B8%80%E5%BC%A0%E7%89%8C%EF%BC%8C%E4%B8%80%E8%B5%B7%E7%BF%BB%E5%BC%80%E3%80%82%203.%E4%B8%A4%E5%BC%A0%E7%89%8C%E7%9A%84%E6%95%B0%E5%AD%97%E7%9B%B8%E5%8A%A0%EF%BC%88A1%EF%BC%8CJ11%EF%BC%8CQ12%EF%BC%8CK13%EF%BC%8C&synapse=MjAyMC0w",
+    "originalDate": "2020-04-07T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8119-a61e-c5939c461226",
+    "title": "b4248ba9498b2251c5ede08437d2b610cc795c0f5d5ae0e69d841ea10a6096e5",
+    "content": "[视频] 如何实现docker swarm集群高可用部署 \n部署成集群就高可用、高性能了吗？分享一些docker swarm集群的小坑 负载load average swarm overlay网络 Jenkins脚本 删除docker images tag为none的脚本 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1KK411L7F6/",
+    "originalDate": "2020-04-02T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7ee6da79186c2af5460b48b931fc15f84dee9f47b8ec01752b86abfef69f88b1.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81c4-b7d1-d34cc3feaa44",
+    "title": "23e90b0d0250e912eb8c7cebc909ae3d540d53fb373ad6e17c265d1fbdd0fc3c",
+    "content": "一个合格的软件开发者有三重境界：逻辑，艺术，哲学",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E4%B8%80%E4%B8%AA%E5%90%88%E6%A0%BC%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E8%80%85%E6%9C%89%E4%B8%89%E9%87%8D%E5%A2%83%E7%95%8C%EF%BC%9A%E9%80%BB%E8%BE%91%EF%BC%8C%E8%89%BA%E6%9C%AF%EF%BC%8C%E5%93%B2%E5%AD%A6&synapse=MjAyMC0w",
+    "originalDate": "2020-03-14T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-814a-8f59-e441aa497192",
+    "title": "c30760abfc077d51a4f6836a09c02c37ff3c4847a66bdbda19a8217a7b8e5ebb",
+    "content": "程序员35岁40岁求职还有没有人要？ 我觉得这本身就是个伪问题，35岁得做35岁该做的事，具备35岁该具有的能力，且是已被证明的能力，是讲成本收益市场还有没有需求的问题，是能否持续做不可替代的事情的问题 多扩展自己的边界吧，要留给自己学习的时间 #程序员面试#",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E7%A8%8B%E5%BA%8F%E5%91%9835%E5%B2%8140%E5%B2%81%E6%B1%82%E8%81%8C%E8%BF%98%E6%9C%89%E6%B2%A1%E6%9C%89%E4%BA%BA%E8%A6%81%EF%BC%9F%20%E6%88%91%E8%A7%89%E5%BE%97%E8%BF%99%E6%9C%AC%E8%BA%AB%E5%B0%B1%E6%98%AF%E4%B8%AA%E4%BC%AA%E9%97%AE%E9%A2%98%EF%BC%8C35%E5%B2%81%E5%BE%97%E5%81%9A35%E5%B2%81%E8%AF%A5%E5%81%9A%E7%9A%84%E4%BA%8B%EF%BC%8C%E5%85%B7%E5%A4%8735%E5%B2%81%E8%AF%A5%E5%85%B7%E6%9C%89%E7%9A%84%E8%83%BD%E5%8A%9B%EF%BC%8C%E4%B8%94%E6%98%AF%E5%B7%B2%E8%A2%AB%E8%AF%81%E6%98%8E%E7%9A%84%E8%83%BD%E5%8A%9B%EF%BC%8C%E6%98%AF%E8%AE%B2%E6%88%90%E6%9C%AC%E6%94%B6%E7%9B%8A%E5%B8%82%E5%9C%BA%E8%BF%98%E6%9C%89%E6%B2%A1%E6%9C%89%E9%9C%80%E6%B1%82%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E6%98%AF%E8%83%BD%E5%90%A6%E6%8C%81%E7%BB%AD%E5%81%9A%E4%B8%8D%E5%8F%AF%E6%9B%BF%E4%BB%A3%E7%9A%84%E4%BA%8B%E6%83%85%E7%9A%84%E9%97%AE&synapse=MjAyMC0w",
+    "originalDate": "2020-03-14T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/cd6d3029b9e87ef0b95be94d9d86059b95f6ac15d0663819c6f209707e8e2901.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/38d39185c5ae327766277b71fbdbcbc971de87da487d5d60d99f63e64285b9b4.html"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8137-b48b-c56cd79d0534",
+    "title": "472fcc8678b6e1bcf6bbd02a15c07a85f5ce1d886b4df2cdbee661447fa30a01",
+    "content": "[视频] 聊聊BUG.06-线程池使用不当导致任务丢弃 \n线程池使用不当导致丢弃任务【bugtalk】 在借鉴了Alibaba Java开发手册规约的情况下： 【强制】线程池不允许使用 Executors 去创建，而是通过 ThreadPoolExecutor 的方式，这样 的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1XE411M72S/",
+    "originalDate": "2020-03-08T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/c20f48f8393509474e0d702cbc932d938b8afc188b11ffe8def71c007b20f327.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8172-a06c-cdb9b5c88afe",
+    "title": "f0af487ced750f5e9817c55102b773809efe881799c3d9a103ddc338b65a0bfa",
+    "content": "[视频] 如何在没有My97DatePicker源码的情况下修改特性实现自定义日期高亮 \nMy97DatePicker实现自定义日期高亮，反编译hack方式【bugtalk】 大概过程是 反编译 分析源码 缓存处理 业务封装 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1KE411u7wm/",
+    "originalDate": "2020-03-08T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/cd04d1f00512aa1221c6a4c8a521d6ef0f15b83038f04f513db336f83f2438d4.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:10:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8107-aa8e-e01a626c8a14",
+    "title": "7c2c94bfe7226cbbbcc16aea0ae2777ed46ba735bc68b764c6a15d73020c958f",
+    "content": "[视频] 如何使用SoapUI做接口自动化测试 \n分享使用SoapUI进行接口自动化测试 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1aE411p71f/",
+    "originalDate": "2020-03-06T16:00:00.000+00:00",
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/c7b8a21d2e2904bba135cc096edeed8e0cbaecd3.jpg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:11:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f0-96dc-c339d3832ca4",
+    "title": "ed0712615514ee2b858e4f396fafd1db575e36657abf0226cb8e13cd3801776a",
+    "content": "[视频] 如何找回误删的数据库 \n删库不跑路，MySQL drop database 找回数据库心血历程【bugtalk】 感谢https://github.com/GoDannyLai/binlog_rollback 项目 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1xE411p7Sn/",
+    "originalDate": "2020-03-06T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/703ddb8b5320b1d8652cf2b51d53926f587a5a081e76efcdb4809cff70e172d6.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:11:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8189-83f1-d496d05975ef",
+    "title": "6de192ecf74dd54f4e6a9d20c4bcf8ae97407ca57cb1acfdaf18d23c8933940e",
+    "content": "[视频] 如何使用postman做接口自动化测试【分享】 \npostman大家可能用的比较多了 简单分享一下如何使用postman做自动化测试，可能有你不知道的知识点 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV12E411W7HN/",
+    "originalDate": "2020-03-05T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/4ce3e10f06fa51b4a80497fa99a1e676b8c9282c9e837f166580bdae475185f7.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:11:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-814a-b631-d3540bbd6b54",
+    "title": "ac0532ba8fe3e43798fe3e2048f6c0f62cfa48491628d63833bc9cddce84df3b",
+    "content": "卡出特效",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E5%8D%A1%E5%87%BA%E7%89%B9%E6%95%88&synapse=MjAyMC0w",
+    "originalDate": "2020-02-27T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/47a66f34c652b3d9db9e8be5cf7ddfe6f96800b1478b079bdc7195f604a402fe.jpeg",
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/38d39185c5ae327766277b71fbdbcbc971de87da487d5d60d99f63e64285b9b4.html"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:11:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-818c-a898-dc024616e860",
+    "title": "fd22379814f9e96bb5acf28d163d16cac5fb5bed4988afeb344ee2c3f2f0d1ab",
+    "content": "[视频] 如何加快docker 镜像制作、发行-【bugtalk】 \n#第6 期 如何加快docker 镜像制作、发行-【bugtalk】 视频三个方面 减少docker build目录大小 只保存制作镜像需要的 善用镜像层缓存 补充一点 如果是aliyun 服务器，同时使用aliyun镜像服务 要使用 vpc 内网镜像地址访问 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1Z741157ex/",
+    "originalDate": "2020-02-10T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/49d22951a0417fc670bdfcc2a76cda5960964f5d401e116bd2e069d22c773aaa.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:11:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8198-8858-fc06ef50ebbf",
+    "title": "33a15307fd838f3774c09fdc771be37db75565191fb1e525e1bdbcdf0ade7509",
+    "content": "[视频] 聊聊BUG.05-解决webview白屏问题实现前端页面如何快速加载 \n第五期 解决webview白屏问题,前端页面如何快速加载-【bugtalk】 前端页面快速加载优化方式 使用CDN webpack配置优化 使用懒加载（angularjs） ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1y7411H7M3/",
+    "originalDate": "2020-02-04T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/ba9c6767bd850953864c1ba87c393d857129ab6e3e4cc1dfb7ee4b565625f879.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:11:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81df-8306-fc55ba8c4b4b",
+    "title": "840aea81070594fb62b2f17d4d404206d7b27dd6f891d74678c028d7c2dd19e0",
+    "content": "[视频] 聊聊BUG.04-CAS使用rememberMe出错BUG分析 \nbugtalk#4 CAS使用rememberMe(记住我)报错BUG分析 视频涉及的链接：https://github.com/apereo/cas-overlay-template ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1G7411p7bW/",
+    "originalDate": "2020-02-02T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/540cc0d261ab3dbdd42919de395038be8dda86aed24e443eea3a9b8d9ddf8572.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:11:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8177-ad15-d93099bc5fab",
+    "title": "286f048cafdc891273461da5c3098970d2c16fd77d30087428adc9147f124f79",
+    "content": "[视频] 聊聊BUG.03-Kafka无法同时内外网访问bug分析 \nbugtalk #3 Kafka无法同时内外网访问bug分析 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1N7411s7SP/",
+    "originalDate": "2020-02-01T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a97fa093e3e74c9885ad9557019c7b68d094177f5496dad561d87b8263bf799d.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:11:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-8163-abd2-e32b4958ddf3",
+    "title": "0f5ac94acabda8d1f5634260488006a9b9e01abe1e64a342f4c47cdae339472b",
+    "content": "[视频] 聊聊BUG.01-Windows服务器程序卡死bug分析 \nbugtalk 第一期 bug分享 服务器不响应的解决方法 视频内容纠错： WriteFIle 函数hFile 打开方式为FILE_FLAG_OVERLAPPED是异步 视频提到链接地址： http://fastthread.io/index.jsp https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-writefile ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1G7411x7As/",
+    "originalDate": "2020-01-31T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e4eba1327516b815bf68b6759a47c7c88063eb55cb9ae83950b835123d5b6163.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:11:00.000Z"
+  },
+  {
+    "id": "2e16dd2f-2d12-81f5-ac53-f3e81e03ed1f",
+    "title": "debd3a003a85a46fa655be992fb0ca58a7dbfc241a6cd663a013a47f483bd522",
+    "content": "[视频] 聊聊BUG.02-redis连接池获取不到连接bug分析 \nbugtalk 第二期 redis从连接池获取不到连接分析 错误 JedisException Could not get a resource from the pool ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV187411x7Cs/",
+    "originalDate": "2020-01-31T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e6d4eb8a7bd2e837132dd526f0f86439656bd5a7dd8319ee21458fa99599c7ef.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-07T04:11:00.000Z"
   }
 ]
