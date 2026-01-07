@@ -51,11 +51,6 @@ const { title, description = "My personal thoughts aggregation platform" } =
               </div>
 
               <div id="user-profile" class="user-profile hidden">
-                <button
-                  id="sync-button"
-                  class="sync-btn material-symbols-outlined"
-                  title="Sync Notion Data">sync</button
-                >
                 <img id="user-avatar" src="" alt="Avatar" class="avatar" />
                 <span id="user-name" class="user-name text-small"></span>
                 <button
@@ -96,7 +91,6 @@ const { title, description = "My personal thoughts aggregation platform" } =
       const userName = document.getElementById("user-name");
       const logoutBtn = document.getElementById("logout-button");
       const headLoginBtn = document.getElementById("header-login-button");
-      const syncBtn = document.getElementById("sync-button");
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -125,26 +119,6 @@ const { title, description = "My personal thoughts aggregation platform" } =
           window.location.reload();
         } catch (error) {
           console.error("Sign in error:", error);
-        }
-      });
-
-      syncBtn?.addEventListener("click", async () => {
-        if (syncBtn.classList.contains("rotating")) return;
-
-        syncBtn.classList.add("rotating");
-        try {
-          const response = await fetch("/api/sync", { method: "POST" });
-          if (response.ok) {
-            window.location.reload();
-          } else {
-            const data = await response.json();
-            alert(data.message || "Sync failed");
-          }
-        } catch (error) {
-          console.error("Sync error:", error);
-          alert("Sync error. Make sure you are in development mode.");
-        } finally {
-          syncBtn.classList.remove("rotating");
         }
       });
     </script>
@@ -252,38 +226,6 @@ const { title, description = "My personal thoughts aggregation platform" } =
   .logout-btn:hover {
     background: var(--md-surface-container-highest);
     color: var(--md-error);
-  }
-
-  .sync-btn {
-    background: none;
-    border: none;
-    color: var(--md-on-surface-variant);
-    cursor: pointer;
-    padding: var(--space-1);
-    border-radius: 50%;
-    transition: all 0.2s;
-    font-size: 1.25rem;
-    margin-right: var(--space-1);
-  }
-
-  .sync-btn:hover {
-    background: var(--md-surface-container-highest);
-    color: var(--md-primary);
-  }
-
-  .sync-btn.rotating {
-    animation: rotate 1s linear infinite;
-    color: var(--md-primary);
-    pointer-events: none;
-  }
-
-  @keyframes rotate {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
   }
 
   .hidden {
