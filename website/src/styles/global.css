@@ -96,6 +96,12 @@ html {
     scroll-behavior: smooth;
 }
 
+@media (max-width: 640px) {
+    html {
+        font-size: 14px;
+    }
+}
+
 body {
     font-family: var(--font-family);
     color: var(--md-on-surface);
@@ -149,6 +155,12 @@ h4 {
     font-size: 1.25rem;
 }
 
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.25rem; }
+}
+
 p {
     margin-bottom: var(--space-4);
 }
@@ -158,6 +170,12 @@ p {
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 0 var(--space-6);
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 0 var(--space-4);
+    }
 }
 
 /* Cards */

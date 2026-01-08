@@ -212,6 +212,12 @@ const serializedCounts = JSON.stringify(Object.fromEntries(countsByDate));
     overflow: hidden;
   }
 
+  @media (max-width: 640px) {
+    .calendar-container {
+      padding: var(--space-1);
+    }
+  }
+
   .calendar-header {
     display: flex;
     align-items: center;
@@ -219,6 +225,13 @@ const serializedCounts = JSON.stringify(Object.fromEntries(countsByDate));
     padding: var(--space-2) 0;
     border-bottom: 1px solid var(--md-outline-variant);
     margin-bottom: var(--space-2);
+  }
+
+  @media (max-width: 640px) {
+    .calendar-header {
+      margin-bottom: var(--space-1);
+      padding: var(--space-1) 0;
+    }
   }
 
   .nav-group {

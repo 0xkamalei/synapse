@@ -316,6 +316,22 @@ const serializedData = JSON.stringify(data);
     cursor: pointer;
   }
 
+  @media (max-width: 640px) {
+    .heatmap-card .heatmap-day {
+      width: 10px;
+      height: 10px;
+    }
+    .heatmap-card .heatmap-labels span {
+      height: 10px;
+      line-height: 10px;
+    }
+    .heatmap-card .heatmap-grid,
+    .heatmap-card .heatmap-week,
+    .heatmap-card .heatmap-labels {
+      gap: 2px;
+    }
+  }
+
   .heatmap-card .heatmap-day.level-empty {
     visibility: hidden;
   }

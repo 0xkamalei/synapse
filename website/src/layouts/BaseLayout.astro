@@ -38,6 +38,10 @@ const { title, description = "My personal thoughts aggregation platform" } =
             </a>
 
             <div class="nav-container">
+              <button id="drawer-toggle" class="stats-btn material-symbols-outlined hidden" title="View Stats & Calendar">
+                analytics
+              </button>
+
               <div id="login-container" class="login-container hidden">
                 <button id="header-login-button" class="login-btn-header">
                   <img
@@ -68,6 +72,8 @@ const { title, description = "My personal thoughts aggregation platform" } =
         <slot />
       </main>
 
+      <div id="sidebar-overlay" class="sidebar-overlay hidden"></div>
+
       <footer class="site-footer">
         <div class="container">
           <p class="text-muted text-small text-center">Built with ⚡ Synapse</p>
@@ -91,17 +97,36 @@ const { title, description = "My personal thoughts aggregation platform" } =
       const userName = document.getElementById("user-name");
       const logoutBtn = document.getElementById("logout-button");
       const headLoginBtn = document.getElementById("header-login-button");
+      const drawerToggle = document.getElementById("drawer-toggle");
+      const sidebarOverlay = document.getElementById("sidebar-overlay");
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
           userProfile?.classList.remove("hidden");
           loginContainer?.classList.add("hidden");
+          drawerToggle?.classList.remove("hidden");
           if (userAvatar) userAvatar.src = user.photoURL || "";
           if (userName) userName.textContent = user.displayName || user.email;
         } else {
           userProfile?.classList.add("hidden");
           loginContainer?.classList.remove("hidden");
+          drawerToggle?.classList.add("hidden");
         }
+      });
+
+      // Drawer Logic
+      drawerToggle?.addEventListener("click", () => {
+        const sidebar = document.getElementById("site-sidebar");
+        sidebar?.classList.toggle("open");
+        sidebarOverlay?.classList.toggle("hidden");
+        document.body.style.overflow = sidebar?.classList.contains("open") ? "hidden" : "";
+      });
+
+      sidebarOverlay?.addEventListener("click", () => {
+        const sidebar = document.getElementById("site-sidebar");
+        sidebar?.classList.remove("open");
+        sidebarOverlay?.classList.add("hidden");
+        document.body.style.overflow = "";
       });
 
       logoutBtn?.addEventListener("click", async () => {
@@ -167,7 +192,41 @@ const { title, description = "My personal thoughts aggregation platform" } =
   .nav-container {
     display: flex;
     align-items: center;
-    gap: var(--space-6);
+    gap: var(--space-4);
+  }
+
+  .stats-btn {
+    background: var(--md-surface-container-high);
+    border: 1px solid var(--md-outline-variant);
+    color: var(--md-on-surface);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .stats-btn:hover {
+    background: var(--md-primary-container);
+    color: var(--md-primary);
+  }
+
+  @media (max-width: 992px) {
+    .stats-btn {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nav-container {
+      gap: var(--space-2);
+    }
+    .logo-text {
+      display: none;
+    }
   }
 
   .user-profile,
@@ -179,6 +238,17 @@ const { title, description = "My personal thoughts aggregation platform" } =
     background: var(--md-surface-container-high);
     border-radius: var(--radius-full);
     border: 1px solid var(--md-outline-variant);
+  }
+
+  @media (max-width: 640px) {
+    .user-profile,
+    .login-container {
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-2);
+    }
+    .user-name {
+      display: none;
+    }
   }
 
   .login-btn-header {
@@ -245,5 +315,17 @@ const { title, description = "My personal thoughts aggregation platform" } =
   .site-footer {
     padding: var(--space-6) 0;
     border-top: 1px solid var(--md-outline-variant);
+  }
+
+  /* Overlay */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+    backdrop-filter: blur(2px);
   }
 </style>

@@ -83,6 +83,13 @@ const dateISO = thought.originalDate.split("T")[0];
     overflow: hidden;
   }
 
+  @media (max-width: 640px) {
+    .thought-card {
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+    }
+  }
+
   .thought-card:hover {
     box-shadow: var(--shadow-md);
     border-color: var(--md-outline);
@@ -107,6 +114,12 @@ const dateISO = thought.originalDate.split("T")[0];
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: var(--space-3);
     margin-top: var(--space-4);
+  }
+
+  @media (max-width: 640px) {
+    .card-media {
+      grid-template-columns: 1fr;
+    }
   }
 
   .card-media img,
