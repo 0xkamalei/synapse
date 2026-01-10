@@ -1,10 +1,10 @@
 # Synapse Chrome Extension
 
-> Collect your thoughts from X.com and Bilibili to Notion
+> Collect your thoughts from X.com, Bilibili, Weibo and QZone to Notion
 
 ## Features
 
-- 📥 **One-click collection** - Save posts from X.com and Bilibili
+- 📥 **One-click collection** - Save posts from X.com, Bilibili, Weibo and QZone
 - 🖼️ **Automatic image hosting** - Upload images to GitHub with jsDelivr CDN
 - 📝 **Notion integration** - Store everything in a structured Notion database
 - 📋 **Collection logs** - Debug and track all collection activities
@@ -19,7 +19,7 @@ Create a new Notion database with the following properties:
 |----------|------|-------------|
 | Title | Title | Content title/summary |
 | Content | Rich Text | Full content text |
-| Source | Select | Platform (X / Bilibili) |
+| Source | Select | Platform (X / Bilibili / Weibo / QZone) |
 | OriginalURL | URL | Link to original post |
 | OriginalDate | Date | When the post was published |
 | Tags | Multi-select | Optional tags |
@@ -69,6 +69,18 @@ Create a new Notion database with the following properties:
 2. Click the Synapse extension icon
 3. Click "Collect Content"
 
+### Collecting from Weibo
+
+1. Navigate to your Weibo feed or profile
+2. Click the Synapse extension icon
+3. Click "Collect Content"
+
+### Collecting from QZone
+
+1. Navigate to a QZone feed page
+2. Click the Synapse extension icon
+3. Click "Collect Content"
+
 ### Viewing Logs
 
 Click the document icon in the extension popup to open the logs page.
@@ -88,8 +100,10 @@ chrome-extension/
 │   ├── logs.css
 │   └── logs.js
 ├── content/                # Content scripts
-│   ├── x-collector.js
-│   └── bilibili-collector.js
+│   ├── x-collector.ts
+│   ├── bilibili-collector.ts
+│   ├── qzone-collector.ts
+│   └── weibo-collector.ts
 ├── background/
 │   └── service-worker.js
 └── lib/                    # Shared utilities
@@ -112,8 +126,21 @@ Open the extension popup and fill in all configuration fields.
 
 ## Development
 
-The extension uses vanilla JavaScript with ES modules. No build step required.
+The extension uses TypeScript and is built with a standard build process.
 
-To reload after changes:
+### Build & Test
+
+```bash
+# Build TypeScript to JavaScript
+npm run build
+
+# Run tests
+npm run test
+
+# Watch mode during development
+npm run watch
+```
+
+After changes, reload the extension:
 1. Go to `chrome://extensions/`
 2. Click the refresh icon on the Synapse extension

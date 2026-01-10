@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Synapse Collector",
   "version": "1.0.0",
-  "description": "Aggregate your thoughts from X.com and Bilibili to Notion",
+  "description": "Aggregate your thoughts from X.com, Bilibili, Weibo and QZone to Notion",
   "permissions": [
     "storage",
     "activeTab",
@@ -14,6 +14,9 @@
     "https://twitter.com/*",
     "https://www.bilibili.com/*",
     "https://space.bilibili.com/*",
+    "https://weibo.com/*",
+    "https://www.weibo.com/*",
+    "https://m.weibo.com/*",
     "https://api.notion.com/*",
     "https://api.github.com/*",
     "https://*.qzone.qq.com/*",
@@ -64,6 +67,17 @@
       ],
       "run_at": "document_idle",
       "all_frames": true
+    },
+    {
+      "matches": [
+        "https://weibo.com/*",
+        "https://www.weibo.com/*",
+        "https://m.weibo.com/*"
+      ],
+      "js": [
+        "dist/content/weibo-collector.js"
+      ],
+      "run_at": "document_idle"
     }
   ],
   "icons": {

@@ -262,6 +262,7 @@ function collectFeedDataQZone(item: Element): CollectedContent {
         text,
         images,
         videos: [],
+        links: [],
         timestamp,
         url,
         author,

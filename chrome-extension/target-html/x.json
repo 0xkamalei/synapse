@@ -5,6 +5,7 @@
     "text": "我做了个人媒体工具,自动采集多个社交媒体平台的内容同步到notion database,在通过astro构建成为一个timeline website,目前支持B站,X,QQ空间,朋友圈。项目原因我想追忆一下自己以前的想法，但是这些thoughts可能散落在各个平台，我想有一个属于自己host的site来拥有它们",
     "images": [],
     "videos": [],
+    "links": [],
     "timestamp": "2026-01-05T09:15:10.000Z",
     "url": "https://x.com/KamaleiZhang/status/2008104979949834420",
     "author": {
@@ -21,6 +22,7 @@
       "https://pbs.twimg.com/media/G9Vb3Ama4AA4ATZ?format=jpg&name=large"
     ],
     "videos": [],
+    "links": [],
     "timestamp": "2025-12-29T12:03:29.000Z",
     "url": "https://x.com/KamaleiZhang/status/2005610623594578222",
     "author": {
@@ -35,6 +37,7 @@
     "text": "AI is now so powerful. I built my long-pending app with Gemini 3 Pro, and AI interaction is way easier.Welcome to this replica of Timing App. No more €10/month subscription like the original.",
     "images": [],
     "videos": [],
+    "links": [],
     "timestamp": "2025-12-29T12:03:54.000Z",
     "url": "https://x.com/KamaleiZhang/status/2005610727122542715",
     "author": {
@@ -51,6 +54,7 @@
       "https://pbs.twimg.com/media/GxZLCe7bcAAiJa9?format=jpg&name=large"
     ],
     "videos": [],
+    "links": [],
     "timestamp": "2025-08-03T02:20:23.000Z",
     "url": "https://x.com/KamaleiZhang/status/1951830475892547787",
     "author": {
@@ -67,6 +71,7 @@
       "https://pbs.twimg.com/media/GxAl3iNbUAEe_qJ?format=jpg&name=large"
     ],
     "videos": [],
+    "links": [],
     "timestamp": "2025-07-29T07:45:13.000Z",
     "url": "https://x.com/KamaleiZhang/status/1950100285902479669",
     "author": {

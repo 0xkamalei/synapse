@@ -1,0 +1,36 @@
+[
+  {
+    "source": "Weibo",
+    "type": "text",
+    "text": "https://synapse.leix.dev/ 开始添加对微博的支持！ ​​​",
+    "images": [],
+    "videos": [],
+    "links": [
+      "https://synapse.leix.dev/"
+    ],
+    "timestamp": "2026-01-10T12:05:00.000Z",
+    "url": "https://weibo.com/7480129679/Qms2Sv4Nv",
+    "author": {
+      "username": "7480129679",
+      "displayName": "寡人张磊"
+    },
+    "collectedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "source": "Weibo",
+    "type": "image",
+    "text": "claude code 为什么会生成这么多文档？ ​​​",
+    "images": [
+      "https://wx4.sinaimg.cn/orj360/008adRqTgy1i95i8cq2ykj30ik0eutbr.jpg"
+    ],
+    "videos": [],
+    "links": [],
+    "timestamp": "2026-01-10T11:59:00.000Z",
+    "url": "https://weibo.com/7480129679/Qms0ohtVD",
+    "author": {
+      "username": "7480129679",
+      "displayName": "寡人张磊"
+    },
+    "collectedAt": "2024-01-01T00:00:00.000Z"
+  }
+]

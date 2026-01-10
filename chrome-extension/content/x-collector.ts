@@ -198,6 +198,7 @@ function collectTweetDataX(tweetElement: Element): CollectedContent {
         text,
         images,
         videos,
+        links: [],
         timestamp,
         url,
         author,

@@ -16,6 +16,7 @@ const elements = {
     targetXUser: document.getElementById('targetXUser') as HTMLInputElement,
     targetBilibiliUser: document.getElementById('targetBilibiliUser') as HTMLInputElement,
     targetQZoneUser: document.getElementById('targetQZoneUser') as HTMLInputElement,
+    targetWeiboUser: document.getElementById('targetWeiboUser') as HTMLInputElement,
     collectIntervalHours: document.getElementById('collectIntervalHours') as HTMLInputElement,
     debugMode: document.getElementById('debugMode') as HTMLInputElement,
     lastCollectInfo: document.getElementById('lastCollectInfo') as HTMLElement,
@@ -38,6 +39,7 @@ async function loadConfig() {
     elements.targetXUser.value = config.targetXUser || '';
     elements.targetBilibiliUser.value = config.targetBilibiliUser || '';
     elements.targetQZoneUser.value = config.targetQZoneUser || '';
+    elements.targetWeiboUser.value = config.targetWeiboUser || '';
     elements.collectIntervalHours.value = (config.collectIntervalHours ?? 4).toString();
     elements.debugMode.checked = config.debugMode || false;
 
@@ -66,9 +68,10 @@ async function handleSave() {
         targetXUser: elements.targetXUser.value.trim().replace('@', ''),
         targetBilibiliUser: elements.targetBilibiliUser.value.trim(),
         targetQZoneUser: elements.targetQZoneUser.value.trim(),
+        targetWeiboUser: elements.targetWeiboUser.value.trim(),
         collectIntervalHours: elements.collectIntervalHours.value === '' ? 4 : parseInt(elements.collectIntervalHours.value, 10),
         debugMode: elements.debugMode.checked,
-        enabledSources: ['x', 'bilibili', 'qzone']
+        enabledSources: ['x', 'bilibili', 'qzone', 'weibo']
     };
 
     try {

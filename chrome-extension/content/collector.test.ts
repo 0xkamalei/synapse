@@ -55,7 +55,8 @@ describe("Collectors", () => {
         const collectors = [
             'dist/content/x-collector.js',
             'dist/content/bilibili-collector.js',
-            'dist/content/qzone-collector.js'
+            'dist/content/qzone-collector.js',
+            'dist/content/weibo-collector.js'
         ];
 
         for (const relPath of collectors) {
@@ -186,13 +187,38 @@ describe("Collectors", () => {
     test("QZone Collector", () => {
         const htmlPath = join(TARGET_HTML_DIR, "qq.html");
         const jsonPath = join(TARGET_HTML_DIR, "qq.json");
-        
+
         updateDOMWithUrl(htmlPath, "https://user.qzone.qq.com/852872578/main");
-        
+
         const feeds = (globalThis as any).findAllFeedsQZone();
-        
+
         const results = feeds.map((f: any) => (globalThis as any).collectFeedDataQZone(f));
-        
+
+        // Only override collectedAt, but keep the parsed timestamp
+        results.forEach((r: any) => {
+            r.collectedAt = "2024-01-01T00:00:00.000Z";
+        });
+
+        if (!existsSync(jsonPath)) {
+            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+            console.log(`Created ${jsonPath}. Please review it.`);
+        } else {
+            const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
+            expect(results).toEqual(expected);
+        }
+    });
+
+    test("Weibo Collector", () => {
+        const htmlPath = join(TARGET_HTML_DIR, "weibo.html");
+        const jsonPath = join(TARGET_HTML_DIR, "weibo.json");
+
+        updateDOMWithUrl(htmlPath, "https://weibo.com/u/3260895521");
+
+        const posts = (globalThis as any).findAllPostsWeibo();
+        expect(posts.length).toBeGreaterThan(0);
+
+        const results = posts.map((p: any) => (globalThis as any).collectPostDataWeibo(p));
+
         // Only override collectedAt, but keep the parsed timestamp
         results.forEach((r: any) => {
             r.collectedAt = "2024-01-01T00:00:00.000Z";

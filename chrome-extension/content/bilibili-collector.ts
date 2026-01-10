@@ -34,8 +34,50 @@ function detectDynamicTypeBilibili(dynamicElement: Element): 'text' | 'video' | 
 }
 
 /**
+ * Extract embedded links from Bilibili dynamic text
+ * Bilibili encodes links as href attributes in text content
+ */
+function extractBilibiliEmbeddedLinks(dynamicElement: Element): string[] {
+    const links: string[] = [];
+
+    // Find all links in the content (opus summary or other text areas)
+    const contentSelectors = [
+        '.dyn-card-opus__summary',
+        '.opus-module-content',
+        '.bili-dyn-content__orig__desc',
+        '.bili-rich-text'
+    ];
+
+    for (const selector of contentSelectors) {
+        const contentElement = dynamicElement.querySelector(selector);
+        if (!contentElement) continue;
+
+        // Find all <a> tags with href containing "网页链接" text
+        const anchors = contentElement.querySelectorAll('a[href]');
+        anchors.forEach(anchor => {
+            const href = anchor.getAttribute('href') || '';
+            const text = (anchor as HTMLElement).innerText?.trim() || '';
+
+            // Check if this link has "网页链接" as its visible text
+            if (href && text.includes('网页链接')) {
+                // Remove query parameters for cleaner URLs
+                const cleanUrl = href.split('?')[0];
+                if (!links.includes(cleanUrl) && cleanUrl.startsWith('http')) {
+                    links.push(cleanUrl);
+                }
+            }
+        });
+
+        if (links.length > 0) break;
+    }
+
+    return links;
+}
+
+/**
  * Extract text content from a dynamic element
  * Handles both text dynamics and video dynamics
+ * Replaces "网页链接" placeholders with actual extracted URLs
  * @param {Element} dynamicElement
  * @returns {string}
  */
@@ -62,7 +104,18 @@ function extractDynamicTextBilibili(dynamicElement: Element): string {
     const opusSummary = dynamicElement.querySelector('.dyn-card-opus__summary, .opus-module-content');
     if (opusSummary) {
         // Get all text content from nested elements
-        return (opusSummary as HTMLElement).innerText.trim() || '';
+        let text = (opusSummary as HTMLElement).innerText.trim() || '';
+
+        // Extract embedded links and replace "网页链接" with actual URLs
+        const embeddedLinks = extractBilibiliEmbeddedLinks(dynamicElement);
+        if (embeddedLinks.length > 0) {
+            // Replace each "网页链接" occurrence with the corresponding real link
+            embeddedLinks.forEach(link => {
+                text = text.replace('网页链接', link);
+            });
+        }
+
+        return text;
     }
 
     // Fallback selectors
@@ -75,7 +128,17 @@ function extractDynamicTextBilibili(dynamicElement: Element): string {
     for (const selector of textSelectors) {
         const textElement = dynamicElement.querySelector(selector);
         if (textElement) {
-            return (textElement as HTMLElement).innerText.trim() || '';
+            let text = (textElement as HTMLElement).innerText.trim() || '';
+
+            // Extract embedded links and replace "网页链接" with actual URLs
+            const embeddedLinks = extractBilibiliEmbeddedLinks(dynamicElement);
+            if (embeddedLinks.length > 0) {
+                embeddedLinks.forEach(link => {
+                    text = text.replace('网页链接', link);
+                });
+            }
+
+            return text;
         }
     }
 
@@ -350,6 +413,7 @@ function collectDynamicDataBilibili(dynamicElement: Element): CollectedContent {
     const url = extractDynamicUrlBilibili(dynamicElement);
     const author = extractAuthorInfoBilibili(dynamicElement);
     const type = detectDynamicTypeBilibili(dynamicElement);
+    const links = extractBilibiliEmbeddedLinks(dynamicElement);
 
     return {
         source: 'Bilibili' as const,
@@ -357,6 +421,7 @@ function collectDynamicDataBilibili(dynamicElement: Element): CollectedContent {
         text,
         images,
         videos: [], // Bilibili dynamics might contain videos, but currently not extracted as a separate array
+        links,
         timestamp,
         url,
         author,
