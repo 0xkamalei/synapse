@@ -4,6 +4,8 @@
     "version": "1.0.0",
     "scripts": {
         "sync": "bun scripts/sync-data.ts",
+        "clean": "bun scripts/clean-duplicates.ts",
+        "clean:dry": "bun scripts/clean-duplicates.ts --dry-run",
         "dev": "astro dev",
         "start": "bun run dev",
         "build": "astro build",
