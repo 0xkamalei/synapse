@@ -1,5 +1,45 @@
 [
   {
+    "id": "2e46dd2f-2d12-8139-af55-e160581e08a7",
+    "title": "83f59dd378acf35d883eaf79f0f77beb5ad72795f820bad246b8ab4c3566c082",
+    "content": "https://synapse.leix.dev/ 开始添加对微博的支持！ ",
+    "source": "Weibo",
+    "originalUrl": "https://weibo.com/7480129679/Qms2Sv4Nv",
+    "originalDate": "2026-01-10T04:05:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-10T04:42:00.000Z"
+  },
+  {
+    "id": "2e46dd2f-2d12-8132-a13d-f8e876c42b0e",
+    "title": "795230ba9545abab08b44e2428aa7f7d24ff99b5d41a0a03c5575a38c479f49d",
+    "content": "claude code 为什么会生成这么多文档？ ",
+    "source": "Weibo",
+    "originalUrl": "https://weibo.com/7480129679/Qms0ohtVD",
+    "originalDate": "2026-01-10T03:59:00.000+00:00",
+    "images": [
+      "https://wx4.sinaimg.cn/orj360/008adRqTgy1i95i8cq2ykj30ik0eutbr.jpg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-10T04:33:00.000Z"
+  },
+  {
+    "id": "2e46dd2f-2d12-8106-9197-e1f1d43cb123",
+    "title": "a950bfe4ab8214731988a9eb8383e43f9cd83b855bb891d83d111cd276c8b09b",
+    "content": "最终还是模型厂商会赢得IDE大逃杀",
+    "source": "QZone",
+    "originalUrl": "https://user.qzone.qq.com/852872578/main#:~:text=%E6%9C%80%E7%BB%88%E8%BF%98%E6%98%AF%E6%A8%A1%E5%9E%8B%E5%8E%82%E5%95%86%E4%BC%9A%E8%B5%A2%E5%BE%97IDE%E5%A4%A7%E9%80%83%E6%9D%80&synapse=h-ODUyOD-5pyA57uI6L+Y-MjAyNi0wMS",
+    "originalDate": "2026-01-09T01:10:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/1e6c4d233f0d5f79795baa24b85864a6cb6a04c51635c2ee00c09b60f4e36703.webp"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-10T02:30:00.000Z"
+  },
+  {
     "id": "2e26dd2f-2d12-8151-908a-ebff8e8de5a2",
     "title": "dc66c628f0deac7ab6029ab7cbf77aea38a84be6781a6439cb5a268a9e124407",
     "content": "一刷就停不下来！",
