@@ -1,5 +1,17 @@
 [
   {
+    "id": "2e56dd2f-2d12-81cf-b206-d3962c33a118",
+    "title": "e0b71ffa672c3b7dbbab26b568e0441e3da27fc6515d1d8cd5ab6f662cf7fa01",
+    "content": "Hi, I'm Kamalei \n\nI'm an indie developer building small tools.\nCurrently working on:\n- a macOS time-tracking app\n- a personal media timeline\n\nI'll share progress, decisions, and mistakes here.",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/2010189109189587032",
+    "originalDate": "2026-01-11T03:16:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-11T03:16:00.000Z"
+  },
+  {
     "id": "2e46dd2f-2d12-8139-af55-e160581e08a7",
     "title": "83f59dd378acf35d883eaf79f0f77beb5ad72795f820bad246b8ab4c3566c082",
     "content": "https://synapse.leix.dev/ 开始添加对微博的支持！ ",
@@ -62,6 +74,18 @@
     "videos": [],
     "tags": [],
     "createdAt": "2026-01-07T04:45:00.000Z"
+  },
+  {
+    "id": "2e56dd2f-2d12-81eb-81ce-cc65dbc95db5",
+    "title": "1ab8509d0bc367d8037ec07c6a36ca3651358fc0095dfd44a9235dd2c7f0d33f",
+    "content": "https://synapse.leix.dev/  两天零一夜完成了这个项目",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=https%3A%2F%2Fsynapse.leix.dev%2F%E2%80%8B%20%20%E4%B8%A4%E5%A4%A9%E9%9B%B6%E4%B8%80%E5%A4%9C%E5%AE%8C%E6%88%90%E4%BA%86%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE&synapse=MjAyNi0w",
+    "originalDate": "2026-01-06T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-11T02:30:00.000Z"
   },
   {
     "id": "2e16dd2f-2d12-81f0-8720-e768cf1b2281",
@@ -178,6 +202,18 @@
     "videos": [],
     "tags": [],
     "createdAt": "2026-01-07T04:05:00.000Z"
+  },
+  {
+    "id": "2e56dd2f-2d12-81b7-9cf8-c9166a8192ec",
+    "title": "be6750251156a48f308eaa7f9789e57577e695e9eea21908d6a422fd96e00255",
+    "content": "https://afdian.com/a/leixdev  加入了爱发电",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=https%3A%2F%2Fafdian.com%2Fa%2Fleixdev%E2%80%8B%20%20%E5%8A%A0%E5%85%A5%E4%BA%86%E7%88%B1%E5%8F%91%E7%94%B5&synapse=MjAyNS0x",
+    "originalDate": "2025-12-13T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-11T02:30:00.000Z"
   },
   {
     "id": "2e16dd2f-2d12-8143-a647-f5145353f323",
