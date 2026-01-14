@@ -139,7 +139,21 @@ npm run test
 
 # Watch mode during development
 npm run watch
+
+# Package extension for distribution
+npm run package
 ```
+
+The `package` command will:
+1. Build the TypeScript code
+2. Create a `.zip` file in the `/dist` directory
+3. Exclude source files (.ts) and unnecessary files
+4. Generate a timestamped filename (e.g., `synapse-extension-2026-01-13T09-30-44.zip`)
+
+The generated `.zip` file can be:
+- Uploaded to Chrome Web Store
+- Distributed manually for installation
+- Used for version archiving
 
 After changes, reload the extension:
 1. Go to `chrome://extensions/`

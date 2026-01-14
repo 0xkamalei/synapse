@@ -3,10 +3,12 @@
     "type": "module",
     "version": "1.0.0",
     "scripts": {
-        "init-db": "node init-notion-db.js"
+        "init-db": "node init-notion-db.js",
+        "package-ext": "node package-extension.js"
     },
     "dependencies": {
         "@notionhq/client": "^2.2.14",
+        "archiver": "^7.0.1",
         "dotenv": "^16.3.1"
     }
 }

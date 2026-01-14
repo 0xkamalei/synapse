@@ -9,7 +9,8 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "test": "bun run build && bun test content/collector.test.ts"
+    "test": "bun run build && bun test content/collector.test.ts",
+    "package": "npm run build && cd ../scripts && npm install && npm run package-ext"
   },
   "keywords": [],
   "author": "",
