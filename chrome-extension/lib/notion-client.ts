@@ -66,7 +66,7 @@ export async function saveToNotion(content: CollectedContent): Promise<any> {
         Title: {
             title: [{
                 text: {
-                    content: truncateText(content.text, 10) || urlHash
+                    content: truncateText(content.text, 20) || urlHash
                 }
             }]
         },

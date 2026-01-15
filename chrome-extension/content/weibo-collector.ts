@@ -465,39 +465,26 @@ chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.Mess
 
 /**
  * Initialization logic
+ * 
+ * Collection is triggered by:
+ * - Initial page load
+ * - URL changes (SPA navigation)
+ * - Manual collection from popup
+ * 
+ * No scroll-triggered collection.
  */
 (() => {
     chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'weibo' });
     tryAutoCollectWeibo();
 
     let lastUrl = window.location.href;
-    let lastScrollTop = 0;
-    let debounceTimer: number | undefined;
 
-    const triggerCollect = () => {
-        if (debounceTimer) clearTimeout(debounceTimer);
-        debounceTimer = window.setTimeout(() => {
-            tryAutoCollectWeibo();
-        }, 10000); // Wait 10 seconds
-    };
-
-    // 1. Listen for URL changes
+    // Listen for URL changes (for SPA navigation)
     const observer = new MutationObserver(() => {
         if (window.location.href !== lastUrl) {
             lastUrl = window.location.href;
-            if (debounceTimer) clearTimeout(debounceTimer);
             tryAutoCollectWeibo();
         }
     });
     observer.observe(document.body, { childList: true, subtree: true });
-
-    // 2. Listen for scroll down events (debounced)
-    window.addEventListener('scroll', () => {
-        const st = window.pageYOffset || document.documentElement.scrollTop;
-        if (st > lastScrollTop) {
-            // Scrolling down
-            triggerCollect();
-        }
-        lastScrollTop = st <= 0 ? 0 : st;
-    }, { passive: true });
 })();

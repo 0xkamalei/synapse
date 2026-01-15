@@ -54,26 +54,97 @@
                 </div>
             </section>
 
-            <!-- Target Users -->
+            <!-- Platforms - USA -->
             <section class="section">
-                <h2>Target Users</h2>
-                <p class="hint">Only content from these users will be collected</p>
-                <div class="input-group">
-                    <label for="targetXUser">X.com Username</label>
-                    <input type="text" id="targetXUser" placeholder="username (without @)">
+                <h2>🇺🇸 United States</h2>
+                <p class="hint">Platforms available in the US</p>
+                
+                <!-- X.com -->
+                <div class="platform-card" data-platform="x">
+                    <div class="platform-header">
+                        <div class="platform-info">
+                            <span class="platform-icon">𝕏</span>
+                            <span class="platform-name">X (Twitter)</span>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="enableX" class="platform-toggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="platform-config" id="configX">
+                        <div class="input-group">
+                            <label for="targetXUser">Username</label>
+                            <input type="text" id="targetXUser" placeholder="username (without @)">
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label for="targetBilibiliUser">Bilibili UID</label>
-                    <input type="text" id="targetBilibiliUser" placeholder="123456789">
+            </section>
+
+            <!-- Platforms - China -->
+            <section class="section">
+                <h2>🇨🇳 中国</h2>
+                <p class="hint">中国社交平台</p>
+                
+                <!-- Bilibili -->
+                <div class="platform-card" data-platform="bilibili">
+                    <div class="platform-header">
+                        <div class="platform-info">
+                            <span class="platform-icon">📺</span>
+                            <span class="platform-name">哔哩哔哩 Bilibili</span>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="enableBilibili" class="platform-toggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="platform-config" id="configBilibili">
+                        <div class="input-group">
+                            <label for="targetBilibiliUser">UID</label>
+                            <input type="text" id="targetBilibiliUser" placeholder="123456789">
+                            <p class="hint">在个人主页 URL 中找到: space.bilibili.com/[UID]</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label for="targetQZoneUser">QZone QQ Number</label>
-                    <input type="text" id="targetQZoneUser" placeholder="123456789">
+
+                <!-- QZone -->
+                <div class="platform-card" data-platform="qzone">
+                    <div class="platform-header">
+                        <div class="platform-info">
+                            <span class="platform-icon">🌟</span>
+                            <span class="platform-name">QQ空间 QZone</span>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="enableQZone" class="platform-toggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="platform-config" id="configQZone">
+                        <div class="input-group">
+                            <label for="targetQZoneUser">QQ号</label>
+                            <input type="text" id="targetQZoneUser" placeholder="123456789">
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label for="targetWeiboUser">Weibo UID</label>
-                    <input type="text" id="targetWeiboUser" placeholder="7480129679">
-                    <p class="hint">Find your Weibo UID from your profile URL: weibo.com/u/[UID]</p>
+
+                <!-- Weibo -->
+                <div class="platform-card" data-platform="weibo">
+                    <div class="platform-header">
+                        <div class="platform-info">
+                            <span class="platform-icon">🔴</span>
+                            <span class="platform-name">微博 Weibo</span>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="enableWeibo" class="platform-toggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="platform-config" id="configWeibo">
+                        <div class="input-group">
+                            <label for="targetWeiboUser">UID</label>
+                            <input type="text" id="targetWeiboUser" placeholder="7480129679">
+                            <p class="hint">在个人主页 URL 中找到: weibo.com/u/[UID]</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
