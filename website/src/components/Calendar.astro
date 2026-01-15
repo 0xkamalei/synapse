@@ -21,6 +21,25 @@ for (const thought of thoughts) {
 
 const uniqueSources = Array.from(sources).sort();
 const serializedCounts = JSON.stringify(Object.fromEntries(countsByDate));
+
+// Generate color from source name using hash
+function stringToColor(str: string): string {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  // Generate HSL color with good saturation and lightness for visibility
+  const hue = Math.abs(hash) % 360;
+  const saturation = 60 + (Math.abs(hash >> 8) % 20); // 60-80%
+  const lightness = 50 + (Math.abs(hash >> 16) % 15); // 50-65%
+  
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+}
+
+const sourceColors = Object.fromEntries(
+  uniqueSources.map(source => [source.toLowerCase(), stringToColor(source)])
+);
 ---
 
 <div
@@ -74,13 +93,17 @@ const serializedCounts = JSON.stringify(Object.fromEntries(countsByDate));
   <div class="sources-nav">
     <h3 class="nav-title">Sources</h3>
     <div class="source-links">
-      <a href="/" class="source-link all-link">
+      <a href="/lei" class="source-link all-link">
         <span class="dot all"></span> All Thoughts
       </a>
       {
         uniqueSources.map((source) => (
           <a href={`/source/${source.toLowerCase()}`} class="source-link">
-            <span class={`dot ${source.toLowerCase()}`} /> {source}
+            <span 
+              class="dot" 
+              style={`background-color: ${sourceColors[source.toLowerCase()]}`}
+            /> 
+            {source}
           </a>
         ))
       }
@@ -402,17 +425,5 @@ const serializedCounts = JSON.stringify(Object.fromEntries(countsByDate));
 
   .dot.all {
     background: var(--md-primary);
-  }
-  .dot.x {
-    background: #1da1f2;
-  }
-  .dot.bilibili {
-    background: #fb7299;
-  }
-  .dot.qzone {
-    background: #ffce00;
-  }
-  .dot.manual {
-    background: var(--md-outline);
   }
 </style>

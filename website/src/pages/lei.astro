@@ -1,0 +1,449 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ThoughtCard from "../components/ThoughtCard.astro";
+import Heatmap from "../components/Heatmap.astro";
+import Calendar from "../components/Calendar.astro";
+import thoughts from "../data/thoughts.json";
+import dailyCounts from "../data/daily-counts.json";
+
+// Limit to 50 thoughts for unauthenticated users
+const limitedThoughts = thoughts.slice(0, 50);
+---
+
+<BaseLayout title="Thoughts">
+  <div id="auth-loading" class="auth-state">
+    <div class="spinner"></div>
+  </div>
+
+  <div id="content" class="auth-state hidden">
+    <div class="container container-grid">
+      <aside class="sidebar" id="site-sidebar">
+        <div class="sidebar-inner">
+          <section class="sidebar-section">
+            <h2 class="section-title">Calendar</h2>
+            <Calendar thoughts={thoughts as any} />
+          </section>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="hero">
+          <a href="/" class="back-link">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Back to Home
+          </a>
+          <h1>My Thoughts</h1>
+          <p class="hero-subtitle text-muted">
+            A collection of ideas, insights, and moments from across the web.
+          </p>
+          <div id="auth-notice" class="auth-notice hidden">
+            <p>🔒 Showing limited content. Sign in to view all thoughts.</p>
+          </div>
+        </section>
+
+        <section class="activity-section">
+          <Heatmap data={dailyCounts} />
+        </section>
+
+        <section class="timeline-section">
+          <div class="timeline-header flex-between">
+            <h2 class="section-title">Recent Thoughts</h2>
+            <div id="filter-indicator" class="filter-badge hidden">
+              <span id="filter-date-text"></span>
+              <button id="clear-filter" class="material-symbols-outlined"
+                >close</button
+              >
+            </div>
+          </div>
+
+          {
+            thoughts.length === 0 ? (
+              <div class="empty-state">
+                <span class="empty-icon">📝</span>
+                <p>No thoughts yet</p>
+                <p class="text-small text-muted">
+                  Start collecting from X.com, Bilibili, or other supported platforms
+                </p>
+              </div>
+            ) : (
+              <>
+                <div class="timeline" id="thoughts-timeline-all">
+                  {thoughts.map((thought) => (
+                    <ThoughtCard thought={thought as any} />
+                  ))}
+                </div>
+                <div class="timeline hidden" id="thoughts-timeline-limited">
+                  {limitedThoughts.map((thought) => (
+                    <ThoughtCard thought={thought as any} />
+                  ))}
+                </div>
+              </>
+            )
+          }
+
+          <div id="content-limit-notice" class="content-limit-notice hidden">
+            <div class="limit-notice-content">
+              <span class="material-symbols-outlined limit-icon">lock</span>
+              <h3>You've reached the preview limit</h3>
+              <p>Sign in to unlock all <strong>{thoughts.length}</strong> thoughts and get full access to your collection.</p>
+              <button id="sign-in-btn" class="btn btn-auth">
+                <span class="material-symbols-outlined">login</span>
+                <span>Sign In to Continue</span>
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { auth } from "../lib/firebase";
+  import { onAuthStateChanged } from "firebase/auth";
+
+  const loading = document.getElementById("auth-loading");
+  const content = document.getElementById("content");
+  const authNotice = document.getElementById("auth-notice");
+  const timelineAll = document.getElementById("thoughts-timeline-all");
+  const timelineLimited = document.getElementById("thoughts-timeline-limited");
+  const contentLimitNotice = document.getElementById("content-limit-notice");
+  const signInBtn = document.getElementById("sign-in-btn");
+
+  onAuthStateChanged(auth, (user) => {
+    loading?.classList.add("hidden");
+    content?.classList.remove("hidden");
+    
+    if (user) {
+      // Authenticated: show all thoughts
+      timelineAll?.classList.remove("hidden");
+      timelineLimited?.classList.add("hidden");
+      authNotice?.classList.add("hidden");
+      contentLimitNotice?.classList.add("hidden");
+    } else {
+      // Unauthenticated: show limited thoughts
+      timelineAll?.classList.add("hidden");
+      timelineLimited?.classList.remove("hidden");
+      authNotice?.classList.remove("hidden");
+      contentLimitNotice?.classList.remove("hidden");
+    }
+  });
+
+  // Sign in button handler
+  signInBtn?.addEventListener("click", async () => {
+    const headerLoginBtn = document.getElementById("header-login-button");
+    headerLoginBtn?.click();
+  });
+
+  // Filtering logic
+  const indicator = document.getElementById("filter-indicator");
+  const dateText = document.getElementById("filter-date-text");
+  const clearBtn = document.getElementById("clear-filter");
+
+  window.addEventListener("filter-date", (e: any) => {
+    const selectedDate = e.detail;
+    const cards = document.querySelectorAll(
+      ".thought-card",
+    ) as NodeListOf<HTMLElement>;
+
+    if (selectedDate) {
+      indicator?.classList.remove("hidden");
+      if (dateText) dateText.textContent = `Filtered by ${selectedDate}`;
+
+      cards.forEach((card) => {
+        if (card.dataset.date === selectedDate) {
+          card.classList.remove("hidden");
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+    } else {
+      clearFilter();
+    }
+  });
+
+  clearBtn?.addEventListener("click", clearFilter);
+
+  function clearFilter() {
+    indicator?.classList.add("hidden");
+    const cards = document.querySelectorAll(
+      ".thought-card",
+    ) as NodeListOf<HTMLElement>;
+    cards.forEach((card) => card.classList.remove("hidden"));
+    window.dispatchEvent(new CustomEvent("clear-calendar-selection"));
+  }
+</script>
+
+<style is:global>
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<style>
+  .auth-state {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--md-secondary-container);
+    border-bottom-color: var(--md-primary);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .container-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-8);
+    align-items: start;
+    padding-top: var(--space-4);
+  }
+
+  .main-content {
+    min-width: 0;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: calc(48px + var(--space-4));
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .sidebar-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .sidebar-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 992px) {
+    .container-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 320px;
+      max-width: 85vw;
+      background: var(--md-surface);
+      z-index: 200;
+      padding: var(--space-6);
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      box-shadow: var(--shadow-lg);
+      overflow-y: auto;
+    }
+
+    .sidebar.open {
+      transform: translateX(0);
+    }
+
+    .sidebar-inner {
+      gap: var(--space-6);
+    }
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-4);
+    color: var(--md-on-surface-variant);
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--md-primary);
+  }
+
+  .back-link .material-symbols-outlined {
+    font-size: 1.125rem;
+  }
+
+  .hero {
+    margin-bottom: var(--space-10);
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    max-width: 600px;
+  }
+
+  .auth-notice {
+    margin-top: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+  }
+
+  .auth-notice p {
+    margin: 0;
+  }
+
+  .activity-section {
+    margin-bottom: var(--space-8);
+  }
+
+  .timeline-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-4);
+  }
+
+  .timeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+  }
+
+  .filter-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .filter-badge button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .filter-badge button:hover {
+    opacity: 0.7;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--space-12);
+    background: var(--md-surface-container-low);
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--md-outline-variant);
+  }
+
+  .empty-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: var(--space-4);
+    opacity: 0.5;
+  }
+
+  .content-limit-notice {
+    margin-top: var(--space-8);
+    padding: var(--space-10) var(--space-6);
+    background: linear-gradient(135deg, var(--md-primary-container) 0%, var(--md-secondary-container) 100%);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--md-primary);
+    text-align: center;
+  }
+
+  .limit-notice-content {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .limit-icon {
+    font-size: 4rem;
+    color: var(--md-primary);
+    margin-bottom: var(--space-4);
+    display: inline-block;
+  }
+
+  .content-limit-notice h3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+    color: var(--md-on-primary-container);
+  }
+
+  .content-limit-notice p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--md-on-secondary-container);
+    margin-bottom: var(--space-6);
+  }
+
+  .btn-auth {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-8);
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-auth:hover {
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .btn-auth .material-symbols-outlined {
+    font-size: 1.25rem;
+  }
+</style>

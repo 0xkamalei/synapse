@@ -104,7 +104,11 @@ const { title, description = "My personal thoughts aggregation platform" } =
         if (user) {
           userProfile?.classList.remove("hidden");
           loginContainer?.classList.add("hidden");
-          drawerToggle?.classList.remove("hidden");
+          // Check if we're on a page with a sidebar
+          const hasSidebar = document.getElementById("site-sidebar");
+          if (hasSidebar) {
+            drawerToggle?.classList.remove("hidden");
+          }
           if (userAvatar) userAvatar.src = user.photoURL || "";
           if (userName) userName.textContent = user.displayName || user.email;
         } else {

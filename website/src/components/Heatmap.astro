@@ -263,14 +263,34 @@ const serializedData = JSON.stringify(data);
   }
 
   .heatmap-card .heatmap-content {
-    overflow: hidden;
+    overflow: visible;
   }
 
   .heatmap-card .heatmap-wrapper {
     display: flex;
     gap: var(--space-3);
     overflow-x: auto;
+    overflow-y: visible;
     padding-bottom: var(--space-2);
+    scrollbar-width: thin;
+    scrollbar-color: var(--md-outline-variant) transparent;
+  }
+
+  .heatmap-card .heatmap-wrapper::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .heatmap-card .heatmap-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .heatmap-card .heatmap-wrapper::-webkit-scrollbar-thumb {
+    background: var(--md-outline-variant);
+    border-radius: 3px;
+  }
+
+  .heatmap-card .heatmap-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--md-outline);
   }
 
   .heatmap-card .heatmap-labels {
