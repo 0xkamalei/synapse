@@ -6,8 +6,12 @@ import Calendar from "../components/Calendar.astro";
 import thoughts from "../data/thoughts.json";
 import dailyCounts from "../data/daily-counts.json";
 
-// Limit to 50 thoughts for unauthenticated users
-const limitedThoughts = thoughts.slice(0, 50);
+// PERFORMANCE OPTIMIZATION:
+// Only render initial batch on SSR to reduce HTML size and parse time
+const INITIAL_RENDER_COUNT = 20; // First 20 thoughts rendered on server
+const INITIAL_AUTH_LIMIT = 30; // For unauthenticated users
+const initialThoughts = thoughts.slice(0, INITIAL_RENDER_COUNT);
+const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
 ---
 
 <BaseLayout title="Thoughts">
@@ -21,6 +25,7 @@ const limitedThoughts = thoughts.slice(0, 50);
         <div class="sidebar-inner">
           <section class="sidebar-section">
             <h2 class="section-title">Calendar</h2>
+            <!-- Calendar loads its data from data attribute, keep it lightweight -->
             <Calendar thoughts={thoughts as any} />
           </section>
         </div>
@@ -42,6 +47,7 @@ const limitedThoughts = thoughts.slice(0, 50);
         </section>
 
         <section class="activity-section">
+          <!-- Heatmap loads its data from data attribute -->
           <Heatmap data={dailyCounts} />
         </section>
 
@@ -67,16 +73,21 @@ const limitedThoughts = thoughts.slice(0, 50);
               </div>
             ) : (
               <>
-                <div class="timeline" id="thoughts-timeline-all">
-                  {thoughts.map((thought) => (
+                {/* Initial render - All users see the same initial batch */}
+                <div class="timeline" id="thoughts-timeline">
+                  {initialThoughts.map((thought) => (
                     <ThoughtCard thought={thought as any} />
                   ))}
                 </div>
-                <div class="timeline hidden" id="thoughts-timeline-limited">
-                  {limitedThoughts.map((thought) => (
-                    <ThoughtCard thought={thought as any} />
-                  ))}
+                
+                {/* Loading indicator for lazy loading */}
+                <div id="loading-indicator" class="loading-indicator hidden">
+                  <div class="spinner-small"></div>
+                  <span>Loading more thoughts...</span>
                 </div>
+                
+                {/* Sentinel element for intersection observer */}
+                <div id="load-more-sentinel" class="load-more-sentinel"></div>
               </>
             )
           }
@@ -102,30 +113,167 @@ const limitedThoughts = thoughts.slice(0, 50);
   import { auth } from "../lib/firebase";
   import { onAuthStateChanged } from "firebase/auth";
 
+  // Import thoughts data for client-side rendering
+  import thoughtsData from "../data/thoughts.json";
+
   const loading = document.getElementById("auth-loading");
   const content = document.getElementById("content");
   const authNotice = document.getElementById("auth-notice");
-  const timelineAll = document.getElementById("thoughts-timeline-all");
-  const timelineLimited = document.getElementById("thoughts-timeline-limited");
+  const timeline = document.getElementById("thoughts-timeline");
   const contentLimitNotice = document.getElementById("content-limit-notice");
   const signInBtn = document.getElementById("sign-in-btn");
+  const loadingIndicator = document.getElementById("loading-indicator");
+  const sentinel = document.getElementById("load-more-sentinel");
 
+  // Lazy loading state
+  const BATCH_SIZE = 20;
+  const INITIAL_RENDER = 20;
+  const AUTH_LIMIT = 30;
+  let currentIndex = INITIAL_RENDER;
+  let isAuthenticated = false;
+  let isLoading = false;
+  let hasReachedLimit = false;
+
+  // Create ThoughtCard HTML from thought data
+  function createThoughtCardHTML(thought: any): string {
+    const sourceClass = thought.source.toLowerCase();
+    const formattedDate = new Date(thought.originalDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+    const dateISO = thought.originalDate.split("T")[0];
+
+    const mediaHTML = (thought.images.length > 0 || thought.videos.length > 0) 
+      ? `<div class="card-media">
+          ${thought.images.map((img: string) => `<img src="${img}" alt="" loading="lazy" />`).join('')}
+          ${thought.videos.map((vid: string) => `<video src="${vid}" controls preload="none"></video>`).join('')}
+        </div>`
+      : '';
+
+    const tagsHTML = thought.tags.length > 0
+      ? `<div class="card-tags">
+          ${thought.tags.map((tag: string) => `<span class="tag">${tag}</span>`).join('')}
+        </div>`
+      : '';
+
+    const originalLinkHTML = thought.originalUrl && thought.originalUrl.startsWith('https://')
+      ? `<a href="${thought.originalUrl}" target="_blank" rel="noopener" class="original-link">View original →</a>`
+      : '';
+
+    return `
+      <article class="thought-card" data-date="${dateISO}">
+        <header class="card-header">
+          <span class="badge ${sourceClass}">${thought.source}</span>
+          <time datetime="${thought.originalDate}" class="text-muted text-small">
+            ${formattedDate}
+          </time>
+        </header>
+        <div class="card-content">
+          <p>${thought.content}</p>
+          ${mediaHTML}
+        </div>
+        <footer class="card-footer">
+          ${tagsHTML}
+          ${originalLinkHTML}
+        </footer>
+      </article>
+    `;
+  }
+
+  // Load more thoughts
+  function loadMoreThoughts() {
+    if (isLoading || hasReachedLimit) return;
+
+    const maxIndex = isAuthenticated ? thoughtsData.length : AUTH_LIMIT;
+    
+    if (currentIndex >= maxIndex) {
+      hasReachedLimit = true;
+      sentinel?.classList.add('hidden');
+      
+      // Show auth notice for unauthenticated users
+      if (!isAuthenticated && currentIndex >= AUTH_LIMIT) {
+        contentLimitNotice?.classList.remove('hidden');
+      }
+      return;
+    }
+
+    isLoading = true;
+    loadingIndicator?.classList.remove('hidden');
+
+    // Simulate network delay for better UX (can be removed in production)
+    setTimeout(() => {
+      const endIndex = Math.min(currentIndex + BATCH_SIZE, maxIndex);
+      const batch = thoughtsData.slice(currentIndex, endIndex);
+
+      batch.forEach((thought) => {
+        const cardHTML = createThoughtCardHTML(thought);
+        timeline?.insertAdjacentHTML('beforeend', cardHTML);
+      });
+
+      currentIndex = endIndex;
+      isLoading = false;
+      loadingIndicator?.classList.add('hidden');
+
+      // Check if we've reached the limit
+      if (currentIndex >= maxIndex) {
+        hasReachedLimit = true;
+        sentinel?.classList.add('hidden');
+        
+        if (!isAuthenticated && currentIndex >= AUTH_LIMIT) {
+          contentLimitNotice?.classList.remove('hidden');
+        }
+      }
+    }, 300);
+  }
+
+  // Intersection Observer for infinite scroll
+  const observerOptions = {
+    root: null,
+    rootMargin: '200px', // Start loading 200px before sentinel
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        loadMoreThoughts();
+      }
+    });
+  }, observerOptions);
+
+  // Auth state handler
   onAuthStateChanged(auth, (user) => {
     loading?.classList.add("hidden");
     content?.classList.remove("hidden");
     
+    isAuthenticated = !!user;
+    
     if (user) {
-      // Authenticated: show all thoughts
-      timelineAll?.classList.remove("hidden");
-      timelineLimited?.classList.add("hidden");
+      // Authenticated: can load all thoughts
       authNotice?.classList.add("hidden");
       contentLimitNotice?.classList.add("hidden");
+      hasReachedLimit = false;
+      sentinel?.classList.remove('hidden');
+      
+      // Start observing for lazy loading
+      if (sentinel) {
+        observer.observe(sentinel);
+      }
     } else {
-      // Unauthenticated: show limited thoughts
-      timelineAll?.classList.add("hidden");
-      timelineLimited?.classList.remove("hidden");
+      // Unauthenticated: limited access
       authNotice?.classList.remove("hidden");
-      contentLimitNotice?.classList.remove("hidden");
+      
+      // If already past limit, show notice
+      if (currentIndex >= AUTH_LIMIT) {
+        contentLimitNotice?.classList.remove("hidden");
+        sentinel?.classList.add('hidden');
+      } else {
+        // Start observing with limit
+        if (sentinel) {
+          observer.observe(sentinel);
+        }
+      }
     }
   });
 
@@ -445,5 +593,55 @@ const limitedThoughts = thoughts.slice(0, 50);
 
   .btn-auth .material-symbols-outlined {
     font-size: 1.25rem;
+  }
+
+  /* Lazy Loading Styles */
+  .loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-6) 0;
+    color: var(--md-on-surface-variant);
+  }
+
+  .spinner-small {
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--md-secondary-container);
+    border-bottom-color: var(--md-primary);
+    border-radius: 50%;
+    animation: rotation 1s linear infinite;
+  }
+
+  .load-more-sentinel {
+    height: 20px;
+    visibility: hidden;
+  }
+
+  /* Component Lazy Loading */
+  .lazy-load-component {
+    position: relative;
+    min-height: 100px;
+  }
+
+  .component-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-8);
+    color: var(--md-on-surface-variant);
+    font-size: 0.875rem;
+  }
+
+  .component-content {
+    transition: opacity 0.3s ease;
+  }
+
+  .component-content.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
   }
 </style>

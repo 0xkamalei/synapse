@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Performance Test - Before vs After Optimization</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .test-container {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .metric {
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 6px;
+    }
+    .metric-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2563eb;
+    }
+    .metric-label {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .winner {
+      color: #16a34a;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>⚡ Performance Optimization Test</h1>
+  <p>This test simulates the rendering performance difference before and after optimization.</p>
+
+  <div class="test-container">
+    <h2>Test 1: Rendering 300 ThoughtCards (Before Optimization)</h2>
+    <button onclick="testBefore()">Run Test</button>
+    <div class="metrics" id="before-metrics"></div>
+  </div>
+
+  <div class="test-container">
+    <h2>Test 2: Rendering 20 ThoughtCards + Lazy Load (After Optimization)</h2>
+    <button onclick="testAfter()">Run Test</button>
+    <div class="metrics" id="after-metrics"></div>
+  </div>
+
+  <div class="test-container" id="comparison" style="display: none;">
+    <h2>📊 Performance Comparison</h2>
+    <div class="metrics" id="comparison-metrics"></div>
+  </div>
+
+  <script>
+    const thoughtsData = Array.from({ length: 300 }, (_, i) => ({
+      id: `thought-${i}`,
+      content: `This is thought number ${i}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
+      source: ['X', 'Bilibili', 'Weibo', 'QQ Space'][i % 4],
+      date: new Date(2024, 0, 1 + i).toISOString(),
+    }));
+
+    function createThoughtCard(thought) {
+      return `
+        <article class="thought-card" style="padding: 16px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px;">
+          <header>
+            <span style="background: #e0e0e0; padding: 4px 8px; border-radius: 4px; font-size: 12px;">${thought.source}</span>
+            <time style="color: #666; font-size: 12px; margin-left: 8px;">${new Date(thought.date).toLocaleDateString()}</time>
+          </header>
+          <div style="margin-top: 12px;">
+            <p>${thought.content}</p>
+          </div>
+        </article>
+      `;
+    }
+
+    let beforeResults = null;
+    let afterResults = null;
+
+    async function testBefore() {
+      const container = document.getElementById('before-metrics');
+      container.innerHTML = '<div>Running test...</div>';
+      
+      const startTime = performance.now();
+      const startMemory = performance.memory ? performance.memory.usedJSHeapSize : 0;
+      
+      // Simulate rendering all 300 cards at once
+      const htmlString = thoughtsData.map(createThoughtCard).join('');
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlString;
+      
+      const renderTime = performance.now() - startTime;
+      const endMemory = performance.memory ? performance.memory.usedJSHeapSize : 0;
+      const memoryUsed = (endMemory - startMemory) / 1024 / 1024; // MB
+      
+      const domNodes = tempDiv.querySelectorAll('*').length;
+      
+      beforeResults = {
+        renderTime,
+        memoryUsed,
+        domNodes,
+        cardsRendered: 300
+      };
+      
+      container.innerHTML = `
+        <div class="metric">
+          <div class="metric-value">${renderTime.toFixed(2)}ms</div>
+          <div class="metric-label">Render Time</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">${memoryUsed.toFixed(2)}MB</div>
+          <div class="metric-label">Memory Used</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">${domNodes}</div>
+          <div class="metric-label">DOM Nodes</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">300</div>
+          <div class="metric-label">Cards Rendered</div>
+        </div>
+      `;
+      
+      checkComparison();
+    }
+
+    async function testAfter() {
+      const container = document.getElementById('after-metrics');
+      container.innerHTML = '<div>Running test...</div>';
+      
+      const startTime = performance.now();
+      const startMemory = performance.memory ? performance.memory.usedJSHeapSize : 0;
+      
+      // Simulate rendering only 20 cards initially
+      const initialThoughts = thoughtsData.slice(0, 20);
+      const htmlString = initialThoughts.map(createThoughtCard).join('');
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlString;
+      
+      const renderTime = performance.now() - startTime;
+      const endMemory = performance.memory ? performance.memory.usedJSHeapSize : 0;
+      const memoryUsed = (endMemory - startMemory) / 1024 / 1024; // MB
+      
+      const domNodes = tempDiv.querySelectorAll('*').length;
+      
+      afterResults = {
+        renderTime,
+        memoryUsed,
+        domNodes,
+        cardsRendered: 20
+      };
+      
+      container.innerHTML = `
+        <div class="metric">
+          <div class="metric-value">${renderTime.toFixed(2)}ms</div>
+          <div class="metric-label">Initial Render Time</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">${memoryUsed.toFixed(2)}MB</div>
+          <div class="metric-label">Memory Used</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">${domNodes}</div>
+          <div class="metric-label">DOM Nodes</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">20</div>
+          <div class="metric-label">Initial Cards</div>
+        </div>
+      `;
+      
+      checkComparison();
+    }
+
+    function checkComparison() {
+      if (beforeResults && afterResults) {
+        const comparison = document.getElementById('comparison');
+        const container = document.getElementById('comparison-metrics');
+        
+        const renderImprovement = ((beforeResults.renderTime - afterResults.renderTime) / beforeResults.renderTime * 100).toFixed(1);
+        const memoryImprovement = ((beforeResults.memoryUsed - afterResults.memoryUsed) / beforeResults.memoryUsed * 100).toFixed(1);
+        const domImprovement = ((beforeResults.domNodes - afterResults.domNodes) / beforeResults.domNodes * 100).toFixed(1);
+        
+        container.innerHTML = `
+          <div class="metric">
+            <div class="metric-value winner">${renderImprovement}% faster</div>
+            <div class="metric-label">Render Time Improvement</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value winner">${memoryImprovement}% less</div>
+            <div class="metric-label">Memory Usage Improvement</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value winner">${domImprovement}% fewer</div>
+            <div class="metric-label">DOM Nodes Reduction</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value winner">93% reduction</div>
+            <div class="metric-label">Initial Cards Rendered</div>
+          </div>
+        `;
+        
+        comparison.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
