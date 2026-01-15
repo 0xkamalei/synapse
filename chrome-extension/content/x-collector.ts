@@ -21,6 +21,22 @@ function extractTweetText(tweetElement: Element): string {
 }
 
 /**
+ * Extract hashtags from tweet text
+ * Matches hashtags in format: #word or #中文 (supports non-Latin characters)
+ */
+function extractHashtags(text: string): string[] {
+    if (!text) return [];
+    // Match hashtags: # followed by word characters (including Unicode letters)
+    const hashtagRegex = /#([\w\u4e00-\u9fa5]+)/g;
+    const matches = text.matchAll(hashtagRegex);
+    const tags = new Set<string>();
+    for (const match of matches) {
+        tags.add(match[1]); // Add the hashtag without the # symbol
+    }
+    return Array.from(tags);
+}
+
+/**
  * Extract images and videos from a tweet element
  */
 function extractTweetMedia(tweetElement: Element): { images: string[]; videos: string[] } {
@@ -191,6 +207,7 @@ function collectTweetDataX(tweetElement: Element): CollectedContent {
     const timestamp = extractTweetTimestamp(tweetElement);
     const url = extractTweetUrl(tweetElement);
     const author = extractAuthorInfoX(tweetElement);
+    const tags = extractHashtags(text);
 
     return {
         source: 'X' as const,
@@ -199,6 +216,7 @@ function collectTweetDataX(tweetElement: Element): CollectedContent {
         images,
         videos,
         links: [],
+        tags,
         timestamp,
         url,
         author,

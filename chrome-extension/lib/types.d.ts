@@ -17,6 +17,7 @@ interface CollectedContent {
     images: string[];
     videos: string[];
     links: string[];
+    tags?: string[];
     timestamp: string;
     url: string;
     author: AuthorInfo;

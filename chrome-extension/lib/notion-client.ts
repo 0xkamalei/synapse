@@ -93,6 +93,13 @@ export async function saveToNotion(content: CollectedContent): Promise<any> {
         }
     };
 
+    // Add tags if present
+    if (content.tags && content.tags.length > 0) {
+        properties.Tags = {
+            multi_select: content.tags.map(tag => ({ name: tag }))
+        };
+    }
+
     // Build page children (content blocks)
     const children: any[] = [];
 
