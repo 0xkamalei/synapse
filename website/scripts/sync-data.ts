@@ -95,25 +95,25 @@ async function sync() {
             }
         }
 
-        // 4. Merge and deduplicate by ID and Title
-        // Use title (URL hash) as the primary key for deduplication to handle concurrent saves
+        // 4. Merge and deduplicate by ID and HashID
+        // Use hashId (URL hash) as the primary key for deduplication to handle concurrent saves
         const thoughtMap = new Map<string, any>();
-        const idToTitleMap = new Map<string, string>();
+        const idToHashMap = new Map<string, string>();
 
         const processThought = (t: any) => {
-            const title = t.title || '';
+            const hashId = t.hashId || '';
             const id = t.id;
             
-            if (title) {
-                // If we already have this title, keep the existing one (or we could compare dates)
-                if (!thoughtMap.has(title)) {
-                    thoughtMap.set(title, t);
-                    idToTitleMap.set(id, title);
+            if (hashId) {
+                // If we already have this hashId, keep the existing one (or we could compare dates)
+                if (!thoughtMap.has(hashId)) {
+                    thoughtMap.set(hashId, t);
+                    idToHashMap.set(id, hashId);
                 } else {
-                    console.log(`   Found duplicate title: ${title} (ID: ${id}), skipping.`);
+                    console.log(`   Found duplicate hashId: ${hashId.substring(0, 16)}... (ID: ${id}), skipping.`);
                 }
             } else {
-                // Fallback to ID if title is missing
+                // Fallback to ID if hashId is missing
                 thoughtMap.set(id, t);
             }
         };

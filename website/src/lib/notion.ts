@@ -14,8 +14,9 @@ const datasourceId = import.meta.env?.NOTION_DATASOURCE_ID || process.env.NOTION
 
 export interface Thought {
     id: string;
-    title: string;
-    content: string;
+    hashId: string;  // URL hash for deduplication
+    title: string;   // Human-readable title (first 10 chars of content)
+    content: string; // Content extracted from page body blocks
     source: 'X' | 'Bilibili' | 'Manual';
     originalUrl: string;
     originalDate: string;
@@ -33,8 +34,9 @@ function parseNotionPage(page: any, blocks: any[] = []): Thought {
 
     const images: string[] = [];
     const videos: string[] = [];
+    const textParts: string[] = [];
 
-    // Extract media from blocks
+    // Extract media and text content from blocks
     for (const block of blocks) {
         if (block.type === 'image') {
             const url = block.image.type === 'external' ? block.image.external.url : block.image.file.url;
@@ -42,13 +44,20 @@ function parseNotionPage(page: any, blocks: any[] = []): Thought {
         } else if (block.type === 'video') {
             const url = block.video.type === 'external' ? block.video.external.url : block.video.file.url;
             if (url) videos.push(url);
+        } else if (block.type === 'paragraph' && block.paragraph?.rich_text) {
+            const text = block.paragraph.rich_text.map((t: any) => t.plain_text).join('');
+            if (text) textParts.push(text);
         }
     }
 
+    // Get hashId from HashID property, fallback to title for backward compatibility
+    const hashId = props.HashID?.rich_text?.[0]?.plain_text || props.Title?.title?.[0]?.plain_text || '';
+
     return {
         id: page.id,
+        hashId,
         title: props.Title?.title?.[0]?.plain_text || '',
-        content: props.Content?.rich_text?.map((t: any) => t.plain_text).join('') || '',
+        content: textParts.join('\n'),  // Extract content from page body blocks
         source: props.Source?.select?.name || 'Manual',
         originalUrl: props.OriginalURL?.url || '',
         originalDate: props.OriginalDate?.date?.start || page.created_time,
@@ -86,7 +95,7 @@ export async function getAllThoughts(since?: string): Promise<Thought[]> {
 
     const queryParams = [
         'Title',
-        'Content',
+        'HashID',
         'Source',
         'OriginalURL',
         'OriginalDate',

@@ -66,12 +66,15 @@ export async function saveToNotion(content: CollectedContent): Promise<any> {
         Title: {
             title: [{
                 text: {
-                    content: urlHash || truncateText(content.text, 10)
+                    content: truncateText(content.text, 10) || urlHash
                 }
             }]
         },
-        Content: {
-            rich_text: createRichText(content.text)
+        HashID: {
+            rich_text: [{
+                type: 'text',
+                text: { content: urlHash }
+            }]
         },
         Type: {
             select: { name: content.type || 'text' }
@@ -191,13 +194,13 @@ export async function batchCheckDuplicates(urls: string[]): Promise<Set<string>>
     for (const chunk of chunks) {
         const filter = chunk.length === 1
             ? {
-                property: 'Title',
-                title: { equals: chunk[0] }
+                property: 'HashID',
+                rich_text: { equals: chunk[0] }
             }
             : {
                 or: chunk.map(hash => ({
-                    property: 'Title',
-                    title: { equals: hash }
+                    property: 'HashID',
+                    rich_text: { equals: hash }
                 }))
             };
 
@@ -206,7 +209,7 @@ export async function batchCheckDuplicates(urls: string[]): Promise<Set<string>>
 
         while (hasMore) {
             try {
-                const response = await fetch(`${NOTION_API_BASE}/data_sources/${config.notionDataSourceId}/query?filter_properties[]=Title`, {
+                const response = await fetch(`${NOTION_API_BASE}/data_sources/${config.notionDataSourceId}/query?filter_properties[]=HashID`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${config.notionToken}`,
@@ -225,8 +228,8 @@ export async function batchCheckDuplicates(urls: string[]): Promise<Set<string>>
                     console.log(`[Synapse] Notion query returned ${result.results.length} records for hash chunk`);
 
                     result.results.forEach((page: any) => {
-                        // Extract text from title property
-                        const hash = page.properties?.Title?.title?.[0]?.plain_text;
+                        // Extract hash from HashID property
+                        const hash = page.properties?.HashID?.rich_text?.[0]?.plain_text;
                         if (hash && hashToUrl.has(hash)) {
                             const originalUrl = hashToUrl.get(hash)!;
                             existingUrls.add(originalUrl);
