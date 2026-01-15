@@ -10,7 +10,8 @@ const PLATFORMS = {
     x: { toggle: 'enableX', config: 'configX', targetInput: 'targetXUser' },
     bilibili: { toggle: 'enableBilibili', config: 'configBilibili', targetInput: 'targetBilibiliUser' },
     qzone: { toggle: 'enableQZone', config: 'configQZone', targetInput: 'targetQZoneUser' },
-    weibo: { toggle: 'enableWeibo', config: 'configWeibo', targetInput: 'targetWeiboUser' }
+    weibo: { toggle: 'enableWeibo', config: 'configWeibo', targetInput: 'targetWeiboUser' },
+    redbook: { toggle: 'enableRedbook', config: 'configRedbook', targetInput: 'targetRedbookUser' }
 } as const;
 
 type PlatformKey = keyof typeof PLATFORMS;
@@ -28,16 +29,19 @@ const elements = {
     enableBilibili: document.getElementById('enableBilibili') as HTMLInputElement,
     enableQZone: document.getElementById('enableQZone') as HTMLInputElement,
     enableWeibo: document.getElementById('enableWeibo') as HTMLInputElement,
+    enableRedbook: document.getElementById('enableRedbook') as HTMLInputElement,
     // Platform config sections
     configX: document.getElementById('configX') as HTMLElement,
     configBilibili: document.getElementById('configBilibili') as HTMLElement,
     configQZone: document.getElementById('configQZone') as HTMLElement,
     configWeibo: document.getElementById('configWeibo') as HTMLElement,
+    configRedbook: document.getElementById('configRedbook') as HTMLElement,
     // Target user inputs
     targetXUser: document.getElementById('targetXUser') as HTMLInputElement,
     targetBilibiliUser: document.getElementById('targetBilibiliUser') as HTMLInputElement,
     targetQZoneUser: document.getElementById('targetQZoneUser') as HTMLInputElement,
     targetWeiboUser: document.getElementById('targetWeiboUser') as HTMLInputElement,
+    targetRedbookUser: document.getElementById('targetRedbookUser') as HTMLInputElement,
     // Other settings
     collectIntervalHours: document.getElementById('collectIntervalHours') as HTMLInputElement,
     debugMode: document.getElementById('debugMode') as HTMLInputElement,
@@ -89,15 +93,17 @@ async function loadConfig() {
     elements.targetBilibiliUser.value = config.targetBilibiliUser || '';
     elements.targetQZoneUser.value = config.targetQZoneUser || '';
     elements.targetWeiboUser.value = config.targetWeiboUser || '';
+    elements.targetRedbookUser.value = config.targetRedbookUser || '';
     elements.collectIntervalHours.value = (config.collectIntervalHours ?? 4).toString();
     elements.debugMode.checked = config.debugMode || false;
 
     // Set toggle states based on enabledSources
-    const enabledSources = config.enabledSources || ['x', 'bilibili', 'qzone', 'weibo'];
+    const enabledSources = config.enabledSources || ['x', 'bilibili', 'qzone', 'weibo', 'redbook'];
     elements.enableX.checked = enabledSources.includes('x');
     elements.enableBilibili.checked = enabledSources.includes('bilibili');
     elements.enableQZone.checked = enabledSources.includes('qzone');
     elements.enableWeibo.checked = enabledSources.includes('weibo');
+    elements.enableRedbook.checked = enabledSources.includes('redbook');
 
     // Update visibility for all platforms
     for (const platform of Object.keys(PLATFORMS) as PlatformKey[]) {
@@ -130,6 +136,7 @@ async function handleSave() {
         targetBilibiliUser: elements.targetBilibiliUser.value.trim(),
         targetQZoneUser: elements.targetQZoneUser.value.trim(),
         targetWeiboUser: elements.targetWeiboUser.value.trim(),
+        targetRedbookUser: elements.targetRedbookUser.value.trim(),
         collectIntervalHours: elements.collectIntervalHours.value === '' ? 4 : parseInt(elements.collectIntervalHours.value, 10),
         debugMode: elements.debugMode.checked,
         enabledSources: getEnabledSources()

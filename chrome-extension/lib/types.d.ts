@@ -11,7 +11,7 @@ interface AuthorInfo {
 type ContentType = 'text' | 'image' | 'video' | 'article' | 'unknown';
 
 interface CollectedContent {
-    source: 'X' | 'Bilibili' | 'QZone' | 'Weibo';
+    source: 'X' | 'Bilibili' | 'QZone' | 'Weibo' | 'Redbook';
     type: ContentType;
     text: string;
     images: string[];
@@ -52,6 +52,7 @@ interface AppConfig {
     targetBilibiliUser: string;
     targetQZoneUser: string;
     targetWeiboUser: string;
+    targetRedbookUser: string;
     collectIntervalHours?: number;
     lastCollectTime: string | null;
     lastCollectTimes?: Record<string, string>;

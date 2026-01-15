@@ -196,7 +196,10 @@ async function handleCollectBatch(contents: CollectedContent[], pageUID: string)
                 if (err.message.includes('already saved')) {
                     skipped++;
                 } else {
-                    await logger.error(`Batch item failed: ${err.message}`, { summary: truncateText(content.text) });
+                    await logger.error(`Batch item failed: ${err.message}`, { 
+                        summary: truncateText(content.text),
+                        data: content 
+                    });
                 }
             }
         }

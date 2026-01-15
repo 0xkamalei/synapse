@@ -56,7 +56,8 @@ describe("Collectors", () => {
             'dist/content/x-collector.js',
             'dist/content/bilibili-collector.js',
             'dist/content/qzone-collector.js',
-            'dist/content/weibo-collector.js'
+            'dist/content/weibo-collector.js',
+            'dist/content/redbook-collector.js'
         ];
 
         for (const relPath of collectors) {
@@ -218,6 +219,31 @@ describe("Collectors", () => {
         expect(posts.length).toBeGreaterThan(0);
 
         const results = posts.map((p: any) => (globalThis as any).collectPostDataWeibo(p));
+
+        // Only override collectedAt, but keep the parsed timestamp
+        results.forEach((r: any) => {
+            r.collectedAt = "2024-01-01T00:00:00.000Z";
+        });
+
+        if (!existsSync(jsonPath)) {
+            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+            console.log(`Created ${jsonPath}. Please review it.`);
+        } else {
+            const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
+            expect(results).toEqual(expected);
+        }
+    });
+
+    test("Redbook Collector", () => {
+        const htmlPath = join(TARGET_HTML_DIR, "redbook.html");
+        const jsonPath = join(TARGET_HTML_DIR, "redbook-expected.json");
+
+        updateDOMWithUrl(htmlPath, "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee");
+
+        const notes = (globalThis as any).findAllPostsRedbook();
+        expect(notes.length).toBeGreaterThan(0);
+
+        const results = notes.map((n: any) => (globalThis as any).collectNoteDataRedbook(n));
 
         // Only override collectedAt, but keep the parsed timestamp
         results.forEach((r: any) => {

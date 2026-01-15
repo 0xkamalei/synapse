@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Synapse Collector",
   "version": "1.0.0",
-  "description": "Aggregate your thoughts from X.com, Bilibili, Weibo and QZone to Notion",
+  "description": "Aggregate your thoughts from X.com, Bilibili, Weibo, QZone and Redbook to Notion",
   "permissions": [
     "storage",
     "activeTab",
@@ -20,7 +20,8 @@
     "https://api.notion.com/*",
     "https://api.github.com/*",
     "https://*.qzone.qq.com/*",
-    "https://user.qzone.qq.com/*"
+    "https://user.qzone.qq.com/*",
+    "https://www.xiaohongshu.com/*"
   ],
   "action": {
     "default_popup": "popup/popup.html",
@@ -76,6 +77,15 @@
       ],
       "js": [
         "dist/content/weibo-collector.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.xiaohongshu.com/*"
+      ],
+      "js": [
+        "dist/content/redbook-collector.js"
       ],
       "run_at": "document_idle"
     }

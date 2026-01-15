@@ -10,6 +10,7 @@ export const STORAGE_KEYS = {
   TARGET_BILIBILI_USER: 'targetBilibiliUser',
   TARGET_QZONE_USER: 'targetQZoneUser',
   TARGET_WEIBO_USER: 'targetWeiboUser',
+  TARGET_REDBOOK_USER: 'targetRedbookUser',
   LAST_COLLECT_TIME: 'lastCollectTime',
   LAST_COLLECT_TIMES: 'lastCollectTimes',
   COLLECT_INTERVAL_HOURS: 'collectIntervalHours',
@@ -19,7 +20,7 @@ export const STORAGE_KEYS = {
 
 
 const DEFAULT_CONFIG: Partial<AppConfig> = {
-  enabledSources: ['x', 'bilibili', 'qzone', 'weibo'],
+  enabledSources: ['x', 'bilibili', 'qzone', 'weibo', 'redbook'],
   debugMode: false,
   collectIntervalHours: 4
 };
@@ -58,6 +59,7 @@ async function getConfig(): Promise<AppConfig> {
     targetBilibiliUser: (result[STORAGE_KEYS.TARGET_BILIBILI_USER] as string) || '',
     targetQZoneUser: (result[STORAGE_KEYS.TARGET_QZONE_USER] as string) || '',
     targetWeiboUser: (result[STORAGE_KEYS.TARGET_WEIBO_USER] as string) || '',
+    targetRedbookUser: (result[STORAGE_KEYS.TARGET_REDBOOK_USER] as string) || '',
     lastCollectTime: (result[STORAGE_KEYS.LAST_COLLECT_TIME] as string) || null,
     lastCollectTimes: (result[STORAGE_KEYS.LAST_COLLECT_TIMES] as Record<string, string>) || {},
     collectIntervalHours: (result[STORAGE_KEYS.COLLECT_INTERVAL_HOURS] as number) ?? (DEFAULT_CONFIG.collectIntervalHours as number),
@@ -81,6 +83,7 @@ async function saveConfig(config: AppConfig): Promise<void> {
     [STORAGE_KEYS.TARGET_BILIBILI_USER]: config.targetBilibiliUser,
     [STORAGE_KEYS.TARGET_QZONE_USER]: config.targetQZoneUser,
     [STORAGE_KEYS.TARGET_WEIBO_USER]: config.targetWeiboUser,
+    [STORAGE_KEYS.TARGET_REDBOOK_USER]: config.targetRedbookUser,
     [STORAGE_KEYS.COLLECT_INTERVAL_HOURS]: config.collectIntervalHours,
     [STORAGE_KEYS.DEBUG_MODE]: config.debugMode
   });
