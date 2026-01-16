@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Synapse Collector",
   "version": "1.0.0",
-  "description": "Aggregate your thoughts from X.com, Bilibili, Weibo, QZone, Redbook and ZSXQ to Notion",
+  "description": "Aggregate your thoughts from X.com, Bilibili, Weibo, QZone, Redbook, ZSXQ and YouTube to Notion",
   "permissions": [
     "storage",
     "activeTab",
@@ -23,7 +23,8 @@
     "https://user.qzone.qq.com/*",
     "https://www.xiaohongshu.com/*",
     "https://wx.zsxq.com/*",
-    "https://*.zsxq.com/*"
+    "https://*.zsxq.com/*",
+    "https://www.youtube.com/*"
   ],
   "action": {
     "default_popup": "popup/popup.html",
@@ -98,6 +99,15 @@
       ],
       "js": [
         "dist/content/zsxq-collector.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "js": [
+        "dist/content/youtube-collector.js"
       ],
       "run_at": "document_idle"
     }

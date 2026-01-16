@@ -42,6 +42,12 @@ export const PLATFORMS = {
         config: 'configZsxq', 
         targetInput: 'targetZsxqGroup',
         configKey: 'targetZsxqGroup' as const
+    },
+    youtube: { 
+        toggle: 'enableYoutube', 
+        config: 'configYoutube', 
+        targetInput: 'targetYoutubeChannel',
+        configKey: 'targetYoutubeChannel' as const
     }
 } as const;
 
@@ -50,7 +56,7 @@ export type PlatformKey = keyof typeof PLATFORMS;
 /**
  * Default enabled sources
  */
-export const DEFAULT_ENABLED_SOURCES: PlatformKey[] = ['x', 'bilibili', 'qzone', 'weibo', 'redbook', 'zsxq'];
+export const DEFAULT_ENABLED_SOURCES: PlatformKey[] = ['x', 'bilibili', 'qzone', 'weibo', 'redbook', 'zsxq', 'youtube'];
 
 /**
  * All available platform keys

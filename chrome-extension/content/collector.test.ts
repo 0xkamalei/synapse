@@ -75,7 +75,8 @@ describe("Collectors", () => {
             'dist/content/qzone-collector.js',
             'dist/content/weibo-collector.js',
             'dist/content/redbook-collector.js',
-            'dist/content/zsxq-collector.js'
+            'dist/content/zsxq-collector.js',
+            'dist/content/youtube-collector.js'
         ];
 
         for (const relPath of collectors) {
@@ -287,6 +288,39 @@ describe("Collectors", () => {
         expect(topics.length).toBeGreaterThan(0);
 
         const results = topics.map((t: any) => (globalThis as any).collectZsxqTopicData(t));
+
+        // Only override collectedAt, but keep the parsed timestamp
+        results.forEach((r: any) => {
+            r.collectedAt = "2024-01-01T00:00:00.000Z";
+        });
+
+        if (!existsSync(jsonPath)) {
+            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+            console.log(`Created ${jsonPath}. Please review it.`);
+        } else {
+            const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
+            expect(results).toEqual(expected);
+        }
+    });
+
+    test("YouTube Collector", () => {
+        const htmlPath = join(TARGET_HTML_DIR, "youtube.html");
+        const jsonPath = join(TARGET_HTML_DIR, "youtube-expected.json");
+
+        updateDOMWithUrl(htmlPath, "https://www.youtube.com/@kamaleizhang/videos");
+
+        // Debug: check if function exists
+        console.log('[YouTube Test] findAllVideosYoutube exists:', typeof (globalThis as any).findAllVideosYoutube);
+        
+        // Debug: check document
+        const allItems = globalThis.document.querySelectorAll('ytd-rich-item-renderer');
+        console.log('[YouTube Test] Found ytd-rich-item-renderer elements:', allItems.length);
+        
+        const videos = (globalThis as any).findAllVideosYoutube();
+        console.log('[YouTube Test] videos found:', videos.length);
+        expect(videos.length).toBeGreaterThan(0);
+
+        const results = videos.map((v: any) => (globalThis as any).collectVideoDataYoutube(v)).filter(Boolean);
 
         // Only override collectedAt, but keep the parsed timestamp
         results.forEach((r: any) => {

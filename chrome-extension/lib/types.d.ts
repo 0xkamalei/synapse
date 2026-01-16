@@ -11,7 +11,7 @@ interface AuthorInfo {
 type ContentType = 'text' | 'image' | 'video' | 'article' | 'unknown';
 
 interface CollectedContent {
-    source: 'X' | 'Bilibili' | 'QZone' | 'Weibo' | 'Redbook' | 'ZSXQ';
+    source: 'X' | 'Bilibili' | 'QZone' | 'Weibo' | 'Redbook' | 'ZSXQ' | 'YouTube';
     type?: ContentType;
     text: string;
     images: string[];
@@ -67,6 +67,7 @@ interface AppConfig {
     targetWeiboUser: string;
     targetRedbookUser: string;
     targetZsxqGroup?: string;
+    targetYoutubeChannel?: string;
     collectIntervalHours?: number;
     lastCollectTime: string | null;
     lastCollectTimes?: Record<string, string>;
