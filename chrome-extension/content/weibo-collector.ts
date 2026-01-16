@@ -3,13 +3,6 @@
  * Extracts posts from Weibo pages
  */
 
-// Message types for communication with background script
-const MessageTypeWeibo = {
-    COLLECT_CURRENT: 'COLLECT_CURRENT',
-    COLLECT_RESULT: 'COLLECT_RESULT',
-    GET_PAGE_INFO: 'GET_PAGE_INFO'
-} as const;
-
 /**
  * Extract embedded links from Weibo post text
  * Weibo encodes links as URL parameters in href: https://weibo.cn/sinaurl?u=[encoded-url]
@@ -342,12 +335,13 @@ async function getPageInfoWeibo(): Promise<PageInfo> {
     const isMatched = (targetUID && pageUID === targetUID) || false;
 
     return {
-        isWeiboPage: isMatched,
-        isProfilePage: isWeiboProfilePage(),
-        postCount: posts.length,
+        isTargetPage: isMatched,
+        itemCount: posts.length,
         currentUrl: window.location.href,
-        pageUID: pageUID
-    } as PageInfo;
+        pageIdentifier: pageUID,
+        // Additional platform-specific data
+        isProfilePage: isWeiboProfilePage()
+    };
 }
 
 /**
@@ -419,20 +413,7 @@ async function tryAutoCollectWeibo(): Promise<void> {
 
 // Listen for messages from popup/background
 chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) => {
-    if (message.type === MessageTypeWeibo.COLLECT_CURRENT) {
-        const posts = findAllPostsWeibo();
-
-        if (posts.length === 0) {
-            sendResponse({ success: false, error: 'No Weibo posts found' });
-            return true;
-        }
-
-        const allContent = posts.map(element => collectPostDataWeibo(element))
-            .filter(data => data.text && data.text.trim().length > 0);
-
-        sendResponse({ success: true, data: allContent });
-        return true;
-    } else if (message.type === 'POP_TO_CONTENT_COLLECT') {
+    if (message.type === 'POP_TO_CONTENT_COLLECT') {
         const pageUID = getCurrentPageUIDWeibo();
         const allPosts = findAllPostsWeibo();
 
@@ -456,7 +437,7 @@ chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.Mess
             sendResponse(response);
         });
         return true;
-    } else if (message.type === MessageTypeWeibo.GET_PAGE_INFO) {
+    } else if (message.type === 'GET_PAGE_INFO') {
         getPageInfoWeibo().then(info => sendResponse(info));
         return true;
     }

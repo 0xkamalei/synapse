@@ -119,3 +119,5 @@ interface Collector {
  */
 
 export type { Collector, CollectorConfig, CollectorMessageTypes };
+
+// Note: PageInfo is defined in lib/types.d.ts as a global type

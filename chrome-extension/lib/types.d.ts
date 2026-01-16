@@ -25,8 +25,20 @@ interface CollectedContent {
     notionPageId?: string;
 }
 
+/**
+ * Unified PageInfo interface for all collectors
+ * Returned by GET_PAGE_INFO message handler
+ */
 interface PageInfo {
+    /** Whether the current page matches the configured target */
+    isTargetPage: boolean;
+    /** Number of content items found on the page */
+    itemCount: number;
+    /** Current page URL */
     currentUrl: string;
+    /** Optional: Platform-specific identifier (user ID, group ID, etc.) */
+    pageIdentifier?: string;
+    /** Optional: Additional platform-specific data */
     [key: string]: any;
 }
 

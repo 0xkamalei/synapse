@@ -3,14 +3,6 @@
  * Extracts feed content from X.com (Twitter)
  */
 
-
-// Message types for communication with background script
-const MessageTypeX = {
-    COLLECT_CURRENT: 'COLLECT_CURRENT',
-    COLLECT_RESULT: 'COLLECT_RESULT',
-    GET_PAGE_INFO: 'GET_PAGE_INFO'
-} as const;
-
 /**
  * Extract text content from a tweet element
  */
@@ -254,7 +246,7 @@ function getCurrentPageUserX(): string {
 /**
  * Get page info for the popup
  */
-async function getPageInfoX(): Promise<any> {
+async function getPageInfoX(): Promise<PageInfo> {
     const tweets = findAllTweetsX();
     const mainTweet = findMainTweetX();
     const pageUser = getCurrentPageUserX();
@@ -278,12 +270,13 @@ async function getPageInfoX(): Promise<any> {
     }
 
     return {
-        isXPage: isMatched,
-        isTweetDetail: window.location.pathname.includes('/status/'),
-        tweetCount: tweets.length,
-        hasMainTweet: mainTweet !== null,
+        isTargetPage: isMatched,
+        itemCount: tweets.length,
         currentUrl: window.location.href,
-        pageUser: pageUser,
+        pageIdentifier: pageUser,
+        // Additional platform-specific data
+        isTweetDetail: window.location.pathname.includes('/status/'),
+        hasMainTweet: mainTweet !== null,
         tweetAuthor: tweetAuthor
     };
 }
@@ -292,31 +285,7 @@ async function getPageInfoX(): Promise<any> {
 
 // Listen for messages from popup/background
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-    if (message.type === MessageTypeX.COLLECT_CURRENT) {
-        const mainTweetX = findMainTweetX();
-
-        if (!mainTweetX) {
-            sendResponse({ success: false, error: 'No tweet found on page' });
-            return true;
-        }
-
-        const data = collectTweetDataX(mainTweetX);
-
-        if (message.targetUser && data.author.username) {
-            const targetUser = message.targetUser.toLowerCase();
-            const tweetAuthor = data.author.username.toLowerCase();
-
-            if (tweetAuthor !== targetUser) {
-                sendResponse({
-                    success: false,
-                    error: `Tweet is from @${data.author.username}, not @${message.targetUser}`
-                });
-                return true;
-            }
-        }
-
-        sendResponse({ success: true, data });
-    } else if (message.type === 'POP_TO_CONTENT_COLLECT') {
+    if (message.type === 'POP_TO_CONTENT_COLLECT') {
         const isDetail = window.location.pathname.includes('/status/');
 
         if (isDetail) {
@@ -356,7 +325,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
             });
         }
         return true;
-    } else if (message.type === MessageTypeX.GET_PAGE_INFO) {
+    } else if (message.type === 'GET_PAGE_INFO') {
         getPageInfoX().then(info => sendResponse(info));
         return true;
     }

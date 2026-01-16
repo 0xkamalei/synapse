@@ -3,12 +3,6 @@
  * Extracts note content from Redbook/Xiaohongshu pages
  */
 
-// Message types for communication with background script
-const MessageTypeRedbook = {
-    COLLECT_CURRENT: 'COLLECT_CURRENT',
-    GET_PAGE_INFO: 'GET_PAGE_INFO'
-} as const;
-
 /**
  * Extract text content from a Redbook note element
  */
@@ -280,7 +274,7 @@ async function tryAutoCollectRedbook() {
 
 // Listen for messages from popup or background script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === MessageTypeRedbook.COLLECT_CURRENT || message.type === 'POP_TO_CONTENT_COLLECT') {
+    if (message.type === 'POP_TO_CONTENT_COLLECT') {
         console.log('[Synapse] Redbook: Manual collection triggered');
 
         const currentUserId = getCurrentRedbookUserId();
@@ -319,17 +313,27 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         return true;
     }
 
-    if (message.type === MessageTypeRedbook.GET_PAGE_INFO) {
-        const isUserPage = isRedbookUserPage();
-        const userId = isUserPage ? getCurrentRedbookUserId() : '';
-        const postCount = findAllPostsRedbook().length;
+    if (message.type === 'GET_PAGE_INFO') {
+        (async () => {
+            const isUserPage = isRedbookUserPage();
+            const userId = isUserPage ? getCurrentRedbookUserId() : '';
+            const postCount = findAllPostsRedbook().length;
 
-        sendResponse({
-            isUserPage,
-            userId,
-            postCount,
-            pageUrl: window.location.href
-        });
+            // Get config to check if this is the target page
+            const response: any = await new Promise(resolve => {
+                chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
+            });
+
+            const targetUID = response?.config?.targetRedbookUser;
+            const isMatched = (targetUID && userId === targetUID) || false;
+
+            sendResponse({
+                isTargetPage: isMatched,
+                itemCount: postCount,
+                currentUrl: window.location.href,
+                pageIdentifier: userId
+            });
+        })();
 
         return true;
     }

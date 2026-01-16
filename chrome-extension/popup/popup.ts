@@ -62,34 +62,49 @@ async function updateLastSync() {
 
 /**
  * Check if current page has collectable content
+ * Uses unified message communication with content scripts
  */
 async function checkPageStatus() {
     try {
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        if (!tab || !tab.url) return;
+        if (!tab || !tab.id || !tab.url) {
+            elements.collectNow.style.display = 'none';
+            return;
+        }
 
-        const config = await getConfig();
-        const url = tab.url.toLowerCase();
+        // Try to get page info from content script
         let isMatched = false;
 
-        // 1. Check Bilibili: https://space.bilibili.com/[UID]/dynamic
-        if (config.targetBilibiliUser && url.includes(`space.bilibili.com/${config.targetBilibiliUser.toLowerCase()}/dynamic`)) {
-            isMatched = true;
-        }
-
-        // 2. Check X: https://x.com/[Username]
-        if (!isMatched && config.targetXUser) {
-            const targetX = config.targetXUser.startsWith('@') ? config.targetXUser.substring(1) : config.targetXUser;
-            // Matches https://x.com/username or https://twitter.com/username
-            const xPattern = new RegExp(`^(https?://)?(www\\.)?(x|twitter)\\.com/${targetX.toLowerCase()}(/|\\?|#|$)`, 'i');
-            if (xPattern.test(url)) {
-                isMatched = true;
+        try {
+            // Get all frames in the tab
+            const frames = await chrome.webNavigation.getAllFrames({ tabId: tab.id });
+            if (!frames) {
+                elements.collectNow.style.display = 'none';
+                return;
             }
-        }
 
-        // 3. Check QZone: https://user.qzone.qq.com/[QQ]/main
-        if (!isMatched && config.targetQZoneUser && url.includes(`user.qzone.qq.com/${config.targetQZoneUser.toLowerCase()}/main`)) {
-            isMatched = true;
+            // Try each frame to find a content script that responds
+            for (const frame of frames) {
+                try {
+                    const response = await chrome.tabs.sendMessage(
+                        tab.id,
+                        { type: 'GET_PAGE_INFO' },
+                        { frameId: frame.frameId }
+                    );
+
+                    // Check if any collector reports isTargetPage = true
+                    // All collectors now use the unified PageInfo interface
+                    if (response && response.isTargetPage === true) {
+                        isMatched = true;
+                        break;
+                    }
+                } catch (e) {
+                    // This frame doesn't have a content script, continue
+                    continue;
+                }
+            }
+        } catch (e) {
+            console.error('Error communicating with content scripts:', e);
         }
 
         if (isMatched) {

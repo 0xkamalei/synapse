@@ -81,6 +81,29 @@ npm run build && npm run test
 
 ### Key Collector Patterns
 
+Each collector follows a standard pattern for communication:
+
+**Unified PageInfo Interface**
+- All collectors implement `GET_PAGE_INFO` message handler
+- Returns standardized `PageInfo` object defined in `lib/types.d.ts` (global type):
+  ```typescript
+  interface PageInfo {
+    isTargetPage: boolean;      // Whether current page matches configured target
+    itemCount: number;           // Number of content items found
+    currentUrl: string;          // Current page URL
+    pageIdentifier?: string;     // Platform-specific ID (user ID, group ID, etc.)
+    [key: string]: any;          // Additional platform-specific data
+  }
+  ```
+- PageInfo is a global type like CollectedContent - no import needed in collectors
+- No special cases needed in popup.ts - all collectors use `isTargetPage` flag
+
+**Popup Communication Architecture**
+- popup.ts sends `GET_PAGE_INFO` message to all frames in current tab
+- Each collector responds with standardized PageInfo
+- Popup shows "Collect Now" button if any collector reports `isTargetPage: true`
+- This design eliminates the need to modify popup.ts when adding new platforms
+
 Each collector exposes two main functions:
 - `findAll*()` - Parses DOM and returns element references
 - `collect*Data()` - Extracts data from individual elements
@@ -92,11 +115,32 @@ For example, X collector has:
 ### Adding a New Content Source
 
 1. Create new TypeScript file in `content/` (e.g., `new-platform-collector.ts`)
-2. Implement `findAll*()` and `collect*Data()` functions
-3. Add content script entry to `manifest.json`
-4. Create test HTML file in `target-html/`
-5. Add test case to `collector.test.ts`
-6. Build and test with `npm run test`
+2. Implement PageInfo return (no import needed - it's a global type):
+   ```typescript
+   // PageInfo is defined in lib/types.d.ts as a global type
+   async function getPageInfo(): Promise<PageInfo> {
+     return {
+       isTargetPage: true/false,  // REQUIRED: matches target config
+       itemCount: 0,               // REQUIRED: number of items found
+       currentUrl: window.location.href,  // REQUIRED
+       pageIdentifier: 'user123',  // OPTIONAL: platform-specific ID
+       // Add any platform-specific data here
+     };
+   }
+   ```
+3. Implement the following:
+   - `findAll*()` - Find content elements in DOM
+   - `collect*Data()` - Extract data from elements
+   - Message listener for `GET_PAGE_INFO`, `COLLECT_CURRENT`, and `POP_TO_CONTENT_COLLECT`
+4. Add content script entry to `manifest.json`
+5. Add platform config to `lib/platforms.ts`
+6. Add UI elements to `options.html` and `options.ts`
+7. Add storage types to `lib/types.d.ts`
+8. Create test HTML file in `target-html/`
+9. Add test case to `collector.test.ts`
+10. Build and test with `npm run test`
+
+**Important**: The popup will automatically detect the new collector through `GET_PAGE_INFO` messaging - no need to modify `popup.ts`!
 
 ## Website Development
 

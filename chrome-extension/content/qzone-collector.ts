@@ -3,14 +3,6 @@
  * Extracts feed content from QQ Zone pages
  */
 
-
-// Message types for communication with background script
-const MessageTypeQZone = {
-    COLLECT_CURRENT: 'COLLECT_CURRENT',
-    COLLECT_RESULT: 'COLLECT_RESULT',
-    GET_PAGE_INFO: 'GET_PAGE_INFO'
-} as const;
-
 /**
  * Extract text content from a QZone feed element
  */
@@ -399,39 +391,17 @@ async function getPageInfoQZone(): Promise<PageInfo> {
     const isMatched = targetQQ ? isQZonePage(targetQQ) : false;
 
     return {
-        isQZonePage: isMatched,
-        feedCount: feeds.length,
+        isTargetPage: isMatched,
+        itemCount: feeds.length,
         currentUrl: window.location.href,
-        pageQQ: pageQQ
-    } as PageInfo;
+        pageIdentifier: pageQQ
+    };
 }
 
 
 // Listen for messages from popup/background
 chrome.runtime.onMessage.addListener((message: any, _sender, sendResponse) => {
-    if (message.type === MessageTypeQZone.COLLECT_CURRENT) {
-        const allFeeds = findAllFeedsQZone();
-        const pageQQ = getPageQQ();
-
-        if (allFeeds.length === 0) {
-            sendResponse({ success: false, error: 'No content found' });
-            return true;
-        }
-
-        const data = collectFeedDataQZone(allFeeds[0]);
-
-        if (message.targetUser) {
-            if (pageQQ && pageQQ !== message.targetUser) {
-                sendResponse({
-                    success: false,
-                    error: `Current page is QQ ${pageQQ}, not target user ${message.targetUser}`
-                });
-                return true;
-            }
-        }
-
-        sendResponse({ success: true, data });
-    } else if (message.type === 'POP_TO_CONTENT_COLLECT') {
+    if (message.type === 'POP_TO_CONTENT_COLLECT') {
         const allFeeds = findAllFeedsQZone();
         const pageQQ = getPageQQ();
         const contents = allFeeds
@@ -446,7 +416,7 @@ chrome.runtime.onMessage.addListener((message: any, _sender, sendResponse) => {
             sendResponse(response);
         });
         return true;
-    } else if (message.type === MessageTypeQZone.GET_PAGE_INFO) {
+    } else if (message.type === 'GET_PAGE_INFO') {
         getPageInfoQZone().then(info => sendResponse(info));
         return true;
     }

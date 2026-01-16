@@ -3,14 +3,6 @@
  * Extracts dynamic content from Bilibili pages
  */
 
-
-// Message types for communication with background script
-const MessageTypeBilibili = {
-    COLLECT_CURRENT: 'COLLECT_CURRENT',
-    COLLECT_RESULT: 'COLLECT_RESULT',
-    GET_PAGE_INFO: 'GET_PAGE_INFO'
-} as const;
-
 /**
  * Detect the type of dynamic
  * @param {Element} dynamicElement
@@ -536,30 +528,21 @@ async function getPageInfoBilibili(): Promise<PageInfo> {
     const isMatched = (targetUID && pageUID === targetUID) || false;
 
     return {
-        isBilibiliPage: isMatched,
-        isDynamicPage: isDynamicPage(),
-        dynamicCount: dynamics.length,
-        hasMainDynamic: mainDynamic !== null,
+        isTargetPage: isMatched,
+        itemCount: dynamics.length,
         currentUrl: window.location.href,
-        pageUID: pageUID
-    } as PageInfo;
+        pageIdentifier: pageUID,
+        // Additional platform-specific data
+        isDynamicPage: isDynamicPage(),
+        hasMainDynamic: mainDynamic !== null
+    };
 }
 
 
 
 // Listen for messages from popup/background
 chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) => {
-    if (message.type === MessageTypeBilibili.COLLECT_CURRENT) {
-        const mainDynamic = findMainDynamicBilibili();
-
-        if (!mainDynamic) {
-            sendResponse({ success: false, error: 'No dynamic content found' });
-            return true;
-        }
-
-        const data = collectDynamicDataBilibili(mainDynamic);
-        sendResponse({ success: true, data });
-    } else if (message.type === 'POP_TO_CONTENT_COLLECT') {
+    if (message.type === 'POP_TO_CONTENT_COLLECT') {
         const pageUID = getCurrentPageUID();
         const allDynamics = findAllDynamicsBilibili();
 
@@ -583,7 +566,7 @@ chrome.runtime.onMessage.addListener((message: any, _sender: chrome.runtime.Mess
             sendResponse(response);
         });
         return true; // Keep channel open for async response
-    } else if (message.type === MessageTypeBilibili.GET_PAGE_INFO) {
+    } else if (message.type === 'GET_PAGE_INFO') {
         getPageInfoBilibili().then(info => sendResponse(info));
         return true;
     }

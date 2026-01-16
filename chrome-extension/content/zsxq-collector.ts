@@ -3,13 +3,6 @@
  * Extracts topic content from ZSXQ pages
  */
 
-// Message types for communication with background script
-const MessageTypeZsxq = {
-    COLLECT_CURRENT: 'COLLECT_CURRENT',
-    COLLECT_RESULT: 'COLLECT_RESULT',
-    GET_PAGE_INFO: 'GET_PAGE_INFO'
-} as const;
-
 /**
  * Extract text content from a topic element
  * Handles "展开全部" (expand all) functionality
@@ -147,15 +140,36 @@ function extractZsxqUrl(topicElement: Element, textContent: string): string {
     // Get the base group URL without query parameters
     const baseUrl = window.location.href.split('?')[0];
     
-    // Create a unique fragment identifier based on the first 50 chars of text content
-    // This will be used for text highlighting
-    const textPreview = textContent.trim().substring(0, 50).replace(/\s+/g, '-');
-    
-    // Encode the text preview for URL safety
-    const encodedPreview = encodeURIComponent(textPreview);
-    
-    // Return URL with text fragment for highlighting
-    return `${baseUrl}#:~:text=${encodedPreview}`;
+    try {
+        // Create a unique fragment identifier based on the first 50 chars of text content
+        // Clean the text: remove emoji brackets, special chars that might cause encoding issues
+        let textPreview = textContent.trim().substring(0, 50);
+        
+        // Remove emoji notation [emoji_name] and other potentially problematic characters
+        textPreview = textPreview
+            .replace(/\[.*?\]/g, '') // Remove [emoji] or [text] brackets
+            .replace(/[^\w\s\u4e00-\u9fa5]/g, ' ') // Keep only word chars, spaces, and Chinese chars
+            .replace(/\s+/g, '-') // Replace spaces with dashes
+            .replace(/^-+|-+$/g, ''); // Remove leading/trailing dashes
+        
+        // Ensure we have some text to work with
+        if (!textPreview || textPreview.length < 3) {
+            // Fallback: use timestamp-based identifier
+            const timestamp = Date.now();
+            return `${baseUrl}#topic-${timestamp}`;
+        }
+        
+        // Encode the text preview for URL safety
+        const encodedPreview = encodeURIComponent(textPreview);
+        
+        // Return URL with text fragment for highlighting
+        return `${baseUrl}#:~:text=${encodedPreview}`;
+    } catch (error) {
+        // If encoding fails, use timestamp-based fallback
+        console.warn('[Synapse ZSXQ] Failed to encode URL text preview:', error);
+        const timestamp = Date.now();
+        return `${baseUrl}#topic-${timestamp}`;
+    }
 }
 
 /**
@@ -216,7 +230,15 @@ function extractZsxqTags(topicElement: Element): string[] {
  * Find all topic elements on the current page
  */
 function findAllZsxqTopics(): Element[] {
-    return Array.from(document.querySelectorAll('app-topic[type="flow"] .topic-container'));
+    const selector = 'app-topic[type="flow"] .topic-container';
+    const topics = Array.from(document.querySelectorAll(selector));
+    console.log(`[Synapse ZSXQ] Selector: ${selector}, Found: ${topics.length} topics`);
+    
+    // Debug: check alternative selectors
+    const altTopics = Array.from(document.querySelectorAll('app-topic[type="flow"]'));
+    console.log(`[Synapse ZSXQ] Alternative selector found: ${altTopics.length} app-topic elements`);
+    
+    return topics;
 }
 
 /**
@@ -271,11 +293,11 @@ function isTargetGroupZsxq(targetGroup: string): boolean {
  */
 async function getPageInfoZsxq(): Promise<PageInfo> {
     const currentUrl = window.location.href;
-    const isTargetPage = await (async () => {
-        const config = await chrome.storage.local.get(['targetZsxqGroup']);
-        const targetGroup = config.targetZsxqGroup as string | undefined;
-        return targetGroup && isTargetGroupZsxq(targetGroup);
-    })();
+    
+    // Get config to check if this is the target page
+    const config = await chrome.storage.sync.get(['targetZsxqGroup']);
+    const targetGroup = config.targetZsxqGroup as string | undefined;
+    const isMatched = targetGroup ? isTargetGroupZsxq(targetGroup) : false;
 
     // Extract group info from page
     let groupName = '';
@@ -284,14 +306,19 @@ async function getPageInfoZsxq(): Promise<PageInfo> {
         groupName = (groupInfoElement as HTMLElement).innerText?.trim() || '';
     }
 
+    // Extract group ID from URL
+    const groupIdMatch = currentUrl.match(/\/group\/(\d+)/);
+    const groupId = groupIdMatch ? groupIdMatch[1] : '';
+
     const topics = findAllZsxqTopics();
 
     return {
-        isTargetPage,
+        isTargetPage: isMatched,
         itemCount: topics.length,
         currentUrl,
-        pageTitle: groupName || document.title,
-        source: 'ZSXQ'
+        pageIdentifier: groupId,
+        // Additional platform-specific data
+        pageTitle: groupName || document.title
     };
 }
 
@@ -304,6 +331,8 @@ async function tryAutoCollectZsxq(): Promise<void> {
     const enabledSources = (config.enabledSources as string[]) || [];
     const autoCollect = enabledSources.includes('zsxq');
 
+    console.log('[Synapse ZSXQ] Config:', { targetGroup, enabledSources, autoCollect });
+
     if (!autoCollect || !targetGroup) {
         console.log('[Synapse ZSXQ] Auto-collect disabled or no target group configured');
         return;
@@ -311,6 +340,8 @@ async function tryAutoCollectZsxq(): Promise<void> {
 
     if (!isTargetGroupZsxq(targetGroup)) {
         console.log('[Synapse ZSXQ] Not on target group page');
+        console.log('[Synapse ZSXQ] Current URL:', window.location.href);
+        console.log('[Synapse ZSXQ] Target group:', targetGroup);
         return;
     }
 
@@ -355,8 +386,21 @@ async function tryAutoCollectZsxq(): Promise<void> {
     // Notify background that content script is ready
     chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'zsxq' });
 
-    // Try auto-collect on initial load
-    tryAutoCollectZsxq();
+    // Wait for DOM to be fully loaded before trying to collect
+    const initCollector = () => {
+        console.log('[Synapse ZSXQ] DOM ready, attempting auto-collect...');
+        
+        // Add a small delay to ensure Angular has rendered the content
+        setTimeout(() => {
+            tryAutoCollectZsxq();
+        }, 1000);
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCollector);
+    } else {
+        initCollector();
+    }
 
     // Listen for URL changes (for SPA navigation)
     let lastUrl = window.location.href;
@@ -364,7 +408,10 @@ async function tryAutoCollectZsxq(): Promise<void> {
         if (window.location.href !== lastUrl) {
             lastUrl = window.location.href;
             console.log('[Synapse ZSXQ] URL changed, trying auto-collect...');
-            tryAutoCollectZsxq();
+            // Wait for new content to render
+            setTimeout(() => {
+                tryAutoCollectZsxq();
+            }, 1000);
         }
     });
 
@@ -375,7 +422,7 @@ async function tryAutoCollectZsxq(): Promise<void> {
 
     // Listen for messages from popup/background
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        if (message.type === MessageTypeZsxq.COLLECT_CURRENT) {
+        if (message.type === 'POP_TO_CONTENT_COLLECT') {
             console.log('[Synapse ZSXQ] Received collect request from popup');
 
             const topics = findAllZsxqTopics();
@@ -414,7 +461,7 @@ async function tryAutoCollectZsxq(): Promise<void> {
             }
 
             return true; // Async response
-        } else if (message.type === MessageTypeZsxq.GET_PAGE_INFO) {
+        } else if (message.type === 'GET_PAGE_INFO') {
             getPageInfoZsxq().then(pageInfo => {
                 sendResponse(pageInfo);
             });
