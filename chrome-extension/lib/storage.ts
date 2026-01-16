@@ -1,3 +1,6 @@
+import { DEFAULT_ENABLED_SOURCES, PLATFORMS, ALL_PLATFORMS, PlatformKey } from './platforms.js';
+
+// Core storage keys (non-platform specific)
 export const STORAGE_KEYS = {
   NOTION_TOKEN: 'notionToken',
   NOTION_DATABASE_ID: 'notionDatabaseId',
@@ -6,21 +9,30 @@ export const STORAGE_KEYS = {
   GITHUB_OWNER: 'githubOwner',
   GITHUB_REPO: 'githubRepo',
   ENABLED_SOURCES: 'enabledSources',
-  TARGET_X_USER: 'targetXUser',
-  TARGET_BILIBILI_USER: 'targetBilibiliUser',
-  TARGET_QZONE_USER: 'targetQZoneUser',
-  TARGET_WEIBO_USER: 'targetWeiboUser',
-  TARGET_REDBOOK_USER: 'targetRedbookUser',
   LAST_COLLECT_TIME: 'lastCollectTime',
   LAST_COLLECT_TIMES: 'lastCollectTimes',
   COLLECT_INTERVAL_HOURS: 'collectIntervalHours',
   DEBUG_MODE: 'debugMode'
 } as const;
 
+/**
+ * Get storage key for a platform's target field
+ */
+function getPlatformStorageKey(platform: PlatformKey): string {
+  return PLATFORMS[platform].configKey;
+}
 
+/**
+ * Get all storage keys including platform-specific ones
+ */
+function getAllStorageKeys(): string[] {
+  const coreKeys = Object.values(STORAGE_KEYS);
+  const platformKeys = ALL_PLATFORMS.map(p => getPlatformStorageKey(p));
+  return [...coreKeys, ...platformKeys];
+}
 
 const DEFAULT_CONFIG: Partial<AppConfig> = {
-  enabledSources: ['x', 'bilibili', 'qzone', 'weibo', 'redbook'],
+  enabledSources: DEFAULT_ENABLED_SOURCES,
   debugMode: false,
   collectIntervalHours: 4
 };
@@ -44,10 +56,11 @@ async function setStorage(key: string, value: any): Promise<void> {
  * Get all configuration values
  */
 async function getConfig(): Promise<AppConfig> {
-  const keys = Object.values(STORAGE_KEYS);
+  const keys = getAllStorageKeys();
   const result = await chrome.storage.sync.get(keys);
 
-  return {
+  // Build config object with core settings
+  const config: any = {
     notionToken: (result[STORAGE_KEYS.NOTION_TOKEN] as string) || '',
     notionDatabaseId: (result[STORAGE_KEYS.NOTION_DATABASE_ID] as string) || '',
     notionDataSourceId: (result[STORAGE_KEYS.NOTION_DATASOURCE_ID] as string) || '',
@@ -55,23 +68,28 @@ async function getConfig(): Promise<AppConfig> {
     githubOwner: (result[STORAGE_KEYS.GITHUB_OWNER] as string) || '',
     githubRepo: (result[STORAGE_KEYS.GITHUB_REPO] as string) || '',
     enabledSources: (result[STORAGE_KEYS.ENABLED_SOURCES] as string[]) || (DEFAULT_CONFIG.enabledSources as string[]),
-    targetXUser: (result[STORAGE_KEYS.TARGET_X_USER] as string) || '',
-    targetBilibiliUser: (result[STORAGE_KEYS.TARGET_BILIBILI_USER] as string) || '',
-    targetQZoneUser: (result[STORAGE_KEYS.TARGET_QZONE_USER] as string) || '',
-    targetWeiboUser: (result[STORAGE_KEYS.TARGET_WEIBO_USER] as string) || '',
-    targetRedbookUser: (result[STORAGE_KEYS.TARGET_REDBOOK_USER] as string) || '',
     lastCollectTime: (result[STORAGE_KEYS.LAST_COLLECT_TIME] as string) || null,
     lastCollectTimes: (result[STORAGE_KEYS.LAST_COLLECT_TIMES] as Record<string, string>) || {},
     collectIntervalHours: (result[STORAGE_KEYS.COLLECT_INTERVAL_HOURS] as number) ?? (DEFAULT_CONFIG.collectIntervalHours as number),
     debugMode: (result[STORAGE_KEYS.DEBUG_MODE] as boolean) ?? (DEFAULT_CONFIG.debugMode as boolean)
   };
+
+  // Dynamically add platform-specific config values
+  for (const platform of ALL_PLATFORMS) {
+    const storageKey = getPlatformStorageKey(platform);
+    const configKey = PLATFORMS[platform].configKey;
+    config[configKey] = (result[storageKey] as string) || '';
+  }
+
+  return config as AppConfig;
 }
 
 /**
  * Save all configuration values
  */
 async function saveConfig(config: AppConfig): Promise<void> {
-  await chrome.storage.sync.set({
+  // Build the storage object with core settings
+  const storageData: Record<string, any> = {
     [STORAGE_KEYS.NOTION_TOKEN]: config.notionToken,
     [STORAGE_KEYS.NOTION_DATABASE_ID]: config.notionDatabaseId,
     [STORAGE_KEYS.NOTION_DATASOURCE_ID]: config.notionDataSourceId,
@@ -79,14 +97,18 @@ async function saveConfig(config: AppConfig): Promise<void> {
     [STORAGE_KEYS.GITHUB_OWNER]: config.githubOwner,
     [STORAGE_KEYS.GITHUB_REPO]: config.githubRepo,
     [STORAGE_KEYS.ENABLED_SOURCES]: config.enabledSources,
-    [STORAGE_KEYS.TARGET_X_USER]: config.targetXUser,
-    [STORAGE_KEYS.TARGET_BILIBILI_USER]: config.targetBilibiliUser,
-    [STORAGE_KEYS.TARGET_QZONE_USER]: config.targetQZoneUser,
-    [STORAGE_KEYS.TARGET_WEIBO_USER]: config.targetWeiboUser,
-    [STORAGE_KEYS.TARGET_REDBOOK_USER]: config.targetRedbookUser,
     [STORAGE_KEYS.COLLECT_INTERVAL_HOURS]: config.collectIntervalHours,
     [STORAGE_KEYS.DEBUG_MODE]: config.debugMode
-  });
+  };
+
+  // Dynamically add platform-specific config values
+  for (const platform of ALL_PLATFORMS) {
+    const storageKey = getPlatformStorageKey(platform);
+    const configKey = PLATFORMS[platform].configKey;
+    storageData[storageKey] = config[configKey] || '';
+  }
+
+  await chrome.storage.sync.set(storageData);
 }
 
 /**

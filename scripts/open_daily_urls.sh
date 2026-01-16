@@ -21,6 +21,9 @@ while IFS= read -r line || [ -n "$line" ]; do
     # Skip empty lines
     [[ -z "$line" ]] && continue
     
+    # Skip comment lines (lines starting with #)
+    [[ "$line" =~ ^[[:space:]]*# ]] && continue
+    
     # Try to extract URL: 
     # If line contains 'http', take everything from 'http' to the end
     if [[ "$line" == *"http"* ]]; then

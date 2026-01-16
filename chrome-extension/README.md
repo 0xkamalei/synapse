@@ -1,10 +1,10 @@
 # Synapse Chrome Extension
 
-> Collect your thoughts from X.com, Bilibili, Weibo and QZone to Notion
+> Collect your thoughts from X.com, Bilibili, Weibo, QZone, Redbook and ZSXQ to Notion
 
 ## Features
 
-- 📥 **One-click collection** - Save posts from X.com, Bilibili, Weibo and QZone
+- 📥 **One-click collection** - Save posts from X.com, Bilibili, Weibo, QZone, Redbook and ZSXQ
 - 🖼️ **Automatic image hosting** - Upload images to GitHub with jsDelivr CDN
 - 📝 **Notion integration** - Store everything in a structured Notion database
 - 📋 **Collection logs** - Debug and track all collection activities
@@ -19,7 +19,7 @@ Create a new Notion database with the following properties:
 |----------|------|-------------|
 | Title | Title | Content title/summary |
 | Content | Rich Text | Full content text |
-| Source | Select | Platform (X / Bilibili / Weibo / QZone) |
+| Source | Select | Platform (X / Bilibili / Weibo / QZone / Redbook / ZSXQ) |
 | OriginalURL | URL | Link to original post |
 | OriginalDate | Date | When the post was published |
 | Tags | Multi-select | Optional tags |
@@ -132,16 +132,16 @@ The extension uses TypeScript and is built with a standard build process.
 
 ```bash
 # Build TypeScript to JavaScript
-npm run build
+bun run build
 
 # Run tests
-npm run test
+bun run test
 
 # Watch mode during development
-npm run watch
+bun run watch
 
 # Package extension for distribution
-npm run package
+bun run package
 ```
 
 The `package` command will:

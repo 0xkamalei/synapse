@@ -11,12 +11,12 @@ interface AuthorInfo {
 type ContentType = 'text' | 'image' | 'video' | 'article' | 'unknown';
 
 interface CollectedContent {
-    source: 'X' | 'Bilibili' | 'QZone' | 'Weibo' | 'Redbook';
-    type: ContentType;
+    source: 'X' | 'Bilibili' | 'QZone' | 'Weibo' | 'Redbook' | 'ZSXQ';
+    type?: ContentType;
     text: string;
     images: string[];
     videos: string[];
-    links: string[];
+    links?: string[];
     tags?: string[];
     timestamp: string;
     url: string;
@@ -54,6 +54,7 @@ interface AppConfig {
     targetQZoneUser: string;
     targetWeiboUser: string;
     targetRedbookUser: string;
+    targetZsxqGroup?: string;
     collectIntervalHours?: number;
     lastCollectTime: string | null;
     lastCollectTimes?: Record<string, string>;

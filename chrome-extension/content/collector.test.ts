@@ -18,6 +18,23 @@ globalThis.chrome = {
             addListener: () => {}
         },
         getURL: (path: string) => `chrome-extension://id/${path}`
+    },
+    storage: {
+        local: {
+            get: (keys?: string | string[] | { [key: string]: any } | null) => {
+                // Return empty object or default values for tests
+                return Promise.resolve({});
+            },
+            set: (items: { [key: string]: any }) => {
+                return Promise.resolve();
+            },
+            remove: (keys: string | string[]) => {
+                return Promise.resolve();
+            },
+            clear: () => {
+                return Promise.resolve();
+            }
+        }
     }
 } as any;
 
@@ -57,7 +74,8 @@ describe("Collectors", () => {
             'dist/content/bilibili-collector.js',
             'dist/content/qzone-collector.js',
             'dist/content/weibo-collector.js',
-            'dist/content/redbook-collector.js'
+            'dist/content/redbook-collector.js',
+            'dist/content/zsxq-collector.js'
         ];
 
         for (const relPath of collectors) {
@@ -244,6 +262,31 @@ describe("Collectors", () => {
         expect(notes.length).toBeGreaterThan(0);
 
         const results = notes.map((n: any) => (globalThis as any).collectNoteDataRedbook(n));
+
+        // Only override collectedAt, but keep the parsed timestamp
+        results.forEach((r: any) => {
+            r.collectedAt = "2024-01-01T00:00:00.000Z";
+        });
+
+        if (!existsSync(jsonPath)) {
+            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+            console.log(`Created ${jsonPath}. Please review it.`);
+        } else {
+            const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
+            expect(results).toEqual(expected);
+        }
+    });
+
+    test("ZSXQ Collector", () => {
+        const htmlPath = join(TARGET_HTML_DIR, "zsxq.html");
+        const jsonPath = join(TARGET_HTML_DIR, "zsxq.json");
+
+        updateDOMWithUrl(htmlPath, "https://wx.zsxq.com/group/48415284844818");
+
+        const topics = (globalThis as any).findAllZsxqTopics();
+        expect(topics.length).toBeGreaterThan(0);
+
+        const results = topics.map((t: any) => (globalThis as any).collectZsxqTopicData(t));
 
         // Only override collectedAt, but keep the parsed timestamp
         results.forEach((r: any) => {
