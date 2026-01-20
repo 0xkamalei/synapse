@@ -312,6 +312,22 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
     }
 
     if (targetIndex !== -1) {
+      // Security check: if target is beyond auth limit for unauthenticated user
+      if (!isAuthenticated && targetIndex >= AUTH_LIMIT) {
+          // Scroll to the limit notice
+          contentLimitNotice?.classList.remove('hidden');
+          contentLimitNotice?.scrollIntoView({ behavior: "smooth", block: "center" });
+          
+          // Add a visual shake effect to emphasize the limit
+          const limitContent = contentLimitNotice?.querySelector('.limit-notice-content');
+          limitContent?.classList.add('shake-animation');
+          setTimeout(() => {
+              limitContent?.classList.remove('shake-animation');
+          }, 500);
+          
+          return;
+      }
+
       // If target is beyond current rendered thoughts, load them
       if (targetIndex >= currentIndex) {
         // Show loading state if it's a large jump
@@ -473,6 +489,16 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
     100% {
       transform: rotate(360deg);
     }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+  }
+
+  .shake-animation {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
   }
 
   .container {
