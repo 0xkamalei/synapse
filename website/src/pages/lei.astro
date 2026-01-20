@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ThoughtCard from "../components/ThoughtCard.astro";
 import Heatmap from "../components/Heatmap.astro";
-import Calendar from "../components/Calendar.astro";
+import TimelineScroll from "../components/TimelineScroll.astro";
 import thoughts from "../data/thoughts.json";
 import dailyCounts from "../data/daily-counts.json";
 
@@ -20,17 +20,8 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
   </div>
 
   <div id="content" class="auth-state hidden">
-    <div class="container container-grid">
-      <aside class="sidebar" id="site-sidebar">
-        <div class="sidebar-inner">
-          <section class="sidebar-section">
-            <h2 class="section-title">Calendar</h2>
-            <!-- Calendar loads its data from data attribute, keep it lightweight -->
-            <Calendar thoughts={thoughts as any} />
-          </section>
-        </div>
-      </aside>
-
+    <div class="container">
+      <TimelineScroll thoughts={thoughts as any} />
       <main class="main-content">
         <section class="hero">
           <a href="/" class="back-link">
@@ -288,6 +279,134 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
   const dateText = document.getElementById("filter-date-text");
   const clearBtn = document.getElementById("clear-filter");
 
+  // Timeline Scroll Logic
+  window.addEventListener("timeline-jump", (e: any) => {
+    const { target, year, month } = e.detail;
+    
+    if (target === "top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    // Find the first thought that matches year/month
+    let targetIndex = -1;
+    let targetId = "";
+
+    // Iterate through all thoughts to find the first match
+    for (let i = 0; i < thoughtsData.length; i++) {
+      const date = new Date(thoughtsData[i].originalDate);
+      const tYear = date.getFullYear().toString();
+      const tMonth = (date.getMonth() + 1).toString();
+
+      if (year && month) {
+        if (tYear === year && tMonth == month) {
+          targetIndex = i;
+          break;
+        }
+      } else if (year) {
+        if (tYear === year) {
+          targetIndex = i;
+          break;
+        }
+      }
+    }
+
+    if (targetIndex !== -1) {
+      // If target is beyond current rendered thoughts, load them
+      if (targetIndex >= currentIndex) {
+        // Show loading state if it's a large jump
+        if (targetIndex - currentIndex > 50) {
+            loadingIndicator?.classList.remove('hidden');
+        }
+        
+        // Force render up to target + minimal batch
+        // We render everything in between to maintain scroll position context
+        const endIndex = Math.min(targetIndex + 10, thoughtsData.length);
+        const batch = thoughtsData.slice(currentIndex, endIndex);
+        
+        batch.forEach((thought) => {
+          const cardHTML = createThoughtCardHTML(thought);
+          timeline?.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        currentIndex = endIndex;
+        
+        // Update sentinel/limits
+        const maxIndex = isAuthenticated ? thoughtsData.length : AUTH_LIMIT;
+        if (currentIndex >= maxIndex) {
+          hasReachedLimit = true;
+          sentinel?.classList.add('hidden');
+          if (!isAuthenticated && currentIndex >= AUTH_LIMIT) {
+             contentLimitNotice?.classList.remove('hidden');
+          }
+        }
+        
+        loadingIndicator?.classList.add('hidden');
+      }
+
+      // Find the element and scroll
+      // Since we just added it, it should be in DOM. 
+      // We need to identify it. createThoughtCardHTML uses data-date, but multiple have same date.
+      // Let's assume we can find it by index or matching date.
+      // Better: find the Nth child of timeline.
+      
+      const cards = timeline?.children;
+      if (cards && cards[targetIndex]) {
+        cards[targetIndex].scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  });
+  
+  // Scroll Spy for Timeline
+  let scrollTimeout: any;
+  window.addEventListener("scroll", () => {
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+    
+    scrollTimeout = setTimeout(() => {
+        // Find visible thought card
+        const cards = document.querySelectorAll(".thought-card");
+        let visibleCard: HTMLElement | null = null;
+        
+        for (const card of cards) {
+            const rect = card.getBoundingClientRect();
+            if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                visibleCard = card as HTMLElement;
+                break;
+            }
+        }
+        
+        // If no top card found (e.g. scrolled past), take the last one that was above
+        if (!visibleCard && cards.length > 0) {
+             // Simple fallback: check middle of screen
+             const middleY = window.innerHeight / 2;
+             for (const card of cards) {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < middleY && rect.bottom > middleY) {
+                    visibleCard = card as HTMLElement;
+                    break;
+                }
+             }
+        }
+
+        if (visibleCard) {
+            const dateStr = visibleCard.getAttribute("data-date");
+            if (dateStr) {
+                const date = new Date(dateStr);
+                const year = date.getFullYear().toString();
+                const month = (date.getMonth() + 1).toString();
+                
+                window.dispatchEvent(new CustomEvent("timeline-scroll-spy", {
+                    detail: { year, month }
+                }));
+            }
+        } else if (window.scrollY < 100) {
+             window.dispatchEvent(new CustomEvent("timeline-scroll-spy", {
+                    detail: { year: null, month: null } // Top
+             }));
+        }
+    }, 100);
+  });
+
   window.addEventListener("filter-date", (e: any) => {
     const selectedDate = e.detail;
     const cards = document.querySelectorAll(
@@ -356,65 +475,15 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
     }
   }
 
-  .container-grid {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: var(--space-8);
-    align-items: start;
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
     padding-top: var(--space-4);
+    position: relative; /* For Timeline positioning */
   }
 
   .main-content {
     min-width: 0;
-  }
-
-  .sidebar {
-    position: sticky;
-    top: calc(48px + var(--space-4));
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-
-  .sidebar-inner {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
-  }
-
-  .sidebar-section {
-    display: flex;
-    flex-direction: column;
-  }
-
-  @media (max-width: 992px) {
-    .container-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .sidebar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 320px;
-      max-width: 85vw;
-      background: var(--md-surface);
-      z-index: 200;
-      padding: var(--space-6);
-      transform: translateX(100%);
-      transition: transform 0.3s ease-in-out;
-      box-shadow: var(--shadow-lg);
-      overflow-y: auto;
-    }
-
-    .sidebar.open {
-      transform: translateX(0);
-    }
-
-    .sidebar-inner {
-      gap: var(--space-6);
-    }
   }
 
   .back-link {

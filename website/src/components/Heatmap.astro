@@ -80,6 +80,7 @@ const serializedData = JSON.stringify(data);
       .map(Number)
       .sort((a, b) => b - a);
     let currentYearIndex = 0;
+    let selectedDate = "";
 
     function getLevel(count: number): number {
       if (count <= 0) return 0;
@@ -153,7 +154,8 @@ const serializedData = JSON.stringify(data);
           if (day.count === -1) {
             html += `<div class="heatmap-day level-empty"></div>`;
           } else {
-            html += `<div class="heatmap-day level-${getLevel(day.count)}" data-date="${day.date}" data-count="${day.count}"></div>`;
+            const isSelected = day.date === selectedDate;
+            html += `<div class="heatmap-day level-${getLevel(day.count)} ${isSelected ? 'selected' : ''}" data-date="${day.date}" data-count="${day.count}"></div>`;
           }
         });
         html += `</div>`;
@@ -161,7 +163,7 @@ const serializedData = JSON.stringify(data);
 
       grid!.innerHTML = html;
 
-      // Tooltip listeners
+      // Tooltip and Click listeners
       const dayEls = grid!.querySelectorAll(".heatmap-day[data-date]");
       dayEls.forEach((el) => {
         el.addEventListener("mouseenter", () => {
@@ -181,6 +183,24 @@ const serializedData = JSON.stringify(data);
         el.addEventListener("mouseleave", () =>
           tooltip?.classList.add("hidden"),
         );
+
+        el.addEventListener("click", () => {
+          const date = el.getAttribute("data-date");
+          if (!date) return;
+
+          if (selectedDate === date) {
+            selectedDate = "";
+          } else {
+            selectedDate = date;
+          }
+
+          renderHeatmap();
+
+          // Dispatch event for Filtering
+          window.dispatchEvent(
+            new CustomEvent("filter-date", { detail: selectedDate }),
+          );
+        });
       });
     }
 
@@ -196,6 +216,11 @@ const serializedData = JSON.stringify(data);
         currentYearIndex--;
         renderHeatmap();
       }
+    });
+
+    window.addEventListener("clear-calendar-selection", () => {
+      selectedDate = "";
+      renderHeatmap();
     });
 
     renderHeatmap();
@@ -360,6 +385,13 @@ const serializedData = JSON.stringify(data);
     transform: scale(1.4);
     z-index: 10;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .heatmap-card .heatmap-day.selected {
+    outline: 2px solid var(--md-primary);
+    outline-offset: 1px;
+    z-index: 10;
+    transform: scale(1.2);
   }
 
   .heatmap-card .heatmap-day.level-1 {

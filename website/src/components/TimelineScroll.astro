@@ -1,0 +1,245 @@
+---
+interface Props {
+  thoughts: { originalDate: string }[];
+}
+
+const { thoughts } = Astro.props;
+
+// Group by Year -> Month
+const timelineMap = new Map<string, Set<number>>();
+
+thoughts.forEach((thought) => {
+  const date = new Date(thought.originalDate);
+  const year = date.getFullYear().toString();
+  const month = date.getMonth() + 1; // 1-12
+
+  if (!timelineMap.has(year)) {
+    timelineMap.set(year, new Set());
+  }
+  timelineMap.get(year)?.add(month);
+});
+
+// Convert to sorted array
+const timeline = Array.from(timelineMap.entries())
+  .map(([year, monthsSet]) => ({
+    year,
+    months: Array.from(monthsSet).sort((a, b) => b - a), // Descending months
+  }))
+  .sort((a, b) => parseInt(b.year) - parseInt(a.year)); // Descending years
+---
+
+<nav class="timeline-scroll" id="timeline-scroll" aria-label="Timeline Navigation">
+  <div class="timeline-track">
+    <button class="timeline-item recent active" data-target="top" title="Recent">
+      <span class="label">Recent</span>
+    </button>
+
+    {
+      timeline.map((group) => (
+        <div class="timeline-year-group" data-year={group.year}>
+          <button class="timeline-item year" data-target={`year-${group.year}`}>
+            <span class="label">{group.year}</span>
+          </button>
+          <div class="timeline-months">
+            {group.months.map((month) => (
+              <button
+                class="timeline-item month"
+                data-target={`month-${group.year}-${month}`}
+                data-year={group.year}
+                data-month={month}
+              >
+                <span class="label">{month}月</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</nav>
+
+<script>
+  const timeline = document.getElementById("timeline-scroll");
+  const items = timeline?.querySelectorAll(".timeline-item");
+  let isManualScrolling = false;
+  let scrollTimeout: any;
+
+  // Handle clicks
+  items?.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent bubbling
+      const target = item.getAttribute("data-target");
+      const year = item.getAttribute("data-year");
+      
+      // Update active state manually
+      updateActiveState(item as HTMLElement);
+
+      // Dispatch event for parent to handle scrolling
+      window.dispatchEvent(
+        new CustomEvent("timeline-jump", {
+          detail: {
+            target,
+            year: item.parentElement?.getAttribute('data-year') || year,
+            month: item.getAttribute("data-month"),
+          },
+        }),
+      );
+      
+      // Expand year if needed
+      if (item.classList.contains("year")) {
+         const group = item.closest(".timeline-year-group");
+         document.querySelectorAll(".timeline-year-group").forEach(g => g.classList.remove("expanded"));
+         group?.classList.add("expanded");
+      }
+    });
+  });
+
+  function updateActiveState(activeItem: HTMLElement) {
+    items?.forEach((i) => i.classList.remove("active"));
+    activeItem.classList.add("active");
+    
+    // Handle expansion
+    document.querySelectorAll(".timeline-year-group").forEach(g => g.classList.remove("expanded"));
+    if (activeItem.classList.contains("month") || activeItem.classList.contains("year")) {
+      activeItem.closest(".timeline-year-group")?.classList.add("expanded");
+    }
+  }
+
+  // Listen for scroll updates from main page (Scroll Spy)
+  window.addEventListener("timeline-scroll-spy", (e: any) => {
+    if (isManualScrolling) return;
+
+    const { year, month } = e.detail;
+    let selector = "";
+
+    if (!year) {
+      selector = '[data-target="top"]';
+    } else if (month) {
+      selector = `[data-target="month-${year}-${month}"]`;
+    } else {
+      selector = `[data-target="year-${year}"]`;
+    }
+
+    const activeItem = timeline?.querySelector(selector);
+    if (activeItem) {
+      updateActiveState(activeItem as HTMLElement);
+    }
+  });
+
+</script>
+
+<style>
+  .timeline-scroll {
+    position: fixed;
+    right: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: var(--space-2);
+    /* backdrop-filter: blur(4px); */
+  }
+  
+  @media (max-width: 1200px) {
+    .timeline-scroll {
+      display: none; /* Hide on smaller screens */
+    }
+  }
+
+  .timeline-track {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    position: relative;
+    padding-right: var(--space-2);
+    border-right: 2px solid var(--md-surface-container-highest);
+  }
+
+  .timeline-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: right;
+    padding: 4px 8px;
+    color: var(--md-on-surface-variant);
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    position: relative;
+    white-space: nowrap;
+    opacity: 0.6;
+  }
+
+  .timeline-item:hover {
+    opacity: 1;
+    color: var(--md-primary);
+  }
+
+  .timeline-item.active {
+    opacity: 1;
+    color: var(--md-on-primary-container);
+    background: var(--md-secondary-container);
+    font-weight: 600;
+  }
+  
+  .timeline-item.active::after {
+    content: '';
+    position: absolute;
+    right: -10px; /* Overlap the border */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 16px;
+    background: var(--md-primary);
+    border-radius: 2px;
+  }
+
+  .timeline-item.recent {
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .timeline-year-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .timeline-item.year {
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .timeline-months {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    border-right: 1px solid transparent; 
+  }
+
+  .timeline-year-group.expanded .timeline-months {
+    height: auto;
+    opacity: 1;
+    padding-top: 4px;
+    padding-bottom: 8px;
+  }
+  
+  .timeline-item.month {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    margin-right: 4px;
+  }
+  
+  /* Connecting line for months? Optional, mimicking screenshot */
+  .timeline-year-group.expanded .timeline-months {
+    /* visual cue */
+  }
+
+</style>

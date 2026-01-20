@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ThoughtCard from "../../components/ThoughtCard.astro";
-import Calendar from "../../components/Calendar.astro";
 import thoughts from "../../data/thoughts.json";
 
 export function getStaticPaths() {
@@ -21,16 +20,7 @@ const { sourceName, filteredThoughts } = Astro.props;
 ---
 
 <BaseLayout title={`${sourceName} Logs`}>
-    <div class="container container-grid">
-        <aside class="sidebar" id="site-sidebar">
-            <div class="sidebar-inner">
-                <section class="sidebar-section">
-                    <h2 class="section-title">Calendar</h2>
-                    <Calendar thoughts={thoughts as any} />
-                </section>
-            </div>
-        </aside>
-
+    <div class="container">
         <main class="main-content">
             <header class="page-header">
                 <a href="/" class="back-link">
@@ -55,73 +45,14 @@ const { sourceName, filteredThoughts } = Astro.props;
 </BaseLayout>
 
 <style>
-    .container-grid {
-        display: grid;
-        grid-template-columns: 280px 1fr;
-        gap: var(--space-8);
-        align-items: start;
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
         padding-top: var(--space-4);
     }
 
     .main-content {
         min-width: 0;
-    }
-
-    .sidebar {
-        position: sticky;
-        top: calc(48px + var(--space-4));
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-6);
-    }
-
-    .sidebar-inner {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-8);
-    }
-
-    .sidebar-section {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .section-title {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: var(--md-on-surface-variant);
-        margin-bottom: var(--space-4);
-    }
-
-    @media (max-width: 992px) {
-        .container-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 320px;
-            max-width: 85vw;
-            background: var(--md-surface);
-            z-index: 200;
-            padding: var(--space-6);
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-            box-shadow: var(--shadow-lg);
-            overflow-y: auto;
-        }
-
-        .sidebar.open {
-            transform: translateX(0);
-        }
-
-        .sidebar-inner {
-            gap: var(--space-6);
-        }
     }
 
     .page-header {
