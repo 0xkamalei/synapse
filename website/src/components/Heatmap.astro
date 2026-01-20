@@ -305,6 +305,15 @@ const serializedData = JSON.stringify(data);
     max-width: 100%;
   }
 
+  @media (min-width: 768px) {
+    .heatmap-card .heatmap-wrapper {
+      scrollbar-width: none;
+    }
+    .heatmap-card .heatmap-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   .heatmap-card .heatmap-wrapper::-webkit-scrollbar {
     height: 6px;
   }
