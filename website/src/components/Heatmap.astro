@@ -233,6 +233,8 @@ const serializedData = JSON.stringify(data);
     border-radius: var(--radius-lg);
     border: 1px solid var(--md-outline-variant);
     padding: var(--space-4);
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .heatmap-card .heatmap-header {
@@ -289,6 +291,7 @@ const serializedData = JSON.stringify(data);
 
   .heatmap-card .heatmap-content {
     overflow: visible;
+    min-width: 0;
   }
 
   .heatmap-card .heatmap-wrapper {
@@ -299,6 +302,7 @@ const serializedData = JSON.stringify(data);
     padding-bottom: var(--space-2);
     scrollbar-width: thin;
     scrollbar-color: var(--md-outline-variant) transparent;
+    max-width: 100%;
   }
 
   .heatmap-card .heatmap-wrapper::-webkit-scrollbar {
