@@ -1,338 +1,349 @@
-import { expect, test, describe, beforeAll, beforeEach, afterEach, spyOn } from "bun:test";
-import { Window } from "happy-dom";
-import { readFileSync, existsSync, writeFileSync } from "fs";
-import { join } from "path";
+import { expect, test, beforeEach, afterEach } from 'bun:test';
+import { Window } from 'happy-dom';
+import { readFileSync, existsSync, writeFileSync } from 'fs';
+import { join } from 'path';
+import { runInContext, createContext } from 'node:vm';
 
-// Setup basic globals before anything else
-const initialWindow = new Window();
-globalThis.window = initialWindow as any;
-globalThis.document = initialWindow.document as any;
-globalThis.Element = initialWindow.Element as any;
-globalThis.Node = initialWindow.Node as any;
-globalThis.HTMLElement = initialWindow.HTMLElement as any;
-globalThis.MutationObserver = initialWindow.MutationObserver as any;
-globalThis.chrome = {
+const TARGET_HTML_DIR = join(import.meta.dir, '../target-html');
+
+function createTestWindow(url: string = 'https://example.com') {
+  const window = new Window({
+    url: url,
+    settings: {
+      disableJavaScriptFileLoading: true,
+      disableJavaScriptEvaluation: false,
+      disableCSSFileLoading: true,
+      disableIframePageLoading: true,
+    }
+  });
+
+  // Mock chrome API on the window
+  (window as any).chrome = {
     runtime: {
-        sendMessage: () => {},
-        onMessage: {
-            addListener: () => {}
-        },
-        getURL: (path: string) => `chrome-extension://id/${path}`
+      sendMessage: () => {},
+      onMessage: {
+        addListener: () => {},
+      },
+      getURL: (path: string) => `chrome-extension://id/${path}`,
     },
     storage: {
-        local: {
-            get: (keys?: string | string[] | { [key: string]: any } | null) => {
-                // Return empty object or default values for tests
-                return Promise.resolve({});
-            },
-            set: (items: { [key: string]: any }) => {
-                return Promise.resolve();
-            },
-            remove: (keys: string | string[]) => {
-                return Promise.resolve();
-            },
-            clear: () => {
-                return Promise.resolve();
-            }
-        }
+      local: {
+        get: (keys?: string | string[] | { [key: string]: any } | null) => {
+          return Promise.resolve({});
+        },
+        set: (items: { [key: string]: any }) => {
+          return Promise.resolve();
+        },
+        remove: (keys: string | string[]) => {
+          return Promise.resolve();
+        },
+        clear: () => {
+          return Promise.resolve();
+        },
+      },
+    },
+  };
+  
+  // Polyfill standard globals for VM context
+  const globals = [
+    'Array', 'Object', 'String', 'Number', 'Boolean', 'RegExp', 'Date', 'Math', 'JSON', 'Promise', 
+    'console', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'URL', 'URLSearchParams',
+    'Error', 'TypeError', 'RangeError', 'SyntaxError', 'ReferenceError', 'URIError', 'EvalError',
+    'Map', 'Set', 'WeakMap', 'WeakSet', 'Symbol', 'Function', 'parseInt', 'parseFloat', 'isNaN', 'isFinite'
+  ];
+
+  globals.forEach(key => {
+    if (!(window as any)[key]) {
+      (window as any)[key] = (globalThis as any)[key];
     }
-} as any;
+  });
 
-const TARGET_HTML_DIR = join(import.meta.dir, "../target-html");
-
-function updateDOM(htmlPath: string) {
-    const html = readFileSync(htmlPath, "utf-8");
-    (globalThis.document as any).write(html);
+  return window;
 }
 
-describe("Collectors", () => {
-    let xCollector: any;
-    let bilibiliCollector: any;
-    let qzoneCollector: any;
-    let originalDate: any;
+function loadCollector(window: Window, relPath: string) {
+  const absPath = join(import.meta.dir, '..', relPath);
+  if (existsSync(absPath)) {
+    let content = readFileSync(absPath, 'utf8');
 
-    beforeAll(async () => {
-        // Mock global variables before loading collectors
-        globalThis.HTMLAnchorElement = initialWindow.HTMLAnchorElement as any;
+    // Remove "use strict"
+    content = content.replace(/"use strict";/g, '');
 
-        // Mock window.location more robustly
-        Object.defineProperty(globalThis.window, 'location', {
-            value: {
-                hostname: '',
-                pathname: '',
-                href: '',
-                search: '',
-                hash: '',
-                protocol: 'https:',
-            },
-            writable: true
-        });
+    // Strip export keywords
+    content = content.replace(/^export\s+/gm, '');
+    content = content.replace(/^export\s+\{.*\};?\s*$/gm, '');
 
-        // Load collectors by reading the compiled JS files and evaluating them in global scope
-        const collectors = [
-            'dist/content/x-collector.js',
-            'dist/content/bilibili-collector.js',
-            'dist/content/qzone-collector.js',
-            'dist/content/weibo-collector.js',
-            'dist/content/redbook-collector.js',
-            'dist/content/zsxq-collector.js',
-            'dist/content/youtube-collector.js'
-        ];
+    // Replace const/let with var
+    content = content.replace(/^(const|let)\s+/gm, 'var ');
 
-        for (const relPath of collectors) {
-            const absPath = join(import.meta.dir, '..', relPath);
-            if (existsSync(absPath)) {
-                let content = readFileSync(absPath, 'utf8');
-                
-                // Remove "use strict" to allow eval to define globals
-                content = content.replace(/"use strict";/g, '');
+    // Strip IIFE wrapper
+    content = content.replace(/\(\(\)\s*=>\s*\{/, '');
+    content = content.replace(/\}\)\(\);\s*$/, '');
 
-                // Strip export keywords for eval compatibility
-                content = content.replace(/^export\s+/gm, '');
-                content = content.replace(/^export\s+\{.*\};?\s*$/gm, '');
-                
-                // Replace const/let with var to avoid "already defined" errors in eval
-                content = content.replace(/^(const|let)\s+/gm, 'var ');
-                
-                try {
-                    // Execute in global scope using indirect eval
-                    const globalEval = eval;
-                    globalEval(content);
-                } catch (e) {
-                    console.error(`Error evaluating ${relPath}:`, e);
-                }
-            } else {
-                console.warn(`Warning: Compiled collector not found at ${absPath}. Run build first.`);
+    // Remove top-level return checks
+    content = content.replace(
+      /if\s*\(\s*typeof\s+chrome\s*===\s*['"]undefined['"]\s*\|\|\s*!chrome\.runtime\s*\)\s*\{\s*return;?\s*\}/g,
+      '',
+    );
+
+    try {
+      // Ensure Array and other globals are present on the window object before context creation
+      const globalPrototypes = [
+        'Array', 'Object', 'String', 'Number', 'Boolean', 'RegExp', 'Date', 'Math', 'JSON', 'Promise', 
+        'Map', 'Set', 'WeakMap', 'WeakSet', 'Symbol', 'Function', 'Error', 'TypeError',
+        'encodeURIComponent', 'decodeURIComponent', 'encodeURI', 'decodeURI', 
+        'btoa', 'atob', 'unescape', 'escape', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval'
+      ];
+      
+      globalPrototypes.forEach(key => {
+         if (!(window as any)[key]) {
+            try {
+              (window as any)[key] = (globalThis as any)[key];
+            } catch (e) {
+              console.error(`Failed to polyfill ${key}:`, e);
             }
-        }
-    });
-
-    beforeEach(() => {
-        // Mock Date to return a fixed date for relative time parsing
-        const fixedDate = new Date("2024-01-01T12:00:00Z");
-        originalDate = globalThis.Date;
-        
-        const MockDate = function(this: Date, ...args: any[]) {
-            if (args.length > 0) return new (originalDate as any)(...args);
-            return new (originalDate as any)(fixedDate);
-        } as any;
-        
-        MockDate.prototype = originalDate.prototype;
-        MockDate.now = () => fixedDate.getTime();
-        MockDate.UTC = originalDate.UTC;
-        MockDate.parse = originalDate.parse;
-        
-        globalThis.Date = MockDate;
-    });
-
-    afterEach(() => {
-        // Restore Date
-        globalThis.Date = originalDate;
-    });
-
-    function updateDOMWithUrl(htmlPath: string, url: string = 'https://example.com') {
-        const html = readFileSync(htmlPath, "utf-8");
-        const urlObj = new URL(url);
-        
-        // Use a more robust way to update DOM
-        const dom = new Window();
-        
-        // Update location mock on the NEW window
-        try {
-            (dom as any).happyDOM?.setURL(url);
-        } catch (e) {
-            (dom.location as any).hostname = urlObj.hostname;
-            (dom.location as any).pathname = urlObj.pathname;
-            (dom.location as any).href = url;
-        }
-
-        const newDoc = dom.document;
-        (newDoc as any).write(html);
-        
-        globalThis.window = dom as any;
-        globalThis.document = newDoc as any;
+         }
+       });
+ 
+       // Create VM context from the window
+       createContext(window);
+      
+      // Execute in the window context
+      runInContext(content, window);
+    } catch (e) {
+      console.error(`Error evaluating ${relPath}:`, e);
     }
+  } else {
+    console.warn(`Warning: Compiled collector not found at ${absPath}. Run build first.`);
+  }
+}
 
-    test("X.com Collector", () => {
-        const htmlPath = join(TARGET_HTML_DIR, "x.html");
-        const jsonPath = join(TARGET_HTML_DIR, "x.json");
-        
-        updateDOMWithUrl(htmlPath, "https://x.com/home");
-        
-        const tweets = (globalThis as any).findAllTweetsX();
-        expect(tweets.length).toBeGreaterThan(0);
-        
-        const results = tweets.map((t: any) => (globalThis as any).collectTweetDataX(t));
-        
-        // Only override collectedAt, but keep the parsed timestamp
-        results.forEach((r: any) => {
-            r.collectedAt = "2024-01-01T00:00:00.000Z";
-        });
+let originalDate: any;
 
-        if (!existsSync(jsonPath)) {
-            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
-            console.log(`Created ${jsonPath} with collected data. Please review it.`);
-        } else {
-            const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
-            expect(results).toEqual(expected);
-        }
-    });
-
-    test("Bilibili Collector", () => {
-        const htmlPath = join(TARGET_HTML_DIR, "bilibili.html");
-        const jsonPath = join(TARGET_HTML_DIR, "bilibili.json");
-        
-        updateDOMWithUrl(htmlPath, "https://t.bilibili.com/");
+beforeEach(() => {
+  // Mock global Date so Happy-DOM picks it up if it falls back to global
+  // Note: VM context might use its own Date or the one from window.
+  // We mock globalThis.Date just in case, but ideally we should mock window.Date if needed.
+  // However, Happy-DOM's Window usually exposes the environment's Date constructor.
   
-        const dynamics = (globalThis as any).findAllDynamicsBilibili();
-        expect(dynamics.length).toBeGreaterThan(0);
-        
-        const results = dynamics.map((d: any) => (globalThis as any).collectDynamicDataBilibili(d));
-        
-        // Only override collectedAt, but keep the parsed timestamp
-        results.forEach((r: any) => {
-            r.collectedAt = "2024-01-01T00:00:00.000Z";
-        });
+  const fixedDate = new Date('2024-01-01T12:00:00Z');
+  originalDate = globalThis.Date;
 
-        // Only save if file doesn't exist
-        if (!existsSync(jsonPath)) {
-            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
-            console.log(`Created ${jsonPath}. Please review it.`);
-        }
+  const MockDate = function (this: Date, ...args: any[]) {
+    if (args.length > 0) return new (originalDate as any)(...args);
+    return new (originalDate as any)(fixedDate);
+  } as any;
 
-        const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
-        expect(results).toEqual(expected);
-    });
+  MockDate.prototype = originalDate.prototype;
+  MockDate.now = () => fixedDate.getTime();
+  MockDate.UTC = originalDate.UTC;
+  MockDate.parse = originalDate.parse;
 
-    test("QZone Collector", () => {
-        const htmlPath = join(TARGET_HTML_DIR, "qq.html");
-        const jsonPath = join(TARGET_HTML_DIR, "qq.json");
+  globalThis.Date = MockDate;
+});
 
-        updateDOMWithUrl(htmlPath, "https://user.qzone.qq.com/852872578/main");
+afterEach(() => {
+  globalThis.Date = originalDate;
+});
 
-        const feeds = (globalThis as any).findAllFeedsQZone();
+function loadHtmlToWindow(window: Window, htmlPath: string) {
+  const html = readFileSync(htmlPath, 'utf-8');
+  (window.document as any).write(html);
+}
 
-        const results = feeds.map((f: any) => (globalThis as any).collectFeedDataQZone(f));
+test('X.com Collector', () => {
+  const window = createTestWindow('https://x.com/home');
+  loadCollector(window, 'dist/content/x-collector.js');
+  
+  const htmlPath = join(TARGET_HTML_DIR, 'x.html');
+  const jsonPath = join(TARGET_HTML_DIR, 'x.json');
 
-        // Only override collectedAt, but keep the parsed timestamp
-        results.forEach((r: any) => {
-            r.collectedAt = "2024-01-01T00:00:00.000Z";
-        });
+  loadHtmlToWindow(window, htmlPath);
 
-        if (!existsSync(jsonPath)) {
-            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
-            console.log(`Created ${jsonPath}. Please review it.`);
-        } else {
-            const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
-            expect(results).toEqual(expected);
-        }
-    });
+  const tweets = (window as any).findAllTweetsX();
+  expect(tweets.length).toBeGreaterThan(0);
 
-    test("Weibo Collector", () => {
-        const htmlPath = join(TARGET_HTML_DIR, "weibo.html");
-        const jsonPath = join(TARGET_HTML_DIR, "weibo.json");
+  const results = tweets.map((t: any) => (window as any).collectTweetDataX(t));
 
-        updateDOMWithUrl(htmlPath, "https://weibo.com/u/3260895521");
+  // Only override collectedAt
+  results.forEach((r: any) => {
+    r.collectedAt = '2024-01-01T00:00:00.000Z';
+  });
 
-        const posts = (globalThis as any).findAllPostsWeibo();
-        expect(posts.length).toBeGreaterThan(0);
+  if (!existsSync(jsonPath)) {
+    writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+    console.log(`Created ${jsonPath} with collected data. Please review it.`);
+  } else {
+    const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+    expect(results).toEqual(expected);
+  }
+});
 
-        const results = posts.map((p: any) => (globalThis as any).collectPostDataWeibo(p));
+test('Bilibili Collector', () => {
+  const window = createTestWindow('https://t.bilibili.com/');
+  loadCollector(window, 'dist/content/bilibili-collector.js');
 
-        // Only override collectedAt, but keep the parsed timestamp
-        results.forEach((r: any) => {
-            r.collectedAt = "2024-01-01T00:00:00.000Z";
-        });
+  const htmlPath = join(TARGET_HTML_DIR, 'bilibili.html');
+  const jsonPath = join(TARGET_HTML_DIR, 'bilibili.json');
 
-        if (!existsSync(jsonPath)) {
-            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
-            console.log(`Created ${jsonPath}. Please review it.`);
-        } else {
-            const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
-            expect(results).toEqual(expected);
-        }
-    });
+  loadHtmlToWindow(window, htmlPath);
 
-    test("Redbook Collector", () => {
-        const htmlPath = join(TARGET_HTML_DIR, "redbook.html");
-        const jsonPath = join(TARGET_HTML_DIR, "redbook-expected.json");
+  const dynamics = (window as any).findAllDynamicsBilibili();
+  expect(dynamics.length).toBeGreaterThan(0);
 
-        updateDOMWithUrl(htmlPath, "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee");
+  const results = dynamics.map((d: any) => (window as any).collectDynamicDataBilibili(d));
 
-        const notes = (globalThis as any).findAllPostsRedbook();
-        expect(notes.length).toBeGreaterThan(0);
+  results.forEach((r: any) => {
+    r.collectedAt = '2024-01-01T00:00:00.000Z';
+  });
 
-        const results = notes.map((n: any) => (globalThis as any).collectNoteDataRedbook(n));
+  if (!existsSync(jsonPath)) {
+    writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+    console.log(`Created ${jsonPath}. Please review it.`);
+  }
 
-        // Only override collectedAt, but keep the parsed timestamp
-        results.forEach((r: any) => {
-            r.collectedAt = "2024-01-01T00:00:00.000Z";
-        });
+  const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+  expect(results).toEqual(expected);
+});
 
-        if (!existsSync(jsonPath)) {
-            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
-            console.log(`Created ${jsonPath}. Please review it.`);
-        } else {
-            const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
-            expect(results).toEqual(expected);
-        }
-    });
+test('QZone Collector', () => {
+  const window = createTestWindow('https://user.qzone.qq.com/852872578/main');
+  loadCollector(window, 'dist/content/qzone-collector.js');
 
-    test("ZSXQ Collector", () => {
-        const htmlPath = join(TARGET_HTML_DIR, "zsxq.html");
-        const jsonPath = join(TARGET_HTML_DIR, "zsxq.json");
+  const htmlPath = join(TARGET_HTML_DIR, 'qq.html');
+  const jsonPath = join(TARGET_HTML_DIR, 'qq.json');
 
-        updateDOMWithUrl(htmlPath, "https://wx.zsxq.com/group/48415284844818");
+  loadHtmlToWindow(window, htmlPath);
 
-        const topics = (globalThis as any).findAllZsxqTopics();
-        expect(topics.length).toBeGreaterThan(0);
+  const feeds = (window as any).findAllFeedsQZone();
+  const results = feeds.map((f: any) => (window as any).collectFeedDataQZone(f));
 
-        const results = topics.map((t: any) => (globalThis as any).collectZsxqTopicData(t));
+  results.forEach((r: any) => {
+    r.collectedAt = '2024-01-01T00:00:00.000Z';
+  });
 
-        // Only override collectedAt, but keep the parsed timestamp
-        results.forEach((r: any) => {
-            r.collectedAt = "2024-01-01T00:00:00.000Z";
-        });
+  if (!existsSync(jsonPath)) {
+    writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+    console.log(`Created ${jsonPath}. Please review it.`);
+  } else {
+    const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+    expect(results).toEqual(expected);
+  }
+});
 
-        if (!existsSync(jsonPath)) {
-            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
-            console.log(`Created ${jsonPath}. Please review it.`);
-        } else {
-            const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
-            expect(results).toEqual(expected);
-        }
-    });
+test('Weibo Collector', () => {
+  const window = createTestWindow('https://weibo.com/u/3260895521');
+  loadCollector(window, 'dist/content/weibo-collector.js');
 
-    test("YouTube Collector", () => {
-        const htmlPath = join(TARGET_HTML_DIR, "youtube.html");
-        const jsonPath = join(TARGET_HTML_DIR, "youtube-expected.json");
+  const htmlPath = join(TARGET_HTML_DIR, 'weibo.html');
+  const jsonPath = join(TARGET_HTML_DIR, 'weibo.json');
 
-        updateDOMWithUrl(htmlPath, "https://www.youtube.com/@kamaleizhang/videos");
+  loadHtmlToWindow(window, htmlPath);
 
-        // Debug: check if function exists
-        console.log('[YouTube Test] findAllVideosYoutube exists:', typeof (globalThis as any).findAllVideosYoutube);
-        
-        // Debug: check document
-        const allItems = globalThis.document.querySelectorAll('ytd-rich-item-renderer');
-        console.log('[YouTube Test] Found ytd-rich-item-renderer elements:', allItems.length);
-        
-        const videos = (globalThis as any).findAllVideosYoutube();
-        console.log('[YouTube Test] videos found:', videos.length);
-        expect(videos.length).toBeGreaterThan(0);
+  const posts = (window as any).findAllPostsWeibo();
+  expect(posts.length).toBeGreaterThan(0);
 
-        const results = videos.map((v: any) => (globalThis as any).collectVideoDataYoutube(v)).filter(Boolean);
+  const results = posts.map((p: any) => (window as any).collectPostDataWeibo(p));
 
-        // Only override collectedAt, but keep the parsed timestamp
-        results.forEach((r: any) => {
-            r.collectedAt = "2024-01-01T00:00:00.000Z";
-        });
+  results.forEach((r: any) => {
+    r.collectedAt = '2024-01-01T00:00:00.000Z';
+  });
 
-        if (!existsSync(jsonPath)) {
-            writeFileSync(jsonPath, JSON.stringify(results, null, 2));
-            console.log(`Created ${jsonPath}. Please review it.`);
-        } else {
-            const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
-            expect(results).toEqual(expected);
-        }
-    });
+  if (!existsSync(jsonPath)) {
+    writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+    console.log(`Created ${jsonPath}. Please review it.`);
+  } else {
+    const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+    expect(results).toEqual(expected);
+  }
+});
+
+test('Redbook Collector', () => {
+  const window = createTestWindow('https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee');
+  loadCollector(window, 'dist/content/redbook-collector.js');
+
+  const htmlPath = join(TARGET_HTML_DIR, 'redbook.html');
+  const jsonPath = join(TARGET_HTML_DIR, 'redbook-expected.json');
+
+  loadHtmlToWindow(window, htmlPath);
+
+  const notes = (window as any).findAllPostsRedbook();
+  expect(notes.length).toBeGreaterThan(0);
+
+  const results = notes.map((n: any) => (window as any).collectNoteDataRedbook(n));
+
+  results.forEach((r: any) => {
+    r.collectedAt = '2024-01-01T00:00:00.000Z';
+  });
+
+  if (!existsSync(jsonPath)) {
+    writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+    console.log(`Created ${jsonPath}. Please review it.`);
+  } else {
+    const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+    expect(results).toEqual(expected);
+  }
+});
+
+test('ZSXQ Collector', () => {
+  const window = createTestWindow('https://wx.zsxq.com/group/48415284844818');
+  loadCollector(window, 'dist/content/zsxq-collector.js');
+
+  const htmlPath = join(TARGET_HTML_DIR, 'zsxq.html');
+  const jsonPath = join(TARGET_HTML_DIR, 'zsxq.json');
+
+  loadHtmlToWindow(window, htmlPath);
+
+  const topics = (window as any).findAllZsxqTopics();
+  expect(topics.length).toBeGreaterThan(0);
+
+  const results = topics.map((t: any) => (window as any).collectZsxqTopicData(t));
+
+  results.forEach((r: any) => {
+    r.collectedAt = '2024-01-01T00:00:00.000Z';
+  });
+
+  if (!existsSync(jsonPath)) {
+    writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+    console.log(`Created ${jsonPath}. Please review it.`);
+  } else {
+    const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+    expect(results).toEqual(expected);
+  }
+});
+
+test('YouTube Collector', () => {
+  const window = createTestWindow('https://www.youtube.com/@kamaleizhang/videos');
+  loadCollector(window, 'dist/content/youtube-collector.js');
+
+  const htmlPath = join(TARGET_HTML_DIR, 'youtube.html');
+  const jsonPath = join(TARGET_HTML_DIR, 'youtube-expected.json');
+
+  loadHtmlToWindow(window, htmlPath);
+
+  // Debug: check if function exists
+  console.log(
+    '[YouTube Test] findAllVideosYoutube exists:',
+    typeof (window as any).findAllVideosYoutube,
+  );
+
+  const videos = (window as any).findAllVideosYoutube();
+  console.log('[YouTube Test] videos found:', videos.length);
+  expect(videos.length).toBeGreaterThan(0);
+
+  const results = videos
+    .map((v: any) => (window as any).collectVideoDataYoutube(v))
+    .filter(Boolean);
+
+  results.forEach((r: any) => {
+    r.collectedAt = '2024-01-01T00:00:00.000Z';
+  });
+
+  if (!existsSync(jsonPath)) {
+    writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+    console.log(`Created ${jsonPath}. Please review it.`);
+  } else {
+    const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+    expect(results).toEqual(expected);
+  }
 });

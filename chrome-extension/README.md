@@ -15,15 +15,15 @@
 
 Create a new Notion database with the following properties:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| Title | Title | Content title/summary |
-| Content | Rich Text | Full content text |
-| Source | Select | Platform (X / Bilibili / Weibo / QZone / Redbook / ZSXQ) |
-| OriginalURL | URL | Link to original post |
-| OriginalDate | Date | When the post was published |
-| Tags | Multi-select | Optional tags |
-| Status | Select | Published / Draft / Archived |
+| Property     | Type         | Description                                              |
+| ------------ | ------------ | -------------------------------------------------------- |
+| Title        | Title        | Content title/summary                                    |
+| Content      | Rich Text    | Full content text                                        |
+| Source       | Select       | Platform (X / Bilibili / Weibo / QZone / Redbook / ZSXQ) |
+| OriginalURL  | URL          | Link to original post                                    |
+| OriginalDate | Date         | When the post was published                              |
+| Tags         | Multi-select | Optional tags                                            |
+| Status       | Select       | Published / Draft / Archived                             |
 
 ### 2. Get Notion API Token
 
@@ -116,12 +116,15 @@ chrome-extension/
 ## Troubleshooting
 
 ### "Content already saved to Notion"
+
 The extension checks for duplicates by URL. This means the post was already collected.
 
 ### Images not showing
+
 Make sure your GitHub repository is **public**. Private repos won't work with jsDelivr CDN.
 
 ### "Missing configuration"
+
 Open the extension popup and fill in all configuration fields.
 
 ## Development
@@ -145,16 +148,19 @@ bun run package
 ```
 
 The `package` command will:
+
 1. Build the TypeScript code
 2. Create a `.zip` file in the `/dist` directory
 3. Exclude source files (.ts) and unnecessary files
 4. Generate a timestamped filename (e.g., `synapse-extension-2026-01-13T09-30-44.zip`)
 
 The generated `.zip` file can be:
+
 - Uploaded to Chrome Web Store
 - Distributed manually for installation
 - Used for version archiving
 
 After changes, reload the extension:
+
 1. Go to `chrome://extensions/`
 2. Click the refresh icon on the Synapse extension

@@ -12,7 +12,7 @@ export const STORAGE_KEYS = {
   LAST_COLLECT_TIME: 'lastCollectTime',
   LAST_COLLECT_TIMES: 'lastCollectTimes',
   COLLECT_INTERVAL_HOURS: 'collectIntervalHours',
-  DEBUG_MODE: 'debugMode'
+  DEBUG_MODE: 'debugMode',
 } as const;
 
 /**
@@ -27,14 +27,14 @@ function getPlatformStorageKey(platform: PlatformKey): string {
  */
 function getAllStorageKeys(): string[] {
   const coreKeys = Object.values(STORAGE_KEYS);
-  const platformKeys = ALL_PLATFORMS.map(p => getPlatformStorageKey(p));
+  const platformKeys = ALL_PLATFORMS.map((p) => getPlatformStorageKey(p));
   return [...coreKeys, ...platformKeys];
 }
 
 const DEFAULT_CONFIG: Partial<AppConfig> = {
   enabledSources: DEFAULT_ENABLED_SOURCES,
   debugMode: false,
-  collectIntervalHours: 4
+  collectIntervalHours: 4,
 };
 
 /**
@@ -67,11 +67,16 @@ async function getConfig(): Promise<AppConfig> {
     githubToken: (result[STORAGE_KEYS.GITHUB_TOKEN] as string) || '',
     githubOwner: (result[STORAGE_KEYS.GITHUB_OWNER] as string) || '',
     githubRepo: (result[STORAGE_KEYS.GITHUB_REPO] as string) || '',
-    enabledSources: (result[STORAGE_KEYS.ENABLED_SOURCES] as string[]) || (DEFAULT_CONFIG.enabledSources as string[]),
+    enabledSources:
+      (result[STORAGE_KEYS.ENABLED_SOURCES] as string[]) ||
+      (DEFAULT_CONFIG.enabledSources as string[]),
     lastCollectTime: (result[STORAGE_KEYS.LAST_COLLECT_TIME] as string) || null,
     lastCollectTimes: (result[STORAGE_KEYS.LAST_COLLECT_TIMES] as Record<string, string>) || {},
-    collectIntervalHours: (result[STORAGE_KEYS.COLLECT_INTERVAL_HOURS] as number) ?? (DEFAULT_CONFIG.collectIntervalHours as number),
-    debugMode: (result[STORAGE_KEYS.DEBUG_MODE] as boolean) ?? (DEFAULT_CONFIG.debugMode as boolean)
+    collectIntervalHours:
+      (result[STORAGE_KEYS.COLLECT_INTERVAL_HOURS] as number) ??
+      (DEFAULT_CONFIG.collectIntervalHours as number),
+    debugMode:
+      (result[STORAGE_KEYS.DEBUG_MODE] as boolean) ?? (DEFAULT_CONFIG.debugMode as boolean),
   };
 
   // Dynamically add platform-specific config values
@@ -98,14 +103,14 @@ async function saveConfig(config: AppConfig): Promise<void> {
     [STORAGE_KEYS.GITHUB_REPO]: config.githubRepo,
     [STORAGE_KEYS.ENABLED_SOURCES]: config.enabledSources,
     [STORAGE_KEYS.COLLECT_INTERVAL_HOURS]: config.collectIntervalHours,
-    [STORAGE_KEYS.DEBUG_MODE]: config.debugMode
+    [STORAGE_KEYS.DEBUG_MODE]: config.debugMode,
   };
 
   // Dynamically add platform-specific config values
   for (const platform of ALL_PLATFORMS) {
     const storageKey = getPlatformStorageKey(platform);
     const configKey = PLATFORMS[platform].configKey;
-    storageData[storageKey] = config[configKey] || '';
+    storageData[storageKey] = config[configKey] || [];
   }
 
   await chrome.storage.sync.set(storageData);
@@ -117,7 +122,7 @@ async function saveConfig(config: AppConfig): Promise<void> {
 async function updateLastCollectTime(source?: string): Promise<void> {
   const now = new Date().toISOString();
   const update: any = {
-    [STORAGE_KEYS.LAST_COLLECT_TIME]: now
+    [STORAGE_KEYS.LAST_COLLECT_TIME]: now,
   };
 
   if (source) {
@@ -145,15 +150,8 @@ async function validateConfig(): Promise<{ valid: boolean; missing: string[] }> 
 
   return {
     valid: missing.length === 0,
-    missing
+    missing,
   };
 }
 
-export {
-  getStorage,
-  setStorage,
-  getConfig,
-  saveConfig,
-  validateConfig,
-  updateLastCollectTime
-};
+export { getStorage, setStorage, getConfig, saveConfig, validateConfig, updateLastCollectTime };

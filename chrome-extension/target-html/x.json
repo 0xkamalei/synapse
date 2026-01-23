@@ -19,9 +19,7 @@
     "source": "X",
     "type": "image",
     "text": "现在AI模型确实强了，之前一直没做出来app现在用Gemini3pro做出来了，和AI沟通越来越简单了\n欢迎使用这个复刻的timingapp;原app订阅10欧每个月，之后再也不用订阅了\n\nhttps://github.com/0xkamalei/mac-time-trace/releases/tag/0.0.2…",
-    "images": [
-      "https://pbs.twimg.com/media/G9Vb3Ama4AA4ATZ?format=jpg&name=large"
-    ],
+    "images": ["https://pbs.twimg.com/media/G9Vb3Ama4AA4ATZ?format=jpg&name=large"],
     "videos": [],
     "links": [],
     "tags": [],
@@ -53,9 +51,7 @@
     "source": "X",
     "type": "image",
     "text": "My personal time-tracking app is 50% complete.",
-    "images": [
-      "https://pbs.twimg.com/media/GxZLCe7bcAAiJa9?format=jpg&name=large"
-    ],
+    "images": ["https://pbs.twimg.com/media/GxZLCe7bcAAiJa9?format=jpg&name=large"],
     "videos": [],
     "links": [],
     "tags": [],
@@ -71,9 +67,7 @@
     "source": "X",
     "type": "image",
     "text": "我们写的单元测试比目标代码多三倍，它的价值不是为了检测潜在BUG，而是为了避免将来的修改引入BUG。The unit tests we write are three times more than the target code. Their value is not to detect potential bugs, but to prevent introducing bugs in future modifications.",
-    "images": [
-      "https://pbs.twimg.com/media/GxAl3iNbUAEe_qJ?format=jpg&name=large"
-    ],
+    "images": ["https://pbs.twimg.com/media/GxAl3iNbUAEe_qJ?format=jpg&name=large"],
     "videos": [],
     "links": [],
     "tags": [],

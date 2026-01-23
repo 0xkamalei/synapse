@@ -7,6 +7,10 @@
     "lib": "lib"
   },
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "lint-format": "prettier --write . && eslint . --fix",
     "build": "tsc",
     "watch": "tsc --watch",
     "test": "bun run build && bun test content/collector.test.ts",
@@ -20,7 +24,14 @@
     "@types/bun": "^1.3.5",
     "@types/chrome": "^0.1.32",
     "@types/node": "^25.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.53.1",
+    "@typescript-eslint/parser": "^8.53.1",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.1.0",
     "happy-dom": "^20.0.11",
-    "typescript": "^5.9.3"
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.1"
   }
 }

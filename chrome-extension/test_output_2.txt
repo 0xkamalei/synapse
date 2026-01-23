@@ -1,0 +1,550 @@
+bun test v1.3.4 (5eb2145b)
+
+content/collector.test.ts:
+[Synapse] Redbook: Not on a user profile page
+[Redbook Collector] Script loaded
+[Synapse ZSXQ] Content script loaded
+[Synapse ZSXQ] DOM ready, attempting auto-collect...
+[Synapse ZSXQ] Collector initialized
+[Synapse YouTube] Content script loaded
+[Synapse YouTube] DOM ready, attempting auto-collect...
+[Synapse YouTube] Collector initialized
+179 |     if (!existsSync(jsonPath)) {
+180 |       writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+181 |       console.log(`Created ${jsonPath} with collected data. Please review it.`);
+182 |     } else {
+183 |       const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+184 |       expect(results).toEqual(expected);
+                            ^
+error: expect(received).toEqual(expected)
+
+@@ -7,11 +7,14 @@
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "links": [],
+      "source": "X",
+      "tags": [],
+-     "text": "我做了个人媒体工具,自动采集多个社交媒体平台的内容同步到notion database,在通过astro构建成为一个timeline website,目前支持B站,X,QQ空间,朋友圈。项目原因我想追忆一下自己以前的想法，但是这些thoughts可能散落在各个平台，我想有一个属于自己host的site来拥有它们",
++     "text": 
++ "                                                        我做了个人媒体工具,自动采集多个社交媒体平台的内容同步到notion                                                          database,在通过astro构建成为一个timeline
++                                                           website,目前支持B站,X,QQ空间,朋友圈。项目原因我想追忆一下自己以前的想法，但是这些thoughts可能散落在各个平台，我想有一个属于自己host的site来拥有它们                                                      "
++ ,
+      "timestamp": "2026-01-05T09:15:10.000Z",
+      "type": "text",
+      "url": "https://x.com/KamaleiZhang/status/2008104979949834420",
+      "videos": [],
+    },
+@@ -25,16 +28,11 @@
+        "https://pbs.twimg.com/media/G9Vb3Ama4AA4ATZ?format=jpg&name=large",
+      ],
+      "links": [],
+      "source": "X",
+      "tags": [],
+-     "text": 
+- "现在AI模型确实强了，之前一直没做出来app现在用Gemini3pro做出来了，和AI沟通越来越简单了
+- 欢迎使用这个复刻的timingapp;原app订阅10欧每个月，之后再也不用订阅了
+- 
+- https://github.com/0xkamalei/mac-time-trace/releases/tag/0.0.2…"
+- ,
++     "text": "                                                        现在AI模型确实强了，之前一直没做出来app现在用Gemini3pro做出来了，和AI沟通越来越简单了                                                          欢迎使用这个复刻的timingapp;原app订阅10欧每个月，之后再也不用订阅了 https://github.com/0xkamalei/mac-time-trace/releases/tag/0.0.2…                                                      ",
+      "timestamp": "2025-12-29T12:03:29.000Z",
+      "type": "image",
+      "url": "https://x.com/KamaleiZhang/status/2005610623594578222",
+      "videos": [],
+    },
+@@ -46,11 +44,16 @@
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "links": [],
+      "source": "X",
+      "tags": [],
+-     "text": "AI is now so powerful. I built my long-pending app with Gemini 3 Pro, and AI interaction is way easier.Welcome to this replica of Timing App. No more €10/month subscription like the original.",
++     "text": 
++ "                                                        AI is now so powerful. I built my                                                          long-pending app with Gemini 3 Pro, and AI
++                                                           interaction is way easier.Welcome to this
++                                                           replica of Timing App. No more €10/month
++                                                           subscription like the original.                                                      "
++ ,
+      "timestamp": "2025-12-29T12:03:54.000Z",
+      "type": "text",
+      "url": "https://x.com/KamaleiZhang/status/2005610727122542715",
+      "videos": [],
+    },
+@@ -64,11 +67,11 @@
+        "https://pbs.twimg.com/media/GxZLCe7bcAAiJa9?format=jpg&name=large",
+      ],
+      "links": [],
+      "source": "X",
+      "tags": [],
+-     "text": "My personal time-tracking app is 50% complete.",
++     "text": "                                                        My personal time-tracking app is 50%                                                          complete.                                                      ",
+      "timestamp": "2025-08-03T02:20:23.000Z",
+      "type": "image",
+      "url": "https://x.com/KamaleiZhang/status/1951830475892547787",
+      "videos": [],
+    },
+@@ -82,11 +85,17 @@
+        "https://pbs.twimg.com/media/GxAl3iNbUAEe_qJ?format=jpg&name=large",
+      ],
+      "links": [],
+      "source": "X",
+      "tags": [],
+-     "text": "我们写的单元测试比目标代码多三倍，它的价值不是为了检测潜在BUG，而是为了避免将来的修改引入BUG。The unit tests we write are three times more than the target code. Their value is not to detect potential bugs, but to prevent introducing bugs in future modifications.",
++     "text": 
++ "                                                        我们写的单元测试比目标代码多三倍，它的价值不是为了检测潜在BUG，而是为了避免将来的修改引入BUG。                                                          The unit tests we write are three times
++                                                           more than the target code. Their value is
++                                                           not to detect potential bugs, but to
++                                                           prevent introducing bugs in future
++                                                           modifications.                                                      "
++ ,
+      "timestamp": "2025-07-29T07:45:13.000Z",
+      "type": "image",
+      "url": "https://x.com/KamaleiZhang/status/1950100285902479669",
+      "videos": [],
+    },
+
+- Expected  - 10
++ Received  + 19
+
+      at <anonymous> (/Users/lei/dev/personal/synapse/chrome-extension/content/collector.test.ts:184:23)
+(fail) Collectors > X.com Collector [695.69ms]
+(pass) Collectors > Bilibili Collector [382.89ms]
+[Synapse] Found 10 feeds in frame /852872578/main using selector: #host_home_feeds li.f-single
+229 |     if (!existsSync(jsonPath)) {
+230 |       writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+231 |       console.log(`Created ${jsonPath}. Please review it.`);
+232 |     } else {
+233 |       const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+234 |       expect(results).toEqual(expected);
+                            ^
+error: expect(received).toEqual(expected)
+
+@@ -57,14 +57,17 @@
+      },
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "links": [],
+      "source": "QZone",
+-     "text": "> 请如实的客观的回答，我接受真相有效避免马屁精式答案的 prompt",
++     "text": 
++ "> 请如实的客观的回答，我接受真相有效避免马屁精式答案的
++                                         prompt"
++ ,
+      "timestamp": "2025-10-28T04:29:00.000Z",
+      "type": "text",
+-     "url": "https://user.qzone.qq.com/852872578/main#:~:text=%3E%20%E8%AF%B7%E5%A6%82%E5%AE%9E%E7%9A%84%E5%AE%A2%E8%A7%82%E7%9A%84%E5%9B%9E%E7%AD%94%EF%BC%8C%E6%88%91%E6%8E%A5%E5%8F%97%E7%9C%9F%E7%9B%B8%E6%9C%89%E6%95%88%E9%81%BF%E5%85%8D%E9%A9%AC%E5%B1%81%E7%B2%BE%E5%BC%8F%E7%AD%94%E6%A1%88%E7%9A%84%20prompt&synapse=h-ODUyOD-PiDor7flpoLl-MjAyNS0xMC",
++     "url": "https://user.qzone.qq.com/852872578/main#:~:text=%3E%20%E8%AF%B7%E5%A6%82%E5%AE%9E%E7%9A%84%E5%AE%A2%E8%A7%82%E7%9A%84%E5%9B%9E%E7%AD%94%EF%BC%8C%E6%88%91%E6%8E%A5%E5%8F%97%E7%9C%9F%E7%9B%B8%E6%9C%89%E6%95%88%E9%81%BF%E5%85%8D%E9%A9%AC%E5%B1%81%E7%B2%BE%E5%BC%8F%E7%AD%94%E6%A1%88%E7%9A%84&synapse=h-ODUyOD-PiDor7flpoLl-MjAyNS0xMC",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "磊",
+@@ -107,14 +110,17 @@
+      },
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "links": [],
+      "source": "QZone",
+-     "text": "干两份工作真累已经没有精力搞自己的side project了。特别是还要oncall更累。其实也可以摆烂一些，但是要把事情做好确实需要花费更多精力，总之还是控制一下工作量吧，做好而不是做多。",
++     "text": 
++ "干两份工作真累已经没有精力搞自己的side
++                                         project了。特别是还要oncall更累。其实也可以摆烂一些，但是要把事情做好确实需要花费更多精力，总之还是控制一下工作量吧，做好而不是做多。"
++ ,
+      "timestamp": "2025-09-10T14:44:00.000Z",
+      "type": "text",
+-     "url": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%B9%B2%E4%B8%A4%E4%BB%BD%E5%B7%A5%E4%BD%9C%E7%9C%9F%E7%B4%AF%E5%B7%B2%E7%BB%8F%E6%B2%A1%E6%9C%89%E7%B2%BE%E5%8A%9B%E6%90%9E%E8%87%AA%E5%B7%B1%E7%9A%84side%20project%E4%BA%86%E3%80%82%E7%89%B9%E5%88%AB%E6%98%AF%E8%BF%98%E8%A6%81oncall%E6%9B%B4%E7%B4%AF%E3%80%82%E5%85%B6%E5%AE%9E%E4%B9%9F%E5%8F%AF%E4%BB%A5&synapse=h-ODUyOD-5bmy5Lik5Lu9-MjAyNS0wOS",
++     "url": "https://user.qzone.qq.com/852872578/main#:~:text=%E5%B9%B2%E4%B8%A4%E4%BB%BD%E5%B7%A5%E4%BD%9C%E7%9C%9F%E7%B4%AF%E5%B7%B2%E7%BB%8F%E6%B2%A1%E6%9C%89%E7%B2%BE%E5%8A%9B%E6%90%9E%E8%87%AA%E5%B7%B1%E7%9A%84side&synapse=h-ODUyOD-5bmy5Lik5Lu9-MjAyNS0wOS",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "磊",
+
+- Expected  - 4
++ Received  + 10
+
+      at <anonymous> (/Users/lei/dev/personal/synapse/chrome-extension/content/collector.test.ts:234:23)
+(fail) Collectors > QZone Collector [23.44ms]
+254 |     if (!existsSync(jsonPath)) {
+255 |       writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+256 |       console.log(`Created ${jsonPath}. Please review it.`);
+257 |     } else {
+258 |       const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+259 |       expect(results).toEqual(expected);
+                            ^
+error: expect(received).toEqual(expected)
+
+  [
+    {
+      "author": {
+        "displayName": "寡人张磊",
+        "username": "7480129679",
+      },
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "links": [
+        "https://synapse.leix.dev/",
+      ],
+      "source": "Weibo",
+-     "text": "https://synapse.leix.dev/ 开始添加对微博的支持！ ​​​",
++     "text": "https://synapse.leix.dev/                                                  开始添加对微博的支持！ ​​​",
+      "timestamp": "2026-01-10T12:05:00.000Z",
+      "type": "text",
+      "url": "https://weibo.com/7480129679/Qms2Sv4Nv",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+        "username": "7480129679",
+      },
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [
+        "https://wx4.sinaimg.cn/orj360/008adRqTgy1i95i8cq2ykj30ik0eutbr.jpg",
+      ],
+      "links": [],
+      "source": "Weibo",
+      "text": "claude code 为什么会生成这么多文档？ ​​​",
+      "timestamp": "2026-01-10T11:59:00.000Z",
+      "type": "image",
+      "url": "https://weibo.com/7480129679/Qms0ohtVD",
+      "videos": [],
+    },
+  ]
+
+- Expected  - 1
++ Received  + 1
+
+      at <anonymous> (/Users/lei/dev/personal/synapse/chrome-extension/content/collector.test.ts:259:23)
+(fail) Collectors > Weibo Collector [23.40ms]
+(pass) Collectors > Redbook Collector [30.28ms]
+304 |     if (!existsSync(jsonPath)) {
+305 |       writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+306 |       console.log(`Created ${jsonPath}. Please review it.`);
+307 |     } else {
+308 |       const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+309 |       expect(results).toEqual(expected);
+                            ^
+error: expect(received).toEqual(expected)
+
+@@ -8,20 +8,17 @@
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+  "[再见]
+- 301
+- Redirect：代码内外的个人空间 - 哔哩哔哩 ( ゜- ゜)つロ 乾杯~ Bilibili (https://space.bilibili.com/284623903/dynamic)
+- 撤了
+- reason：知识星球=论坛
+- ---------------------
+- 看了一遍之前写的一些东西还是挺幼稚的。"
++                                     301 Redirect：代码内外的个人空间 - 哔哩哔哩 ( ゜- ゜)つロ 乾杯~ Bilibili (https://space.bilibili.com/284623903/dynamic)
++                                     撤了 reason：知识星球=论坛 ---------------------
++                                     看了一遍之前写的一些东西还是挺幼稚的。"
+  ,
+      "timestamp": "2021-03-31T14:31:00.000Z",
+      "type": "article",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=301-Redirect-%E4%BB%A3%E7%A0%81%E5%86%85%E5%A4%96%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E4%B9%BE%E6%9D%AF-B",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=301-Redir",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+@@ -64,20 +61,18 @@
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+- "学习=理论，教程，手册
+- 实战=coding，做产品，熟练使用XX
+- 实践=学习+实战
+- 是学习还是实战？怎么安排？
+- 碎片化时间学习，大块时间实战
+- 碎片化时间工作日间隙，大块时间周六日。"
++ "学习=理论，教程，手册 实战=coding，做产品，熟练使用XX
++                                     实践=学习+实战 是学习还是实战？怎么安排？
++                                     碎片化时间学习，大块时间实战
++                                     碎片化时间工作日间隙，大块时间周六日。"
+  ,
+      "timestamp": "2020-09-04T02:42:00.000Z",
+      "type": "text",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E5%AD%A6%E4%B9%A0-%E7%90%86%E8%AE%BA-%E6%95%99%E7%A8%8B-%E6%89%8B%E5%86%8C-%E5%AE%9E%E6%88%98-coding-%E5%81%9A%E4%BA%A7%E5%93%81-%E7%86%9F%E7%BB%83%E4%BD%BF%E7%94%A8XX-%E5%AE%9E%E8%B7%B5-%E5%AD%A6%E4%B9%A0-%E5%AE%9E%E6%88%98-%E6%98%AF%E5%AD%A6%E4%B9%A0%E8%BF%98%E6%98%AF%E5%AE%9E%E6%88%98",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E5%AD%A6%E4%B9%A0-%E7%90%86%E8%AE%BA-%E6%95%99%E7%A8%8B-%E6%89%8B%E5%86%8C-%E5%AE%9E%E6%88%98-coding-%E5%81%9A%E4%BA%A7%E5%93%81-%E7%86%9F%E7%BB%83%E4%BD%BF%E7%94%A8XX",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+@@ -103,19 +98,18 @@
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+- "阿里人才观
+- 聪明：专业的能力和开放的思维，智商与情商都高；
+- 皮实：经得起折腾，棒杀和捧杀都没关系，能抗压不骄傲；
+- 乐观：充分客观理性了解当下真实情况之后仍充满好奇心和乐趣，爱折腾；
+- 自省：经常反省自身，建议采用团队Review的方式，不自大傲慢。"
++ "阿里人才观 聪明：专业的能力和开放的思维，智商与情商都高；
++                                     皮实：经得起折腾，棒杀和捧杀都没关系，能抗压不骄傲；
++                                     乐观：充分客观理性了解当下真实情况之后仍充满好奇心和乐趣，爱折腾；
++                                     自省：经常反省自身，建议采用团队Review的方式，不自大傲慢。"
+  ,
+      "timestamp": "2020-08-31T15:29:00.000Z",
+      "type": "text",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E9%98%BF%E9%87%8C%E4%BA%BA%E6%89%8D%E8%A7%82-%E8%81%AA%E6%98%8E-%E4%B8%93%E4%B8%9A%E7%9A%84%E8%83%BD%E5%8A%9B%E5%92%8C%E5%BC%80%E6%94%BE%E7%9A%84%E6%80%9D%E7%BB%B4-%E6%99%BA%E5%95%86%E4%B8%8E%E6%83%85%E5%95%86%E9%83%BD%E9%AB%98-%E7%9A%AE%E5%AE%9E-%E7%BB%8F%E5%BE%97%E8%B5%B7%E6%8A%98%E8%85%BE-%E6%A3%92%E6%9D%80%E5%92%8C%E6%8D%A7%E6%9D%80%E9%83%BD%E6%B2%A1%E5%85%B3%E7%B3%BB-%E8%83%BD",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E9%98%BF%E9%87%8C%E4%BA%BA%E6%89%8D%E8%A7%82-%E8%81%AA%E6%98%8E-%E4%B8%93%E4%B8%9A%E7%9A%84%E8%83%BD%E5%8A%9B%E5%92%8C%E5%BC%80%E6%94%BE%E7%9A%84%E6%80%9D%E7%BB%B4-%E6%99%BA%E5%95%86%E4%B8%8E%E6%83%85%E5%95%86%E9%83%BD%E9%AB%98",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+@@ -125,24 +119,23 @@
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+  "Java进程内存占用过高如何排查？
+- [悠闲]情况1  线上环境内存溢出 ，能重启加启动参数
+- -XX:+HeapDumpOnOutOfMemoryError 
+- -XX:HeapDumpPath=/tmp/heapdump.hprof
+- 溢出后拿到hrof文件 
+- 
+- [抠鼻]情况2不能重启  1 查看内存占用jmap -heap [PID]，2 查看对象数量 jmap -histo [PID] ，3 导出 jmap -F -dump:live,file=jmap.hprof [PID]  
++                                     [悠闲]情况1 线上环境内存溢出 ，能重启加启动参数
++                                     -XX:+HeapDumpOnOutOfMemoryError
++                                     -XX:HeapDumpPath=/tmp/heapdump.hprof 溢出后拿到hrof文件
+  
+- 通过MAT分析hprof文件
+- 👻关键：选中占用高的对象后右击选择with incomming reference 查看引用对象
+- 配合jstat，jstack分析占用来源"
++                                     [抠鼻]情况2不能重启 1 查看内存占用jmap -heap [PID]，2 查看对象数量
++                                     jmap -histo [PID] ，3 导出 jmap -F -dump:live,file=jmap.hprof
++                                     [PID] 通过MAT分析hprof文件
++                                     👻关键：选中占用高的对象后右击选择with incomming reference
++                                     查看引用对象 配合jstat，jstack分析占用来源"
+  ,
+      "timestamp": "2020-08-27T08:39:00.000Z",
+      "type": "text",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=Java%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E5%A6%82%E4%BD%95%E6%8E%92%E6%9F%A5-%E6%83%85%E5%86%B51-%E7%BA%BF%E4%B8%8A%E7%8E%AF%E5%A2%83%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA-%E8%83%BD%E9%87%8D%E5%90%AF%E5%8A%A0%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0-XX",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=Java%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E5%A6%82%E4%BD%95%E6%8E%92%E6%9F%A5",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+@@ -152,16 +145,16 @@
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+  "spring-boot-configuration-processor的作用？
+- 编译器为自定义AutoConfigture配置类生成spring-configuration-metadata.json文件
+- spring-configuration-metadata.json文件的作用是为了提供给IDEA进行配置输入提示"
++                                     编译器为自定义AutoConfigture配置类生成spring-configuration-metadata.json文件
++                                     spring-configuration-metadata.json文件的作用是为了提供给IDEA进行配置输入提示"
+  ,
+      "timestamp": "2020-08-25T01:54:00.000Z",
+      "type": "text",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=spring-boot-configuration-processor%E7%9A%84%E4%BD%9C%E7%94%A8-%E7%BC%96%E8%AF%91%E5%99%A8%E4%B8%BA%E8%87%AA%E5%AE%9A%E4%B9%89Aut",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=spring-boot-configuration-processor%E7%9A%84%E4%BD%9C%E7%94%A8",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+@@ -170,15 +163,12 @@
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+- "Do not mock types you don’t own
+- Don’t mock value objects
+- Don’t mock everything
+- Show love with your tests!
+-   ---Mockito"
++ "Do not mock types you don’t own Don’t mock value objects Don’t
++                                     mock everything Show love with your tests! ---Mockito"
+  ,
+      "timestamp": "2020-08-24T15:15:00.000Z",
+      "type": "text",
+      "url": "https://wx.zsxq.com/group/48415284844818#:~:text=Do-not-mock-types-you-don-t-own-Don-t-mock-value-o",
+      "videos": [],
+@@ -192,11 +182,12 @@
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+  "assertj,Hamcrest,truth,junit框架自带Assertions,strikt...这么多轮子你用哪个？
+- assertj挺好 [强]"
++                                     assertj挺好
++                                     [强]"
+  ,
+      "timestamp": "2020-08-22T15:49:00.000Z",
+      "type": "text",
+      "url": "https://wx.zsxq.com/group/48415284844818#:~:text=assertj-Hamcrest-truth-junit%E6%A1%86%E6%9E%B6%E8%87%AA%E5%B8%A6Assertions-strikt",
+      "videos": [],
+@@ -210,17 +201,17 @@
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+  "Spring cloud contract是个好东西。
+- 核心是利用maven仓库+groovy解决跨团队的分布式服务TDD单元测试问题。
+- https://www.youtube.com/watch?v=E87XhgYBM-Y&t=1449... (https://www.youtube.com/watch?v=E87XhgYBM-Y&t=1449s)
+- 龙老师现场教学"
++                                     核心是利用maven仓库+groovy解决跨团队的分布式服务TDD单元测试问题。
++                                     https://www.youtube.com/watch?v=E87XhgYBM-Y&t=1449... (https://www.youtube.com/watch?v=E87XhgYBM-Y&t=1449s)
++                                     龙老师现场教学"
+  ,
+      "timestamp": "2020-08-16T13:13:00.000Z",
+      "type": "article",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=Spring-cloud-contract%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B8%9C%E8%A5%BF-%E6%A0%B8%E5%BF%83%E6%98%AF%E5%88%A9%E7%94%A8maven%E4%BB%93%E5%BA%93-groovy%E8%A7%A3%E5%86%B3%E8%B7%A8",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=Spring-cloud-contract%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B8%9C%E8%A5%BF",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+@@ -247,25 +238,18 @@
+      "tags": [
+        "思考框架",
+      ],
+      "text": 
+  "#思考框架
+- • 我现在是个什么水平？
+- • 我想达到一个什么水平？
+- • 我将怎样到达那个目标？
+-  =
+- • Where are we?（我们现在在哪？）
+- • Where are we going?（我们要到哪儿去？）
+- • How can we get there?（我们如何到达那里？）
+- =
+- • 现状；
+- • 目标；
+- • 实现路径。"
++                                     • 我现在是个什么水平？ • 我想达到一个什么水平？ •
++                                     我将怎样到达那个目标？ = • Where are we?（我们现在在哪？） •
++                                     Where are we going?（我们要到哪儿去？） • How can we get
++                                     there?（我们如何到达那里？） = • 现状； • 目标； • 实现路径。"
+  ,
+      "timestamp": "2020-07-31T07:50:00.000Z",
+      "type": "text",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E6%80%9D%E8%80%83%E6%A1%86%E6%9E%B6-%E6%88%91%E7%8E%B0%E5%9C%A8%E6%98%AF%E4%B8%AA%E4%BB%80%E4%B9%88%E6%B0%B4%E5%B9%B3-%E6%88%91%E6%83%B3%E8%BE%BE%E5%88%B0%E4%B8%80%E4%B8%AA%E4%BB%80%E4%B9%88%E6%B0%B4%E5%B9%B3-%E6%88%91%E5%B0%86%E6%80%8E%E6%A0%B7%E5%88%B0%E8%BE%BE%E9%82%A3%E4%B8%AA%E7%9B%AE%E6%A0%87",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E6%80%9D%E8%80%83%E6%A1%86%E6%9E%B6-%E6%88%91%E7%8E%B0%E5%9C%A8%E6%98%AF%E4%B8%AA%E4%BB%80",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+@@ -327,14 +311,17 @@
+      },
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+-     "text": "工作满意度三个维度：薪水（物质保障水平）成就感（精神满足水平） 成长（职业发展速度）",
++     "text": 
++ "工作满意度三个维度：薪水（物质保障水平）成就感（精神满足水平）
++                                     成长（职业发展速度）"
++ ,
+      "timestamp": "2020-07-23T03:37:00.000Z",
+      "type": "text",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E5%B7%A5%E4%BD%9C%E6%BB%A1%E6%84%8F%E5%BA%A6%E4%B8%89%E4%B8%AA%E7%BB%B4%E5%BA%A6-%E8%96%AA%E6%B0%B4-%E7%89%A9%E8%B4%A8%E4%BF%9D%E9%9A%9C%E6%B0%B4%E5%B9%B3-%E6%88%90%E5%B0%B1%E6%84%9F-%E7%B2%BE%E7%A5%9E%E6%BB%A1%E8%B6%B3%E6%B0%B4%E5%B9%B3-%E6%88%90%E9%95%BF-%E8%81%8C%E4%B8%9A%E5%8F%91%E5%B1%95%E9%80%9F%E5%BA%A6",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E5%B7%A5%E4%BD%9C%E6%BB%A1%E6%84%8F%E5%BA%A6%E4%B8%89%E4%B8%AA%E7%BB%B4%E5%BA%A6-%E8%96%AA%E6%B0%B4-%E7%89%A9%E8%B4%A8%E4%BF%9D%E9%9A%9C%E6%B0%B4%E5%B9%B3-%E6%88%90%E5%B0%B1%E6%84%9F-%E7%B2%BE%E7%A5%9E%E6%BB%A1%E8%B6%B3%E6%B0%B4%E5%B9%B3",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+@@ -343,19 +330,18 @@
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+- "权限控制设计🚪
+- ACL：Access-Control List，访问控制列表。
+- RBAC：Role-Based Access Control，基于角色的权限控制。
+- ABAC：Attribute-Based Access Control，基于属性的权限控制。
+- PBAC：Policy-Based Access Control，基于策略的权限控制。"
++ "权限控制设计🚪 ACL：Access-Control List，访问控制列表。
++                                     RBAC：Role-Based Access Control，基于角色的权限控制。
++                                     ABAC：Attribute-Based Access Control，基于属性的权限控制。
++                                     PBAC：Policy-Based Access Control，基于策略的权限控制。"
+  ,
+      "timestamp": "2020-07-23T03:30:00.000Z",
+      "type": "text",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E8%AE%BE%E8%AE%A1-ACL-Access-Control-List-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8-RBAC-Role",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E8%AE%BE%E8%AE%A1-ACL-Access-Control-List-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+@@ -364,21 +350,18 @@
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+- "两种分页方法你觉得那个好一点🕐
+- 1 前端控制每页个数
+- 请求pageNo pageSize 
+- 返回：data:[],count:int
+- 2 请求 固定返回个数 后端绝对
+- 请求：prev:int ,aid:int 业务id
+- 返回 data:[], page:{count:int,more:boolean}"
++ "两种分页方法你觉得那个好一点🕐 1 前端控制每页个数 请求pageNo
++                                     pageSize 返回：data:[],count:int 2 请求 固定返回个数 后端绝对
++                                     请求：prev:int ,aid:int 业务id 返回 data:[],
++                                     page:{count:int,more:boolean}"
+  ,
+      "timestamp": "2020-07-23T03:29:00.000Z",
+      "type": "text",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E4%B8%A4%E7%A7%8D%E5%88%86%E9%A1%B5%E6%96%B9%E6%B3%95%E4%BD%A0%E8%A7%89%E5%BE%97%E9%82%A3%E4%B8%AA%E5%A5%BD%E4%B8%80%E7%82%B9-1-%E5%89%8D%E7%AB%AF%E6%8E%A7%E5%88%B6%E6%AF%8F%E9%A1%B5%E4%B8%AA%E6%95%B0-%E8%AF%B7%E6%B1%82pageNo-pageSize-%E8%BF%94%E5%9B%9E",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E4%B8%A4%E7%A7%8D%E5%88%86%E9%A1%B5%E6%96%B9%E6%B3%95%E4%BD%A0%E8%A7%89%E5%BE%97%E9%82%A3%E4%B8%AA%E5%A5%BD%E4%B8%80%E7%82%B9-1-%E5%89%8D%E7%AB%AF%E6%8E%A7%E5%88%B6%E6%AF%8F%E9%A1%B5%E4%B8%AA%E6%95%B0-%E8%AF%B7%E6%B1%82pageNo",
+      "videos": [],
+    },
+    {
+      "author": {
+        "displayName": "寡人张磊",
+@@ -387,15 +370,14 @@
+      "collectedAt": "2024-01-01T00:00:00.000Z",
+      "images": [],
+      "source": "ZSXQ",
+      "tags": [],
+      "text": 
+- "如何设置合适的堆大小
+- jmap -histo:live < pid > 手动触发full GC 
+- 堆大小=fullGC存货size * 1.5~2倍"
++ "如何设置合适的堆大小 jmap -histo:live < pid > 手动触发full
++                                     GC 堆大小=fullGC存货size * 1.5~2倍"
+  ,
+      "timestamp": "2020-07-23T03:27:00.000Z",
+      "type": "text",
+-     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E5%90%88%E9%80%82%E7%9A%84%E5%A0%86%E5%A4%A7%E5%B0%8F-jmap-histo-live-pid-%E6%89%8B%E5%8A%A8%E8%A7%A6%E5%8F%91full-GC-%E5%A0%86",
++     "url": "https://wx.zsxq.com/group/48415284844818#:~:text=%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E5%90%88%E9%80%82%E7%9A%84%E5%A0%86%E5%A4%A7%E5%B0%8F-jmap-histo-live-pid-%E6%89%8B%E5%8A%A8%E8%A7%A6%E5%8F%91full",
+      "videos": [],
+    },
+  ]
+
+- Expected  - 75
++ Received  + 57
+
+      at <anonymous> (/Users/lei/dev/personal/synapse/chrome-extension/content/collector.test.ts:309:23)
+(fail) Collectors > ZSXQ Collector [587.28ms]
+[YouTube Test] findAllVideosYoutube exists: function
+[YouTube Test] Found ytd-rich-item-renderer elements: 5
+[YouTube Test] videos found: 5
+(pass) Collectors > YouTube Collector [69.65ms]
+
+ 3 pass
+ 4 fail
+ 13 expect() calls
+Ran 7 tests across 1 file. [2.08s]

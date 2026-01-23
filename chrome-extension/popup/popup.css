@@ -1,13 +1,13 @@
 /* Synapse Popup Styles */
 
 :root {
-  --md-primary: #6750A4;
-  --md-on-primary: #FFFFFF;
-  --md-surface: #FFFBFE;
-  --md-on-surface: #1C1B1F;
-  --md-surface-variant: #E7E0EC;
-  --md-outline: #79747E;
-  --md-error: #B3261E;
+  --md-primary: #6750a4;
+  --md-on-primary: #ffffff;
+  --md-surface: #fffbfe;
+  --md-on-surface: #1c1b1f;
+  --md-surface-variant: #e7e0ec;
+  --md-outline: #79747e;
+  --md-error: #b3261e;
   --md-success: #198754;
 }
 
@@ -222,7 +222,7 @@ body {
 }
 
 .log-entry.warn {
-  border-left-color: #F59E0B;
+  border-left-color: #f59e0b;
 }
 
 .log-header {

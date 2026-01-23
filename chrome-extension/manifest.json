@@ -3,12 +3,7 @@
   "name": "Synapse Collector",
   "version": "1.0.0",
   "description": "Aggregate your thoughts from X.com, Bilibili, Weibo, QZone, Redbook, ZSXQ and YouTube to Notion",
-  "permissions": [
-    "storage",
-    "activeTab",
-    "scripting",
-    "webNavigation"
-  ],
+  "permissions": ["storage", "activeTab", "scripting", "webNavigation"],
   "host_permissions": [
     "https://x.com/*",
     "https://twitter.com/*",
@@ -42,73 +37,39 @@
   "options_page": "options/options.html",
   "content_scripts": [
     {
-      "matches": [
-        "https://x.com/*",
-        "https://twitter.com/*"
-      ],
-      "js": [
-        "dist/content/x-collector.js"
-      ],
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["dist/content/x-collector.js"],
       "run_at": "document_idle"
     },
     {
-      "matches": [
-        "https://www.bilibili.com/*",
-        "https://space.bilibili.com/*"
-      ],
-      "js": [
-        "dist/content/bilibili-collector.js"
-      ],
+      "matches": ["https://www.bilibili.com/*", "https://space.bilibili.com/*"],
+      "js": ["dist/content/bilibili-collector.js"],
       "run_at": "document_idle"
     },
     {
-      "matches": [
-        "https://*.qzone.qq.com/*",
-        "https://user.qzone.qq.com/*"
-      ],
-      "js": [
-        "dist/content/qzone-collector.js"
-      ],
+      "matches": ["https://*.qzone.qq.com/*", "https://user.qzone.qq.com/*"],
+      "js": ["dist/content/qzone-collector.js"],
       "run_at": "document_idle",
       "all_frames": true
     },
     {
-      "matches": [
-        "https://weibo.com/*",
-        "https://www.weibo.com/*",
-        "https://m.weibo.com/*"
-      ],
-      "js": [
-        "dist/content/weibo-collector.js"
-      ],
+      "matches": ["https://weibo.com/*", "https://www.weibo.com/*", "https://m.weibo.com/*"],
+      "js": ["dist/content/weibo-collector.js"],
       "run_at": "document_idle"
     },
     {
-      "matches": [
-        "https://www.xiaohongshu.com/*"
-      ],
-      "js": [
-        "dist/content/redbook-collector.js"
-      ],
+      "matches": ["https://www.xiaohongshu.com/*"],
+      "js": ["dist/content/redbook-collector.js"],
       "run_at": "document_idle"
     },
     {
-      "matches": [
-        "https://wx.zsxq.com/*",
-        "https://*.zsxq.com/*"
-      ],
-      "js": [
-        "dist/content/zsxq-collector.js"
-      ],
+      "matches": ["https://wx.zsxq.com/*", "https://*.zsxq.com/*"],
+      "js": ["dist/content/zsxq-collector.js"],
       "run_at": "document_idle"
     },
     {
-      "matches": [
-        "https://www.youtube.com/*"
-      ],
-      "js": [
-        "dist/content/youtube-collector.js"
-      ],
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["dist/content/youtube-collector.js"],
       "run_at": "document_idle"
     }
   ],

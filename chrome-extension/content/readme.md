@@ -24,7 +24,7 @@ Content Collectors 是 Chrome Extension 的内容脚本，负责从不同平台�
 
 ```typescript
 export const PLATFORMS = {
-    x: { 
+    x: {
         toggle: 'enableX',           // UI 开关 ID
         config: 'configX',           // UI 配置区 ID
         targetInput: 'targetXUser',  // UI 输入框 ID
@@ -45,12 +45,14 @@ export const DEFAULT_ENABLED_SOURCES: PlatformKey[] = ['x', 'bilibili', ...];
 ## 添加新平台 Collector 的步骤
 
 ### 1. 准备工作
+
 - 在目标网站保存 HTML 样本到 `target-html/platform.html`
 - 分析 HTML 结构，确定关键 CSS 选择器
 
 ### 2. 更新平台配置（核心步骤）
 
 #### 2.1 编辑 `lib/platforms.ts`
+
 ```typescript
 export const PLATFORMS = {
     // ... 现有平台
@@ -69,21 +71,24 @@ export const DEFAULT_ENABLED_SOURCES: PlatformKey[] = [
 ```
 
 #### 2.2 编辑 `lib/types.d.ts`
+
 ```typescript
 interface CollectedContent {
-    source: 'X' | 'Bilibili' | '...' | 'NewPlatform';  // 添加
+  source: 'X' | 'Bilibili' | '...' | 'NewPlatform'; // 添加
 }
 
 interface AppConfig {
-    targetNewplatformUser?: string;  // 添加配置字段
-    // 字段名必须与 platforms.ts 中的 configKey 一致！
+  targetNewplatformUser?: string; // 添加配置字段
+  // 字段名必须与 platforms.ts 中的 configKey 一致！
 }
 ```
 
 ### 3. 创建 Collector 文件
+
 创建 `content/[platform]-collector.ts`
 
 **参考文件**：
+
 - 接口定义：[collector.interface.ts](collector.interface.ts)
 - 实现示例：
   - [x-collector.ts](x-collector.ts) - 简单文本提取
@@ -91,6 +96,7 @@ interface AppConfig {
   - [zsxq-collector.ts](zsxq-collector.ts) - 复杂 DOM 处理、表情/链接还原
 
 **核心函数**（参考其他 collector）：
+
 - `extractText*()` - 提取文本内容
 - `extractImages*()` - 提取图片 URLs
 - `extractTimestamp*()` - 解析时间戳
@@ -101,29 +107,32 @@ interface AppConfig {
 - `tryAutoCollect*()` - 自动采集逻辑
 
 ### 4. 更新 manifest.json
+
 ```json
 {
   "host_permissions": ["https://newplatform.com/*"],
-  "content_scripts": [{
-    "matches": ["https://newplatform.com/*"],
-    "js": ["dist/content/platform-collector.js"]
-  }]
+  "content_scripts": [
+    {
+      "matches": ["https://newplatform.com/*"],
+      "js": ["dist/content/platform-collector.js"]
+    }
+  ]
 }
 ```
 
 ### 5. 更新 Options 页面 HTML
+
 编辑 `options/options.html`，添加平台配置 UI：
 
 ```html
 <div class="platform-item">
-    <label>
-        <input type="checkbox" id="enableNewplatform" class="platform-toggle">
-        NewPlatform
-    </label>
-    <div id="configNewplatform" class="platform-config hidden">
-        <input type="text" id="targetNewplatformUser" 
-               placeholder="Target username">
-    </div>
+  <label>
+    <input type="checkbox" id="enableNewplatform" class="platform-toggle" />
+    NewPlatform
+  </label>
+  <div id="configNewplatform" class="platform-config hidden">
+    <input type="text" id="targetNewplatformUser" placeholder="Target username" />
+  </div>
 </div>
 ```
 
@@ -132,46 +141,48 @@ interface AppConfig {
 ### 6. ⚠️ 编写单元测试（必需）
 
 #### 步骤 A: 更新测试文件
+
 在 `content/collector.test.ts` 中：
 
 1. 添加到 collectors 数组：
+
 ```typescript
 const collectors = [
-    // ... 其他
-    'dist/content/platform-collector.js'  // 添加
+  // ... 其他
+  'dist/content/platform-collector.js', // 添加
 ];
 ```
 
 2. 添加测试用例（参考现有测试）：
+
 ```typescript
-test("Platform Collector", () => {
-    const htmlPath = join(TARGET_HTML_DIR, "platform.html");
-    const jsonPath = join(TARGET_HTML_DIR, "platform.json");
+test('Platform Collector', () => {
+  const htmlPath = join(TARGET_HTML_DIR, 'platform.html');
+  const jsonPath = join(TARGET_HTML_DIR, 'platform.json');
 
-    updateDOMWithUrl(htmlPath, "https://platform.com/target");
+  updateDOMWithUrl(htmlPath, 'https://platform.com/target');
 
-    const items = (globalThis as any).findAllItemsPlatform();
-    expect(items.length).toBeGreaterThan(0);
+  const items = (globalThis as any).findAllItemsPlatform();
+  expect(items.length).toBeGreaterThan(0);
 
-    const results = items.map((i: any) => 
-        (globalThis as any).collectItemDataPlatform(i)
-    );
+  const results = items.map((i: any) => (globalThis as any).collectItemDataPlatform(i));
 
-    results.forEach((r: any) => {
-        r.collectedAt = "2024-01-01T00:00:00.000Z";
-    });
+  results.forEach((r: any) => {
+    r.collectedAt = '2024-01-01T00:00:00.000Z';
+  });
 
-    if (!existsSync(jsonPath)) {
-        writeFileSync(jsonPath, JSON.stringify(results, null, 2));
-        console.log(`Created ${jsonPath}. Please review it.`);
-    } else {
-        const expected = JSON.parse(readFileSync(jsonPath, "utf-8"));
-        expect(results).toEqual(expected);
-    }
+  if (!existsSync(jsonPath)) {
+    writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+    console.log(`Created ${jsonPath}. Please review it.`);
+  } else {
+    const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+    expect(results).toEqual(expected);
+  }
 });
 ```
 
 #### 步骤 B: 运行测试
+
 ```bash
 bun run build                  # 编译
 bun run test                   # 首次运行生成 JSON
@@ -182,17 +193,21 @@ bun run test                   # 再次运行验证一致性
 ## 架构优势总结
 
 ### ✅ 自动化处理
+
 添加新平台后，以下组件会**自动**支持：
+
 - **storage.ts** - 自动读取/保存新平台配置
 - **options.ts** - 自动绑定 UI 元素和事件
 - **默认配置** - 自动包含在 `DEFAULT_ENABLED_SOURCES`
 
 ### ✅ 一致性保证
+
 - 平台标识符只在 `platforms.ts` 定义一次
 - UI 元素 ID 与配置键的映射集中管理
 - 避免了字符串拼写错误和不匹配问题
 
 ### ✅ 添加新平台清单
+
 1. ✏️ 编辑 `lib/platforms.ts` - 添加平台配置
 2. ✏️ 编辑 `lib/types.d.ts` - 添加 AppConfig 字段
 3. ✏️ 编辑 `options/options.html` - 添加 UI 元素
@@ -211,28 +226,33 @@ bun run test                   # 再次运行验证一致性
 **排查步骤**：
 
 1. **检查 `platforms.ts` 配置**
+
    ```typescript
    // ✅ 正确
    zsxq: { ..., configKey: 'zsxqTargetGroup' as const }
-   
+
    // ❌ 错误拼写
    zsxq: { ..., configKey: 'zsxqTargetGropu' as const }
    ```
 
 2. **检查 `types.d.ts` 字段名**
+
    ```typescript
    // 必须与 platforms.ts 的 configKey 完全一致
    interface AppConfig {
-       zsxqTargetGroup?: string;  // ✅
-       // zsxqGroup?: string;     // ❌ 不一致
+     zsxqTargetGroup?: string; // ✅
+     // zsxqGroup?: string;     // ❌ 不一致
    }
    ```
 
 3. **检查 HTML 元素 ID**
+
    ```html
    <!-- ID 必须与 platforms.ts 的 toggle/config/targetInput 一致 -->
-   <input id="enableZsxq">         <!-- ✅ 与 toggle 一致 -->
-   <input id="targetZsxqGroup">    <!-- ✅ 与 targetInput 一致 -->
+   <input id="enableZsxq" />
+   <!-- ✅ 与 toggle 一致 -->
+   <input id="targetZsxqGroup" />
+   <!-- ✅ 与 targetInput 一致 -->
    ```
 
 4. **验证配置存储**
@@ -250,4 +270,3 @@ bun run test                   # 再次运行验证一致性
 1. 检查平台是否在 `DEFAULT_ENABLED_SOURCES` 中
 2. 检查 collector 中使用的配置字段名是否正确
 3. 检查 manifest.json 的 host_permissions 和 content_scripts
-
