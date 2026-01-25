@@ -118,11 +118,20 @@
     if (linkElement) {
       const href = linkElement.getAttribute('href') || '';
       if (href) {
+        let fullUrl = href;
         // Convert relative URL to absolute if needed
         if (href.startsWith('/')) {
-          return `https://www.xiaohongshu.com${href}`;
+          fullUrl = `https://www.xiaohongshu.com${href}`;
         }
-        return href;
+
+        try {
+          // Remove query parameters to avoid duplicates due to changing tokens (e.g. xsec_token)
+          const urlObj = new URL(fullUrl);
+          urlObj.search = '';
+          return urlObj.toString();
+        } catch (e) {
+          return fullUrl.split('?')[0];
+        }
       }
     }
     return '';

@@ -543,8 +543,6 @@
     };
   }
 
-
-
   /**
    * Auto-collect ALL visible dynamics on page load
    */

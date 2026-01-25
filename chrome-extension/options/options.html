@@ -210,9 +210,14 @@
               </label>
             </div>
             <div class="platform-config" id="configZsxq">
-              <div class="input-group">
-                <label for="targetZsxqGroup">Group ID</label>
-                <input type="text" id="targetZsxqGroup" placeholder="48415284844818" />
+              <div
+                class="input-group multi-input-group"
+                data-platform="zsxq"
+                data-key="targetZsxqGroup"
+              >
+                <label>Group ID(s)</label>
+                <div class="input-list"></div>
+                <button type="button" class="add-btn secondary-btn">+ Add Group</button>
                 <p class="hint">在星球页面 URL 中找到: wx.zsxq.com/group/[GroupID]</p>
               </div>
             </div>

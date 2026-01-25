@@ -14,7 +14,7 @@ function createTestWindow(url: string = 'https://example.com') {
       disableJavaScriptEvaluation: false,
       disableCSSFileLoading: true,
       disableIframePageLoading: true,
-    }
+    },
   });
 
   // Mock chrome API on the window
@@ -43,16 +43,46 @@ function createTestWindow(url: string = 'https://example.com') {
       },
     },
   };
-  
+
   // Polyfill standard globals for VM context
   const globals = [
-    'Array', 'Object', 'String', 'Number', 'Boolean', 'RegExp', 'Date', 'Math', 'JSON', 'Promise', 
-    'console', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'URL', 'URLSearchParams',
-    'Error', 'TypeError', 'RangeError', 'SyntaxError', 'ReferenceError', 'URIError', 'EvalError',
-    'Map', 'Set', 'WeakMap', 'WeakSet', 'Symbol', 'Function', 'parseInt', 'parseFloat', 'isNaN', 'isFinite'
+    'Array',
+    'Object',
+    'String',
+    'Number',
+    'Boolean',
+    'RegExp',
+    'Date',
+    'Math',
+    'JSON',
+    'Promise',
+    'console',
+    'setTimeout',
+    'clearTimeout',
+    'setInterval',
+    'clearInterval',
+    'URL',
+    'URLSearchParams',
+    'Error',
+    'TypeError',
+    'RangeError',
+    'SyntaxError',
+    'ReferenceError',
+    'URIError',
+    'EvalError',
+    'Map',
+    'Set',
+    'WeakMap',
+    'WeakSet',
+    'Symbol',
+    'Function',
+    'parseInt',
+    'parseFloat',
+    'isNaN',
+    'isFinite',
   ];
 
-  globals.forEach(key => {
+  globals.forEach((key) => {
     if (!(window as any)[key]) {
       (window as any)[key] = (globalThis as any)[key];
     }
@@ -89,25 +119,51 @@ function loadCollector(window: Window, relPath: string) {
     try {
       // Ensure Array and other globals are present on the window object before context creation
       const globalPrototypes = [
-        'Array', 'Object', 'String', 'Number', 'Boolean', 'RegExp', 'Date', 'Math', 'JSON', 'Promise', 
-        'Map', 'Set', 'WeakMap', 'WeakSet', 'Symbol', 'Function', 'Error', 'TypeError',
-        'encodeURIComponent', 'decodeURIComponent', 'encodeURI', 'decodeURI', 
-        'btoa', 'atob', 'unescape', 'escape', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval'
+        'Array',
+        'Object',
+        'String',
+        'Number',
+        'Boolean',
+        'RegExp',
+        'Date',
+        'Math',
+        'JSON',
+        'Promise',
+        'Map',
+        'Set',
+        'WeakMap',
+        'WeakSet',
+        'Symbol',
+        'Function',
+        'Error',
+        'TypeError',
+        'encodeURIComponent',
+        'decodeURIComponent',
+        'encodeURI',
+        'decodeURI',
+        'btoa',
+        'atob',
+        'unescape',
+        'escape',
+        'setTimeout',
+        'clearTimeout',
+        'setInterval',
+        'clearInterval',
       ];
-      
-      globalPrototypes.forEach(key => {
-         if (!(window as any)[key]) {
-            try {
-              (window as any)[key] = (globalThis as any)[key];
-            } catch (e) {
-              console.error(`Failed to polyfill ${key}:`, e);
-            }
-         }
-       });
- 
-       // Create VM context from the window
-       createContext(window);
-      
+
+      globalPrototypes.forEach((key) => {
+        if (!(window as any)[key]) {
+          try {
+            (window as any)[key] = (globalThis as any)[key];
+          } catch (e) {
+            console.error(`Failed to polyfill ${key}:`, e);
+          }
+        }
+      });
+
+      // Create VM context from the window
+      createContext(window);
+
       // Execute in the window context
       runInContext(content, window);
     } catch (e) {
@@ -125,7 +181,7 @@ beforeEach(() => {
   // Note: VM context might use its own Date or the one from window.
   // We mock globalThis.Date just in case, but ideally we should mock window.Date if needed.
   // However, Happy-DOM's Window usually exposes the environment's Date constructor.
-  
+
   const fixedDate = new Date('2024-01-01T12:00:00Z');
   originalDate = globalThis.Date;
 
@@ -154,7 +210,7 @@ function loadHtmlToWindow(window: Window, htmlPath: string) {
 test('X.com Collector', () => {
   const window = createTestWindow('https://x.com/home');
   loadCollector(window, 'dist/content/x-collector.js');
-  
+
   const htmlPath = join(TARGET_HTML_DIR, 'x.html');
   const jsonPath = join(TARGET_HTML_DIR, 'x.json');
 
@@ -259,7 +315,9 @@ test('Weibo Collector', () => {
 });
 
 test('Redbook Collector', () => {
-  const window = createTestWindow('https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee');
+  const window = createTestWindow(
+    'https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee',
+  );
   loadCollector(window, 'dist/content/redbook-collector.js');
 
   const htmlPath = join(TARGET_HTML_DIR, 'redbook.html');
