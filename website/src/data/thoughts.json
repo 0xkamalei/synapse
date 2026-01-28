@@ -1717,6 +1717,19 @@
     "createdAt": "2026-01-11T02:30:00.000Z"
   },
   {
+    "id": "2f56dd2f-2d12-8106-b10e-df707a7b1981",
+    "hashId": "1ab8509d0bc367d8037ec07c6a36ca3651358fc0095dfd44a9235dd2c7f0d33f",
+    "title": "https://synapse.leix...",
+    "content": "https://synapse.leix.dev/  两天零一夜完成了这个项目",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=https%3A%2F%2Fsynapse.leix.dev%2F%E2%80%8B%20%20%E4%B8%A4%E5%A4%A9%E9%9B%B6%E4%B8%80%E5%A4%9C%E5%AE%8C%E6%88%90%E4%BA%86%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE&synapse=MjAyNi0w",
+    "originalDate": "2026-01-06T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-27T02:30:00.000Z"
+  },
+  {
     "id": "2e16dd2f-2d12-81f0-8720-e768cf1b2281",
     "title": "a7af224e7a418498b66ac449402f1b63f1d35c63fef7a9007a9d2b51c10d8bc6",
     "content": "我做了个人媒体工具,自动采集多个社交媒体平台的内容同步到notion database,在通过astro构建成为一个timeline website,目前支持B站,X,QQ空间,朋友圈。项目原因我想追忆一下自己以前的想法，但是这些thoughts可能散落在各个平台，我想有一个属于自己host的site来拥有它们",
@@ -1751,6 +1764,32 @@
     "videos": [],
     "tags": [],
     "createdAt": "2026-01-07T04:04:00.000Z"
+  },
+  {
+    "id": "2f56dd2f-2d12-81b6-9a9d-db13d9ea342e",
+    "hashId": "af679f55519a694ec096b3e5c66f3626a80441ed8f45e2b23dc62123f851d511",
+    "title": "要实现从“卖时间”到“卖作品”的跨越，核...",
+    "content": "要实现从“卖时间”到“卖作品”的跨越，核心不在于代码，而在于思维的重构。",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E8%A6%81%E5%AE%9E%E7%8E%B0%E4%BB%8E%E2%80%9C%E5%8D%96%E6%97%B6%E9%97%B4%E2%80%9D%E5%88%B0%E2%80%9C%E5%8D%96%E4%BD%9C%E5%93%81%E2%80%9D%E7%9A%84%E8%B7%A8%E8%B6%8A%EF%BC%8C%E6%A0%B8%E5%BF%83%E4%B8%8D%E5%9C%A8%E4%BA%8E%E4%BB%A3%E7%A0%81%EF%BC%8C%E8%80%8C%E5%9C%A8%E4%BA%8E%E6%80%9D%E7%BB%B4%E7%9A%84%E9%87%8D%E6%9E%84%E3%80%82&synapse=MjAyNi0w",
+    "originalDate": "2026-01-02T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-27T02:31:00.000Z"
+  },
+  {
+    "id": "2f56dd2f-2d12-8151-ac19-e93268e703ca",
+    "hashId": "4bc65b107c64e8fae8510c0dc7b490954c5430dd6791ff5c36585bd51669fea4",
+    "title": "别把“赚钱”看成了一个结果，而它其实是一...",
+    "content": "别把“赚钱”看成了一个结果，而它其实是一个实验过程",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=%E5%88%AB%E6%8A%8A%E2%80%9C%E8%B5%9A%E9%92%B1%E2%80%9D%E7%9C%8B%E6%88%90%E4%BA%86%E4%B8%80%E4%B8%AA%E7%BB%93%E6%9E%9C%EF%BC%8C%E8%80%8C%E5%AE%83%E5%85%B6%E5%AE%9E%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B&synapse=MjAyNi0w",
+    "originalDate": "2026-01-02T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-27T02:30:00.000Z"
   },
   {
     "id": "2e16dd2f-2d12-81e8-b72e-c92087c964c4",
@@ -1791,6 +1830,21 @@
     "videos": [],
     "tags": [],
     "createdAt": "2026-01-07T04:05:00.000Z"
+  },
+  {
+    "id": "2f56dd2f-2d12-8103-b292-debfaf6a106e",
+    "hashId": "16fc0be1730748480ac2bc148ecc7f942796714f72a8afb204f744cb8ddb0c6d",
+    "title": "[视频] vibe coding 英语学...",
+    "content": "[视频] vibe coding 英语学习工具 \ntry it out : philingo.leix.dev 一个自制的英语学习工具 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1qGqGBWEVt/",
+    "originalDate": "2025-12-16T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/afad4aa6112c12547d4b11d27040e8fb0b79ff66397e687f8580a28eb0abb535.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-27T02:31:00.000Z"
   },
   {
     "id": "2e16dd2f-2d12-8153-85ea-ff40e767bcd0",
@@ -1845,6 +1899,19 @@
     "createdAt": "2026-01-11T02:30:00.000Z"
   },
   {
+    "id": "2f56dd2f-2d12-81ef-b28e-d65b856f450f",
+    "hashId": "be6750251156a48f308eaa7f9789e57577e695e9eea21908d6a422fd96e00255",
+    "title": "https://afdian.com/a...",
+    "content": "https://afdian.com/a/leixdev  加入了爱发电",
+    "source": "Bilibili",
+    "originalUrl": "https://space.bilibili.com/284623903/dynamic#:~:text=https%3A%2F%2Fafdian.com%2Fa%2Fleixdev%E2%80%8B%20%20%E5%8A%A0%E5%85%A5%E4%BA%86%E7%88%B1%E5%8F%91%E7%94%B5&synapse=MjAyNS0x",
+    "originalDate": "2025-12-13T16:00:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-27T02:31:00.000Z"
+  },
+  {
     "id": "2e16dd2f-2d12-8143-a647-f5145353f323",
     "title": "54fbcfa5c978f5f3e7a4529ecaad27eb899646062e1ee9be8ffcb56af1568ac0",
     "content": "升级 tahoe了， launcher 留念",
@@ -1873,6 +1940,21 @@
     "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
+    "id": "2f56dd2f-2d12-81be-b53f-c6c6b46bbbd7",
+    "hashId": "df6cb5ea35b07d98b5f48e8425eb9ce7255c96984a84d1ec7bc78621a131cc25",
+    "title": "[视频] 英语练习记录 \n视频中使用软件...",
+    "content": "[视频] 英语练习记录 \n视频中使用软件为自制webapp ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1qAm7BcEGB/",
+    "originalDate": "2025-12-11T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d6406084eab3256e5e7138d4a89768fde63d5a7643b17467e60ae78db73065e5.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-27T02:32:00.000Z"
+  },
+  {
     "id": "2e16dd2f-2d12-8199-a9a0-d16decda34bb",
     "title": "a44750e79f1509a0b5c0aa4590cf017d79c0cc530620856b3c42709cf17e4369",
     "content": "[视频] 防被裁编程法 ",
@@ -1885,6 +1967,21 @@
     "videos": [],
     "tags": [],
     "createdAt": "2026-01-07T04:05:00.000Z"
+  },
+  {
+    "id": "2f56dd2f-2d12-8120-b8af-c3a491ca3f23",
+    "hashId": "a44750e79f1509a0b5c0aa4590cf017d79c0cc530620856b3c42709cf17e4369",
+    "title": "[视频] 防被裁编程法 ",
+    "content": "[视频] 防被裁编程法 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1XJmgBKEMJ/",
+    "originalDate": "2025-12-10T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/23a6fcd4c9b6aaed0d883438fd6d68904f050ed7197d2525911ff6eb546813c6.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-27T02:32:00.000Z"
   },
   {
     "id": "2e16dd2f-2d12-81fb-837a-fc08e0d1ae77",
@@ -1927,6 +2024,21 @@
     "createdAt": "2026-01-07T04:05:00.000Z"
   },
   {
+    "id": "2f56dd2f-2d12-8164-86b8-c3562da744cb",
+    "hashId": "cebded190ef11e7b5458fd156825f997b6b7709bb7c572588b6d1e750f6ab723",
+    "title": "[视频] 2025#5 AI成为一中新的...",
+    "content": "[视频] 2025#5 AI成为一中新的material ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1kFsnzgEuk/",
+    "originalDate": "2025-10-23T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9a40e0d40f0909fb28d342852ece1054ce4ea4ca196b5c2f0a68e495d25f0cca.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-27T02:32:00.000Z"
+  },
+  {
     "id": "2e16dd2f-2d12-8177-8221-c33f2e617262",
     "title": "26e0a285c9c86701c2b0003f0e98b08904df95c81c7d4b81c158bdd9389542b8",
     "content": "[视频] 2025#4 一镜到底外出上班 ",
@@ -1939,6 +2051,21 @@
     "videos": [],
     "tags": [],
     "createdAt": "2026-01-07T04:05:00.000Z"
+  },
+  {
+    "id": "2f56dd2f-2d12-8126-8a65-fdb488b67851",
+    "hashId": "26e0a285c9c86701c2b0003f0e98b08904df95c81c7d4b81c158bdd9389542b8",
+    "title": "[视频] 2025#4 一镜到底外出上班...",
+    "content": "[视频] 2025#4 一镜到底外出上班 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV11TsbzqEqR/",
+    "originalDate": "2025-10-21T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e1d293038bcce8a8f65c502e29f0f41ab1c628b6f2d773bdda0c5941eaec388e.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-27T02:33:00.000Z"
   },
   {
     "id": "2e16dd2f-2d12-8196-8093-efd0d1917b36",
