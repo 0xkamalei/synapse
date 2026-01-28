@@ -134,6 +134,40 @@ export async function getAllThoughts(since?: string): Promise<Thought[]> {
 }
 
 /**
+ * Fetch all published thought IDs to handle deletions
+ * This is a lightweight query that only fetches page IDs
+ */
+export async function getAllPublishedIds(): Promise<Set<string>> {
+    const ids = new Set<string>();
+    let cursor: string | undefined;
+
+    const filter = {
+        property: 'Status',
+        select: { equals: 'Published' }
+    };
+
+    do {
+        const response: any = await notion.request({
+            path: `data_sources/${datasourceId}/query`,
+            method: 'post',
+            body: {
+                filter: filter,
+                start_cursor: cursor,
+                page_size: 100
+            }
+        });
+
+        for (const page of response.results) {
+            ids.add(page.id);
+        }
+
+        cursor = response.has_more ? response.next_cursor ?? undefined : undefined;
+    } while (cursor);
+
+    return ids;
+}
+
+/**
  * Get thoughts grouped by date for calendar view
  */
 export async function getThoughtsByDate(): Promise<Map<string, Thought[]>> {

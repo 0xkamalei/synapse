@@ -1,4 +1,4 @@
-import { getAllThoughts } from '../src/lib/notion';
+import { getAllThoughts, getAllPublishedIds } from '../src/lib/notion';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -78,12 +78,6 @@ async function sync() {
         const newThoughts = await getAllThoughts(lastSyncTime);
         console.log(`   Fetched ${newThoughts.length} new thoughts.`);
 
-        // Optimization: If no new thoughts and thoughts file exists, skip writing
-        if (newThoughts.length === 0 && fs.existsSync(THOUGHTS_FILE)) {
-            console.log(`✅ No new thoughts found. Skipping file updates to avoid unnecessary commits.`);
-            return;
-        }
-
         // 3. Load existing thoughts from the local source of truth
         let allThoughts: any[] = [];
         if (fs.existsSync(THOUGHTS_FILE)) {
@@ -127,9 +121,25 @@ async function sync() {
         allThoughts = Array.from(thoughtMap.values())
             .sort((a, b) => b.originalDate.localeCompare(a.originalDate));
 
-        // 5. Rebuild daily counts from the combined full dataset
+        // 5. Check for deletions (Validate against current source of truth)
+        console.log('   Checking for deleted/unpublished items...');
+        const publishedIds = await getAllPublishedIds();
+        const initialCount = allThoughts.length;
+        allThoughts = allThoughts.filter(t => publishedIds.has(t.id));
+        const deletedCount = initialCount - allThoughts.length;
+        
+        if (deletedCount > 0) {
+             console.log(`   🗑️  Removed ${deletedCount} items that are no longer published.`);
+        }
+
+        // 6. Rebuild daily counts from the combined full dataset
         console.log('   Rebuilding daily counts from full dataset...');
         const dailyCounts = rebuildDailyCounts(allThoughts);
+
+        if (newThoughts.length === 0 && deletedCount === 0) {
+            console.log(`✅ No changes (no new thoughts, no deletions). Skipping file updates.`);
+            return;
+        }
 
         // 6. Write updated thoughts data
         fs.writeFileSync(
