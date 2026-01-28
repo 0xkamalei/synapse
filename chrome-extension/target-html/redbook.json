@@ -1,149 +1,70 @@
-{
-  "source": "Redbook",
-  "testUser": {
-    "userId": "64f335df00000000050011ee",
-    "displayName": "庸人张磊",
-    "redId": "kamalei"
+[
+  {
+    "source": "Redbook",
+    "type": "image",
+    "text": "第四天 农场采摘",
+    "images": [
+      "https://sns-webpic-qc.xhscdn.com/202601281304/7244b9674e46af586ffd492fb94ab7d9/1040g2sg31hl5m21j38705p7j6nfh84fe5h87kuo!nc_n_webp_mw_1"
+    ],
+    "videos": [],
+    "links": [],
+    "timestamp": "2025-05-19T00:28:20.000Z",
+    "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/682a7b240000000023014d34",
+    "author": {
+      "username": "64f335df00000000050011ee",
+      "displayName": "庸人张磊"
+    },
+    "collectedAt": "2024-01-01T00:00:00.000Z"
   },
-  "testUrl": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee",
-  "expectedNotes": [
-    {
-      "source": "Redbook",
-      "type": "video",
-      "text": "小红书网感指南：精致生活背后的流量密码",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/b695db490519454c5aad8ac4e36c82c9/1040g00831rboghfgn40g5p7j6nfh84fenj75vvg!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/6968865c000000000a029c2c"
+  {
+    "source": "Redbook",
+    "type": "image",
+    "text": "第三天 周六农场",
+    "images": [
+      "https://sns-webpic-qc.xhscdn.com/202601281304/a1baecf98d4cf6779443061eaf6b1684/1040g00831hjbu8jtk20g5p7j6nfh84fe66bhfig!nc_n_webp_mw_1"
+    ],
+    "videos": [],
+    "links": [],
+    "timestamp": "2025-05-17T14:56:23.000Z",
+    "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/6828a397000000002301ccb1",
+    "author": {
+      "username": "64f335df00000000050011ee",
+      "displayName": "庸人张磊"
     },
-    {
-      "source": "Redbook",
-      "type": "video",
-      "text": "九顶山动物园游玩",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/d30d21e69638519b13df4506505bf821/1040g00831nqqkmonku1g5p7j6nfh84fe8c04ib0!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/68f4e22e000000000700d9c9"
-    },
-    {
-      "source": "Redbook",
-      "type": "video",
-      "text": "动物园九顶山",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/e90eea95130b7eb2943d9aac7cac32d8/1040g00831nqqkmonku005p7j6nfh84fe9a6qroo!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/68f4e1e00000000007039cce"
-    },
-    {
-      "source": "Redbook",
-      "type": "video",
-      "text": "拍照3岁",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/6a1db199f48f0b72e2116acdd0cb94b3/1040g2sg31npene0mkue05p7j6nfh84femgk2fm8!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/68f378da00000000070310ae"
-    },
-    {
-      "source": "Redbook",
-      "type": "video",
-      "text": "当然要记录啊",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/b324fb574273f91bf0e935cffd83bf78/1040g00831nhjdv2f4u0g5p7j6nfh84fenvqv2kg!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/68eb6e9c0000000007021385"
-    },
-    {
-      "source": "Redbook",
-      "type": "video",
-      "text": "成长记录",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/e80fbb8cb6413102bc352f18bcdfe9c3/1040g00831nhjdv2f4u005p7j6nfh84femb59qro!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/68eb6e6d0000000007030089"
-    },
-    {
-      "source": "Redbook",
-      "type": "video",
-      "text": "2025.10.10",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/c35d014d7a461bfa1eebe913bef4a046/1040g00831nha654nks005p7j6nfh84fe24it5b8!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/68eb2289000000000700c2fc"
-    },
-    {
-      "source": "Redbook",
-      "type": "video",
-      "text": "8.29 一天中的片段",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/ad5d9c67256ef6b8f72ea86a71806cb0/1040g2sg31lptro24kse05p7j6nfh84fetka1lpo!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/68b26bad000000001d00d660"
-    },
-    {
-      "source": "Redbook",
-      "type": "image",
-      "text": "鱼缸事件",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/df4095a9fb5c19894c3818c6356aef1c/notes_pre_post/1040g3k031knma6f5ig005p7j6nfh84feetmgnu0!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/688f5d4600000000250207fd"
-    },
-    {
-      "source": "Redbook",
-      "type": "video",
-      "text": "6.3 睡前log",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/798879c4722e847172faa949cf8cedb2/1040g2sg31ibpsp8q7qeg5p7j6nfh84feuotetuo!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/6841a87000000000230000f6"
-    },
-    {
-      "source": "Redbook",
-      "type": "video",
-      "text": "莫将程序员思维带入生活💡",
-      "images": [
-        "https://sns-webpic-qc.xhscdn.com/202601151418/206fdb1ecef90990258b33b67923e5b8/1040g2sg31i02k3ut6q705p7j6nfh84fe6mrja38!nc_n_webp_mw_1"
-      ],
-      "videos": [],
-      "author": "庸人张磊",
-      "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/6835a4ef000000002301098c"
-    }
-  ],
-  "selectors": {
-    "noteContainer": ".feeds-container .note-item",
-    "title": ".footer .title span",
-    "coverImage": ".cover img",
-    "videoIndicator": ".play-icon",
-    "authorName": ".author-wrapper .author .name",
-    "authorLink": ".author-wrapper .author[href*=\"/user/profile/\"]",
-    "noteLink": ".cover[href], a.title[href]"
+    "collectedAt": "2024-01-01T00:00:00.000Z"
   },
-  "notes": [
-    "Redbook (Xiaohongshu) uses a Vue.js frontend with data-v attributes",
-    "Notes in the feed view only show title, cover image, and author",
-    "Timestamps are not displayed in the feed view",
-    "Video notes have a .play-icon indicator",
-    "Full note content requires navigating to the detail page",
-    "User profile URL format: https://www.xiaohongshu.com/user/profile/{userId}"
-  ]
-}
+  {
+    "source": "Redbook",
+    "type": "image",
+    "text": "第二天",
+    "images": [
+      "https://sns-webpic-qc.xhscdn.com/202601281304/9a3e4ba957d1b5ac03c6f0733df7f5d3/1040g2sg31hi3t9d442e05p7j6nfh84febl3o3io!nc_n_webp_mw_1"
+    ],
+    "videos": [],
+    "links": [],
+    "timestamp": "2025-05-16T15:27:50.000Z",
+    "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/68275976000000002202b6fe",
+    "author": {
+      "username": "64f335df00000000050011ee",
+      "displayName": "庸人张磊"
+    },
+    "collectedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "source": "Redbook",
+    "type": "image",
+    "text": "第一天 这个是什么",
+    "images": [
+      "https://sns-webpic-qc.xhscdn.com/202601281304/1470aa06325d18545e4f9b82a571e7a1/1040g2sg31hgs9qo3ju0g5pgi1n7hoh8da7gu1mg!nc_n_webp_mw_1"
+    ],
+    "videos": [],
+    "links": [],
+    "timestamp": "2025-05-15T16:33:36.000Z",
+    "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/682617600000000023012973",
+    "author": {
+      "username": "64f335df00000000050011ee",
+      "displayName": "庸人张磊"
+    },
+    "collectedAt": "2024-01-01T00:00:00.000Z"
+  }
+]

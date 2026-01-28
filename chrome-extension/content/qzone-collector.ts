@@ -574,4 +574,13 @@
 
   chrome.runtime.sendMessage({ type: 'CONTENT_SCRIPT_READY', source: 'qzone' });
   tryAutoCollect();
+
+  let lastUrl = window.location.href;
+  const observer = new MutationObserver(() => {
+    if (window.location.href !== lastUrl) {
+      lastUrl = window.location.href;
+      tryAutoCollect();
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
 })();

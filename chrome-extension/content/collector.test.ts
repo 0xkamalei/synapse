@@ -314,21 +314,23 @@ test('Weibo Collector', () => {
   }
 });
 
-test('Redbook Collector', () => {
+test('Redbook Collector', async () => {
   const window = createTestWindow(
     'https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee',
   );
+
   loadCollector(window, 'dist/content/redbook-collector.js');
 
   const htmlPath = join(TARGET_HTML_DIR, 'redbook.html');
-  const jsonPath = join(TARGET_HTML_DIR, 'redbook-expected.json');
+  const jsonPath = join(TARGET_HTML_DIR, 'redbook.json');
 
   loadHtmlToWindow(window, htmlPath);
 
   const notes = (window as any).findAllPostsRedbook();
   expect(notes.length).toBeGreaterThan(0);
 
-  const results = notes.map((n: any) => (window as any).collectNoteDataRedbook(n));
+  // collectNoteDataRedbook is now async
+  const results = await Promise.all(notes.map((n: any) => (window as any).collectNoteDataRedbook(n)));
 
   results.forEach((r: any) => {
     r.collectedAt = '2024-01-01T00:00:00.000Z';
@@ -375,7 +377,7 @@ test('YouTube Collector', () => {
   loadCollector(window, 'dist/content/youtube-collector.js');
 
   const htmlPath = join(TARGET_HTML_DIR, 'youtube.html');
-  const jsonPath = join(TARGET_HTML_DIR, 'youtube-expected.json');
+  const jsonPath = join(TARGET_HTML_DIR, 'youtube.json');
 
   loadHtmlToWindow(window, htmlPath);
 

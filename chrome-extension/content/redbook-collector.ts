@@ -3,6 +3,7 @@
  * Extracts note content from Redbook/Xiaohongshu pages
  */
 (() => {
+
   /**
    * Extract text content from a Redbook note element
    */
@@ -100,13 +101,30 @@
   }
 
   /**
+   * Sleep for a specified duration in milliseconds
+   */
+  function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  /**
    * Extract timestamp from a Redbook note
    * Note: Redbook notes don't display timestamps in the feed view
-   * This would need to be extracted from the detail page
    */
-  function extractRedbookTimestamp(_noteElement: Element): string {
-    // Timestamps are not visible in the feed view
-    // Would need to navigate to the note detail page to extract
+  async function extractRedbookTimestamp(noteElement: Element): Promise<string> {
+    const linkElement = noteElement.querySelector('.cover[href], .title[href]');
+    if (linkElement) {
+      const href = linkElement.getAttribute('href') || '';
+      const urlParts = href.split('?')[0].split('/');
+      const noteId = urlParts[urlParts.length - 1];
+      if (noteId && noteId.length >= 8) {
+        const seconds = Number.parseInt(noteId.slice(0, 8), 16);
+        if (!Number.isNaN(seconds) && seconds > 0) {
+          return new Date(seconds * 1000).toISOString();
+        }
+      }
+    }
+    
     return '';
   }
 
@@ -149,12 +167,12 @@
   /**
    * Collect data from a single note element (for testing)
    */
-  function collectNoteDataRedbook(noteElement: Element): CollectedContent {
+  async function collectNoteDataRedbook(noteElement: Element): Promise<CollectedContent> {
     const text = extractRedbookText(noteElement);
     const images = extractRedbookImages(noteElement);
     const videos = extractRedbookVideos(noteElement);
     const author = extractRedbookAuthor(noteElement);
-    const timestamp = extractRedbookTimestamp(noteElement);
+    const timestamp = await extractRedbookTimestamp(noteElement);
     const url = extractRedbookUrl(noteElement);
 
     // Determine content type
@@ -228,13 +246,13 @@
     });
 
     if (!response || !response.config) {
-      console.log('[Synapse] Redbook: Failed to get config');
+      console.log('[Synapse] Redbook: Failed to get config', response);
       return;
     }
 
     const config = response.config;
 
-    let targetUsers = config.targetRedbookUser;
+    let targetUsers = config?.targetRedbookUser;
     if (typeof targetUsers === 'string') targetUsers = [targetUsers];
 
     if (!targetUsers || targetUsers.length === 0) {
@@ -279,9 +297,18 @@
     }
 
     // Extract content from each post
-    const allContent = posts
-      .map((post) => collectNoteDataRedbook(post))
-      .filter((data) => data.text && data.text.trim().length > 0);
+    const allContent: CollectedContent[] = [];
+    
+    console.log(`[Synapse] Redbook: Processing ${posts.length} posts with delay...`);
+    
+    for (const post of posts) {
+      const data = await collectNoteDataRedbook(post);
+      if (data.text && data.text.trim().length > 0) {
+        allContent.push(data);
+      }
+      // Add random delay (1-2s) to avoid rapid collection
+      await sleep(1000 + Math.random() * 1000);
+    }
 
     console.log('[Synapse] Redbook: Found', allContent.length, 'notes with content');
 
@@ -337,41 +364,51 @@
     if (message.type === 'POP_TO_CONTENT_COLLECT') {
       console.log('[Synapse] Redbook: Manual collection triggered');
 
-      const currentUserId = getCurrentRedbookUserId();
+      (async () => {
+        const currentUserId = getCurrentRedbookUserId();
 
-      // Find all posts
-      const posts = findAllPostsRedbook();
+        // Find all posts
+        const posts = findAllPostsRedbook();
+        
+        console.log(`[Synapse] Redbook: Processing ${posts.length} posts with delay...`);
 
-      // Extract content
-      const allContent = posts
-        .map((post) => collectNoteDataRedbook(post))
-        .filter((data) => data.text && data.text.trim().length > 0);
+        // Extract content
+        const allContent: CollectedContent[] = [];
+        for (const post of posts) {
+          const data = await collectNoteDataRedbook(post);
+          if (data.text && data.text.trim().length > 0) {
+            allContent.push(data);
+          }
+          // Add random delay (1-2s) to avoid rapid collection
+          await sleep(1000 + Math.random() * 1000);
+        }
 
-      console.log('[Synapse] Redbook: Found', allContent.length, 'notes with content');
+        console.log('[Synapse] Redbook: Found', allContent.length, 'notes with content');
 
-      // Send to background for processing (this will use logger)
-      if (allContent.length > 0) {
-        chrome.runtime.sendMessage(
-          {
-            type: 'CONTENT_TO_BG_PROCESS',
-            contents: allContent,
-            pageUID: currentUserId,
-          },
-          (response) => {
-            sendResponse({
-              success: response?.success ?? false,
-              collected: response?.collected ?? 0,
-              skipped: response?.skipped ?? 0,
-            });
-          },
-        );
-      } else {
-        sendResponse({
-          success: true,
-          collected: 0,
-          skipped: 0,
-        });
-      }
+        // Send to background for processing (this will use logger)
+        if (allContent.length > 0) {
+          chrome.runtime.sendMessage(
+            {
+              type: 'CONTENT_TO_BG_PROCESS',
+              contents: allContent,
+              pageUID: currentUserId,
+            },
+            (response) => {
+              sendResponse({
+                success: response?.success ?? false,
+                collected: response?.collected ?? 0,
+                skipped: response?.skipped ?? 0,
+              });
+            },
+          );
+        } else {
+          sendResponse({
+            success: true,
+            collected: 0,
+            skipped: 0,
+          });
+        }
+      })();
 
       return true;
     }
@@ -391,6 +428,15 @@
 
   // Also try to collect after a delay (for dynamic content)
   setTimeout(tryAutoCollect, 3000);
+
+  let lastUrl = window.location.href;
+  const observer = new MutationObserver(() => {
+    if (window.location.href !== lastUrl) {
+      lastUrl = window.location.href;
+      setTimeout(tryAutoCollect, 1000);
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
 
   console.log('[Redbook Collector] Script loaded');
 })();
