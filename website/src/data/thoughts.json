@@ -1,5 +1,48 @@
 [
   {
+    "id": "2f86dd2f-2d12-8149-86a8-e4979661f3f4",
+    "hashId": "3ee3bf15ed5226132ccf2a406d9875fc5eff2cb1b5644d0d6f72c25d524c7e7f",
+    "title": "trae 在我构建的APP里注入广告 真...",
+    "content": "trae 在我构建的APP里注入广告 真恶心！",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2016871398413914491",
+    "originalDate": "2026-01-29T13:49:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-30T02:30:00.000Z"
+  },
+  {
+    "id": "2f86dd2f-2d12-8198-aa7b-ca7226161d54",
+    "hashId": "2f4d128d398c78352f53a082f4f0e220923c05695ad0639fa9178a1219be5c16",
+    "title": "[视频] 2026#3 复盘这款本地化字...",
+    "content": "[视频] 2026#3 复盘这款本地化字幕工具的诞生全过程 \n这段视频字幕记录了一位 36 岁程序员（也就是你）从远程工作者向独立开发者转型的实战心路历程。通过分享一款本地化字幕生成工具（MonoSub）的诞生过程，你不仅展示了技术实现的路径，更深度剖析了在 AI 时代，个人开发者如何通过“认知对齐”与“差异化策略”在巨头缝隙中生存。 以下是对这段内容的底层情绪与核心观点的总结： 一、 底层情绪：焦虑、务实与重塑的渴望 这段文字背后流动着一种中年职场人特有的清醒与韧性。 对“订阅制霸权”的抵触与反思：字里行间透露出对市面上主流工具昂贵且依赖云端的不满。这种情绪并非单 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1326FBpE4u/",
+    "originalDate": "2026-01-29T08:57:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/90d29ed11ce9a05bbe91196816a0781d28bd47b1021f0b0efc9733583526c7d0.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-30T02:30:00.000Z"
+  },
+  {
+    "id": "2f86dd2f-2d12-81c9-818b-f1d66d004a8e",
+    "hashId": "b22e47f1567a078a62d2d6f0d33fcbc37261c4b4a6566e2dc7a1dbc6c2ce4522",
+    "title": "[视频] 关于 AI 编程效率的一次自我...",
+    "content": "[视频] 关于 AI 编程效率的一次自我复盘 \n这段内容背后的情绪与核心观点总结 这段表达的底层情绪不是对 AI 的否定，也不是对成本的焦虑，而是一种更隐蔽、但对长期创作者和程序员杀伤力很强的情绪： 👉 “我正在被工具反向支配，我的注意力和思考节奏被打碎了。” 一、表层情绪：不爽、卡顿、被打断 你描述的直接感受是： AI 不够智能，而不是太贵 输出第一次往往是错的或不完整的 你必须： 等它跑完 手动验证 给反馈 再等下一轮 这让你处在一种非常别扭的状态里： 不是人在用工具，而是人在等工具。 你很清楚： 白嫖的资源很多，成本不是问题 真正的问题是「等待 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV15B6FBZE1J/",
+    "originalDate": "2026-01-29T08:07:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/7d35711a3bc9d02ade3337f2b6a72aa2bb0b04a967e79e8482721b7be74225ea.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-01-30T02:30:00.000Z"
+  },
+  {
     "id": "2f76dd2f-2d12-816a-a16d-c7f88614049f",
     "hashId": "24b060332a8e4139eb0bb5943b34b7566c84a204e5b698d1dff939683f2395d5",
     "title": "果然还是国区的MinMax便宜！",
