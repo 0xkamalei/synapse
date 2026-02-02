@@ -207,7 +207,7 @@ function loadHtmlToWindow(window: Window, htmlPath: string) {
   (window.document as any).write(html);
 }
 
-test('X.com Collector', () => {
+test('X.com Collector', async () => {
   const window = createTestWindow('https://x.com/home');
   loadCollector(window, 'dist/content/x-collector.js');
 
@@ -219,7 +219,7 @@ test('X.com Collector', () => {
   const tweets = (window as any).findAllTweetsX();
   expect(tweets.length).toBeGreaterThan(0);
 
-  const results = tweets.map((t: any) => (window as any).collectTweetDataX(t));
+  const results = await Promise.all(tweets.map((t: any) => (window as any).collectTweetDataX(t)));
 
   // Only override collectedAt
   results.forEach((r: any) => {

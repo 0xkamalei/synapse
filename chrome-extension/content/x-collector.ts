@@ -29,9 +29,28 @@
   }
 
   /**
+   * Convert image URL to Base64 string
+   */
+  async function imageUrlToBase64(url: string): Promise<string> {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      return await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (err) {
+      console.error('[Synapse] Failed to convert image to base64:', url, err);
+      return url; // Fallback to original URL
+    }
+  }
+
+  /**
    * Extract images and videos from a tweet element
    */
-  function extractTweetMedia(tweetElement: Element): { images: string[]; videos: string[] } {
+  async function extractTweetMedia(tweetElement: Element): Promise<{ images: string[]; videos: string[] }> {
     const images: string[] = [];
     const videos: string[] = [];
 
@@ -83,7 +102,10 @@
       });
     });
 
-    return { images, videos };
+    // Convert images to base64
+    const base64Images = await Promise.all(images.map((url) => imageUrlToBase64(url)));
+
+    return { images: base64Images, videos };
   }
 
   /**
@@ -213,9 +235,9 @@
   /**
    * Extract all data from a tweet element
    */
-  function collectTweetDataX(tweetElement: Element): CollectedContent {
+  async function collectTweetDataX(tweetElement: Element): Promise<CollectedContent> {
     const text = extractTweetText(tweetElement);
-    const { images, videos } = extractTweetMedia(tweetElement);
+    const { images, videos } = await extractTweetMedia(tweetElement);
     const timestamp = extractTweetTimestamp(tweetElement);
     const url = extractTweetUrl(tweetElement);
     const author = extractAuthorInfoX(tweetElement);
@@ -323,50 +345,54 @@
   // Listen for messages from popup/background
   chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message.type === 'POP_TO_CONTENT_COLLECT') {
-      const isDetail = window.location.pathname.includes('/status/');
+      (async () => {
+        const isDetail = window.location.pathname.includes('/status/');
 
-      if (isDetail) {
-        const mainTweetX = findMainTweetX();
-        if (!mainTweetX) {
-          sendResponse({ success: false, error: 'No tweet found on page' });
-          return true;
+        if (isDetail) {
+          const mainTweetX = findMainTweetX();
+          if (!mainTweetX) {
+            sendResponse({ success: false, error: 'No tweet found on page' });
+            return;
+          }
+
+          const data = await collectTweetDataX(mainTweetX);
+
+          chrome.runtime.sendMessage(
+            {
+              type: 'CONTENT_TO_BG_PROCESS',
+              contents: [data],
+              pageUID: data.author.username,
+            },
+            (response) => {
+              sendResponse(response);
+            },
+          );
+        } else {
+          const tweets = findAllTweetsX();
+          if (tweets.length === 0) {
+            sendResponse({ success: false, error: 'No tweets found on page' });
+            return;
+          }
+
+          const contentPromises = tweets.map((t) => collectTweetDataX(t));
+          const resolvedContents = await Promise.all(contentPromises);
+          const contents = resolvedContents.filter(
+            (data) => data.text && data.text.trim().length > 0,
+          );
+          const pageUID = getCurrentPageUserX();
+
+          chrome.runtime.sendMessage(
+            {
+              type: 'CONTENT_TO_BG_PROCESS',
+              contents,
+              pageUID,
+            },
+            (response) => {
+              sendResponse(response);
+            },
+          );
         }
-
-        const data = collectTweetDataX(mainTweetX);
-
-        chrome.runtime.sendMessage(
-          {
-            type: 'CONTENT_TO_BG_PROCESS',
-            contents: [data],
-            pageUID: data.author.username,
-          },
-          (response) => {
-            sendResponse(response);
-          },
-        );
-      } else {
-        const tweets = findAllTweetsX();
-        if (tweets.length === 0) {
-          sendResponse({ success: false, error: 'No tweets found on page' });
-          return true;
-        }
-
-        const contents = tweets
-          .map((t) => collectTweetDataX(t))
-          .filter((data) => data.text && data.text.trim().length > 0);
-        const pageUID = getCurrentPageUserX();
-
-        chrome.runtime.sendMessage(
-          {
-            type: 'CONTENT_TO_BG_PROCESS',
-            contents,
-            pageUID,
-          },
-          (response) => {
-            sendResponse(response);
-          },
-        );
-      }
+      })();
       return true;
     } else if (message.type === 'GET_PAGE_INFO') {
       getPageInfo().then((info) => sendResponse(info));
@@ -426,9 +452,11 @@
     }
 
     // 4. Parse content
-    const contents = tweets
-      .map((t) => collectTweetDataX(t))
-      .filter((data) => data.text && data.text.trim().length > 0);
+    const contentPromises = tweets.map((t) => collectTweetDataX(t));
+    const resolvedContents = await Promise.all(contentPromises);
+    const contents = resolvedContents.filter(
+      (data) => data.text && data.text.trim().length > 0,
+    );
     const pageUID = getCurrentPageUserX();
 
     // 5. Send to background for saving

@@ -56,39 +56,42 @@ class UploadQueue {
 
   private async processTask(task: UploadTask): Promise<string> {
     const { url, type } = task;
+    const isDataUrl = url.startsWith('data:');
+    const logUrl = isDataUrl ? 'base64-data-url' : url;
 
     try {
       const { base64, mimeType, size } = await fileUrlToBase64(url);
 
-      const isVideo = mimeType.startsWith('video/') || url.includes('.mp4');
+      const isVideo = mimeType.startsWith('video/') || (!isDataUrl && url.includes('.mp4'));
       const limit = isVideo ? MAX_VIDEO_SIZE : MAX_IMAGE_SIZE;
 
       if (size > limit) {
         console.log(
           `[Synapse] ${type} is too large (${(size / 1024 / 1024).toFixed(2)}MB), using original URL:`,
-          url,
+          logUrl,
         );
-        return url;
+        return isDataUrl ? '' : url;
       }
 
       const isProbablyGif =
-        url.includes('tweet_video') || url.includes('giphy') || size < 2 * 1024 * 1024;
+        (!isDataUrl && (url.includes('tweet_video') || url.includes('giphy'))) ||
+        size < 2 * 1024 * 1024;
 
       if (isVideo && !isProbablyGif && size > 3 * 1024 * 1024) {
         console.log(
           `[Synapse] Video doesn't look like a GIF and is >3MB, keeping original URL:`,
-          url,
+          logUrl,
         );
-        return url;
+        return isDataUrl ? '' : url;
       }
 
-      const cdnUrl = await uploadBase64ToGitHubWithRetry(base64, mimeType, type, url);
+      const cdnUrl = await uploadBase64ToGitHubWithRetry(base64, mimeType, type, logUrl);
       return cdnUrl;
     } catch (err: any) {
       await logger.error(`Failed to process ${type}, using original URL`, {
-        data: { url, error: err.message },
+        data: { url: logUrl, error: err.message },
       });
-      return url;
+      return isDataUrl ? '' : url;
     }
   }
 }
@@ -100,7 +103,9 @@ const uploadQueue = new UploadQueue();
  */
 export async function uploadMedia(urls: string[], type: string = 'media'): Promise<string[]> {
   const uploadPromises = urls.map((url) => uploadQueue.add(url, type));
-  return Promise.all(uploadPromises);
+  const results = await Promise.all(uploadPromises);
+  // Filter out empty strings (failed Data URL uploads)
+  return results.filter((url) => url && url.length > 0);
 }
 
 /**
@@ -191,6 +196,26 @@ interface Base64Result {
  * Convert file URL to Base64
  */
 export async function fileUrlToBase64(url: string): Promise<Base64Result> {
+  // Check if it's already a Data URL
+  if (url.startsWith('data:')) {
+    const matches = url.match(/^data:([^;]+);base64,(.+)$/);
+    if (!matches) {
+      throw new Error('Invalid data URL format');
+    }
+    const mimeType = matches[1];
+    const base64 = matches[2];
+    // Calculate size roughly (Base64 size is ~4/3 of original)
+    // padding '=' characters are not part of the data
+    const padding = (base64.match(/=/g) || []).length;
+    const size = Math.floor((base64.length * 3) / 4) - padding;
+
+    return {
+      base64,
+      mimeType,
+      size,
+    };
+  }
+
   const response = await fetch(url);
   const blob = await response.blob();
 
