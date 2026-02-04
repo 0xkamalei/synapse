@@ -1,5 +1,35 @@
 [
   {
+    "id": "2fc6dd2f-2d12-81c3-86b5-ff7179e2045b",
+    "hashId": "c3c627daab19eb3998673284345c318cab1e7eec2227dfdc370e849c8d2b3ae2",
+    "title": "免费字幕提取软件就是它了",
+    "content": "免费字幕提取软件就是它了",
+    "source": "Redbook",
+    "originalUrl": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/",
+    "originalDate": "2026-02-03T02:30:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/439645b58d6cb6684ec7346f869590cb29dbe2aecda9ce506d6362c2bf0feac5.webp"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-03T02:30:00.000Z"
+  },
+  {
+    "id": "2fc6dd2f-2d12-81c3-946a-c3506283d0df",
+    "hashId": "28b94bb94c788493c88d373c97dfec8b402c4acf26d629f85a5ff98786410694",
+    "title": "[视频] 2026#4 我的小农思想 \n...",
+    "content": "[视频] 2026#4 我的小农思想 \n这期的核心情绪是对“枷锁”的无奈与反思，以及渴望突破自我的迫切感。作者通过“小农思想”的概念，结合自身经历，层层剖析普通人成长路上的多重束缚，并试图寻找解绑的方法。 核心观点可总结为三点： 枷锁的多重性：普通人超越自我需解开基因、身份、观念、认知等多重枷锁，这些枷锁是生活经历和环境塑造的“烙印”，阻碍个人突破。 突破的局限性：即使有勇气尝试（如父亲投资葡萄大棚），仍需“非对称性优势”（如资源渠道）来降低风险，单纯“有胆”并不足够。 认知枷锁的根源：最顽固的枷锁是长期环境训练形成的思维模式（如“贫穷限制想象 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1NKFKzCEyN/",
+    "originalDate": "2026-02-02T11:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/2269f02c94221864b382a23024ed794d8c789fb704237365da7ecc5f8101b6a8.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-03T02:30:00.000Z"
+  },
+  {
     "id": "2fb6dd2f-2d12-818c-91cf-cf49fe87c276",
     "hashId": "c58619293bd4c8271fb9586c70209840b6d004e51a2a62be9b58e2ebac1a2ee4",
     "title": "正在做一个 机场管理工具 ，我是多机场订...",
