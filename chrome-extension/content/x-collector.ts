@@ -286,7 +286,7 @@
   }
 
   /**
-   * Check if the current URL is the target user's profile page
+   * Check if current page is the target user's profile page
    */
   function isTargetURL(targetUsers: string[]): boolean {
     if (!targetUsers || !Array.isArray(targetUsers) || targetUsers.length === 0) return false;
@@ -300,6 +300,26 @@
         : targetUser.toLowerCase();
       // Exact match for profile page: /username
       return currentPath === `/${normalizedTarget}`;
+    });
+  }
+
+  /**
+   * Filter collected contents by target users
+   */
+  function filterByTargetUsers(
+    contents: CollectedContent[],
+    targetUsers: string[],
+  ): CollectedContent[] {
+    if (!targetUsers || targetUsers.length === 0) return contents;
+
+    const normalizedTargets = targetUsers.map((u) =>
+      u.startsWith('@') ? u.substring(1).toLowerCase() : u.toLowerCase(),
+    );
+
+    return contents.filter((item) => {
+      if (!item.author || !item.author.username) return false;
+      const username = item.author.username.toLowerCase();
+      return normalizedTargets.includes(username);
     });
   }
 
@@ -357,10 +377,24 @@
 
           const data = await collectTweetDataX(mainTweetX);
 
+          // Get config to filter by target users
+          const response: any = await new Promise((resolve) => {
+            chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
+          });
+          let targetXUsers = response?.config?.targetXUser || [];
+          if (typeof targetXUsers === 'string') targetXUsers = [targetXUsers];
+
+          const filteredContents = filterByTargetUsers([data], targetXUsers);
+
+          if (filteredContents.length === 0) {
+            sendResponse({ success: false, error: 'Author is not in target user list' });
+            return;
+          }
+
           chrome.runtime.sendMessage(
             {
               type: 'CONTENT_TO_BG_PROCESS',
-              contents: [data],
+              contents: filteredContents,
               pageUID: data.author.username,
             },
             (response) => {
@@ -379,12 +413,21 @@
           const contents = resolvedContents.filter(
             (data) => data.text && data.text.trim().length > 0,
           );
+
+          // Get config to filter by target users
+          const response: any = await new Promise((resolve) => {
+            chrome.runtime.sendMessage({ type: 'GET_CONFIG' }, resolve);
+          });
+          let targetXUsers = response?.config?.targetXUser || [];
+          if (typeof targetXUsers === 'string') targetXUsers = [targetXUsers];
+
+          const filteredContents = filterByTargetUsers(contents, targetXUsers);
           const pageUID = getCurrentPageUserX();
 
           chrome.runtime.sendMessage(
             {
               type: 'CONTENT_TO_BG_PROCESS',
-              contents,
+              contents: filteredContents,
               pageUID,
             },
             (response) => {
@@ -451,19 +494,24 @@
       return;
     }
 
-    // 4. Parse content
+    // 4. Parse and filter content
     const contentPromises = tweets.map((t) => collectTweetDataX(t));
     const resolvedContents = await Promise.all(contentPromises);
-    const contents = resolvedContents.filter(
-      (data) => data.text && data.text.trim().length > 0,
-    );
+    const contents = resolvedContents.filter((data) => data.text && data.text.trim().length > 0);
+
+    const filteredContents = filterByTargetUsers(contents, targetXUsers);
     const pageUID = getCurrentPageUserX();
+
+    if (filteredContents.length === 0) {
+      console.log('[Synapse] No matching tweets found to collect');
+      return;
+    }
 
     // 5. Send to background for saving
     chrome.runtime.sendMessage(
       {
         type: 'CONTENT_TO_BG_PROCESS',
-        contents,
+        contents: filteredContents,
         pageUID,
         source: 'X',
       },

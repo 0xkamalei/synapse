@@ -135,7 +135,7 @@
   /**
    * Extract author information from a Weibo post
    */
-  function extractWeiboAuthor(postElement: Element): { username: string; displayName: string } {
+  function extractWeiboAuthor(postElement: Element): { username: string, displayName: string } {
     // Find author name in the header
     const nameElement = postElement.querySelector(
       'header ._name_1b05f_122, header .woo-box-flex a[href*="/u/"]',
