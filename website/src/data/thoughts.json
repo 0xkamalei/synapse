@@ -1,44 +1,73 @@
 [
   {
-    "id": "2fe6dd2f-2d12-81dd-a131-d725632b78ec",
-    "hashId": "c51919435f43c1773090db35494a064cd32364325c4f8b5cb3c9d08ce977f48a",
-    "title": "最近这段时间，我的 X 账号终于有了点起...",
-    "content": "最近这段时间，我的 X 账号终于有了点起色，做如下总结复盘：\n\n1. 千万不要像做国内账号（尤其是短视频账号）一样，只是把国内发布的内容直接搬运到 X 上面。看似很省力，其实获得不了太多的关注和流量。\n\n2. 一定要伏下心、俯下身子沉下来，好好在这个平台上进行学习。\n   (a)",
-    "source": "X",
-    "originalUrl": "https://x.com/lixinbao_X/status/2019213046498095147",
-    "originalDate": "2026-02-05T00:54:00.000+00:00",
-    "images": [],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-02-05T04:34:00.000Z"
-  },
-  {
-    "id": "2fe6dd2f-2d12-819c-b42b-c100e10ae241",
-    "hashId": "bb830cd027a3c5b6818b36d29d95858f4a3c936fa0f43dede35cd11ffd6a9cd5",
-    "title": "我妹刚上大学，还是个师范生，按照目前这个...",
-    "content": "我妹刚上大学，还是个师范生，按照目前这个趋势，前途一片迷茫。\n\n我总告诉她：能力远大于学历，顺应潮流，不缺钱赚。但说再多也没用，不如直接给她创造条件。\n\n第一步：硬件基础\n先买了台MacBook。Mac的生态更适合玩AI、做内容、学VibeCoding。\n\n第二步：打开信息通道",
-    "source": "X",
-    "originalUrl": "https://x.com/gkxspace/status/2019187210176852172",
-    "originalDate": "2026-02-04T23:12:00.000+00:00",
-    "images": [],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-02-05T04:34:00.000Z"
-  },
-  {
-    "id": "2fe6dd2f-2d12-819c-acce-c1a99556d3cd",
-    "hashId": "e1977be8405026c6eb6614b31ddc58aab6b8e5dfbf355a58707c8cbcc4b2626a",
-    "title": "Bullets in tables. A...",
-    "content": "Bullets in tables. Alert the press ",
-    "source": "X",
-    "originalUrl": "https://x.com/NotionHQ/status/2019130616705609791",
-    "originalDate": "2026-02-04T19:27:00.000+00:00",
-    "images": [],
-    "videos": [
-      "blob:https://x.com/215e5d7e-120d-4d9d-9581-15b72263749f"
+    "id": "2ff6dd2f-2d12-8150-a3ea-d69461b17cdb",
+    "hashId": "9363a3cdeccff8d4b76ef8c9395b64252ec947ba9c648f7f9648974316609613",
+    "title": "[视频] 独立开发者的自白：复盘我那些“...",
+    "content": "[视频] 独立开发者的自白：复盘我那些“失败”与“自嗨”的项目 \n【核心观点】 1. Philingo / IPA-Master：练习驱动的英语学习是刚需，但工具市场极度红海，商业化需突破碎片化需求。 2. Chronote (原 Code Notes)：时间追踪的未来在于自动化和 AI 介入，而非手动记录。 3. Monosub / Synapse / Hangar：为自己做工具（基建）是独立开发的起点，即使无法商业化，也能提升效率和技能。 4. AI-Avatar：在 AI 浪潮中，单纯的工具站极易被大厂覆盖，需寻找更深层的价值。 【底层情绪】 - 一种清醒的坦然 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1C1FiztEoc/",
+    "originalDate": "2026-02-05T18:30:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5f6db1e11b94329994109cc4d3cc9ab9b56b1d3da30e6066a3dce697d59c063e.jpeg"
     ],
+    "videos": [],
     "tags": [],
-    "createdAt": "2026-02-05T04:34:00.000Z"
+    "createdAt": "2026-02-06T02:30:00.000Z"
+  },
+  {
+    "id": "2ff6dd2f-2d12-81e4-8b7d-d0c3b464c598",
+    "hashId": "af21a6e2ffacf64e4da247d05646657bbc0fe15ad5e2b4f77dc226ca3d8f7a00",
+    "title": " 下载地址 / 源码：\n\nhttps:/...",
+    "content": " 下载地址 / 源码：\n\nhttps://\nkamaleiz.gumroad.com/l/monosub\n\n目前支持 macOS (Apple Silicon/Intel)，欢迎 Star  和 Issue ！",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2019308161463964021",
+    "originalDate": "2026-02-05T07:12:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-06T02:30:00.000Z"
+  },
+  {
+    "id": "2ff6dd2f-2d12-81d5-aa5d-c372a768c7d2",
+    "hashId": "58df22f6fc0d3a119704b2d0e32828a2d6968ded5742d7529a47604da1e886fa",
+    "title": " MonoSub 更多特性：\n 批量搞定...",
+    "content": " MonoSub 更多特性：\n 批量搞定：拖入一堆视频，自动排队生成 SRT/VTT。\n 简单易用：告别复杂的命令行，只有干净直观的界面。",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2019303981995188723",
+    "originalDate": "2026-02-05T06:56:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-06T02:30:00.000Z"
+  },
+  {
+    "id": "2ff6dd2f-2d12-819c-a0ab-f0ad4071f9fa",
+    "hashId": "ba73040f108eab88d8d385afc6a0f0f0f86cd719d6d4da668a1a001ae3a77e1f",
+    "title": "做视频最烦的就是配字幕？正在开发 Mon...",
+    "content": "做视频最烦的就是配字幕？正在开发 MonoSub 解决痛点：\n 隐私优先：AI 模型本地运行，无需上传。\n 批量搞定：自动排队生成 SRT/VTT。\n 简单易用：现代化 UI。\n\n#IndieDev #BuildInPublic",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2019303177552818198",
+    "originalDate": "2026-02-05T06:52:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [
+      "IndieDev",
+      "BuildInPublic"
+    ],
+    "createdAt": "2026-02-06T02:30:00.000Z"
+  },
+  {
+    "id": "2ff6dd2f-2d12-81ce-ba41-c389376b9ce9",
+    "hashId": "a8cfbe23822b7e1ad11d4db5e7bb7b621d9d5abc413b1159772c1f5ac3a6a475",
+    "title": "在折腾探索openclaw",
+    "content": "在折腾探索openclaw",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2019268412246266079",
+    "originalDate": "2026-02-05T04:34:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-06T02:30:00.000Z"
   },
   {
     "id": "2fd6dd2f-2d12-81b2-8f4a-dab57f2602ce",
@@ -52,94 +81,6 @@
     "videos": [],
     "tags": [],
     "createdAt": "2026-02-04T18:45:00.000Z"
-  },
-  {
-    "id": "2fe6dd2f-2d12-8133-b11c-c26d0e5f72f2",
-    "hashId": "5c6ccd88674c9aecdcbd2b1e1f1476fe2ea6467134fd78a45ad4ddceea74ca8c",
-    "title": "AI反向顾人类干活的网站出现了，啥离谱的...",
-    "content": "AI反向顾人类干活的网站出现了，啥离谱的需求都有，帮AI吃个意面都能拿50美刀，已经有两万多人排号接单了",
-    "source": "X",
-    "originalUrl": "https://x.com/FuSheng_0306/status/2019092335120744769",
-    "originalDate": "2026-02-04T16:55:00.000+00:00",
-    "images": [],
-    "videos": [
-      "blob:https://x.com/69637f55-6126-4c5c-8437-5e8694673cc8"
-    ],
-    "tags": [],
-    "createdAt": "2026-02-05T04:34:00.000Z"
-  },
-  {
-    "id": "2fe6dd2f-2d12-8123-aa10-edbf1e6bffc0",
-    "hashId": "7b25fe90dcf0c4738917ad16c01190254f7f666af6d0285ffaef49be2dd51b22",
-    "title": "都AI时代了 人们的脑海里第一件事居然还...",
-    "content": "都AI时代了 人们的脑海里第一件事居然还是：我要先做个产品，然后去卖！\n\n做东西前要先找客户，不要做这做那的，就用AI获客！如果你一个客户都搞不来，你做出产品也不会有客户\n\n1. 用AI生成服务描述，上架fiverr/upworks/闲鱼，记得写好用户寻找服务时的搜索词",
-    "source": "X",
-    "originalUrl": "https://x.com/shadouyoua/status/2019030429798724048",
-    "originalDate": "2026-02-04T12:49:00.000+00:00",
-    "images": [],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-02-05T04:34:00.000Z"
-  },
-  {
-    "id": "2fe6dd2f-2d12-81ab-ba47-e6d0264a3738",
-    "hashId": "4e066eda56e263ce1a7570c1be8d402092be0e03360c68515e5021737b28405d",
-    "title": "我这 OpenClaw 是啥都敢做啊，只...",
-    "content": "我这 OpenClaw 是啥都敢做啊，只是让他帮我查一个监测睡眠质量的传感器参数，然后抱怨了一句为什么硬件支持而官方的软件没有对应功能。\n\n他给我来一句要不要帮我拿到传感器的数据流自己做一个功能齐全的 APP 自用？我说试试，他就开始安装 Bleak 和",
-    "source": "X",
-    "originalUrl": "https://x.com/xbanboo/status/2018997652407652522",
-    "originalDate": "2026-02-04T10:38:00.000+00:00",
-    "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/91d3fb6081fe445a4f876c6a4fe90e9bc3d5f50ed58eaa2b594ecfcb1f466d1f.jpeg"
-    ],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-02-05T04:34:00.000Z"
-  },
-  {
-    "id": "2fe6dd2f-2d12-8116-aff9-e7191b561fb2",
-    "hashId": "6d334d2a0285afdc30096d42c6ec05a7d97d3a8d5a11f3b619501ebd7d222d09",
-    "title": " 如果天气 App 是纯手工剪裁出来的....",
-    "content": " 如果天气 App 是纯手工剪裁出来的...\n\n没有完美的边缘，只有真实的纸张触感。 在这个手工作坊，慢下来，剪一朵云，贴一份心情。\n\n在这里，找回久违的童心。",
-    "source": "X",
-    "originalUrl": "https://x.com/wadebryant23/status/2018933598058160609",
-    "originalDate": "2026-02-04T06:24:00.000+00:00",
-    "images": [],
-    "videos": [
-      "blob:https://x.com/eb2ecacb-57a8-4c8f-8347-ce3fc8441b73"
-    ],
-    "tags": [],
-    "createdAt": "2026-02-05T04:34:00.000Z"
-  },
-  {
-    "id": "2fe6dd2f-2d12-8180-b1f3-c7a695b16c85",
-    "hashId": "a0404f833f2be31449655d9017d8d16f9e62d9a381bf1cfd1f27cdc0551deb3b",
-    "title": "Nano Banana + MakeUG...",
-    "content": "Nano Banana + MakeUGC + Veo3 = AI content Factory\n\nThis agent pumps out hundreds of ads daily — fully automated.\n\n- No $300 creators\n- No $10K/month agency fees\n- No products\n\nComment “Nano” and I'll send it for FREE!\n(must be following)",
-    "source": "X",
-    "originalUrl": "https://x.com/aurexcoder0/status/2018908433286902049",
-    "originalDate": "2026-02-04T04:44:00.000+00:00",
-    "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d510207417de4efd50b2c73567597cae76a9cdeaa0350bbf90931e5338ea83db.jpeg"
-    ],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-02-05T04:34:00.000Z"
-  },
-  {
-    "id": "2fe6dd2f-2d12-81f3-9ca5-e2360b9e242b",
-    "hashId": "c81ed0bae65ee1cbdc2ef7edbf6b707e7b8ed21dd9fa72ae0d1b05ebf46c488c",
-    "title": "推荐一个反常识、但最值得抄作业的 AI ...",
-    "content": "推荐一个反常识、但最值得抄作业的 AI 应用案例\n\nMenu Fit\n功能极其简单：\n扫一眼餐厅菜单，AI 告诉你——该点哪一道。\n\n数据却很夸张：\n月收入 6 万美元，3 万次下载。\n反常识在于：\n它不做复杂分析，\n也不教你算热量。\n\n真正解决的不是「有没有热量表」，\n而是一个高频场景：\n健身、减脂的人外出吃饭，",
-    "source": "X",
-    "originalUrl": "https://x.com/IndieDevHailey/status/2018892644647416254",
-    "originalDate": "2026-02-04T03:41:00.000+00:00",
-    "images": [
-      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9ca997f44c2ad5f6fb9a2019da5fe44e2f545f977c6c8331dcad13722717d07f.jpeg"
-    ],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-02-05T04:34:00.000Z"
   },
   {
     "id": "2fc6dd2f-2d12-81c3-86b5-ff7179e2045b",
