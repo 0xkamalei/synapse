@@ -16,6 +16,22 @@
     "createdAt": "2026-02-07T14:02:00.000Z"
   },
   {
+    "id": "3016dd2f-2d12-81ae-9885-e45581e68fca",
+    "hashId": "c944f2761321ce8c5746edcf4c1cdbe412f77cd78d120a1b1e02efe40a72b09a",
+    "title": "Major architecture s...",
+    "content": "Major architecture shift for Chronote: embedding a Kernel MCP server.\n\nMoving beyond just \"visualizing data\" to becoming the \"temporal memory\" for AI. Launching both GUI and CLI in GA. AI can finally understand how your time is actually spent.  #BuildInPublic #macOS",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/2019970437221097734",
+    "originalDate": "2026-02-07T03:04:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [
+      "BuildInPublic",
+      "macOS"
+    ],
+    "createdAt": "2026-02-08T02:30:00.000Z"
+  },
+  {
     "id": "2ff6dd2f-2d12-8150-a3ea-d69461b17cdb",
     "hashId": "9363a3cdeccff8d4b76ef8c9395b64252ec947ba9c648f7f9648974316609613",
     "title": "[视频] 独立开发者的自白：复盘我那些“...",
