@@ -1,5 +1,50 @@
 [
   {
+    "id": "3036dd2f-2d12-811f-9733-c10ea01f1250",
+    "hashId": "4f2e05f95a10f35df624080cb6bc18cc4aba6999e15b058006b687eef5b39fce",
+    "title": "Synapse - 个人思想聚合平台 \n...",
+    "content": "Synapse - 个人思想聚合平台 \n\n推文散落 X、内容埋 B站、想法藏小红书？\n\nSynapse 统一管理：\n• 一键采集 - Chrome 自动抓取\n• 零成本 - GitHub + Notion\n• 随时检索 - 个人思想库\n\n碎片 → 地图\n\n\nhttps://\nsynapse.leix.dev",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2021251828889866479",
+    "originalDate": "2026-02-10T15:56:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/391f3acc1f077add89ffa4401dec7458edbabd543d8109ab3b3cda58475d450c.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-10T15:57:00.000Z"
+  },
+  {
+    "id": "3036dd2f-2d12-81fd-820c-e3547b350bfc",
+    "hashId": "3529ae973ccf4c43619c14de4669f33a3bb50c579417f58c8ae662cd30d5a846",
+    "title": "本地开发能跑，打包部署就炸？构建文件堆一...",
+    "content": "本地开发能跑，打包部署就炸？构建文件堆一堆不知道删哪个？\n\nMonoSub 本周优化了工程体验：\n• 统一路径解析 - 开发和生产环境一致，告别「我这能跑」\n• 智能清理构建 - 自动识别该删什么，不用手动翻文件夹\n• 一键优化部署 - MIME 类型和缓存配置开箱即用\n\n从部署头疼到丝滑上线 ",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2021249433141166424",
+    "originalDate": "2026-02-10T15:46:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/24bbeaf7e61b7a6ff9e51d6731b4f887f9888e8095dcf80ed42b8a2e1b60c151.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-10T15:57:00.000Z"
+  },
+  {
+    "id": "3036dd2f-2d12-815e-b63b-e0becc565d3d",
+    "hashId": "c7a6c4f8927ee2d9e69810ee706c1ed02a94cf8d4b8ef43f767889156e619567",
+    "title": "Hangar 本周迭代完成！\n\n 核心改...",
+    "content": "Hangar 本周迭代完成！\n\n 核心改进：\n• AI 区域智能优先 - 自动选择最佳节点\n• 配置强制更新 - 一键同步最新规则\n• 代理组优化 - 更灵活的手动选择模式\n\n让你的代理配置管理更智能、更可靠。\n\n\nhttps://\nhangar.leix.dev",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2021246675730247949",
+    "originalDate": "2026-02-10T15:35:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/45629f7910b2e6ac318c82542c958ee1b89f27855994a70522f9055eec3282a7.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-10T15:57:00.000Z"
+  },
+  {
     "id": "3006dd2f-2d12-81c5-b3a9-e56cd9f20b8d",
     "hashId": "7a4c6d2cf7fefef3822688dc51797c5b893f352d73f6bca178a375aa1aaab198",
     "title": "决定给 Chronote (Mac 时间...",
