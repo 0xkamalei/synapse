@@ -1,5 +1,78 @@
 [
   {
+    "id": "3056dd2f-2d12-8182-9ed7-fd91e7f3e17b",
+    "hashId": "d4af7b62488a549a03b2db99cb80e613bb080762283662fd2c1245c0f24aa38b",
+    "title": "[视频] 从十几块到白嫖：软件收费模式的...",
+    "content": "[视频] 从十几块到白嫖：软件收费模式的思考与实践 \n【底层情绪】 最近一直在想软件到底该怎么收费。我做的翻译工具从十几块降到1块钱都没人买，这让我开始反思整个商业模式的问题。说实话，AI的快速发展让我有点焦虑 —— 很多SaaS产品已经可以被AI几行代码复制了，我们做的东西还有多少护城河？但又觉得，也许这就是时代的选择，与其纠结，不如找到更合理的生存方式。 --- 【核心内容干货清单】 • 国内市场特点：白嫖文化普遍，买断制基本行不通 • 主流收费模式对比： - 买断制（一次性付费）：门槛高，用户少 - 订阅制（持续付费）：现金流稳定但用户 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1fPc4ztE8y/",
+    "originalDate": "2026-02-12T14:00:00.000+00:00",
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/cb678946ebf2b4272c4e01118350e9dfa8ce295d.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-12T18:12:00.000Z"
+  },
+  {
+    "id": "3056dd2f-2d12-81a0-b593-fc47a05305a3",
+    "hashId": "56ded9ef83acd848277751b22bf76b53b065913fbd31728e33ced7f63a435ab7",
+    "title": "Hangar - Clash 代理订阅管...",
+    "content": "Hangar - Clash 代理订阅管理工具 \n\n订阅更新慢？配置太繁琐？\n\nHangar 让一切自动：\n• AI 配置 - 自然语言就能改\n• 自动合并 - 多订阅源统一管理\n• 后台监控 - 实时更新配置\n\n开源 CLI，告别手动折腾\n\nhttps://\ngithub.com/0xkamalei/hang\nar\n…",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2021918570826055829",
+    "originalDate": "2026-02-12T12:05:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/9c13ea6d4f8c8ea3039590054efdd969bd962df6d5ed248128b68071b876e8f4.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-12T14:31:00.000Z"
+  },
+  {
+    "id": "3056dd2f-2d12-81c7-988e-f77eb870c6f8",
+    "hashId": "85d5a2bc99813866f1f1e782132292c0837fb1e747e52963a4ba18907fa0e8a6",
+    "title": "trae 最烦的就是这点，它会生成一些脚...",
+    "content": "trae 最烦的就是这点，它会生成一些脚本文件，然后删除的时候你还得必须approve \n@Trae_ai",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2021890349476852003",
+    "originalDate": "2026-02-12T10:13:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/72f18c8c8bbe5633ab320b123e03e8ee97fc2ac3c9c07c35210ec5c698ac7b36.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-12T14:31:00.000Z"
+  },
+  {
+    "id": "3056dd2f-2d12-8118-be9e-fa061fbfaffc",
+    "hashId": "9c0e45136dbdca3a8baa45075ee0d57e38308eee791f97bf7717ff83cb21cc15",
+    "title": "[视频] 2026开发者穷鬼套餐：白嫖全...",
+    "content": "[视频] 2026开发者穷鬼套餐：白嫖全栈工具箱实战分享 \n【底层情绪】 这期视频没有精心准备，就是想随性分享一下自己这一年真实在用的工具栈。说实话，看到小红书上的\"穷鬼套餐\"话题有点感触——独立开发不应该被昂贵的工具链绑架。我之前也折腾过买服务器、搞备案，后来发现真的没必要，反而是那些免费额度、白嫖资源组合起来更灵活。 AI 编程这一年彻底改变了开发方式，Claude Code 和 Cursor 让很多以前要花时间琢磨的东西现在直接能跑通。但核心还是要找到适合自己节奏的工具组合，够用就行，不用追最新最贵的。 分享这些也是一种记录吧，给未来的自己看，也给和我 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV13kcxzCEab/",
+    "originalDate": "2026-02-11T12:56:00.000+00:00",
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/1c08fdc0a66cf27f6707e1e7b899994911db51b9.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-12T02:37:00.000Z"
+  },
+  {
+    "id": "3056dd2f-2d12-81d0-a276-dcc02965a2bd",
+    "hashId": "f1d429ac261bd80e72e2a69fbf4dce5296a928edd00fb0ee0e7d56827fa404ad",
+    "title": "今天整了一个自动投稿的B站的skill",
+    "content": "今天整了一个自动投稿的B站的skill",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2021564282740347332",
+    "originalDate": "2026-02-11T12:37:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-12T02:37:00.000Z"
+  },
+  {
     "id": "3046dd2f-2d12-813c-8900-f54f1513bb70",
     "hashId": "bdbe409d7723191afd2471620836814bc25a09e23b17c4d2e383d189d8c6cb56",
     "title": "AI Avatar - AI 生成头像 ...",
@@ -50,6 +123,21 @@
     "videos": [],
     "tags": [],
     "createdAt": "2026-02-11T02:30:00.000Z"
+  },
+  {
+    "id": "3056dd2f-2d12-8176-9b84-e6a76adab603",
+    "hashId": "16445f38e92d6765fb1f75e658a33f38f8467d3f0efc02841dfa979f7e977ae2",
+    "title": "Chronote - Mac 时间追踪工...",
+    "content": "Chronote - Mac 时间追踪工具 \n\n不知道时间都去哪了？项目计费不准确？Timing App 太贵？\n\nChronote 完全免费开源：\n• 自动追踪 - 后台记录每个应用使用时间\n• 智能分类 - 窗口标题自动归类项目\n• 隐私优先 - 数据本地存储，不上传云端\n\n理解你在 Mac 上的每一分钟 \n\n\nhttps://\nchronote.leix.dev",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2021256303818191285",
+    "originalDate": "2026-02-10T16:13:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/55e087f6850aa10e0e9fee49a03e0cfb01da80fb9bd982470e099f98608c1d16.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-12T14:31:00.000Z"
   },
   {
     "id": "3036dd2f-2d12-811f-9733-c10ea01f1250",
