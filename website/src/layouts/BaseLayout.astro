@@ -4,10 +4,23 @@ import Analytics from '@vercel/analytics/astro';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  noindex?: boolean;
 }
 
-const { title, description = "My personal thoughts aggregation platform" } =
+const {
+  title,
+  description = "Capture your best social media insights automatically and sync them to your searchable Notion second brain.",
+  image = "/favicon.png",
+  noindex = false,
+} =
   Astro.props;
+
+const fullTitle = title.toLowerCase().includes("synapse")
+  ? title
+  : `${title} | Synapse`;
+const canonicalUrl = Astro.url.href;
+const ogImage = new URL(image, Astro.site).href;
 ---
 
 <!doctype html>
@@ -15,8 +28,20 @@ const { title, description = "My personal thoughts aggregation platform" } =
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
     <meta name="description" content={description} />
-    <title>{title} | Synapse</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Synapse" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <title>{fullTitle}</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.loli.net" />
     <link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
