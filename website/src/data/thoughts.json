@@ -1,5 +1,49 @@
 [
   {
+    "id": "3076dd2f-2d12-81a5-9aac-c3327819b007",
+    "hashId": "1b5086a52f06873b7b05b9b9c776da75494c29acf9d93ed52fa3edd9e1bff6b5",
+    "title": "Chronote — 自动记录你在 ma...",
+    "content": "Chronote — 自动记录你在 macOS 上的时间 \n\n总觉得一天忙完却说不清时间花哪了？\n\nChronote 帮你：\n• 自动追踪应用/项目 - 不用手记\n• 时间线+汇总 - 一眼看清投入\n• 可自定义分类/合并 - 记录更准确\n\n\nhttps://\nchronote.leix.dev",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2022491821625217370",
+    "originalDate": "2026-02-14T02:03:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-14T02:30:00.000Z"
+  },
+  {
+    "id": "3076dd2f-2d12-8151-9a0a-c7fc27096a46",
+    "hashId": "bf2e226f8b0e813764d0b9bb4fc1fe69239612a5766726388ae046e6f3934501",
+    "title": "[视频] 不仅是订阅转换：AI赋能的Cl...",
+    "content": "[视频] 不仅是订阅转换：AI赋能的Clash管理工具 \n【底层情绪】 之前总是遇到机场不稳定或者规则不适配的问题，特别是访问AI服务时经常断连。市面上的工具要么太复杂，要么不灵活。所以我自己写了这个命令行工具，希望能一站式解决订阅管理和配置生成的问题。开源出来，希望能帮到大家。 --- 【核心内容干货清单】 • 多机场管理：聚合多个订阅，自动去重和负载均衡 • 智能规则：内置 AI 功能，支持用自然语言修改分流规则 • 故障回退：自动检测节点状态，失败自动切换 • 多平台支持：支持 macOS (M系列/Intel) 和 OpenWRT 软路由 • Age ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1k7cvzQEFi/",
+    "originalDate": "2026-02-13T14:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5ae35015c698adba2df56d9dc613a824d48064d8eabaebf940d9586238614c66.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-14T02:30:00.000Z"
+  },
+  {
+    "id": "3076dd2f-2d12-8128-823f-f025d9ba2851",
+    "hashId": "41ace8d9da1ceb5945d7836db0114a316d4b4640d905dd68eb2dc8b760325a79",
+    "title": "终于解决了 tauri2 窗口标题和内容...",
+    "content": "终于解决了 tauri2 窗口标题和内容不一致显得很突兀的问题了，而且支持拖动，这样看起来更像原生的APP了\n主要是是隐藏title然后使用data-tauri-drag-region\n#monosub #BuildInPublic",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2022184296145203705",
+    "originalDate": "2026-02-13T05:41:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [
+      "monosub",
+      "BuildInPublic"
+    ],
+    "createdAt": "2026-02-14T02:30:00.000Z"
+  },
+  {
     "id": "3056dd2f-2d12-8182-9ed7-fd91e7f3e17b",
     "hashId": "d4af7b62488a549a03b2db99cb80e613bb080762283662fd2c1245c0f24aa38b",
     "title": "[视频] 从十几块到白嫖：软件收费模式的...",
