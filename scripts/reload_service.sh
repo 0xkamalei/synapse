@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PLIST_NAME="com.synapse.open_daily_urls.plist"
-SOURCE_PLIST="/Users/lei/dev/personal/synapse/scripts/$PLIST_NAME"
+SOURCE_PLIST="/Users/lei/dev/projects/synapse/scripts/$PLIST_NAME"
 TARGET_PLIST="/Users/lei/Library/LaunchAgents/$PLIST_NAME"
 
 # Check if source file exists

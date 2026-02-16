@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to the urls file
-URL_FILE="/Users/lei/dev/personal/synapse/urls.txt"
+URL_FILE="/Users/lei/dev/projects/synapse/urls.txt"
 
 # Check if file exists
 if [ ! -f "$URL_FILE" ]; then
