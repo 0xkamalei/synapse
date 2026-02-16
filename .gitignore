@@ -14,3 +14,5 @@ dist/
 .astro/
 
 .trae
+
+*.err
