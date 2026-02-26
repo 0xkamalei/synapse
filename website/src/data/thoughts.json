@@ -13,6 +13,36 @@
     "createdAt": "2026-02-21T04:21:00.000Z"
   },
   {
+    "id": "3126dd2f-2d12-8189-8dea-c3489438a85e",
+    "hashId": "c337bdecd2c4e02a5cee7938e7a9fe5eef2b32c9df642c845561f671acc22a2a",
+    "title": "[视频] 从失败到MVP：我做了个自动化...",
+    "content": "[视频] 从失败到MVP：我做了个自动化营销工具 \n【底层情绪】\\n做了100个失败的项目后，发现自己在不断摸索与怀疑，但对AI有了新的感受。这次做GitGrow，不是炫耀成功，而是分享真实的探索过程——每一次失败都是必经之路。\\n\\n【核心内容干货清单】\\n• GitGrow项目起源：受郭宇项目启发，原方案不稳定，演进为独立程序\\n• 核心功能：扫描本地 git commit，通过大模型生成社交文案；支持迭代式与一次性发布；浏览器自动化与Agent配置\\n• 差异化与商业化：本地程序、用户自配LLM、避免订阅；已上架Polo.H，计划接入国内支付\\n• ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV18FZqBcEx2/",
+    "originalDate": "2026-02-19T16:00:00.000+00:00",
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/0bfe3c7894704b0d04785e5251dd2765844167b6.png"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-25T04:57:00.000Z"
+  },
+  {
+    "id": "3126dd2f-2d12-8108-b9ea-d77eedc9f3af",
+    "hashId": "9823450218f3a759c59b9254596bcbe0edd4522f16a6bb152abf1d20869e7234",
+    "title": "[视频] 2026#5 记录之真诚、赤裸...",
+    "content": "[视频] 2026#5 记录之真诚、赤裸且深刻的自我剖析 \n真实，赤裸的自我对话不建议观看 废话很多 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1iqZaB8Ew7/",
+    "originalDate": "2026-02-18T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/5d9a5d530b82a163e105022e191e4ac9687e2fe3d4e7dc9d5ceb18d6bd3bd9e3.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-25T04:57:00.000Z"
+  },
+  {
     "id": "30c6dd2f-2d12-8105-a201-e79ea6b09f23",
     "hashId": "ace30dc598649e56bb5ac9a3f0d1804fda3191b63dfbb71247b39153f1a7b26c",
     "title": "Synapse - 零成本 Though...",
