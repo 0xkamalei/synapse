@@ -124,7 +124,7 @@
         }
       }
     }
-    
+
     return '';
   }
 
@@ -268,16 +268,16 @@
     const currentUserId = getCurrentRedbookUserId();
 
     // Check interval
-    const interval = config.collectIntervalHours ?? 4;
+    const interval = config.collectIntervalMinutes ?? 240;
     const lastCollectForSource = config.lastCollectTimes?.redbook;
     const lastCollect = lastCollectForSource ? new Date(lastCollectForSource).getTime() : 0;
     const now = Date.now();
 
     if (interval > 0 && lastCollect > 0) {
-      const hoursSinceLast = (now - lastCollect) / (1000 * 60 * 60);
-      if (hoursSinceLast < interval) {
+      const minsSinceLast = (now - lastCollect) / (1000 * 60);
+      if (minsSinceLast < interval) {
         console.log(
-          `[Synapse] Redbook: Skipping auto-collect, last collect was ${hoursSinceLast.toFixed(2)} hours ago (interval: ${interval}h)`,
+          `[Synapse] Redbook: Skipping auto-collect, last collect was ${minsSinceLast.toFixed(2)} mins ago (interval: ${interval}m)`,
         );
         return;
       }
@@ -298,9 +298,9 @@
 
     // Extract content from each post
     const allContent: CollectedContent[] = [];
-    
+
     console.log(`[Synapse] Redbook: Processing ${posts.length} posts with delay...`);
-    
+
     for (const post of posts) {
       const data = await collectNoteDataRedbook(post);
       if (data.text && data.text.trim().length > 0) {
@@ -369,7 +369,7 @@
 
         // Find all posts
         const posts = findAllPostsRedbook();
-        
+
         console.log(`[Synapse] Redbook: Processing ${posts.length} posts with delay...`);
 
         // Extract content

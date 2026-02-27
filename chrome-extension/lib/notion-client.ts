@@ -5,6 +5,7 @@
 
 import { getConfig } from './storage.js';
 import { logger } from './logger.js';
+import { hashCache } from './hash-cache.js';
 
 const NOTION_API_VERSION = '2025-09-03';
 const NOTION_API_BASE = 'https://api.notion.com/v1';
@@ -40,7 +41,7 @@ function createRichText(content: string) {
 /**
  * Generate a stable hash for a URL
  */
-async function hashUrl(url: string): Promise<string> {
+export async function hashUrl(url: string): Promise<string> {
   if (!url) return '';
   const encoder = new TextEncoder();
   const data = encoder.encode(url);
@@ -195,26 +196,45 @@ export async function batchCheckDuplicates(urls: string[]): Promise<Set<string>>
 
   console.log(`[Synapse] Batch checking ${hashes.length} URLs (via hashes) for duplicates...`);
 
+  // 3. First check local cache
+  await hashCache.init();
+  const cachedHashes = await hashCache.checkHashes(hashes);
+  for (const hash of cachedHashes) {
+    const originalUrl = hashToUrl.get(hash)!;
+    existingUrls.add(originalUrl);
+    console.log(`[Synapse] Found existing URL via local cache: ${originalUrl.substring(0, 50)}...`);
+  }
+
+  // Filter out hashes already found in cache
+  const hashesToCheckInNotion = hashes.filter(h => !cachedHashes.has(h));
+
+  if (hashesToCheckInNotion.length === 0) {
+    console.log(`[Synapse] All hashes found in cache. Skipping Notion API check.`);
+    return existingUrls;
+  }
+
+  console.log(`[Synapse] ${hashesToCheckInNotion.length} hashes missed cache. Querying Notion API...`);
+
   // Notion filter has a limit of 100 conditions
   const BATCH_SIZE = 100;
   const chunks: string[][] = [];
-  for (let i = 0; i < hashes.length; i += BATCH_SIZE) {
-    chunks.push(hashes.slice(i, i + BATCH_SIZE));
+  for (let i = 0; i < hashesToCheckInNotion.length; i += BATCH_SIZE) {
+    chunks.push(hashesToCheckInNotion.slice(i, i + BATCH_SIZE));
   }
 
   for (const chunk of chunks) {
     const filter =
       chunk.length === 1
         ? {
-            property: 'HashID',
-            rich_text: { equals: chunk[0] },
-          }
+          property: 'HashID',
+          rich_text: { equals: chunk[0] },
+        }
         : {
-            or: chunk.map((hash) => ({
-              property: 'HashID',
-              rich_text: { equals: hash },
-            })),
-          };
+          or: chunk.map((hash) => ({
+            property: 'HashID',
+            rich_text: { equals: hash },
+          })),
+        };
 
     let cursor: string | undefined = undefined;
     let hasMore = true;
@@ -248,11 +268,14 @@ export async function batchCheckDuplicates(urls: string[]): Promise<Set<string>>
             // Extract hash from HashID property
             const hash = page.properties?.HashID?.rich_text?.[0]?.plain_text;
             if (hash && hashToUrl.has(hash)) {
+              // Add to existingUrls
               const originalUrl = hashToUrl.get(hash)!;
               existingUrls.add(originalUrl);
               console.log(
-                `[Synapse] Found existing URL via hash: ${originalUrl.substring(0, 50)}...`,
+                `[Synapse] Found existing URL via Notion query: ${originalUrl.substring(0, 50)}...`,
               );
+              // Also add back to our local cache for future lookups
+              hashCache.addHash(hash).catch(e => console.error('[Synapse] Failed to add hash to cache:', e));
             }
           });
 
@@ -272,4 +295,58 @@ export async function batchCheckDuplicates(urls: string[]): Promise<Set<string>>
   }
 
   return existingUrls;
+}
+
+/**
+ * Fetch all HashIDs from Notion to rebuild the local cache
+ */
+export async function fetchAllHashesFromNotion(): Promise<string[]> {
+  const config = await getConfig();
+  if (!config.notionToken || !config.notionDataSourceId) {
+    throw new Error('Notion configuration incomplete');
+  }
+
+  console.log(`[Synapse] Fetching all HashIDs from Notion to rebuild cache...`);
+
+  const allHashes: string[] = [];
+  let cursor: string | undefined = undefined;
+  let hasMore = true;
+
+  while (hasMore) {
+    const response = await fetch(
+      `${NOTION_API_BASE}/data_sources/${config.notionDataSourceId}/query?filter_properties[]=HashID`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${config.notionToken}`,
+          'Content-Type': 'application/json',
+          'Notion-Version': NOTION_API_VERSION,
+        },
+        body: JSON.stringify({
+          page_size: 100,
+          start_cursor: cursor,
+        }),
+      },
+    );
+
+    if (response.ok) {
+      const result = await response.json();
+
+      result.results.forEach((page: any) => {
+        const hash = page.properties?.HashID?.rich_text?.[0]?.plain_text;
+        if (hash) {
+          allHashes.push(hash);
+        }
+      });
+
+      hasMore = result.has_more;
+      cursor = result.next_cursor || undefined;
+    } else {
+      const error = await response.json();
+      throw new Error(`Notion API error: ${error.message || response.statusText}`);
+    }
+  }
+
+  console.log(`[Synapse] Fetched ${allHashes.length} hashes from Notion database.`);
+  return allHashes;
 }

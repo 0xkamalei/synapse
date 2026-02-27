@@ -24,11 +24,15 @@ const coreElements = {
   githubToken: getEl<HTMLInputElement>('githubToken'),
   githubOwner: getEl<HTMLInputElement>('githubOwner'),
   githubRepo: getEl<HTMLInputElement>('githubRepo'),
-  collectIntervalHours: getEl<HTMLInputElement>('collectIntervalHours'),
+  collectIntervalMinutes: getEl<HTMLInputElement>('collectIntervalMinutes'),
   debugMode: getEl<HTMLInputElement>('debugMode'),
   lastCollectInfo: getEl<HTMLElement>('lastCollectInfo'),
   saveBtn: getEl<HTMLButtonElement>('saveBtn'),
   saveStatus: getEl<HTMLElement>('saveStatus'),
+  cacheCountInfo: getEl<HTMLElement>('cacheCountInfo'),
+  rebuildCacheBtn: getEl<HTMLButtonElement>('rebuildCacheBtn'),
+  clearCacheBtn: getEl<HTMLButtonElement>('clearCacheBtn'),
+  cacheActionStatus: getEl<HTMLElement>('cacheActionStatus'),
 };
 
 // Platform elements - dynamically accessed via PLATFORMS config
@@ -149,7 +153,7 @@ async function loadConfig() {
   coreElements.githubToken.value = config.githubToken || '';
   coreElements.githubOwner.value = config.githubOwner || '';
   coreElements.githubRepo.value = config.githubRepo || '';
-  coreElements.collectIntervalHours.value = (config.collectIntervalHours ?? 4).toString();
+  coreElements.collectIntervalMinutes.value = (config.collectIntervalMinutes ?? 240).toString();
   coreElements.debugMode.checked = config.debugMode || false;
 
   // Load platform-specific settings
@@ -185,6 +189,22 @@ async function loadConfig() {
   } else {
     coreElements.lastCollectInfo.textContent = 'Last collected: Never';
   }
+
+  // Load cache count
+  loadCacheCount();
+}
+
+/**
+ * Load cache count
+ */
+async function loadCacheCount() {
+  chrome.runtime.sendMessage({ type: 'GET_CACHE_COUNT' }, (response) => {
+    if (response && response.success) {
+      coreElements.cacheCountInfo.textContent = `Hashes in local cache: ${response.count}`;
+    } else {
+      coreElements.cacheCountInfo.textContent = 'Hashes in local cache: Error';
+    }
+  });
 }
 
 /**
@@ -202,10 +222,10 @@ async function handleSave() {
     githubToken: coreElements.githubToken.value.trim(),
     githubOwner: coreElements.githubOwner.value.trim(),
     githubRepo: coreElements.githubRepo.value.trim(),
-    collectIntervalHours:
-      coreElements.collectIntervalHours.value === ''
-        ? 4
-        : parseInt(coreElements.collectIntervalHours.value, 10),
+    collectIntervalMinutes:
+      coreElements.collectIntervalMinutes.value === ''
+        ? 240
+        : parseInt(coreElements.collectIntervalMinutes.value, 10),
     debugMode: coreElements.debugMode.checked,
     enabledSources: getEnabledSources(),
   };
@@ -248,6 +268,59 @@ for (const platform of ALL_PLATFORMS) {
     .getToggle(platform)
     .addEventListener('change', () => updatePlatformVisibility(platform));
 }
+
+// Cache Management Event Listeners
+coreElements.rebuildCacheBtn.addEventListener('click', () => {
+  coreElements.rebuildCacheBtn.disabled = true;
+  coreElements.clearCacheBtn.disabled = true;
+  coreElements.cacheActionStatus.textContent = '⏳ Rebuilding cache from Notion...';
+  coreElements.cacheActionStatus.className = 'save-status';
+
+  chrome.runtime.sendMessage({ type: 'REBUILD_CACHE' }, (response) => {
+    coreElements.rebuildCacheBtn.disabled = false;
+    coreElements.clearCacheBtn.disabled = false;
+
+    if (response && response.success) {
+      coreElements.cacheActionStatus.textContent = `✅ Rebuilt (Count: ${response.count})`;
+      coreElements.cacheActionStatus.className = 'save-status success';
+      loadCacheCount();
+    } else {
+      const errorMsg = response?.error || 'Unknown error';
+      coreElements.cacheActionStatus.textContent = `❌ Failed: ${errorMsg}`;
+      coreElements.cacheActionStatus.className = 'save-status error';
+    }
+
+    setTimeout(() => {
+      coreElements.cacheActionStatus.textContent = '';
+    }, 5000);
+  });
+});
+
+coreElements.clearCacheBtn.addEventListener('click', () => {
+  if (!confirm('Are you sure you want to clear the local hash cache?')) return;
+
+  coreElements.rebuildCacheBtn.disabled = true;
+  coreElements.clearCacheBtn.disabled = true;
+  coreElements.cacheActionStatus.textContent = '⏳ Clearing cache...';
+
+  chrome.runtime.sendMessage({ type: 'CLEAR_CACHE' }, (response) => {
+    coreElements.rebuildCacheBtn.disabled = false;
+    coreElements.clearCacheBtn.disabled = false;
+
+    if (response && response.success) {
+      coreElements.cacheActionStatus.textContent = '✅ Cache cleared!';
+      coreElements.cacheActionStatus.className = 'save-status success';
+      loadCacheCount();
+    } else {
+      coreElements.cacheActionStatus.textContent = '❌ Failed to clear';
+      coreElements.cacheActionStatus.className = 'save-status error';
+    }
+
+    setTimeout(() => {
+      coreElements.cacheActionStatus.textContent = '';
+    }, 3000);
+  });
+});
 
 // Initialize
 document.addEventListener('DOMContentLoaded', loadConfig);

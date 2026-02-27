@@ -1,295 +1,280 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Synapse Options</title>
-    <link rel="stylesheet" href="options.css" />
-  </head>
 
-  <body>
-    <div class="container">
-      <header class="header">
-        <div class="logo">
-          <span class="logo-icon">⚡</span>
-          <span class="logo-text">Synapse Settings</span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synapse Options</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Synapse Settings</span>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Notion Config -->
+      <section class="section">
+        <h2>Notion</h2>
+        <div class="input-group">
+          <label for="notionToken">API Token</label>
+          <input type="password" id="notionToken" placeholder="secret_xxx..." />
         </div>
-      </header>
+        <div class="input-group">
+          <label for="notionDatabaseId">Database ID</label>
+          <input type="text" id="notionDatabaseId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+        </div>
+        <div class="input-group">
+          <label for="notionDataSourceId">Data Source ID</label>
+          <input type="text" id="notionDataSourceId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+        </div>
+      </section>
 
-      <main class="main">
-        <!-- Notion Config -->
-        <section class="section">
-          <h2>Notion</h2>
+      <!-- GitHub Config -->
+      <section class="section">
+        <h2>GitHub Image Host</h2>
+        <div class="input-group">
+          <label for="githubToken">Personal Access Token</label>
+          <input type="password" id="githubToken" placeholder="ghp_xxx..." />
+        </div>
+        <div class="input-row">
           <div class="input-group">
-            <label for="notionToken">API Token</label>
-            <input type="password" id="notionToken" placeholder="secret_xxx..." />
+            <label for="githubOwner">Owner</label>
+            <input type="text" id="githubOwner" placeholder="username" />
           </div>
           <div class="input-group">
-            <label for="notionDatabaseId">Database ID</label>
-            <input
-              type="text"
-              id="notionDatabaseId"
-              placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-            />
+            <label for="githubRepo">Repository</label>
+            <input type="text" id="githubRepo" placeholder="synapse-images" />
           </div>
-          <div class="input-group">
-            <label for="notionDataSourceId">Data Source ID</label>
-            <input
-              type="text"
-              id="notionDataSourceId"
-              placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-            />
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- GitHub Config -->
-        <section class="section">
-          <h2>GitHub Image Host</h2>
-          <div class="input-group">
-            <label for="githubToken">Personal Access Token</label>
-            <input type="password" id="githubToken" placeholder="ghp_xxx..." />
-          </div>
-          <div class="input-row">
-            <div class="input-group">
-              <label for="githubOwner">Owner</label>
-              <input type="text" id="githubOwner" placeholder="username" />
-            </div>
-            <div class="input-group">
-              <label for="githubRepo">Repository</label>
-              <input type="text" id="githubRepo" placeholder="synapse-images" />
-            </div>
-          </div>
-        </section>
+      <!-- Platforms - USA -->
+      <section class="section">
+        <h2>🇺🇸 United States</h2>
+        <p class="hint">Platforms available in the US</p>
 
-        <!-- Platforms - USA -->
-        <section class="section">
-          <h2>🇺🇸 United States</h2>
-          <p class="hint">Platforms available in the US</p>
-
-          <!-- X.com -->
-          <div class="platform-card" data-platform="x">
-            <div class="platform-header">
-              <div class="platform-info">
-                <span class="platform-icon">𝕏</span>
-                <span class="platform-name">X (Twitter)</span>
-              </div>
-              <label class="toggle">
-                <input type="checkbox" id="enableX" class="platform-toggle" />
-                <span class="toggle-slider"></span>
-              </label>
+        <!-- X.com -->
+        <div class="platform-card" data-platform="x">
+          <div class="platform-header">
+            <div class="platform-info">
+              <span class="platform-icon">𝕏</span>
+              <span class="platform-name">X (Twitter)</span>
             </div>
-            <div class="platform-config" id="configX">
-              <div class="input-group multi-input-group" data-platform="x" data-key="targetXUser">
-                <label>Username(s)</label>
-                <div class="input-list"></div>
-                <button type="button" class="add-btn secondary-btn">+ Add Account</button>
-                <p class="hint">Username (without @)</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Platforms - China -->
-        <section class="section">
-          <h2>🇨🇳 中国</h2>
-          <p class="hint">中国社交平台</p>
-
-          <!-- Bilibili -->
-          <div class="platform-card" data-platform="bilibili">
-            <div class="platform-header">
-              <div class="platform-info">
-                <span class="platform-icon">📺</span>
-                <span class="platform-name">哔哩哔哩 Bilibili</span>
-              </div>
-              <label class="toggle">
-                <input type="checkbox" id="enableBilibili" class="platform-toggle" />
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-            <div class="platform-config" id="configBilibili">
-              <div
-                class="input-group multi-input-group"
-                data-platform="bilibili"
-                data-key="targetBilibiliUser"
-              >
-                <label>UID(s)</label>
-                <div class="input-list"></div>
-                <button type="button" class="add-btn secondary-btn">+ Add Account</button>
-                <p class="hint">在个人主页 URL 中找到: space.bilibili.com/[UID]</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- QZone -->
-          <div class="platform-card" data-platform="qzone">
-            <div class="platform-header">
-              <div class="platform-info">
-                <span class="platform-icon">🌟</span>
-                <span class="platform-name">QQ空间 QZone</span>
-              </div>
-              <label class="toggle">
-                <input type="checkbox" id="enableQZone" class="platform-toggle" />
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-            <div class="platform-config" id="configQZone">
-              <div
-                class="input-group multi-input-group"
-                data-platform="qzone"
-                data-key="targetQZoneUser"
-              >
-                <label>QQ号(s)</label>
-                <div class="input-list"></div>
-                <button type="button" class="add-btn secondary-btn">+ Add Account</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Weibo -->
-          <div class="platform-card" data-platform="weibo">
-            <div class="platform-header">
-              <div class="platform-info">
-                <span class="platform-icon">🔴</span>
-                <span class="platform-name">微博 Weibo</span>
-              </div>
-              <label class="toggle">
-                <input type="checkbox" id="enableWeibo" class="platform-toggle" />
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-            <div class="platform-config" id="configWeibo">
-              <div
-                class="input-group multi-input-group"
-                data-platform="weibo"
-                data-key="targetWeiboUser"
-              >
-                <label>UID(s)</label>
-                <div class="input-list"></div>
-                <button type="button" class="add-btn secondary-btn">+ Add Account</button>
-                <p class="hint">在个人主页 URL 中找到: weibo.com/u/[UID]</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Redbook -->
-          <div class="platform-card" data-platform="redbook">
-            <div class="platform-header">
-              <div class="platform-info">
-                <span class="platform-icon">📕</span>
-                <span class="platform-name">小红书 Redbook</span>
-              </div>
-              <label class="toggle">
-                <input type="checkbox" id="enableRedbook" class="platform-toggle" />
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-            <div class="platform-config" id="configRedbook">
-              <div
-                class="input-group multi-input-group"
-                data-platform="redbook"
-                data-key="targetRedbookUser"
-              >
-                <label>User ID(s)</label>
-                <div class="input-list"></div>
-                <button type="button" class="add-btn secondary-btn">+ Add Account</button>
-                <p class="hint">在个人主页 URL 中找到: xiaohongshu.com/user/profile/[UserID]</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- ZSXQ -->
-          <div class="platform-card" data-platform="zsxq">
-            <div class="platform-header">
-              <div class="platform-info">
-                <span class="platform-icon">🌐</span>
-                <span class="platform-name">知识星球 ZSXQ</span>
-              </div>
-              <label class="toggle">
-                <input type="checkbox" id="enableZsxq" class="platform-toggle" />
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-            <div class="platform-config" id="configZsxq">
-              <div
-                class="input-group multi-input-group"
-                data-platform="zsxq"
-                data-key="targetZsxqGroup"
-              >
-                <label>Group ID(s)</label>
-                <div class="input-list"></div>
-                <button type="button" class="add-btn secondary-btn">+ Add Group</button>
-                <p class="hint">在星球页面 URL 中找到: wx.zsxq.com/group/[GroupID]</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- YouTube -->
-          <div class="platform-card" data-platform="youtube">
-            <div class="platform-header">
-              <div class="platform-info">
-                <span class="platform-icon">▶️</span>
-                <span class="platform-name">YouTube</span>
-              </div>
-              <label class="toggle">
-                <input type="checkbox" id="enableYoutube" class="platform-toggle" />
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-            <div class="platform-config" id="configYoutube">
-              <div
-                class="input-group multi-input-group"
-                data-platform="youtube"
-                data-key="targetYoutubeChannel"
-              >
-                <label>Channel Handle(s)</label>
-                <div class="input-list"></div>
-                <button type="button" class="add-btn secondary-btn">+ Add Channel</button>
-                <p class="hint">
-                  Channel handle without @, found in URL: youtube.com/@[handle]/videos
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Auto-collect Settings -->
-        <section class="section">
-          <h2>Auto-Collect</h2>
-          <div class="input-group">
-            <label for="collectIntervalHours">Collect Interval (hours)</label>
-            <input type="number" id="collectIntervalHours" max="168" value="4" />
-            <p class="hint">
-              Hours between auto-collections. Set to 0 or negative to collect every time (useful for
-              debugging).
-            </p>
-          </div>
-          <div class="info-card">
-            <span id="lastCollectInfo">Last collected: Never</span>
-          </div>
-        </section>
-
-        <!-- Debug Mode -->
-        <section class="section">
-          <h2>🛠 Debug Mode</h2>
-          <div class="checkbox-group">
-            <label class="checkbox-label">
-              <input type="checkbox" id="debugMode" />
-              <span>Enable Debug Mode</span>
+            <label class="toggle">
+              <input type="checkbox" id="enableX" class="platform-toggle" />
+              <span class="toggle-slider"></span>
             </label>
-            <p class="hint">
-              When enabled, content will be logged as JSON but NOT saved to Notion. Use this to test
-              content parsing.
-            </p>
           </div>
-        </section>
-
-        <div class="actions">
-          <button id="saveBtn" class="primary-btn">Save Settings</button>
-          <span id="saveStatus" class="save-status"></span>
+          <div class="platform-config" id="configX">
+            <div class="input-group multi-input-group" data-platform="x" data-key="targetXUser">
+              <label>Username(s)</label>
+              <div class="input-list"></div>
+              <button type="button" class="add-btn secondary-btn">+ Add Account</button>
+              <p class="hint">Username (without @)</p>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
 
-    <script type="module" src="../dist/options/options.js"></script>
-  </body>
+      <!-- Platforms - China -->
+      <section class="section">
+        <h2>🇨🇳 中国</h2>
+        <p class="hint">中国社交平台</p>
+
+        <!-- Bilibili -->
+        <div class="platform-card" data-platform="bilibili">
+          <div class="platform-header">
+            <div class="platform-info">
+              <span class="platform-icon">📺</span>
+              <span class="platform-name">哔哩哔哩 Bilibili</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="enableBilibili" class="platform-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="platform-config" id="configBilibili">
+            <div class="input-group multi-input-group" data-platform="bilibili" data-key="targetBilibiliUser">
+              <label>UID(s)</label>
+              <div class="input-list"></div>
+              <button type="button" class="add-btn secondary-btn">+ Add Account</button>
+              <p class="hint">在个人主页 URL 中找到: space.bilibili.com/[UID]</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- QZone -->
+        <div class="platform-card" data-platform="qzone">
+          <div class="platform-header">
+            <div class="platform-info">
+              <span class="platform-icon">🌟</span>
+              <span class="platform-name">QQ空间 QZone</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="enableQZone" class="platform-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="platform-config" id="configQZone">
+            <div class="input-group multi-input-group" data-platform="qzone" data-key="targetQZoneUser">
+              <label>QQ号(s)</label>
+              <div class="input-list"></div>
+              <button type="button" class="add-btn secondary-btn">+ Add Account</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weibo -->
+        <div class="platform-card" data-platform="weibo">
+          <div class="platform-header">
+            <div class="platform-info">
+              <span class="platform-icon">🔴</span>
+              <span class="platform-name">微博 Weibo</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="enableWeibo" class="platform-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="platform-config" id="configWeibo">
+            <div class="input-group multi-input-group" data-platform="weibo" data-key="targetWeiboUser">
+              <label>UID(s)</label>
+              <div class="input-list"></div>
+              <button type="button" class="add-btn secondary-btn">+ Add Account</button>
+              <p class="hint">在个人主页 URL 中找到: weibo.com/u/[UID]</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Redbook -->
+        <div class="platform-card" data-platform="redbook">
+          <div class="platform-header">
+            <div class="platform-info">
+              <span class="platform-icon">📕</span>
+              <span class="platform-name">小红书 Redbook</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="enableRedbook" class="platform-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="platform-config" id="configRedbook">
+            <div class="input-group multi-input-group" data-platform="redbook" data-key="targetRedbookUser">
+              <label>User ID(s)</label>
+              <div class="input-list"></div>
+              <button type="button" class="add-btn secondary-btn">+ Add Account</button>
+              <p class="hint">在个人主页 URL 中找到: xiaohongshu.com/user/profile/[UserID]</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ZSXQ -->
+        <div class="platform-card" data-platform="zsxq">
+          <div class="platform-header">
+            <div class="platform-info">
+              <span class="platform-icon">🌐</span>
+              <span class="platform-name">知识星球 ZSXQ</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="enableZsxq" class="platform-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="platform-config" id="configZsxq">
+            <div class="input-group multi-input-group" data-platform="zsxq" data-key="targetZsxqGroup">
+              <label>Group ID(s)</label>
+              <div class="input-list"></div>
+              <button type="button" class="add-btn secondary-btn">+ Add Group</button>
+              <p class="hint">在星球页面 URL 中找到: wx.zsxq.com/group/[GroupID]</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- YouTube -->
+        <div class="platform-card" data-platform="youtube">
+          <div class="platform-header">
+            <div class="platform-info">
+              <span class="platform-icon">▶️</span>
+              <span class="platform-name">YouTube</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="enableYoutube" class="platform-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="platform-config" id="configYoutube">
+            <div class="input-group multi-input-group" data-platform="youtube" data-key="targetYoutubeChannel">
+              <label>Channel Handle(s)</label>
+              <div class="input-list"></div>
+              <button type="button" class="add-btn secondary-btn">+ Add Channel</button>
+              <p class="hint">
+                Channel handle without @, found in URL: youtube.com/@[handle]/videos
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Auto-collect Settings -->
+      <section class="section">
+        <h2>Auto-Collect</h2>
+        <div class="input-group">
+          <label for="collectIntervalMinutes">Collect Interval (minutes)</label>
+          <input type="number" id="collectIntervalMinutes" min="0" value="240" />
+          <p class="hint">
+            Minutes between auto-collections. Set to 0 or negative to collect every time (useful for
+            debugging).
+          </p>
+        </div>
+        <div class="info-card">
+          <span id="lastCollectInfo">Last collected: Never</span>
+        </div>
+      </section>
+
+      <!-- Cache Management -->
+      <section class="section">
+        <h2>🗄️ Cache Management</h2>
+        <p class="hint">Local HashID cache prevents checking Notion API for duplicates.</p>
+        <div class="info-card" style="margin-top: 12px; margin-bottom: 12px;">
+          <span id="cacheCountInfo">Hashes in local cache: Checking...</span>
+        </div>
+        <div class="actions" style="margin-top: 12px;">
+          <button id="rebuildCacheBtn" class="primary-btn" style="background-color: var(--md-primary);">Rebuild
+            Cache</button>
+          <button id="clearCacheBtn" class="primary-btn" style="background-color: var(--md-error);">Clear Cache</button>
+          <span id="cacheActionStatus" class="save-status"></span>
+        </div>
+      </section>
+
+      <!-- Debug Mode -->
+      <section class="section">
+        <h2>🛠 Debug Mode</h2>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="debugMode" />
+            <span>Enable Debug Mode</span>
+          </label>
+          <p class="hint">
+            When enabled, content will be logged as JSON but NOT saved to Notion. Use this to test
+            content parsing.
+          </p>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button id="saveBtn" class="primary-btn">Save Settings</button>
+        <span id="saveStatus" class="save-status"></span>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="../dist/options/options.js"></script>
+</body>
+
 </html>

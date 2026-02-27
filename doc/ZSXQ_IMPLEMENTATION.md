@@ -149,7 +149,7 @@
 ## 下一步建议
 
 1. **优化采集间隔**
-   - 当前使用全局的 collectIntervalHours
+   - 当前使用全局的 collectIntervalMinutes
    - 可考虑为每个平台单独设置间隔
 
 2. **增加错误处理**

@@ -68,7 +68,7 @@ interface AppConfig {
   targetRedbookUser: string[];
   targetZsxqGroup?: string[];
   targetYoutubeChannel?: string[];
-  collectIntervalHours?: number;
+  collectIntervalMinutes?: number;
   lastCollectTime: string | null;
   lastCollectTimes?: Record<string, string>;
   debugMode: boolean;

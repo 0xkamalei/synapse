@@ -5,7 +5,8 @@
 
 import { logger } from '../lib/logger.js';
 import { uploadMedia } from '../lib/github-uploader.js';
-import { saveToNotion, batchCheckDuplicates, truncateText } from '../lib/notion-client.js';
+import { saveToNotion, batchCheckDuplicates, truncateText, hashUrl, fetchAllHashesFromNotion } from '../lib/notion-client.js';
+import { hashCache } from '../lib/hash-cache.js';
 import { validateConfig, getConfig, updateLastCollectTime } from '../lib/storage.js';
 
 // Global lock to prevent concurrent processing of batches
@@ -121,6 +122,17 @@ async function processContent(content: CollectedContent): Promise<any> {
 
   // Update last collect time for this source
   await updateLastCollectTime(content.source);
+
+  // Add securely to hash cache to avoid duplicate saves in the future
+  try {
+    const urlHash = await hashUrl(content.url);
+    if (urlHash) {
+      await hashCache.addHash(urlHash);
+      console.log(`[Synapse] Added hash ${urlHash} to local cache`);
+    }
+  } catch (err) {
+    console.warn('[Synapse] Failed to add hash to cache:', err);
+  }
 
   console.log('[Synapse] Content saved successfully to Notion:', result.url);
   await logger.success(`Saved from ${content.source}`, {
@@ -238,6 +250,26 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         case 'GET_CONFIG':
           const config = await getConfig();
           sendResponse({ success: true, config });
+          break;
+
+        case 'GET_CACHE_COUNT':
+          const count = await hashCache.getCount();
+          sendResponse({ success: true, count });
+          break;
+
+        case 'CLEAR_CACHE':
+          await hashCache.clearCache();
+          console.log('[Synapse] Local hash cache cleared');
+          sendResponse({ success: true });
+          break;
+
+        case 'REBUILD_CACHE':
+          const hashes = await fetchAllHashesFromNotion();
+          await hashCache.clearCache();
+          await hashCache.addHashes(hashes);
+          const newCount = await hashCache.getCount();
+          console.log(`[Synapse] Local hash cache rebuilt with ${newCount} items`);
+          sendResponse({ success: true, count: newCount });
           break;
 
         default:

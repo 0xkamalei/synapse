@@ -11,7 +11,7 @@ export const STORAGE_KEYS = {
   ENABLED_SOURCES: 'enabledSources',
   LAST_COLLECT_TIME: 'lastCollectTime',
   LAST_COLLECT_TIMES: 'lastCollectTimes',
-  COLLECT_INTERVAL_HOURS: 'collectIntervalHours',
+  COLLECT_INTERVAL_MINUTES: 'collectIntervalMinutes',
   DEBUG_MODE: 'debugMode',
 } as const;
 
@@ -34,7 +34,7 @@ function getAllStorageKeys(): string[] {
 const DEFAULT_CONFIG: Partial<AppConfig> = {
   enabledSources: DEFAULT_ENABLED_SOURCES,
   debugMode: false,
-  collectIntervalHours: 4,
+  collectIntervalMinutes: 240,
 };
 
 /**
@@ -72,9 +72,9 @@ async function getConfig(): Promise<AppConfig> {
       (DEFAULT_CONFIG.enabledSources as string[]),
     lastCollectTime: (result[STORAGE_KEYS.LAST_COLLECT_TIME] as string) || null,
     lastCollectTimes: (result[STORAGE_KEYS.LAST_COLLECT_TIMES] as Record<string, string>) || {},
-    collectIntervalHours:
-      (result[STORAGE_KEYS.COLLECT_INTERVAL_HOURS] as number) ??
-      (DEFAULT_CONFIG.collectIntervalHours as number),
+    collectIntervalMinutes:
+      (result[STORAGE_KEYS.COLLECT_INTERVAL_MINUTES] as number) ??
+      (DEFAULT_CONFIG.collectIntervalMinutes as number),
     debugMode:
       (result[STORAGE_KEYS.DEBUG_MODE] as boolean) ?? (DEFAULT_CONFIG.debugMode as boolean),
   };
@@ -102,7 +102,7 @@ async function saveConfig(config: AppConfig): Promise<void> {
     [STORAGE_KEYS.GITHUB_OWNER]: config.githubOwner,
     [STORAGE_KEYS.GITHUB_REPO]: config.githubRepo,
     [STORAGE_KEYS.ENABLED_SOURCES]: config.enabledSources,
-    [STORAGE_KEYS.COLLECT_INTERVAL_HOURS]: config.collectIntervalHours,
+    [STORAGE_KEYS.COLLECT_INTERVAL_MINUTES]: config.collectIntervalMinutes,
     [STORAGE_KEYS.DEBUG_MODE]: config.debugMode,
   };
 
