@@ -1,5 +1,18 @@
 [
   {
+    "id": "3136dd2f-2d12-81d7-8eae-ef424bfddbbc",
+    "hashId": "c9001b117c4748b6f044c5ae8c24642bf44437bacd5f2c7a6ddc53f03dd434be",
+    "title": "I want to become a t...",
+    "content": "I want to become a true indie hacker, building products and services that are valuable both to myself and to others. I will share my ideas, successes, and failures here.",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2026962841522385090",
+    "originalDate": "2026-02-26T10:09:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-02-26T10:26:00.000Z"
+  },
+  {
     "id": "30e6dd2f-2d12-81c3-9d4e-f85c00464532",
     "hashId": "e02a7258f642fcfec987566b3df547366163ae44a1c184c01bc8b95f5ffa0901",
     "title": " gitgrow 让你的代码提交转化为社...",
@@ -689,19 +702,6 @@
     "source": "X",
     "originalUrl": "https://x.com/KamaleiZhang/status/2013520133906669574",
     "originalDate": "2026-01-20T07:53:00.000+00:00",
-    "images": [],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-01-20T07:53:00.000Z"
-  },
-  {
-    "id": "2ee6dd2f-2d12-81d5-98a1-de2d4366c50b",
-    "hashId": "30943efb96f31465175a2149050d6e55fb599ce0b352ece35cfca055c9c95999",
-    "title": "The hardest part of ...",
-    "content": "The hardest part of being an independent software developer is not building the software, but rather the product itself and its promotion. The most challenging aspect of the product lies in discovering and verifying user needs.",
-    "source": "X",
-    "originalUrl": "https://x.com/KamaleiZhang/status/2013520110435307710",
-    "originalDate": "2026-01-20T07:52:00.000+00:00",
     "images": [],
     "videos": [],
     "tags": [],
@@ -1412,19 +1412,6 @@
     "videos": [],
     "tags": [],
     "createdAt": "2026-01-16T06:32:00.000Z"
-  },
-  {
-    "id": "2eb6dd2f-2d12-81a0-a219-c1ae1ceff4b3",
-    "hashId": "05b60e6dad72ed5ef6d519424d4cb5a142d3ad9c9ce88f402e82557ac3a2c8dd",
-    "title": "I think we shouldn't...",
-    "content": "I think we shouldn't rely entirely on AI for explanations. Instead, I believe that more can be done to make answers automatically presented through appropriate charts and UI, without the need for excessive explanations.",
-    "source": "X",
-    "originalUrl": "https://x.com/KamaleiZhang/status/2011822582853746877",
-    "originalDate": "2026-01-15T15:27:00.000+00:00",
-    "images": [],
-    "videos": [],
-    "tags": [],
-    "createdAt": "2026-01-17T02:42:00.000Z"
   },
   {
     "id": "2eb6dd2f-2d12-815f-ab70-e03c052e5e39",
