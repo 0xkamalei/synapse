@@ -1,5 +1,35 @@
 [
   {
+    "id": "3186dd2f-2d12-81fb-abc0-ff1f7791649b",
+    "hashId": "8c3ae9fca2a6dc60d54f54304fa89783349b12b349344a279b67d0351a2290b7",
+    "title": "The free version can...",
+    "content": "The free version can handle core basic tasks. Download the latest version from:",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/2028396892976246830",
+    "originalDate": "2026-03-02T09:07:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-03T01:00:00.000Z"
+  },
+  {
+    "id": "3176dd2f-2d12-8149-8a87-de4d44173eb5",
+    "hashId": "708c4c36fb243b959d00ad886aaa93c69d6e786067981f5e6b4348fd20e1f5c9",
+    "title": "LLMs can only unders...",
+    "content": "LLMs can only understand text. Therefore, a tool is needed to convert video/autdio into text format. If you don't want to upload your files to cloud services and pay a monthly subscription fee, the macOS app #monosub that I made might be the tool you're looking for.",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/2028396448883327263",
+    "originalDate": "2026-03-02T09:06:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a551f69c139ea78636cb478d48505fdd4d1532a622fc3d0c1217282e5eb3ae45.jpeg"
+    ],
+    "videos": [],
+    "tags": [
+      "monosub"
+    ],
+    "createdAt": "2026-03-02T09:06:00.000Z"
+  },
+  {
     "id": "3156dd2f-2d12-81b6-9404-ef88bcde77d6",
     "hashId": "96599fdd39262d288f941d483eae1c47fb158099cef83b95126679df2f60349d",
     "title": "[视频] Polar.sh 部署实战：低...",
