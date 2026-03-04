@@ -8,8 +8,165 @@ const __dirname = path.dirname(__filename);
 
 const DATA_DIR = path.join(__dirname, '../src/data');
 const THOUGHTS_FILE = path.join(DATA_DIR, 'thoughts.json');
+const THOUGHTS_BY_YEAR_DIR = path.join(DATA_DIR, 'thoughts-by-year');
+const THOUGHTS_INDEX_FILE = path.join(THOUGHTS_BY_YEAR_DIR, 'index.json');
+const PUBLIC_DATA_DIR = path.join(__dirname, '../public/data');
+const PUBLIC_THOUGHTS_BY_YEAR_DIR = path.join(PUBLIC_DATA_DIR, 'thoughts-by-year');
+const PUBLIC_THOUGHTS_INDEX_FILE = path.join(PUBLIC_THOUGHTS_BY_YEAR_DIR, 'index.json');
 const METADATA_FILE = path.join(DATA_DIR, 'sync-metadata.json');
 const DAILY_COUNTS_FILE = path.join(DATA_DIR, 'daily-counts.json');
+
+function ensureDir(dir: string) {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+}
+
+function readJsonArray(filePath: string): any[] {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        return Array.isArray(parsed) ? parsed : [];
+    } catch {
+        return [];
+    }
+}
+
+function sortByDateDesc(thoughts: any[]) {
+    return thoughts.sort((a, b) => b.originalDate.localeCompare(a.originalDate));
+}
+
+function loadThoughtsFromByYearFiles(): any[] {
+    if (!fs.existsSync(THOUGHTS_INDEX_FILE)) {
+        return [];
+    }
+
+    const index = readJsonArray(THOUGHTS_INDEX_FILE);
+    if (index.length === 0) {
+        return [];
+    }
+
+    const thoughts = index.flatMap((entry: any) => {
+        const fileName = entry.file || `${entry.year}.json`;
+        const filePath = path.join(THOUGHTS_BY_YEAR_DIR, fileName);
+        if (!fs.existsSync(filePath)) {
+            console.warn(`   Missing year file: ${filePath}`);
+            return [];
+        }
+        return readJsonArray(filePath);
+    });
+
+    return sortByDateDesc(thoughts);
+}
+
+function loadExistingThoughts(): any[] {
+    const thoughtsFromYearFiles = loadThoughtsFromByYearFiles();
+    if (thoughtsFromYearFiles.length > 0) {
+        return thoughtsFromYearFiles;
+    }
+
+    if (fs.existsSync(THOUGHTS_FILE)) {
+        const thoughtsFromLegacy = readJsonArray(THOUGHTS_FILE);
+        if (thoughtsFromLegacy.length > 0) {
+            console.log('   Loaded existing thoughts from legacy thoughts.json.');
+            return sortByDateDesc(thoughtsFromLegacy);
+        }
+    }
+
+    return [];
+}
+
+function getThoughtYear(thought: any): string {
+    const dateStr = String(thought.originalDate || '');
+    const yearFromDatePrefix = dateStr.slice(0, 4);
+    if (/^\d{4}$/.test(yearFromDatePrefix)) {
+        return yearFromDatePrefix;
+    }
+
+    const parsedDate = new Date(dateStr);
+    if (!Number.isNaN(parsedDate.getTime())) {
+        return parsedDate.getUTCFullYear().toString();
+    }
+
+    return 'unknown';
+}
+
+function sortYearsDesc(yearA: string, yearB: string): number {
+    const isYearAValid = /^\d{4}$/.test(yearA);
+    const isYearBValid = /^\d{4}$/.test(yearB);
+
+    if (isYearAValid && isYearBValid) {
+        return Number(yearB) - Number(yearA);
+    }
+    if (isYearAValid) return -1;
+    if (isYearBValid) return 1;
+    return yearB.localeCompare(yearA);
+}
+
+function clearJsonFilesInDir(dir: string) {
+    if (!fs.existsSync(dir)) {
+        return;
+    }
+
+    fs.readdirSync(dir)
+        .filter((file) => file.endsWith('.json'))
+        .forEach((file) => fs.unlinkSync(path.join(dir, file)));
+}
+
+function writeThoughtsByYear(allThoughts: any[]) {
+    const groupedByYear = new Map<string, any[]>();
+
+    for (const thought of allThoughts) {
+        const year = getThoughtYear(thought);
+        const bucket = groupedByYear.get(year) || [];
+        bucket.push(thought);
+        groupedByYear.set(year, bucket);
+    }
+
+    const index = Array.from(groupedByYear.entries())
+        .sort(([yearA], [yearB]) => sortYearsDesc(yearA, yearB))
+        .map(([year, thoughts]) => ({
+            year,
+            file: `${year}.json`,
+            count: thoughts.length,
+        }));
+
+    const targetDirs = [THOUGHTS_BY_YEAR_DIR, PUBLIC_THOUGHTS_BY_YEAR_DIR];
+    targetDirs.forEach((dir) => {
+        ensureDir(dir);
+        clearJsonFilesInDir(dir);
+    });
+
+    for (const entry of index) {
+        const payload = JSON.stringify(groupedByYear.get(entry.year) || [], null, 2);
+        targetDirs.forEach((dir) => {
+            fs.writeFileSync(path.join(dir, entry.file), payload);
+        });
+    }
+
+    const indexPayload = JSON.stringify(index, null, 2);
+    fs.writeFileSync(THOUGHTS_INDEX_FILE, indexPayload);
+    fs.writeFileSync(PUBLIC_THOUGHTS_INDEX_FILE, indexPayload);
+
+    return index;
+}
+
+function hasCompleteByYearFiles(): boolean {
+    if (!fs.existsSync(THOUGHTS_INDEX_FILE) || !fs.existsSync(PUBLIC_THOUGHTS_INDEX_FILE)) {
+        return false;
+    }
+
+    const index = readJsonArray(THOUGHTS_INDEX_FILE);
+    if (index.length === 0) {
+        return false;
+    }
+
+    return index.every((entry: any) => {
+        const fileName = entry.file || `${entry.year}.json`;
+        const srcFile = path.join(THOUGHTS_BY_YEAR_DIR, fileName);
+        const publicFile = path.join(PUBLIC_THOUGHTS_BY_YEAR_DIR, fileName);
+        return fs.existsSync(srcFile) && fs.existsSync(publicFile);
+    });
+}
 
 /**
  * Rebuilds the daily-counts.json file from the provided thoughts array.
@@ -56,9 +213,8 @@ function rebuildDailyCounts(allThoughts: any[]) {
 async function sync() {
     console.log('🚀 Starting incremental Notion data sync...');
 
-    if (!fs.existsSync(DATA_DIR)) {
-        fs.mkdirSync(DATA_DIR, { recursive: true });
-    }
+    ensureDir(DATA_DIR);
+    ensureDir(PUBLIC_DATA_DIR);
 
     try {
         // 1. Get last sync time from metadata
@@ -78,22 +234,12 @@ async function sync() {
         const newThoughts = await getAllThoughts(lastSyncTime);
         console.log(`   Fetched ${newThoughts.length} new thoughts.`);
 
-        // 3. Load existing thoughts from the local source of truth
-        let allThoughts: any[] = [];
-        if (fs.existsSync(THOUGHTS_FILE)) {
-            try {
-                allThoughts = JSON.parse(fs.readFileSync(THOUGHTS_FILE, 'utf-8'));
-            } catch (e) {
-                console.warn('   Could not parse existing thoughts.json, starting fresh.');
-                allThoughts = [];
-            }
-        }
+        // 3. Load existing thoughts from local source of truth
+        let allThoughts = loadExistingThoughts();
 
         // 4. Merge and deduplicate by ID and HashID
         // Use hashId (URL hash) as the primary key for deduplication to handle concurrent saves
         const thoughtMap = new Map<string, any>();
-        const idToHashMap = new Map<string, string>();
-
         const processThought = (t: any) => {
             const hashId = t.hashId || '';
             const id = t.id;
@@ -102,7 +248,6 @@ async function sync() {
                 // If we already have this hashId, keep the existing one (or we could compare dates)
                 if (!thoughtMap.has(hashId)) {
                     thoughtMap.set(hashId, t);
-                    idToHashMap.set(id, hashId);
                 } else {
                     console.log(`   Found duplicate hashId: ${hashId.substring(0, 16)}... (ID: ${id}), skipping.`);
                 }
@@ -136,30 +281,37 @@ async function sync() {
         console.log('   Rebuilding daily counts from full dataset...');
         const dailyCounts = rebuildDailyCounts(allThoughts);
 
-        if (newThoughts.length === 0 && deletedCount === 0) {
+        const hasByYearFiles = hasCompleteByYearFiles();
+        const needsDataRewrite = newThoughts.length > 0 || deletedCount > 0 || !hasByYearFiles;
+
+        if (!needsDataRewrite) {
             console.log(`✅ No changes (no new thoughts, no deletions). Skipping file updates.`);
             return;
         }
 
-        // 6. Write updated thoughts data
-        fs.writeFileSync(
-            THOUGHTS_FILE,
-            JSON.stringify(allThoughts, null, 2)
-        );
+        // 7. Write thoughts grouped by year (for both build-time and runtime fetch)
+        const yearIndex = writeThoughtsByYear(allThoughts);
 
-        // 7. Update metadata
+        // Remove legacy single-file storage after successful migration.
+        if (fs.existsSync(THOUGHTS_FILE)) {
+            fs.unlinkSync(THOUGHTS_FILE);
+        }
+
+        // 8. Update metadata
         fs.writeFileSync(
             METADATA_FILE,
             JSON.stringify({
                 lastSyncTime: currentSyncStartTime,
                 updatedAt: new Date().toISOString(),
                 newItemsCount: newThoughts.length,
-                totalItemsCount: allThoughts.length
+                totalItemsCount: allThoughts.length,
+                yearFilesCount: yearIndex.length
             }, null, 2)
         );
 
         console.log(`✅ Sync complete!`);
         console.log(`📝 Total Thoughts: ${allThoughts.length} (+${newThoughts.length} new)`);
+        console.log(`📂 Year Files: ${yearIndex.length}`);
         console.log(`📊 Daily Counts: ${dailyCounts.filter(d => d.count > 0).length} active days`);
     } catch (error) {
         console.error('❌ Sync failed:', error);

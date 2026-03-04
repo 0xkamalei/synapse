@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ThoughtCard from "../../components/ThoughtCard.astro";
-import thoughts from "../../data/thoughts.json";
+import { loadAllThoughts } from "../../lib/thoughts-data";
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+    const thoughts = await loadAllThoughts();
     const sources = [...new Set(thoughts.map((t) => t.source.toLowerCase()))];
     return sources.map((source) => ({
         params: { source },

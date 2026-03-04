@@ -14,7 +14,8 @@ bun run sync
 **What it does:**
 - Fetches all published thoughts from Notion database
 - Deduplicates by title (using URL hash as unique identifier)
-- Updates `src/data/thoughts.json` with combined dataset
+- Writes thoughts into yearly files under `src/data/thoughts-by-year/*.json`
+- Mirrors yearly files to `public/data/thoughts-by-year/*.json` for client-side lazy loading
 - Rebuilds `src/data/daily-counts.json` from full dataset
 - Updates sync metadata with timestamp and counts
 

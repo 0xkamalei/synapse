@@ -3,15 +3,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ThoughtCard from "../components/ThoughtCard.astro";
 import Heatmap from "../components/Heatmap.astro";
 import TimelineScroll from "../components/TimelineScroll.astro";
-import thoughts from "../data/thoughts.json";
+import {
+  buildThoughtYearMeta,
+  loadAllThoughts,
+  loadThoughtsIndex,
+} from "../lib/thoughts-data";
 import dailyCounts from "../data/daily-counts.json";
+
+const thoughts = await loadAllThoughts();
+const thoughtsYearMeta = loadThoughtsIndex();
+const thoughtYearMetaForClient =
+  thoughtsYearMeta.length > 0 ? thoughtsYearMeta : buildThoughtYearMeta(thoughts);
 
 // PERFORMANCE OPTIMIZATION:
 // Only render initial batch on SSR to reduce HTML size and parse time
 const INITIAL_RENDER_COUNT = 20; // First 20 thoughts rendered on server
-const INITIAL_AUTH_LIMIT = 30; // For unauthenticated users
 const initialThoughts = thoughts.slice(0, INITIAL_RENDER_COUNT);
-const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
 ---
 
 <BaseLayout title="Thoughts">
@@ -100,12 +107,26 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
   </div>
 </BaseLayout>
 
+<script
+  define:vars={{
+    initialThoughtsData: initialThoughts,
+    thoughtYearMetaData: thoughtYearMetaForClient,
+    thoughtsTotalCount: thoughts.length,
+  }}
+>
+  window.__INITIAL_THOUGHTS__ = initialThoughtsData;
+  window.__THOUGHT_YEAR_META__ = thoughtYearMetaData;
+  window.__THOUGHTS_TOTAL__ = thoughtsTotalCount;
+</script>
+
 <script>
   import { auth } from "../lib/firebase";
   import { onAuthStateChanged } from "firebase/auth";
 
-  // Import thoughts data for client-side rendering
-  import thoughtsData from "../data/thoughts.json";
+  const INITIAL_THOUGHTS = (window as any).__INITIAL_THOUGHTS__ || [];
+  const THOUGHT_YEAR_META = (window as any).__THOUGHT_YEAR_META__ || [];
+  const THOUGHTS_TOTAL = Number((window as any).__THOUGHTS_TOTAL__ || 0);
+  const THOUGHTS_BY_YEAR_BASE = "/data/thoughts-by-year";
 
   const loading = document.getElementById("auth-loading");
   const content = document.getElementById("content");
@@ -120,10 +141,101 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
   const BATCH_SIZE = 20;
   const INITIAL_RENDER = 20;
   const AUTH_LIMIT = 30;
-  let currentIndex = INITIAL_RENDER;
+  let currentIndex = Math.min(INITIAL_RENDER, THOUGHTS_TOTAL);
   let isAuthenticated = false;
   let isLoading = false;
   let hasReachedLimit = false;
+
+  const thoughtsData: any[] = [];
+  const thoughtKeySet = new Set<string>();
+  const yearCache = new Map<string, any[]>();
+  const loadedYears = new Set<string>();
+  const yearStartIndex = new Map<string, number>();
+
+  let cumulativeIndex = 0;
+  THOUGHT_YEAR_META.forEach((entry: any) => {
+    yearStartIndex.set(String(entry.year), cumulativeIndex);
+    cumulativeIndex += Number(entry.count) || 0;
+  });
+
+  function getThoughtKey(thought: any): string {
+    if (thought.hashId) return `hash:${thought.hashId}`;
+    if (thought.id) return `id:${thought.id}`;
+    return `fallback:${thought.originalDate}:${thought.source}:${thought.title ?? ""}`;
+  }
+
+  function appendThoughtIfMissing(thought: any) {
+    const key = getThoughtKey(thought);
+    if (thoughtKeySet.has(key)) return;
+    thoughtKeySet.add(key);
+    thoughtsData.push(thought);
+  }
+
+  INITIAL_THOUGHTS.forEach((thought: any) => appendThoughtIfMissing(thought));
+
+  async function loadYearThoughts(year: string): Promise<any[]> {
+    if (yearCache.has(year)) {
+      return yearCache.get(year) || [];
+    }
+
+    try {
+      const response = await fetch(`${THOUGHTS_BY_YEAR_BASE}/${year}.json`, {
+        cache: "force-cache",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to load thoughts for year ${year}: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const normalized = Array.isArray(data) ? data : [];
+      yearCache.set(year, normalized);
+      return normalized;
+    } catch (error) {
+      console.error(error);
+      yearCache.set(year, []);
+      return [];
+    }
+  }
+
+  async function ensureThoughtsLoadedUntil(targetIndex: number) {
+    if (targetIndex < thoughtsData.length) {
+      return;
+    }
+
+    for (const entry of THOUGHT_YEAR_META) {
+      const year = String(entry.year);
+
+      if (loadedYears.has(year)) {
+        continue;
+      }
+
+      const yearThoughts = await loadYearThoughts(year);
+      loadedYears.add(year);
+      yearThoughts.forEach((thought: any) => appendThoughtIfMissing(thought));
+
+      if (targetIndex < thoughtsData.length) {
+        return;
+      }
+    }
+  }
+
+  function getMaxVisibleIndex(): number {
+    return isAuthenticated ? THOUGHTS_TOTAL : Math.min(AUTH_LIMIT, THOUGHTS_TOTAL);
+  }
+
+  function applyReachedLimitState(maxIndex: number) {
+    if (currentIndex < maxIndex) {
+      return;
+    }
+
+    hasReachedLimit = true;
+    sentinel?.classList.add("hidden");
+
+    if (!isAuthenticated && currentIndex >= AUTH_LIMIT) {
+      contentLimitNotice?.classList.remove("hidden");
+    }
+  }
 
   // Create ThoughtCard HTML from thought data
   function createThoughtCardHTML(thought: any): string {
@@ -135,22 +247,26 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
     });
     const dateISO = thought.originalDate.split("T")[0];
 
-    const mediaHTML = (thought.images.length > 0 || thought.videos.length > 0) 
+    const images = Array.isArray(thought.images) ? thought.images : [];
+    const videos = Array.isArray(thought.videos) ? thought.videos : [];
+    const tags = Array.isArray(thought.tags) ? thought.tags : [];
+
+    const mediaHTML = (images.length > 0 || videos.length > 0)
       ? `<div class="card-media">
-          ${thought.images.map((img: string) => `<img src="${img}" alt="" loading="lazy" />`).join('')}
-          ${thought.videos.map((vid: string) => `<video src="${vid}" controls preload="none"></video>`).join('')}
+          ${images.map((img: string) => `<img src="${img}" alt="" loading="lazy" />`).join("")}
+          ${videos.map((vid: string) => `<video src="${vid}" controls preload="none"></video>`).join("")}
         </div>`
-      : '';
+      : "";
 
-    const tagsHTML = thought.tags.length > 0
+    const tagsHTML = tags.length > 0
       ? `<div class="card-tags">
-          ${thought.tags.map((tag: string) => `<span class="tag">${tag}</span>`).join('')}
+          ${tags.map((tag: string) => `<span class="tag">${tag}</span>`).join("")}
         </div>`
-      : '';
+      : "";
 
-    const originalLinkHTML = thought.originalUrl && thought.originalUrl.startsWith('https://')
+    const originalLinkHTML = thought.originalUrl && thought.originalUrl.startsWith("https://")
       ? `<a href="${thought.originalUrl}" target="_blank" rel="noopener" class="original-link">View original →</a>`
-      : '';
+      : "";
 
     return `
       <article class="thought-card" data-date="${dateISO}">
@@ -172,50 +288,76 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
     `;
   }
 
+  function renderBatch(startIndex: number, endIndex: number) {
+    const batch = thoughtsData.slice(startIndex, endIndex);
+    batch.forEach((thought) => {
+      const cardHTML = createThoughtCardHTML(thought);
+      timeline?.insertAdjacentHTML("beforeend", cardHTML);
+    });
+  }
+
   // Load more thoughts
-  function loadMoreThoughts() {
+  async function loadMoreThoughts() {
     if (isLoading || hasReachedLimit) return;
 
-    const maxIndex = isAuthenticated ? thoughtsData.length : AUTH_LIMIT;
-    
+    const maxIndex = getMaxVisibleIndex();
+
     if (currentIndex >= maxIndex) {
-      hasReachedLimit = true;
-      sentinel?.classList.add('hidden');
-      
-      // Show auth notice for unauthenticated users
-      if (!isAuthenticated && currentIndex >= AUTH_LIMIT) {
-        contentLimitNotice?.classList.remove('hidden');
-      }
+      applyReachedLimitState(maxIndex);
       return;
     }
 
     isLoading = true;
-    loadingIndicator?.classList.remove('hidden');
+    loadingIndicator?.classList.remove("hidden");
 
-    // Simulate network delay for better UX (can be removed in production)
-    setTimeout(() => {
+    try {
       const endIndex = Math.min(currentIndex + BATCH_SIZE, maxIndex);
-      const batch = thoughtsData.slice(currentIndex, endIndex);
-
-      batch.forEach((thought) => {
-        const cardHTML = createThoughtCardHTML(thought);
-        timeline?.insertAdjacentHTML('beforeend', cardHTML);
-      });
-
-      currentIndex = endIndex;
+      await ensureThoughtsLoadedUntil(endIndex - 1);
+      renderBatch(currentIndex, endIndex);
+      currentIndex = Math.min(endIndex, thoughtsData.length);
+      applyReachedLimitState(maxIndex);
+    } finally {
       isLoading = false;
-      loadingIndicator?.classList.add('hidden');
+      loadingIndicator?.classList.add("hidden");
+    }
+  }
 
-      // Check if we've reached the limit
-      if (currentIndex >= maxIndex) {
-        hasReachedLimit = true;
-        sentinel?.classList.add('hidden');
-        
-        if (!isAuthenticated && currentIndex >= AUTH_LIMIT) {
-          contentLimitNotice?.classList.remove('hidden');
-        }
-      }
-    }, 300);
+  function showAuthLimitMessage() {
+    contentLimitNotice?.classList.remove("hidden");
+    contentLimitNotice?.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    const limitContent = contentLimitNotice?.querySelector(".limit-notice-content");
+    limitContent?.classList.add("shake-animation");
+    setTimeout(() => {
+      limitContent?.classList.remove("shake-animation");
+    }, 500);
+  }
+
+  async function resolveTargetIndex(year?: string, month?: string): Promise<number> {
+    if (!year) {
+      return -1;
+    }
+
+    const yearStart = yearStartIndex.get(year);
+    if (yearStart === undefined) {
+      return -1;
+    }
+
+    if (!month) {
+      return yearStart;
+    }
+
+    const yearThoughts = await loadYearThoughts(year);
+    const monthOffset = yearThoughts.findIndex((thought: any) => {
+      const date = new Date(thought.originalDate);
+      return (date.getMonth() + 1).toString() === month;
+    });
+
+    if (monthOffset === -1) {
+      return yearStart;
+    }
+
+    return yearStart + monthOffset;
   }
 
   // Intersection Observer for infinite scroll
@@ -228,7 +370,7 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        loadMoreThoughts();
+        void loadMoreThoughts();
       }
     });
   }, observerOptions);
@@ -280,92 +422,41 @@ const limitedThoughts = thoughts.slice(0, INITIAL_AUTH_LIMIT);
   const clearBtn = document.getElementById("clear-filter");
 
   // Timeline Scroll Logic
-  window.addEventListener("timeline-jump", (e: any) => {
+  window.addEventListener("timeline-jump", async (e: any) => {
     const { target, year, month } = e.detail;
-    
+
     if (target === "top") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
 
-    // Find the first thought that matches year/month
-    let targetIndex = -1;
-    let targetId = "";
-
-    // Iterate through all thoughts to find the first match
-    for (let i = 0; i < thoughtsData.length; i++) {
-      const date = new Date(thoughtsData[i].originalDate);
-      const tYear = date.getFullYear().toString();
-      const tMonth = (date.getMonth() + 1).toString();
-
-      if (year && month) {
-        if (tYear === year && tMonth == month) {
-          targetIndex = i;
-          break;
-        }
-      } else if (year) {
-        if (tYear === year) {
-          targetIndex = i;
-          break;
-        }
-      }
-    }
+    const targetIndex = await resolveTargetIndex(year, month);
 
     if (targetIndex !== -1) {
       // Security check: if target is beyond auth limit for unauthenticated user
       if (!isAuthenticated && targetIndex >= AUTH_LIMIT) {
-          // Scroll to the limit notice
-          contentLimitNotice?.classList.remove('hidden');
-          contentLimitNotice?.scrollIntoView({ behavior: "smooth", block: "center" });
-          
-          // Add a visual shake effect to emphasize the limit
-          const limitContent = contentLimitNotice?.querySelector('.limit-notice-content');
-          limitContent?.classList.add('shake-animation');
-          setTimeout(() => {
-              limitContent?.classList.remove('shake-animation');
-          }, 500);
-          
-          return;
+        showAuthLimitMessage();
+        return;
       }
 
       // If target is beyond current rendered thoughts, load them
       if (targetIndex >= currentIndex) {
         // Show loading state if it's a large jump
         if (targetIndex - currentIndex > 50) {
-            loadingIndicator?.classList.remove('hidden');
+          loadingIndicator?.classList.remove("hidden");
         }
-        
-        // Force render up to target + minimal batch
-        // We render everything in between to maintain scroll position context
-        const endIndex = Math.min(targetIndex + 10, thoughtsData.length);
-        const batch = thoughtsData.slice(currentIndex, endIndex);
-        
-        batch.forEach((thought) => {
-          const cardHTML = createThoughtCardHTML(thought);
-          timeline?.insertAdjacentHTML('beforeend', cardHTML);
-        });
 
-        currentIndex = endIndex;
-        
-        // Update sentinel/limits
-        const maxIndex = isAuthenticated ? thoughtsData.length : AUTH_LIMIT;
-        if (currentIndex >= maxIndex) {
-          hasReachedLimit = true;
-          sentinel?.classList.add('hidden');
-          if (!isAuthenticated && currentIndex >= AUTH_LIMIT) {
-             contentLimitNotice?.classList.remove('hidden');
-          }
-        }
-        
-        loadingIndicator?.classList.add('hidden');
+        const maxIndex = getMaxVisibleIndex();
+        const endIndex = Math.min(targetIndex + 10, maxIndex);
+        await ensureThoughtsLoadedUntil(endIndex - 1);
+        renderBatch(currentIndex, endIndex);
+
+        currentIndex = Math.min(endIndex, thoughtsData.length);
+        applyReachedLimitState(maxIndex);
+        loadingIndicator?.classList.add("hidden");
       }
 
       // Find the element and scroll
-      // Since we just added it, it should be in DOM. 
-      // We need to identify it. createThoughtCardHTML uses data-date, but multiple have same date.
-      // Let's assume we can find it by index or matching date.
-      // Better: find the Nth child of timeline.
-      
       const cards = timeline?.children;
       if (cards && cards[targetIndex]) {
         cards[targetIndex].scrollIntoView({ behavior: "smooth", block: "start" });
