@@ -8,13 +8,13 @@ const __dirname = path.dirname(__filename);
 
 const DATA_DIR = path.join(__dirname, '../src/data');
 const THOUGHTS_FILE = path.join(DATA_DIR, 'thoughts.json');
-const THOUGHTS_BY_YEAR_DIR = path.join(DATA_DIR, 'thoughts-by-year');
+const THOUGHTS_BY_YEAR_DIR = path.join(__dirname, '../public/data/thoughts-by-year');
 const THOUGHTS_INDEX_FILE = path.join(THOUGHTS_BY_YEAR_DIR, 'index.json');
 const PUBLIC_DATA_DIR = path.join(__dirname, '../public/data');
-const PUBLIC_THOUGHTS_BY_YEAR_DIR = path.join(PUBLIC_DATA_DIR, 'thoughts-by-year');
-const PUBLIC_THOUGHTS_INDEX_FILE = path.join(PUBLIC_THOUGHTS_BY_YEAR_DIR, 'index.json');
-const METADATA_FILE = path.join(DATA_DIR, 'sync-metadata.json');
-const DAILY_COUNTS_FILE = path.join(DATA_DIR, 'daily-counts.json');
+const METADATA_FILE = path.join(PUBLIC_DATA_DIR, 'sync-metadata.json');
+const LEGACY_METADATA_FILE = path.join(DATA_DIR, 'sync-metadata.json');
+const DAILY_COUNTS_FILE = path.join(PUBLIC_DATA_DIR, 'daily-counts.json');
+const LEGACY_DAILY_COUNTS_FILE = path.join(DATA_DIR, 'daily-counts.json');
 
 function ensureDir(dir: string) {
     if (!fs.existsSync(dir)) {
@@ -130,28 +130,22 @@ function writeThoughtsByYear(allThoughts: any[]) {
             count: thoughts.length,
         }));
 
-    const targetDirs = [THOUGHTS_BY_YEAR_DIR, PUBLIC_THOUGHTS_BY_YEAR_DIR];
-    targetDirs.forEach((dir) => {
-        ensureDir(dir);
-        clearJsonFilesInDir(dir);
-    });
+    ensureDir(THOUGHTS_BY_YEAR_DIR);
+    clearJsonFilesInDir(THOUGHTS_BY_YEAR_DIR);
 
     for (const entry of index) {
         const payload = JSON.stringify(groupedByYear.get(entry.year) || [], null, 2);
-        targetDirs.forEach((dir) => {
-            fs.writeFileSync(path.join(dir, entry.file), payload);
-        });
+        fs.writeFileSync(path.join(THOUGHTS_BY_YEAR_DIR, entry.file), payload);
     }
 
     const indexPayload = JSON.stringify(index, null, 2);
     fs.writeFileSync(THOUGHTS_INDEX_FILE, indexPayload);
-    fs.writeFileSync(PUBLIC_THOUGHTS_INDEX_FILE, indexPayload);
 
     return index;
 }
 
 function hasCompleteByYearFiles(): boolean {
-    if (!fs.existsSync(THOUGHTS_INDEX_FILE) || !fs.existsSync(PUBLIC_THOUGHTS_INDEX_FILE)) {
+    if (!fs.existsSync(THOUGHTS_INDEX_FILE)) {
         return false;
     }
 
@@ -162,9 +156,8 @@ function hasCompleteByYearFiles(): boolean {
 
     return index.every((entry: any) => {
         const fileName = entry.file || `${entry.year}.json`;
-        const srcFile = path.join(THOUGHTS_BY_YEAR_DIR, fileName);
-        const publicFile = path.join(PUBLIC_THOUGHTS_BY_YEAR_DIR, fileName);
-        return fs.existsSync(srcFile) && fs.existsSync(publicFile);
+        const publicFile = path.join(THOUGHTS_BY_YEAR_DIR, fileName);
+        return fs.existsSync(publicFile);
     });
 }
 
@@ -223,6 +216,10 @@ async function sync() {
             const metadata = JSON.parse(fs.readFileSync(METADATA_FILE, 'utf-8'));
             lastSyncTime = metadata.lastSyncTime;
             console.log(`   Last sync time: ${lastSyncTime}`);
+        } else if (fs.existsSync(LEGACY_METADATA_FILE)) {
+            const metadata = JSON.parse(fs.readFileSync(LEGACY_METADATA_FILE, 'utf-8'));
+            lastSyncTime = metadata.lastSyncTime;
+            console.log(`   Last sync time (legacy): ${lastSyncTime}`);
         } else {
             console.log('   No metadata found, performing full sync...');
         }
@@ -282,9 +279,17 @@ async function sync() {
         const dailyCounts = rebuildDailyCounts(allThoughts);
 
         const hasByYearFiles = hasCompleteByYearFiles();
-        const needsDataRewrite = newThoughts.length > 0 || deletedCount > 0 || !hasByYearFiles;
+        const hasPublicMetadata = fs.existsSync(METADATA_FILE);
+        const needsDataRewrite =
+            newThoughts.length > 0 || deletedCount > 0 || !hasByYearFiles || !hasPublicMetadata;
 
         if (!needsDataRewrite) {
+            if (fs.existsSync(LEGACY_METADATA_FILE)) {
+                fs.unlinkSync(LEGACY_METADATA_FILE);
+            }
+            if (fs.existsSync(LEGACY_DAILY_COUNTS_FILE)) {
+                fs.unlinkSync(LEGACY_DAILY_COUNTS_FILE);
+            }
             console.log(`✅ No changes (no new thoughts, no deletions). Skipping file updates.`);
             return;
         }
@@ -308,6 +313,14 @@ async function sync() {
                 yearFilesCount: yearIndex.length
             }, null, 2)
         );
+
+        // Remove legacy files after successful migration.
+        if (fs.existsSync(LEGACY_METADATA_FILE)) {
+            fs.unlinkSync(LEGACY_METADATA_FILE);
+        }
+        if (fs.existsSync(LEGACY_DAILY_COUNTS_FILE)) {
+            fs.unlinkSync(LEGACY_DAILY_COUNTS_FILE);
+        }
 
         console.log(`✅ Sync complete!`);
         console.log(`📝 Total Thoughts: ${allThoughts.length} (+${newThoughts.length} new)`);

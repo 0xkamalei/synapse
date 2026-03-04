@@ -6,11 +6,12 @@ import TimelineScroll from "../components/TimelineScroll.astro";
 import {
   buildThoughtYearMeta,
   loadAllThoughts,
+  loadDailyCounts,
   loadThoughtsIndex,
 } from "../lib/thoughts-data";
-import dailyCounts from "../data/daily-counts.json";
 
 const thoughts = await loadAllThoughts();
+const dailyCounts = await loadDailyCounts();
 const thoughtsYearMeta = loadThoughtsIndex();
 const thoughtYearMetaForClient =
   thoughtsYearMeta.length > 0 ? thoughtsYearMeta : buildThoughtYearMeta(thoughts);

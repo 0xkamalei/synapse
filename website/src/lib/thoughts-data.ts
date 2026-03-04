@@ -16,11 +16,22 @@ export type ThoughtYearMeta = {
   count: number;
 };
 
+export type DailyCount = {
+  date: string;
+  count: number;
+};
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const WEBSITE_ROOT_DIR = path.join(__dirname, "../..");
 const DATA_DIR = path.join(__dirname, "../data");
-const THOUGHTS_BY_YEAR_DIR = path.join(DATA_DIR, "thoughts-by-year");
+const PUBLIC_DATA_DIR = path.join(WEBSITE_ROOT_DIR, "public", "data");
+const THOUGHTS_BY_YEAR_DIR = path.join(
+  PUBLIC_DATA_DIR,
+  "thoughts-by-year",
+);
 const THOUGHTS_INDEX_FILE = path.join(THOUGHTS_BY_YEAR_DIR, "index.json");
+const DAILY_COUNTS_FILE = path.join(PUBLIC_DATA_DIR, "daily-counts.json");
 const LEGACY_THOUGHTS_FILE = path.join(DATA_DIR, "thoughts.json");
 
 function compareByDateDesc(a: Thought, b: Thought): number {
@@ -102,4 +113,19 @@ export async function loadAllThoughts(): Promise<Thought[]> {
   }
 
   return [];
+}
+
+export async function loadDailyCounts(): Promise<DailyCount[]> {
+  if (!fs.existsSync(DAILY_COUNTS_FILE)) {
+    return [];
+  }
+
+  const counts = loadThoughtFile(DAILY_COUNTS_FILE);
+  return counts
+    .filter((item) => typeof item?.date === "string")
+    .map((item) => ({
+      date: String(item.date),
+      count: Number(item.count) || 0,
+    }))
+    .sort((a, b) => a.date.localeCompare(b.date));
 }
