@@ -1,5 +1,89 @@
 [
   {
+    "id": "3196dd2f-2d12-81e8-af0d-fc3566ac80ca",
+    "hashId": "8c22dc685f9c0b274a7275db6af2d87cf3605f58b338607b5b8e69c1e250eb1f",
+    "title": "很多人可能觉得，命名和图标也要设计 Sk...",
+    "content": "很多人可能觉得，命名和图标也要设计 Skill？其实没那么简单。我的完整思路是：先让 AI 推荐该领域的经典书籍，再提炼书中的核心原则来设计 Skill，最后经过测试验证，形成一套可以反复复用的方法。",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2028887506004111502",
+    "originalDate": "2026-03-03T17:37:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-04T01:01:00.000Z"
+  },
+  {
+    "id": "3196dd2f-2d12-8116-adf1-eb76f5e626b9",
+    "hashId": "55a04944a833651438cf2d5e02aed28f0f57dd6bc21e48e48a7d8d3bdf1f9061",
+    "title": "skill 构建本质上就是一种元编程，项...",
+    "content": "skill 构建本质上就是一种元编程，项目做多了就会发现，很多重复操作都能封装成 skill 来自动完成。\n已经搞定了这些核心技能：B 站投稿、作品命名、图标设计，接下来还会陆续解锁小宇宙投稿、小红书投稿。",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2028887012774961276",
+    "originalDate": "2026-03-03T17:35:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-04T01:01:00.000Z"
+  },
+  {
+    "id": "3186dd2f-2d12-810e-af8f-d4d096b3a270",
+    "hashId": "0719db391f881103fd6da19be28cb4682d11c868457dfea25aed88294374832d",
+    "title": "现在的音频是用 NotebookLM 生...",
+    "content": "现在的音频是用 NotebookLM 生成的，但它的音频功能就是个黑盒 —— 既没法自定义对话内容，也不能定制音色。\n所以我打算开个新项目，专门解决这些痛点。",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2028880147273924832",
+    "originalDate": "2026-03-03T17:08:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-03T17:33:00.000Z"
+  },
+  {
+    "id": "3186dd2f-2d12-8187-9722-fc3f8d36c16d",
+    "hashId": "ef7694f81e386e9fc0a375bd6f0dabd4529ce448c1a91eedd7f1ccd433f57199",
+    "title": "书单越积越长，却总抽不出时间静下心来读？...",
+    "content": "书单越积越长，却总抽不出时间静下心来读？\n我把这些书的核心内容整理成了播客，开车路上就能听，轻松把知识装进口袋。\n\n\nhttps://\nleixdev.podcast.xyz",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2028856137182007756",
+    "originalDate": "2026-03-03T15:32:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/79e122986afa1c5ac80e580679e4930b7ec7669a8cbcee120fc8c87aeb61adff.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-03T15:33:00.000Z"
+  },
+  {
+    "id": "3196dd2f-2d12-81c9-9fe7-c09de216c063",
+    "hashId": "4edc04ef4ad090e4a10c51ffa318b8239b8ca7c07c28dd17aade5139b756cc96",
+    "title": "[视频] Vibe Coding 零成本...",
+    "content": "[视频] Vibe Coding 零成本数据库选型指南：Neon/Supabase/D1 全面避坑盘点 \n【一句话价值总结】 在独立开发与 Vibe Coding 的起步阶段，本视频为你梳理了一套以“零成本起步、易于扩展”为核心的数据库选型策略，并推荐了当前最值得使用的 Serverless 数据库方案。 【核心要点（5-8条）】 • 选型第一要义：成功前应尽可能使用零成本方案，具备慷慨的免费额度。 • 低流量成本控制：在闲置或无流量状态下，数据库应不产生费用或极少费用。 • 架构极简原则：能不用数据库就不用，优先考虑基于本地的文件存储方案。 • 嵌入式方案推荐：对于本地优先的服务，SQLite 是极佳的轻 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1J9ARz1Es9/",
+    "originalDate": "2026-03-03T14:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/4eee60b7e63f73b9316f832c3e1d12459e27eebdf0f146bab7d4f8b66aba20c9.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-04T01:01:00.000Z"
+  },
+  {
+    "id": "3196dd2f-2d12-819b-ae16-eeba8ddd6441",
+    "hashId": "27fa4f5784d9ef1aa7b329ccbb2df19783afcbfc014f796676536622f05fc297",
+    "title": "[视频] 凡人开发传：如何做一个个性化播...",
+    "content": "[视频] 凡人开发传：如何做一个个性化播客 \n【一句话价值总结】 分享如何基于个人需求制作个性化播客，从为什么做到怎么做，再到未来规划。 【核心要点】 • 解决没时间读书的痛点，将书籍拆解为播客内容 • 基于个人上下文定制内容，实现因材施教 • 使用Notebook LM生成音频内容 • 解决AI生成内容的黑盒问题 • 未来计划开发本地应用，实现book to podcast功能 【结构化时间轴】 00:00-03:35 为什么做播客：解决读书时间不足的问题 03:35-12:40 怎么做播客：使用Notebook LM生成音频 12:40-14 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV17dARz5EiU/",
+    "originalDate": "2026-03-03T14:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/392316436c5e31cb8390372afad7aaa546f83c410e62d6f9f77d2fd7be68fe95.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-04T01:01:00.000Z"
+  },
+  {
     "id": "3186dd2f-2d12-81fb-abc0-ff1f7791649b",
     "hashId": "8c3ae9fca2a6dc60d54f54304fa89783349b12b349344a279b67d0351a2290b7",
     "title": "The free version can...",
