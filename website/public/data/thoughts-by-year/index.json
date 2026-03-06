@@ -2,12 +2,12 @@
   {
     "year": "2026",
     "file": "2026.json",
-    "count": 135
+    "count": 140
   },
   {
     "year": "2025",
     "file": "2025.json",
-    "count": 86
+    "count": 87
   },
   {
     "year": "2024",
@@ -27,11 +27,21 @@
   {
     "year": "2021",
     "file": "2021.json",
-    "count": 47
+    "count": 49
   },
   {
     "year": "2020",
     "file": "2020.json",
     "count": 67
+  },
+  {
+    "year": "2018",
+    "file": "2018.json",
+    "count": 18
+  },
+  {
+    "year": "2017",
+    "file": "2017.json",
+    "count": 1
   }
 ]
