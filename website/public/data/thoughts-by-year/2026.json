@@ -1,5 +1,100 @@
 [
   {
+    "id": "31c6dd2f-2d12-81b2-965b-e9c346361706",
+    "hashId": "5c2d0854c61c552b22ad8048d6a202b10dd7cf34221e8268d1c21d5b2ce853b0",
+    "title": "然后再把学到的设计知识做成 skill，...",
+    "content": "然后再把学到的设计知识做成 skill，就可以应用到自己的项目了",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2029953338285138291",
+    "originalDate": "2026-03-06T16:12:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-07T01:00:00.000Z"
+  },
+  {
+    "id": "31c6dd2f-2d12-81c2-805c-dc2f34e7bc53",
+    "hashId": "797c6b59ad9a046be8e4f7300e788750437049e9bda7385a4b454eff31ab71d2",
+    "title": "为了做出更有质感的 Vibe codin...",
+    "content": "为了做出更有质感的 Vibe coding 产品，从今天开始恶补设计知识啦",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2029950914765934868",
+    "originalDate": "2026-03-06T16:03:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-07T01:00:00.000Z"
+  },
+  {
+    "id": "31b6dd2f-2d12-81f0-b200-fc249c70cfed",
+    "hashId": "be9d7083bf6d1b356ea8d107518404475fb81750a38c147b65e50de84e7be625",
+    "title": "最近开始为期一周的oncall，aler...",
+    "content": "最近开始为期一周的oncall，alerts响应调查存在一些苦力活，于是也做了一个skill，也就等于把我的专业能力开源共享了，想起来三体人就是思维共享的种群，确实如果能思维共享团队整体会有很强的能力",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2029472082468454702",
+    "originalDate": "2026-03-05T08:20:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/d9df23cdb00ea98b3e384f5c2fff87aab4bb36002da7b815394b8d814090e09c.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-06T16:01:00.000Z"
+  },
+  {
+    "id": "31b6dd2f-2d12-810a-a6d0-d176c3a8e9cf",
+    "hashId": "70d422b8d1a7717cece3a3a6e2c268dd75d9d05a0248094900f2f7b0586e3c19",
+    "title": "今天又搞定了好几个技能，整理了视频素材库...",
+    "content": "今天又搞定了好几个技能，整理了视频素材库，还做了素材整理的Skill， 更新完善了 monosub、synapase 老项目，想到啥直接让 Agent 去跑就行。\n播客继续做，也在验证自动投稿技能。\n睡前再丢一个重构任务给 AI，收工～\n截图是项目文件夹按照时间组织清晰多了！",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2029253118496813374",
+    "originalDate": "2026-03-04T17:50:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/e154e3c4f9380b8c4dfc242f7b6cf3fab582dcaf45eea5f019d6dd0d3a847cc2.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-06T16:01:00.000Z"
+  },
+  {
+    "id": "31b6dd2f-2d12-81c0-addf-f498ce2d44d0",
+    "hashId": "0f38fe107b1489b622619f6f682a84a532b79108bcbf8ec8fadde4be69d885b8",
+    "title": "最近疯狂搞项目，在好几个任务里来回切，给...",
+    "content": "最近疯狂搞项目，在好几个任务里来回切，给 AI Agent 搭环境、给 AI 打工拟合上下文，忙得脚不沾地。\n就像一路开快车，根本顾不上看风景，一天忙完，常常想不起自己到底做了啥。\n所以偶尔来 X 记录下当下，真的特别有意义。",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2029251671218688309",
+    "originalDate": "2026-03-04T17:44:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-06T16:01:00.000Z"
+  },
+  {
+    "id": "31b6dd2f-2d12-8180-bc18-fdfba7557db8",
+    "hashId": "161df7c91da86cd8f533f0eb6ad78bb650dfea3aab6e38e495dd75e4d823be4b",
+    "title": "从开始构建技能就要认真写，结束复盘时也要...",
+    "content": "从开始构建技能就要认真写，结束复盘时也要总结提炼成技能，把自己的真实思路和心得毫无保留地交给 AI。",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2029216866414280780",
+    "originalDate": "2026-03-04T15:26:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-06T16:01:00.000Z"
+  },
+  {
+    "id": "31b6dd2f-2d12-81d0-8c1b-c193ea097628",
+    "hashId": "f3ee06f67ab6c480a11d0aae4009745698576eefcac56be5a02d0450aef1f480",
+    "title": "现在存得最多回忆的地方，基本都在 QQ ...",
+    "content": "现在存得最多回忆的地方，基本都在 QQ 空间里。\n有时候会突然纠结：要不要把这么多年攒下来的记录，全都备份下载下来？",
+    "source": "X",
+    "originalUrl": "https://x.com/leigoto/status/2029140291165560998",
+    "originalDate": "2026-03-04T10:21:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-06T16:01:00.000Z"
+  },
+  {
     "id": "3196dd2f-2d12-81e8-964f-e9d8c541626e",
     "hashId": "e7a21cd1383ba93e279d9dd9bc68b1cb81cbf5026ee685ffd8ace1a23e337756",
     "title": "把自己彻底数字化，把所有数字痕迹都归集到...",
