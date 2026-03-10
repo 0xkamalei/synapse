@@ -1,5 +1,35 @@
 [
   {
+    "id": "31f6dd2f-2d12-817f-88e2-e4e1d60e24c5",
+    "hashId": "c99ae915e3c44ec0f199ea060bc2e42f17508f04fc719739a7e56545cdc89ece",
+    "title": "[视频] 为什么X平台是互联网信息的源头...",
+    "content": "[视频] 为什么X平台是互联网信息的源头？ \n大家好，今天来和大家聊聊为什么X平台（前Twitter）会成为互联网信息的重要源头。 在视频中，我分享了以下几个观点： 1. **X平台的天然优势**：内容短小精悍，创作成本低，让用户可以随时分享瞬间的想法和灵感 2. **信息传播链条**：从X到Reddit，再到中文社区的信息流动路径 3. **算法机制解析**：X平台如何通过社交图谱、兴趣分组和热点来推荐内容 4. **与国内平台的对比**：为什么国内难以出现类似X的平台 5. **数据所有权优势**：X平台的数据可导出性，为个人Agent提供记忆素 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV11nPDz1EmD/",
+    "originalDate": "2026-03-09T12:30:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/6b65132e369bc8a13d7c01a73b4227071e818e0cdb5e8a294235a645ebc57a18.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-10T01:00:00.000Z"
+  },
+  {
+    "id": "31f6dd2f-2d12-8189-97d8-cd01692b407a",
+    "hashId": "894761025d35096f214aca687ff845b9b47909e2df7b69a377664fa8b8327d8f",
+    "title": "视频音频转文本免费版升级 Pro 版教程",
+    "content": "视频音频转文本免费版升级 Pro 版教程",
+    "source": "Redbook",
+    "originalUrl": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee/69ae3402000000001b0159b7",
+    "originalDate": "2026-03-09T02:44:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/718b4c99b2b246e43051b48d61782db4c8085fbfb19055221ecc153b675b9cf0.webp"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-10T01:00:00.000Z"
+  },
+  {
     "id": "31c6dd2f-2d12-81b2-965b-e9c346361706",
     "hashId": "5c2d0854c61c552b22ad8048d6a202b10dd7cf34221e8268d1c21d5b2ce853b0",
     "title": "然后再把学到的设计知识做成 skill，...",
