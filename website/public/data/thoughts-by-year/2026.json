@@ -1,5 +1,20 @@
 [
   {
+    "id": "3206dd2f-2d12-81e7-9c37-f95be84cb07c",
+    "hashId": "967bfbe4ce794a8fe109e0c2a4dc17844c30361142919b8d0fc8cb0d9164ce4f",
+    "title": "[视频] 我把所有机械劳动都交给了AI！...",
+    "content": "[视频] 我把所有机械劳动都交给了AI！深度拆解我的全自动化技能库 \n【一句话价值总结】 本视频深入拆解了作者个人构建的一系列AI自动化“技能”（Skills/SQ），展示了如何通过Agent能力实现内容创作、发布及UI设计的全流程自动化。 【核心要点】 • 介绍了bilibili-upload、monosub、agent-browser等核心自动化工具链。 • 演示了如何利用AI自动生成视频转录、Show Notes、标题及大字报风格封面。 • 分享了针对小宇宙（播客）和社交媒体的内容分发自动化方案。 • 讲解了产品命名（Naming）及UI设计原则在AI技能中的落地经 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1sWPDzCERx/",
+    "originalDate": "2026-03-10T12:30:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a88499a84147b039279b2852bb7dbb20c4fef7b2899e75e38ed332f33c850ac7.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-11T01:00:00.000Z"
+  },
+  {
     "id": "31f6dd2f-2d12-817f-88e2-e4e1d60e24c5",
     "hashId": "c99ae915e3c44ec0f199ea060bc2e42f17508f04fc719739a7e56545cdc89ece",
     "title": "[视频] 为什么X平台是互联网信息的源头...",
