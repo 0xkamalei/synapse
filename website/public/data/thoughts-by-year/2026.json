@@ -1,5 +1,108 @@
 [
   {
+    "id": "3276dd2f-2d12-810c-bd98-c2baca32ae91",
+    "hashId": "03545104d883e884fb7a37ac0b3fdf7957fec1c9acedd627ae49b9da0b4abeb7",
+    "title": "[视频] OpenClaw卸载不完全？教...",
+    "content": "[视频] OpenClaw卸载不完全？教你彻底清理不留残留 \n【一句话价值总结】 完整演示 OpenClaw 的卸载流程，包括 CLI 工具、配置文件和数据目录的彻底清理，避免残留占用空间。 【核心要点（5-8条）】 • 使用 npm/pnpm uninstall -g 卸载全局安装的 openclaw 包 • 通过 Homebrew uninstall 删除 brew 安装的版本 • 删除 /usr/local/bin 下的软链接指向 • 清理 ~/.openclaw 目录（包含历史记录、认证、memory、workspace） • 删除 /usr/local/ ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1e8wXz8EP5/",
+    "originalDate": "2026-03-18T00:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/f4555347824ad44347d93f186866e88746ae8fbf49b73748a8e62b59bb7143e2.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-18T01:00:00.000Z"
+  },
+  {
+    "id": "3276dd2f-2d12-817c-aa00-dff8e3f28a2b",
+    "hashId": "66e05c6c307997b7cf203a5b120ed653e58c48a4e54cb02e4f31d1e8752bd7ac",
+    "title": "[视频] 我曾最狂热的AI工具，现在基本...",
+    "content": "[视频] 我曾最狂热的AI工具，现在基本不用了——OpenClaw 真实使用报告 \n从狂热到放弃，我来聊聊 OpenClaw 的真实使用体验——以及你到底该不该折腾它。 • 我从最开始配了各种 channel、用了各种 workflow，到现在基本不再用 OpenClaw • 没有推理过程可视化：不知道 AI 在做什么，执行路径不透明，很难优化 • 设计定位问题：更适合手机+外出场景，对着电脑工作的人用起来反而别扭 • 对我来说，编程类的 agent（Claude Code 等）更够用，不需要那么复杂的系统 • 入门门槛不低：设备要求（Mac vs Windows）、API 选型、sk ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1ugNFz5EYH/",
+    "originalDate": "2026-03-17T12:30:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/a6938363cb57ef41abc15537c6fa106721089d67097191b35b7ff69ea16fbff5.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-18T01:00:00.000Z"
+  },
+  {
+    "id": "3276dd2f-2d12-81fe-b8e5-d05ffcc421fd",
+    "hashId": "826777fa30a9736ff27a42f062c653b1e28fb618fe4dcb512490c08979a2a760",
+    "title": "[视频] 以后的软件不是给你买的，是给你...",
+    "content": "[视频] 以后的软件不是给你买的，是给你的 agent 买的 \n【一句话价值总结】 软件的下一个用户不是人，而是 agent。这期聊聊为什么 CLI 接口比 UI 更重要，以及独立开发者在 agent 时代的机会在哪里。 【核心要点】 • 软件选择新逻辑：未来买软件不是给自己用，而是给自己的 agent 用 • 双接口策略：做软件要同时提供 UI（给人）和 CLI（给 agent），单纯 UI 在 agent 流程中效率极低 • Agent 的核心优势：自主决策中间环节（报错、环境依赖等），不需要人工干预 • 软件形态演变：App → 脚本 / 文字描述 / 知识包 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1VfPfzQEqy/",
+    "originalDate": "2026-03-16T01:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/b545ab26d0a4c806aa39d84f9a711b0cd30f2ae93d1e495316eca0f43151918b.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-18T01:00:00.000Z"
+  },
+  {
+    "id": "3276dd2f-2d12-81be-8342-efa5bb430791",
+    "hashId": "35374dd093daf2a4737462b7b010b485a5272b83cf01c783812a0aa6cb9ac0a7",
+    "title": "[视频] Vibe coding 让我戒...",
+    "content": "[视频] Vibe coding 让我戒掉了游戏，但它本身比游戏还上瘾 \n【一句话价值总结】 Vibe coding 有多上瘾？我拆解了让人停不下来的 4 层心理机制，以及我为什么决定要主动克制。 【核心要点】 • 及时反馈：AI 3-4 秒出结果，和游戏多巴胺刺激一模一样，我因此基本戒掉了打游戏 • 创造感：像小孩搭积木，持续感受到我在创造东西的满足 • 指挥快感：现实中没有团队，AI 给了你当老板发号施令的虚假幻觉 • 妄念加持：等我把这个做成功了…——这种幻想像无形的 PUA 推着你不停搞 • 多项目并行的副作用：同时开好几个项目，脑子全乱，身心俱疲 • 警报信号：作息 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1F4NFzYEef/",
+    "originalDate": "2026-03-15T01:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/cc5f23a4f2b8b781d8d7d2ea415eb2fa3af96926da378b434c64b3eeee38b7f6.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-18T01:00:00.000Z"
+  },
+  {
+    "id": "3276dd2f-2d12-81ae-ae3a-c441a94d9e93",
+    "hashId": "fbd8882a77bcb119e047c9c175b122fe273548e972000a7b079c8a8a260bd3ee",
+    "title": "[视频] B站创作者的窘境：做流量还是做...",
+    "content": "[视频] B站创作者的窘境：做流量还是做自己？ \n本视频讨论作为创作者在面对平台算法和流量策略时的选择：有人把创作当生意，通过海量投放和数据驱动获量；也有人坚持记录与自我表达。视频分析了“发80条”的策略、本质逻辑与被算法牵引的风险，并用“小麦与农民”的比喻讨论创作自由与依赖之间的权衡。 ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1ZeNFzoE4K/",
+    "originalDate": "2026-03-13T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/27378e64f12014e43fb4b12fe1700fc8603f8cd5a2cf710b709dafe6d223bab3.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-18T01:00:00.000Z"
+  },
+  {
+    "id": "3276dd2f-2d12-8183-9c25-e50e041613c5",
+    "hashId": "adfdaebff97c1603b8d54f9dbbe7aaffa9cbf26e15eb64f6057411cc22710a66",
+    "title": "[视频] Claude太贵？我用这套AI...",
+    "content": "[视频] Claude太贵？我用这套AI组合拳省下80%成本 \n【一句话价值总结】 分享我实际使用 Claude、Gemini、Trae 等不同 AI Agent 的策略与分工，帮你根据项目需求选择最合适的工具。 【核心要点（5-8条）】 • Claude (o3/o4.6)：编程能力最强，适合架构设计和复杂任务，但成本高、生成慢 • Claude Code X：生成稳定但速度慢，适合 Claude 额度用完后的备选 • Gemini Pro：性价比高，是我目前的主力执行工具，便宜且额度大 • Trae (国内版)：免费但模型能力有限，适合明确上下文的简单任务 • ",
+    "source": "Bilibili",
+    "originalUrl": "https://www.bilibili.com/video/BV1mBPSz5ENQ/",
+    "originalDate": "2026-03-12T16:00:00.000+00:00",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/0xkamalei/pic@main/media/2026/3b5a26ae5315618e2fb7bb7b9d1634581e1bdd7912135e95fa30e769cf555608.jpeg"
+    ],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-18T01:00:00.000Z"
+  },
+  {
+    "id": "3276dd2f-2d12-8100-a352-fd2da5afaa38",
+    "hashId": "bee6a36a3891069c058d52b8fa416b2c1bd843c5140d14cfad73c66bd52b64da",
+    "title": "回归主线任务，继续推进 duopod 项...",
+    "content": "回归主线任务，继续推进 duopod 项目～\n之前用 GPT‑SoVITS 生成的语音 AI 痕迹太重，效果不太理想，打算换成 ChatTTS 试试看。\nDuopod 是一款能本地运行 AI 模型来制作播客的工具。",
+    "source": "X",
+    "originalUrl": "https://x.com/KamaleiZhang/status/2032021243403370876",
+    "originalDate": "2026-03-12T09:09:00.000+00:00",
+    "images": [],
+    "videos": [],
+    "tags": [],
+    "createdAt": "2026-03-18T01:00:00.000Z"
+  },
+  {
     "id": "3216dd2f-2d12-8171-877a-c0222c98bb0e",
     "hashId": "1f13464001bff5fb0aa3f34b814fc6418d78d36446fbd65282415bd860f1dbfa",
     "title": "[视频] 告别塑料感！五层架构带你搞定A...",
