@@ -4,7 +4,8 @@
     "version": "1.0.0",
     "scripts": {
         "init-db": "node init-notion-db.js",
-        "package-ext": "node package-extension.js"
+        "package-ext": "node package-extension.js",
+        "convert-server-data": "node convert-thoughts-to-server-data.js"
     },
     "dependencies": {
         "@notionhq/client": "^2.2.14",

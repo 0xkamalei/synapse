@@ -1,0 +1,9 @@
+# Synapse Server — config.yaml example
+# Use with: ./synapse-server --config config.yaml
+# CLI flags take priority over values in this file.
+
+token: "your-secret-token-here"
+storage_root: "/Users/lei/synapse-data"
+port: 7070
+host: "127.0.0.1"
+log_level: "info"

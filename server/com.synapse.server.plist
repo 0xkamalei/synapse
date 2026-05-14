@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Synapse Local Server — launchd Service
+
+  SETUP:
+    1. Build the binary:
+         cd /Users/lei/dev/projects/2601-synapse/server
+         go build -o synapse-server .
+         cp synapse-server /usr/local/bin/synapse-server
+
+    2. Edit the ProgramArguments below:
+         - Replace REPLACE_WITH_YOUR_TOKEN with your actual token
+         - Replace /Users/lei/synapse-data with your desired storage path
+
+    3. Install and start:
+         cp com.synapse.server.plist ~/Library/LaunchAgents/
+         launchctl load ~/Library/LaunchAgents/com.synapse.server.plist
+
+    MANAGE:
+         launchctl stop  com.synapse.server
+         launchctl start com.synapse.server
+         launchctl unload ~/Library/LaunchAgents/com.synapse.server.plist
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.synapse.server</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/synapse-server</string>
+        <string>--token</string>
+        <string>REPLACE_WITH_YOUR_TOKEN</string>
+        <string>--storage-root</string>
+        <string>/Users/lei/synapse-data</string>
+        <string>--port</string>
+        <string>7070</string>
+        <string>--host</string>
+        <string>127.0.0.1</string>
+    </array>
+
+    <!-- Start at login -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Restart if it crashes -->
+    <key>KeepAlive</key>
+    <true/>
+
+    <!-- Log files -->
+    <key>StandardOutPath</key>
+    <string>/tmp/synapse-server.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/synapse-server.error.log</string>
+
+    <!-- Nice priority (low CPU impact when idle) -->
+    <key>ProcessType</key>
+    <string>Background</string>
+
+    <key>Nice</key>
+    <integer>5</integer>
+</dict>
+</plist>
