@@ -100,9 +100,9 @@ async function renderLogs() {
                 <div class="log-meta">
                     <span class="meta-item action-json" data-id="${log.id}">📄 View JSON</span>
                     ${
-                      log.data?.notionPageId
+                      log.data?.localServerPath
                         ? `
-                        <span class="meta-item">🔗 <a href="https://notion.so/${log.data.notionPageId.replace(/-/g, '')}" target="_blank">Notion Page</a></span>
+                        <span class="meta-item">📁 ${log.data.localServerPath}</span>
                     `
                         : ''
                     }

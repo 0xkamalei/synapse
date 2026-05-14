@@ -4,9 +4,11 @@
  */
 
 import { logger } from '../lib/logger.js';
-import { uploadMedia } from '../lib/github-uploader.js';
-import { saveToNotion, batchCheckDuplicates, truncateText, hashUrl, fetchAllHashesFromNotion } from '../lib/notion-client.js';
-import { hashCache } from '../lib/hash-cache.js';
+import {
+  saveToLocalServer,
+  batchCheckDuplicates,
+  truncateText,
+} from '../lib/local-server-client.js';
 import { validateConfig, getConfig, updateLastCollectTime } from '../lib/storage.js';
 
 // Global lock to prevent concurrent processing of batches
@@ -44,7 +46,7 @@ function releaseLock(): void {
 }
 
 /**
- * Process collected content: upload images and save to Notion
+ * Process collected content and save to the local server.
  * In debug mode: logs parsed JSON without saving
  */
 async function processContent(content: CollectedContent): Promise<any> {
@@ -95,52 +97,19 @@ async function processContent(content: CollectedContent): Promise<any> {
     throw new Error(error);
   }
 
-  // Upload images to GitHub if present
-  let imageUrls: string[] = [];
-  if (content.images && content.images.length > 0) {
-    console.log(`[Synapse] Uploading ${content.images.length} images to GitHub...`);
-    imageUrls = await uploadMedia(content.images, 'image');
-  }
-
-  // Handle videos (MP4 from X)
-  let videoUrls: string[] = [];
-  if (content.videos && content.videos.length > 0) {
-    console.log(`[Synapse] Processing ${content.videos.length} videos...`);
-    videoUrls = await uploadMedia(content.videos, 'video');
-  }
-
-  // Prepare content for Notion
-  const notionContent: CollectedContent = {
-    ...content,
-    images: imageUrls,
-    videos: videoUrls,
-  };
-
-  // Save to Notion
-  console.log('[Synapse] Saving to Notion database...');
-  const result = await saveToNotion(notionContent);
+  console.log('[Synapse] Saving to local server...');
+  const result = await saveToLocalServer(content);
 
   // Update last collect time for this source
   await updateLastCollectTime(content.source);
 
-  // Add securely to hash cache to avoid duplicate saves in the future
-  try {
-    const urlHash = await hashUrl(content.url);
-    if (urlHash) {
-      await hashCache.addHash(urlHash);
-      console.log(`[Synapse] Added hash ${urlHash} to local cache`);
-    }
-  } catch (err) {
-    console.warn('[Synapse] Failed to add hash to cache:', err);
-  }
-
-  console.log('[Synapse] Content saved successfully to Notion:', result.url);
+  console.log('[Synapse] Content saved successfully to local server:', result.path || result.id);
   await logger.success(`Saved from ${content.source}`, {
     data: {
       ...content,
-      notionPageId: result.id,
-      notionUrl: result.url,
-      imagesUploaded: imageUrls.length,
+      localServerId: result.id,
+      localServerPath: result.path,
+      imagesDownloaded: result.images_downloaded,
     },
     summary: summary,
   });
@@ -250,26 +219,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         case 'GET_CONFIG':
           const config = await getConfig();
           sendResponse({ success: true, config });
-          break;
-
-        case 'GET_CACHE_COUNT':
-          const count = await hashCache.getCount();
-          sendResponse({ success: true, count });
-          break;
-
-        case 'CLEAR_CACHE':
-          await hashCache.clearCache();
-          console.log('[Synapse] Local hash cache cleared');
-          sendResponse({ success: true });
-          break;
-
-        case 'REBUILD_CACHE':
-          const hashes = await fetchAllHashesFromNotion();
-          await hashCache.clearCache();
-          await hashCache.addHashes(hashes);
-          const newCount = await hashCache.getCount();
-          console.log(`[Synapse] Local hash cache rebuilt with ${newCount} items`);
-          sendResponse({ success: true, count: newCount });
           break;
 
         default:

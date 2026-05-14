@@ -18,39 +18,21 @@
     </header>
 
     <main class="main">
-      <!-- Notion Config -->
+      <!-- Local Server Config -->
       <section class="section">
-        <h2>Notion</h2>
+        <h2>Local Server</h2>
         <div class="input-group">
-          <label for="notionToken">API Token</label>
-          <input type="password" id="notionToken" placeholder="secret_xxx..." />
+          <label for="localServerUrl">Server URL</label>
+          <input type="url" id="localServerUrl" placeholder="http://127.0.0.1:7070" />
         </div>
         <div class="input-group">
-          <label for="notionDatabaseId">Database ID</label>
-          <input type="text" id="notionDatabaseId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+          <label for="localServerToken">Bearer Token</label>
+          <input type="password" id="localServerToken" placeholder="Your local server token" />
         </div>
-        <div class="input-group">
-          <label for="notionDataSourceId">Data Source ID</label>
-          <input type="text" id="notionDataSourceId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
-        </div>
-      </section>
-
-      <!-- GitHub Config -->
-      <section class="section">
-        <h2>GitHub Image Host</h2>
-        <div class="input-group">
-          <label for="githubToken">Personal Access Token</label>
-          <input type="password" id="githubToken" placeholder="ghp_xxx..." />
-        </div>
-        <div class="input-row">
-          <div class="input-group">
-            <label for="githubOwner">Owner</label>
-            <input type="text" id="githubOwner" placeholder="username" />
-          </div>
-          <div class="input-group">
-            <label for="githubRepo">Repository</label>
-            <input type="text" id="githubRepo" placeholder="synapse-images" />
-          </div>
+        <p class="hint">Run the local server with the same token, for example: http://127.0.0.1:7070</p>
+        <div class="test-server-row">
+          <button id="testServerBtn" class="secondary-btn" type="button">Test Connection</button>
+          <span id="testServerStatus" class="test-status"></span>
         </div>
       </section>
 
@@ -237,21 +219,6 @@
         </div>
       </section>
 
-      <!-- Cache Management -->
-      <section class="section">
-        <h2>🗄️ Cache Management</h2>
-        <p class="hint">Local HashID cache prevents checking Notion API for duplicates.</p>
-        <div class="info-card" style="margin-top: 12px; margin-bottom: 12px;">
-          <span id="cacheCountInfo">Hashes in local cache: Checking...</span>
-        </div>
-        <div class="actions" style="margin-top: 12px;">
-          <button id="rebuildCacheBtn" class="primary-btn" style="background-color: var(--md-primary);">Rebuild
-            Cache</button>
-          <button id="clearCacheBtn" class="primary-btn" style="background-color: var(--md-error);">Clear Cache</button>
-          <span id="cacheActionStatus" class="save-status"></span>
-        </div>
-      </section>
-
       <!-- Debug Mode -->
       <section class="section">
         <h2>🛠 Debug Mode</h2>
@@ -261,7 +228,7 @@
             <span>Enable Debug Mode</span>
           </label>
           <p class="hint">
-            When enabled, content will be logged as JSON but NOT saved to Notion. Use this to test
+            When enabled, content will be logged as JSON but NOT saved to the local server. Use this to test
             content parsing.
           </p>
         </div>

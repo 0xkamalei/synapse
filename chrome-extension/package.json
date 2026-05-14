@@ -1,7 +1,7 @@
 {
   "name": "chrome-extension",
   "version": "1.0.0",
-  "description": "> Collect your thoughts from X.com and Bilibili to Notion",
+  "description": "Collect your thoughts from social platforms to a local Synapse server",
   "main": "index.js",
   "directories": {
     "lib": "lib"

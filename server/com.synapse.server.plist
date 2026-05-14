@@ -8,13 +8,9 @@
     1. Build the binary:
          cd /Users/lei/dev/projects/2601-synapse/server
          go build -o synapse-server .
-         cp synapse-server /usr/local/bin/synapse-server
+         mkdir -p ~/.local/bin && cp synapse-server ~/.local/bin/synapse-server
 
-    2. Edit the ProgramArguments below:
-         - Replace REPLACE_WITH_YOUR_TOKEN with your actual token
-         - Replace /Users/lei/synapse-data with your desired storage path
-
-    3. Install and start:
+    2. Install and start:
          cp com.synapse.server.plist ~/Library/LaunchAgents/
          launchctl load ~/Library/LaunchAgents/com.synapse.server.plist
 
@@ -30,11 +26,11 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/local/bin/synapse-server</string>
+        <string>/Users/lei/.local/bin/synapse-server</string>
         <string>--token</string>
-        <string>REPLACE_WITH_YOUR_TOKEN</string>
+        <string>synapse123</string>
         <string>--storage-root</string>
-        <string>/Users/lei/synapse-data</string>
+        <string>/Users/lei/dev/ob/synapse-data</string>
         <string>--port</string>
         <string>7070</string>
         <string>--host</string>

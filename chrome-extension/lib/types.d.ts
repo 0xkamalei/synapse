@@ -22,7 +22,8 @@ interface CollectedContent {
   url: string;
   author: AuthorInfo;
   collectedAt: string;
-  notionPageId?: string;
+  localServerId?: string;
+  localServerPath?: string;
 }
 
 /**
@@ -54,12 +55,8 @@ interface LogEntry {
 }
 
 interface AppConfig {
-  notionToken: string;
-  notionDatabaseId: string;
-  notionDataSourceId: string;
-  githubToken: string;
-  githubOwner: string;
-  githubRepo: string;
+  localServerUrl: string;
+  localServerToken: string;
   enabledSources: string[];
   targetXUser: string[];
   targetBilibiliUser: string[];

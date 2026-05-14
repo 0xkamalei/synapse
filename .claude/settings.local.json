@@ -6,7 +6,24 @@
       "Bash(node:*)",
       "Bash(unzip:*)",
       "Bash(npm run package:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://127.0.0.1:7070/health)",
+      "Bash(echo \"CURL_EXIT_CODE: $?\")",
+      "Bash(./synapse-server --token test123 --storage-root /tmp/synapse-test)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\" http://127.0.0.1:7070/stats)",
+      "Bash(curl -s http://127.0.0.1:7070/stats -H \"Authorization: Bearer test123\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\" http://127.0.0.1:7070/stats -H \"Authorization: Bearer wrong\")",
+      "Bash(go build *)",
+      "Bash(sudo cp /Users/lei/dev/projects/2601-synapse/server/synapse-server /usr/local/bin/synapse-server)",
+      "Bash(launchctl unload *)",
+      "Bash(cp /Users/lei/dev/projects/2601-synapse/server/com.synapse.server.plist ~/Library/LaunchAgents/com.synapse.server.plist)",
+      "Bash(launchctl load *)",
+      "Bash(python3 *)",
+      "Bash(pkill -f \"synapse-server\")",
+      "Bash(mkdir -p ~/.local/bin)",
+      "Bash(cp synapse-server *)",
+      "Bash(cp com.synapse.server.plist ~/Library/LaunchAgents/com.synapse.server.plist)"
     ]
   }
 }

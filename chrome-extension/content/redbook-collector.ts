@@ -42,7 +42,7 @@
 
   /**
    * Extract videos from a Redbook note element
-   * For video notes, we return the full Xiaohongshu URL with xsec_token which can be embedded in Notion
+   * For video notes, we return the full Xiaohongshu URL with xsec_token for local storage.
    */
   function extractRedbookVideos(noteElement: Element): string[] {
     const videos: string[] = [];
@@ -68,7 +68,7 @@
         }
       }
     }
-    //video can't play in notion directly, so we skip adding video links for now
+    // Video extraction is skipped for now because feed cards do not expose direct video files.
     return [];
   }
 

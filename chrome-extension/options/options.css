@@ -109,6 +109,52 @@ body {
   margin-top: 4px;
 }
 
+/* Test Server Connection */
+.test-server-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.test-status {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.test-status.loading {
+  color: var(--md-outline);
+}
+
+.test-status.success {
+  color: var(--md-success);
+}
+
+.test-status.error {
+  color: var(--md-error);
+}
+
+.secondary-btn {
+  background: transparent;
+  color: var(--md-primary);
+  border: 1px solid var(--md-primary);
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.secondary-btn:hover {
+  background: var(--md-surface-variant);
+}
+
+.secondary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .info-card {
   background: var(--md-surface-variant);
   padding: 12px;

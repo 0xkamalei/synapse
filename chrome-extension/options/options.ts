@@ -18,21 +18,15 @@ function getEl<T extends HTMLElement>(id: string): T {
 
 // DOM Elements - Core settings
 const coreElements = {
-  notionToken: getEl<HTMLInputElement>('notionToken'),
-  notionDatabaseId: getEl<HTMLInputElement>('notionDatabaseId'),
-  notionDataSourceId: getEl<HTMLInputElement>('notionDataSourceId'),
-  githubToken: getEl<HTMLInputElement>('githubToken'),
-  githubOwner: getEl<HTMLInputElement>('githubOwner'),
-  githubRepo: getEl<HTMLInputElement>('githubRepo'),
+  localServerUrl: getEl<HTMLInputElement>('localServerUrl'),
+  localServerToken: getEl<HTMLInputElement>('localServerToken'),
   collectIntervalMinutes: getEl<HTMLInputElement>('collectIntervalMinutes'),
   debugMode: getEl<HTMLInputElement>('debugMode'),
   lastCollectInfo: getEl<HTMLElement>('lastCollectInfo'),
   saveBtn: getEl<HTMLButtonElement>('saveBtn'),
   saveStatus: getEl<HTMLElement>('saveStatus'),
-  cacheCountInfo: getEl<HTMLElement>('cacheCountInfo'),
-  rebuildCacheBtn: getEl<HTMLButtonElement>('rebuildCacheBtn'),
-  clearCacheBtn: getEl<HTMLButtonElement>('clearCacheBtn'),
-  cacheActionStatus: getEl<HTMLElement>('cacheActionStatus'),
+  testServerBtn: getEl<HTMLButtonElement>('testServerBtn'),
+  testServerStatus: getEl<HTMLElement>('testServerStatus'),
 };
 
 // Platform elements - dynamically accessed via PLATFORMS config
@@ -147,12 +141,8 @@ async function loadConfig() {
   const config = await getConfig();
 
   // Load core settings
-  coreElements.notionToken.value = config.notionToken || '';
-  coreElements.notionDatabaseId.value = config.notionDatabaseId || '';
-  coreElements.notionDataSourceId.value = config.notionDataSourceId || '';
-  coreElements.githubToken.value = config.githubToken || '';
-  coreElements.githubOwner.value = config.githubOwner || '';
-  coreElements.githubRepo.value = config.githubRepo || '';
+  coreElements.localServerUrl.value = config.localServerUrl || 'http://127.0.0.1:7070';
+  coreElements.localServerToken.value = config.localServerToken || '';
   coreElements.collectIntervalMinutes.value = (config.collectIntervalMinutes ?? 240).toString();
   coreElements.debugMode.checked = config.debugMode || false;
 
@@ -190,21 +180,6 @@ async function loadConfig() {
     coreElements.lastCollectInfo.textContent = 'Last collected: Never';
   }
 
-  // Load cache count
-  loadCacheCount();
-}
-
-/**
- * Load cache count
- */
-async function loadCacheCount() {
-  chrome.runtime.sendMessage({ type: 'GET_CACHE_COUNT' }, (response) => {
-    if (response && response.success) {
-      coreElements.cacheCountInfo.textContent = `Hashes in local cache: ${response.count}`;
-    } else {
-      coreElements.cacheCountInfo.textContent = 'Hashes in local cache: Error';
-    }
-  });
 }
 
 /**
@@ -216,12 +191,8 @@ async function handleSave() {
   // Build config object with core settings
   const config: any = {
     ...currentConfig,
-    notionToken: coreElements.notionToken.value.trim(),
-    notionDatabaseId: coreElements.notionDatabaseId.value.trim(),
-    notionDataSourceId: coreElements.notionDataSourceId.value.trim(),
-    githubToken: coreElements.githubToken.value.trim(),
-    githubOwner: coreElements.githubOwner.value.trim(),
-    githubRepo: coreElements.githubRepo.value.trim(),
+    localServerUrl: coreElements.localServerUrl.value.trim(),
+    localServerToken: coreElements.localServerToken.value.trim(),
     collectIntervalMinutes:
       coreElements.collectIntervalMinutes.value === ''
         ? 240
@@ -259,8 +230,75 @@ async function handleSave() {
   }
 }
 
+/**
+ * Test connection to the local server
+ */
+async function handleTestServer() {
+  const url = coreElements.localServerUrl.value.trim();
+  const token = coreElements.localServerToken.value.trim();
+  const btn = coreElements.testServerBtn;
+  const status = coreElements.testServerStatus;
+
+  if (!url) {
+    status.textContent = '⚠️ Please enter a Server URL first';
+    status.className = 'test-status error';
+    return;
+  }
+
+  btn.disabled = true;
+  status.textContent = '⏳ Testing...';
+  status.className = 'test-status loading';
+
+  try {
+    const baseUrl = url.replace(/\/+$/, '');
+
+    // Step 1: Check if server is reachable via /health (no auth required)
+    const healthResp = await fetch(`${baseUrl}/health`, { method: 'GET' });
+
+    if (!healthResp.ok) {
+      // Server responded but with an error
+      const body = await healthResp.json().catch(() => null);
+      status.textContent = `❌ Server error (${healthResp.status}): ${body?.error || healthResp.statusText}`;
+      status.className = 'test-status error';
+      btn.disabled = false;
+      return;
+    }
+
+    const healthData = await healthResp.json();
+
+    // Step 2: Verify auth via /stats (requires token)
+    if (token) {
+      const statsResp = await fetch(`${baseUrl}/stats`, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (statsResp.ok) {
+        const statsData = await statsResp.json();
+        status.textContent = `✅ Connected (${statsData.total || 0} items, v${healthData.version || '?'})`;
+        status.className = 'test-status success';
+      } else if (statsResp.status === 401 || statsResp.status === 403) {
+        status.textContent = '⚠️ Server reachable but token rejected (401)';
+        status.className = 'test-status error';
+      } else {
+        status.textContent = `⚠️ Server reachable, stats error (${statsResp.status})`;
+        status.className = 'test-status error';
+      }
+    } else {
+      status.textContent = `✅ Server reachable (v${healthData.version || '?'}) — no token configured`;
+      status.className = 'test-status success';
+    }
+  } catch (err: any) {
+    status.textContent = `❌ Cannot reach server: ${err.message || 'network error'}`;
+    status.className = 'test-status error';
+  }
+
+  btn.disabled = false;
+}
+
 // Event listeners
 coreElements.saveBtn.addEventListener('click', handleSave);
+coreElements.testServerBtn.addEventListener('click', handleTestServer);
 
 // Platform toggle listeners - dynamically set up for all platforms
 for (const platform of ALL_PLATFORMS) {
@@ -268,59 +306,6 @@ for (const platform of ALL_PLATFORMS) {
     .getToggle(platform)
     .addEventListener('change', () => updatePlatformVisibility(platform));
 }
-
-// Cache Management Event Listeners
-coreElements.rebuildCacheBtn.addEventListener('click', () => {
-  coreElements.rebuildCacheBtn.disabled = true;
-  coreElements.clearCacheBtn.disabled = true;
-  coreElements.cacheActionStatus.textContent = '⏳ Rebuilding cache from Notion...';
-  coreElements.cacheActionStatus.className = 'save-status';
-
-  chrome.runtime.sendMessage({ type: 'REBUILD_CACHE' }, (response) => {
-    coreElements.rebuildCacheBtn.disabled = false;
-    coreElements.clearCacheBtn.disabled = false;
-
-    if (response && response.success) {
-      coreElements.cacheActionStatus.textContent = `✅ Rebuilt (Count: ${response.count})`;
-      coreElements.cacheActionStatus.className = 'save-status success';
-      loadCacheCount();
-    } else {
-      const errorMsg = response?.error || 'Unknown error';
-      coreElements.cacheActionStatus.textContent = `❌ Failed: ${errorMsg}`;
-      coreElements.cacheActionStatus.className = 'save-status error';
-    }
-
-    setTimeout(() => {
-      coreElements.cacheActionStatus.textContent = '';
-    }, 5000);
-  });
-});
-
-coreElements.clearCacheBtn.addEventListener('click', () => {
-  if (!confirm('Are you sure you want to clear the local hash cache?')) return;
-
-  coreElements.rebuildCacheBtn.disabled = true;
-  coreElements.clearCacheBtn.disabled = true;
-  coreElements.cacheActionStatus.textContent = '⏳ Clearing cache...';
-
-  chrome.runtime.sendMessage({ type: 'CLEAR_CACHE' }, (response) => {
-    coreElements.rebuildCacheBtn.disabled = false;
-    coreElements.clearCacheBtn.disabled = false;
-
-    if (response && response.success) {
-      coreElements.cacheActionStatus.textContent = '✅ Cache cleared!';
-      coreElements.cacheActionStatus.className = 'save-status success';
-      loadCacheCount();
-    } else {
-      coreElements.cacheActionStatus.textContent = '❌ Failed to clear';
-      coreElements.cacheActionStatus.className = 'save-status error';
-    }
-
-    setTimeout(() => {
-      coreElements.cacheActionStatus.textContent = '';
-    }, 3000);
-  });
-});
 
 // Initialize
 document.addEventListener('DOMContentLoaded', loadConfig);

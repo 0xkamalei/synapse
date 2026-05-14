@@ -2,12 +2,8 @@ import { DEFAULT_ENABLED_SOURCES, PLATFORMS, ALL_PLATFORMS, PlatformKey } from '
 
 // Core storage keys (non-platform specific)
 export const STORAGE_KEYS = {
-  NOTION_TOKEN: 'notionToken',
-  NOTION_DATABASE_ID: 'notionDatabaseId',
-  NOTION_DATASOURCE_ID: 'notionDataSourceId',
-  GITHUB_TOKEN: 'githubToken',
-  GITHUB_OWNER: 'githubOwner',
-  GITHUB_REPO: 'githubRepo',
+  LOCAL_SERVER_URL: 'localServerUrl',
+  LOCAL_SERVER_TOKEN: 'localServerToken',
   ENABLED_SOURCES: 'enabledSources',
   LAST_COLLECT_TIME: 'lastCollectTime',
   LAST_COLLECT_TIMES: 'lastCollectTimes',
@@ -32,6 +28,7 @@ function getAllStorageKeys(): string[] {
 }
 
 const DEFAULT_CONFIG: Partial<AppConfig> = {
+  localServerUrl: 'http://127.0.0.1:7070',
   enabledSources: DEFAULT_ENABLED_SOURCES,
   debugMode: false,
   collectIntervalMinutes: 240,
@@ -61,12 +58,10 @@ async function getConfig(): Promise<AppConfig> {
 
   // Build config object with core settings
   const config: any = {
-    notionToken: (result[STORAGE_KEYS.NOTION_TOKEN] as string) || '',
-    notionDatabaseId: (result[STORAGE_KEYS.NOTION_DATABASE_ID] as string) || '',
-    notionDataSourceId: (result[STORAGE_KEYS.NOTION_DATASOURCE_ID] as string) || '',
-    githubToken: (result[STORAGE_KEYS.GITHUB_TOKEN] as string) || '',
-    githubOwner: (result[STORAGE_KEYS.GITHUB_OWNER] as string) || '',
-    githubRepo: (result[STORAGE_KEYS.GITHUB_REPO] as string) || '',
+    localServerUrl:
+      (result[STORAGE_KEYS.LOCAL_SERVER_URL] as string) ||
+      (DEFAULT_CONFIG.localServerUrl as string),
+    localServerToken: (result[STORAGE_KEYS.LOCAL_SERVER_TOKEN] as string) || '',
     enabledSources:
       (result[STORAGE_KEYS.ENABLED_SOURCES] as string[]) ||
       (DEFAULT_CONFIG.enabledSources as string[]),
@@ -95,12 +90,8 @@ async function getConfig(): Promise<AppConfig> {
 async function saveConfig(config: AppConfig): Promise<void> {
   // Build the storage object with core settings
   const storageData: Record<string, any> = {
-    [STORAGE_KEYS.NOTION_TOKEN]: config.notionToken,
-    [STORAGE_KEYS.NOTION_DATABASE_ID]: config.notionDatabaseId,
-    [STORAGE_KEYS.NOTION_DATASOURCE_ID]: config.notionDataSourceId,
-    [STORAGE_KEYS.GITHUB_TOKEN]: config.githubToken,
-    [STORAGE_KEYS.GITHUB_OWNER]: config.githubOwner,
-    [STORAGE_KEYS.GITHUB_REPO]: config.githubRepo,
+    [STORAGE_KEYS.LOCAL_SERVER_URL]: config.localServerUrl,
+    [STORAGE_KEYS.LOCAL_SERVER_TOKEN]: config.localServerToken,
     [STORAGE_KEYS.ENABLED_SOURCES]: config.enabledSources,
     [STORAGE_KEYS.COLLECT_INTERVAL_MINUTES]: config.collectIntervalMinutes,
     [STORAGE_KEYS.DEBUG_MODE]: config.debugMode,
@@ -142,11 +133,8 @@ async function validateConfig(): Promise<{ valid: boolean; missing: string[] }> 
   const config = await getConfig();
   const missing: string[] = [];
 
-  if (!config.notionToken) missing.push('Notion Token');
-  if (!config.notionDataSourceId) missing.push('Notion Data Source ID');
-  if (!config.githubToken) missing.push('GitHub Token');
-  if (!config.githubOwner) missing.push('GitHub Owner');
-  if (!config.githubRepo) missing.push('GitHub Repo');
+  if (!config.localServerUrl) missing.push('Local Server URL');
+  if (!config.localServerToken) missing.push('Local Server Token');
 
   return {
     valid: missing.length === 0,
