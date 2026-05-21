@@ -62,24 +62,31 @@ func main() {
 		log.Printf("[synapse] Cache ready: %d entries (scanned in %v)", count, time.Since(scanStart).Round(time.Millisecond))
 	}
 
+	// Initialize and start scheduler
+	scheduler := NewScheduler(cfg)
+	scheduler.Start()
+
 	// Wire up routes
-	h := NewHandler(cfg, cache)
+	h := NewHandler(cfg, cache, scheduler)
 	mux := http.NewServeMux()
 
+	mux.HandleFunc("GET /{$}", h.Index)
 	mux.HandleFunc("GET /health", h.Health)
 	mux.Handle("POST /collect", AuthMiddleware(cfg.Token, http.HandlerFunc(h.Collect)))
 	mux.Handle("POST /collect/batch", AuthMiddleware(cfg.Token, http.HandlerFunc(h.CollectBatch)))
 	mux.Handle("GET /check", AuthMiddleware(cfg.Token, http.HandlerFunc(h.Check)))
 	mux.Handle("POST /check/batch", AuthMiddleware(cfg.Token, http.HandlerFunc(h.CheckBatch)))
 	mux.Handle("GET /stats", AuthMiddleware(cfg.Token, http.HandlerFunc(h.Stats)))
+	mux.Handle("GET /tasks", AuthMiddleware(cfg.Token, http.HandlerFunc(h.GetTasks)))
+	mux.Handle("POST /tasks", AuthMiddleware(cfg.Token, http.HandlerFunc(h.SaveTasks)))
 
 	addr := fmt.Sprintf("%s:%d", cfg.Host, cfg.Port)
 	srv := &http.Server{
-		Addr:         addr,
-		Handler:      LogMiddleware(mux),
-		ReadTimeout:  30 * time.Second,
-		WriteTimeout: 60 * time.Second,
-		IdleTimeout:  120 * time.Second,
+		Addr:           addr,
+		Handler:        LogMiddleware(mux),
+		ReadTimeout:    30 * time.Second,
+		WriteTimeout:   60 * time.Second,
+		IdleTimeout:    120 * time.Second,
 		MaxHeaderBytes: 1 << 20, // 1 MB header limit
 	}
 
@@ -99,6 +106,9 @@ func main() {
 	log.Printf("[synapse] Shutting down gracefully...")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+
+	scheduler.Stop()
+
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Printf("[synapse] Shutdown error: %v", err)
 	}

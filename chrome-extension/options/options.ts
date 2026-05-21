@@ -4,6 +4,7 @@
  */
 
 import { getConfig, saveConfig } from '../lib/storage.js';
+import { getScheduledTasks, saveScheduledTasks, URLTask } from '../lib/local-server-client.js';
 import {
   PLATFORMS,
   PlatformKey,
@@ -27,7 +28,11 @@ const coreElements = {
   saveStatus: getEl<HTMLElement>('saveStatus'),
   testServerBtn: getEl<HTMLButtonElement>('testServerBtn'),
   testServerStatus: getEl<HTMLElement>('testServerStatus'),
+  scheduledTasksContainer: getEl<HTMLElement>('scheduledTasksContainer'),
+  addTaskBtn: getEl<HTMLButtonElement>('addTaskBtn'),
 };
+
+let scheduledTasks: URLTask[] = [];
 
 // Platform elements - dynamically accessed via PLATFORMS config
 const platformElements = {
@@ -180,6 +185,73 @@ async function loadConfig() {
     coreElements.lastCollectInfo.textContent = 'Last collected: Never';
   }
 
+  // Load scheduled tasks
+  scheduledTasks = await getScheduledTasks();
+  renderScheduledTasks();
+}
+
+/**
+ * Render scheduled tasks
+ */
+function renderScheduledTasks() {
+  const container = coreElements.scheduledTasksContainer;
+  container.innerHTML = '';
+
+  scheduledTasks.forEach((task, index) => {
+    const row = document.createElement('div');
+    row.className = 'task-row';
+
+    const enabledLabel = document.createElement('label');
+    enabledLabel.className = 'toggle';
+    const enabledInput = document.createElement('input');
+    enabledInput.type = 'checkbox';
+    enabledInput.checked = task.enabled;
+    enabledInput.onchange = () => { task.enabled = enabledInput.checked; };
+    const enabledSlider = document.createElement('span');
+    enabledSlider.className = 'toggle-slider';
+    enabledLabel.appendChild(enabledInput);
+    enabledLabel.appendChild(enabledSlider);
+
+    const urlInput = document.createElement('input');
+    urlInput.type = 'url';
+    urlInput.placeholder = 'https://example.com';
+    urlInput.value = task.url;
+    urlInput.oninput = () => { task.url = urlInput.value; };
+    urlInput.style.flex = '1';
+
+    const timeInput = document.createElement('input');
+    timeInput.type = 'time';
+    timeInput.value = task.time;
+    timeInput.oninput = () => { task.time = timeInput.value; };
+
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = '❌';
+    removeBtn.type = 'button';
+    removeBtn.className = 'remove-btn';
+    removeBtn.style.background = 'none';
+    removeBtn.style.border = 'none';
+    removeBtn.style.cursor = 'pointer';
+    removeBtn.onclick = () => {
+      scheduledTasks.splice(index, 1);
+      renderScheduledTasks();
+    };
+
+    row.appendChild(enabledLabel);
+    row.appendChild(urlInput);
+    row.appendChild(timeInput);
+    row.appendChild(removeBtn);
+    container.appendChild(row);
+  });
+}
+
+function handleAddTask() {
+  scheduledTasks.push({
+    id: 'task_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+    url: '',
+    enabled: true,
+    time: '09:00',
+  });
+  renderScheduledTasks();
 }
 
 /**
@@ -218,6 +290,8 @@ async function handleSave() {
 
   try {
     await saveConfig(config);
+    await saveScheduledTasks(scheduledTasks);
+    
     coreElements.saveStatus.textContent = '✅ Saved!';
     coreElements.saveStatus.className = 'save-status success';
 
@@ -299,6 +373,7 @@ async function handleTestServer() {
 // Event listeners
 coreElements.saveBtn.addEventListener('click', handleSave);
 coreElements.testServerBtn.addEventListener('click', handleTestServer);
+coreElements.addTaskBtn.addEventListener('click', handleAddTask);
 
 // Platform toggle listeners - dynamically set up for all platforms
 for (const platform of ALL_PLATFORMS) {

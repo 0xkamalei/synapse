@@ -12,6 +12,13 @@ interface LocalServerImage {
   original_url: string;
 }
 
+export interface URLTask {
+  id: string;
+  url: string;
+  enabled: boolean;
+  time: string;
+}
+
 interface LocalServerContent extends Omit<CollectedContent, 'images'> {
   images: LocalServerImage[];
   title?: string;
@@ -84,6 +91,40 @@ export async function batchCheckDuplicates(urls: string[]): Promise<Set<string>>
   }
 
   return existingUrls;
+}
+
+/**
+ * Fetch scheduled tasks from the local server.
+ */
+export async function getScheduledTasks(): Promise<URLTask[]> {
+  const result = await requestLocalServer('/tasks', {
+    method: 'GET',
+  });
+
+  if (!result.ok) {
+    await logger.warn('Local server get tasks failed', {
+      data: { error: result.error, status: result.status },
+    });
+    return [];
+  }
+
+  return Array.isArray(result.data?.tasks) ? result.data.tasks : [];
+}
+
+/**
+ * Save scheduled tasks to the local server.
+ */
+export async function saveScheduledTasks(tasks: URLTask[]): Promise<boolean> {
+  const result = await requestLocalServer('/tasks', {
+    method: 'POST',
+    body: JSON.stringify({ tasks }),
+  });
+
+  if (!result.ok) {
+    throw new Error(`Local server save tasks error: ${result.error}`);
+  }
+
+  return true;
 }
 
 async function toLocalServerPayload(content: CollectedContent): Promise<LocalServerContent> {

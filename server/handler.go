@@ -8,13 +8,14 @@ import (
 
 // Handler holds shared server dependencies.
 type Handler struct {
-	cfg     *Config
-	cache   *Cache
-	startAt time.Time
+	cfg       *Config
+	cache     *Cache
+	scheduler *Scheduler
+	startAt   time.Time
 }
 
-func NewHandler(cfg *Config, cache *Cache) *Handler {
-	return &Handler{cfg: cfg, cache: cache, startAt: time.Now()}
+func NewHandler(cfg *Config, cache *Cache, scheduler *Scheduler) *Handler {
+	return &Handler{cfg: cfg, cache: cache, scheduler: scheduler, startAt: time.Now()}
 }
 
 func writeJSON(w http.ResponseWriter, status int, v any) {
@@ -23,14 +24,21 @@ func writeJSON(w http.ResponseWriter, status int, v any) {
 	_ = json.NewEncoder(w).Encode(v)
 }
 
+// GET / — no auth required, serves API documentation
+func (h *Handler) Index(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write([]byte(DocHTML))
+}
+
 // GET /health — no auth required
 func (h *Handler) Health(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]any{
-		"status":          "ok",
-		"version":         version,
-		"cache_size":      h.cache.Size(),
-		"uptime_seconds":  int(time.Since(h.startAt).Seconds()),
-		"storage_root":    h.cfg.StorageRoot,
+		"status":         "ok",
+		"version":        version,
+		"cache_size":     h.cache.Size(),
+		"uptime_seconds": int(time.Since(h.startAt).Seconds()),
+		"storage_root":   h.cfg.StorageRoot,
 	})
 }
 
@@ -191,4 +199,30 @@ func (h *Handler) Stats(w http.ResponseWriter, r *http.Request) {
 		"cache_size":   h.cache.Size(),
 		"storage_root": h.cfg.StorageRoot,
 	})
+}
+
+// GET /tasks
+func (h *Handler) GetTasks(w http.ResponseWriter, r *http.Request) {
+	tasks := h.scheduler.GetTasks()
+	writeJSON(w, http.StatusOK, map[string]any{
+		"tasks": tasks,
+	})
+}
+
+// POST /tasks
+func (h *Handler) SaveTasks(w http.ResponseWriter, r *http.Request) {
+	var req struct {
+		Tasks []URLTask `json:"tasks"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid JSON"})
+		return
+	}
+
+	if err := h.scheduler.SaveTasks(req.Tasks); err != nil {
+		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		return
+	}
+
+	writeJSON(w, http.StatusOK, map[string]string{"status": "saved"})
 }

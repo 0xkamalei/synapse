@@ -310,3 +310,32 @@ body {
 .toggle input:focus + .toggle-slider {
   box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.2);
 }
+
+/* Scheduled Tasks */
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.task-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--md-surface-variant);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.task-row .input-group {
+  margin-bottom: 0;
+}
+
+.task-row input[type="url"] {
+  flex: 1;
+}
+
+.task-row input[type="time"] {
+  width: 120px;
+}
