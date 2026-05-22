@@ -16,3 +16,9 @@ dist/
 .trae
 
 .cache/
+
+
+synapse-server
+*.log
+config.yaml
+data/
