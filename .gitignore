@@ -22,4 +22,4 @@ synapse-server
 *.log
 config.yaml
 
-public/data
+**/**/public/data
