@@ -1,7 +1,7 @@
 {
-  "lastSyncTime": "2026-05-02T01:58:48.096Z",
-  "updatedAt": "2026-05-02T01:58:51.643Z",
-  "newItemsCount": 1,
-  "totalItemsCount": 287,
-  "yearFilesCount": 8
+  "lastSync": "2026-05-22T06:58:47.834Z",
+  "totalThoughts": 289,
+  "years": 8,
+  "source": "local",
+  "dataDir": "/Users/lei/dev/ob/synapse-data"
 }

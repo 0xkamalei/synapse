@@ -7,6 +7,17 @@ export type Thought = {
   hashId?: string;
   source: string;
   originalDate: string;
+  content?: string;
+  title?: string;
+  originalUrl?: string;
+  images?: string[];
+  imagesRemoteFallback?: string[];
+  videos?: string[];
+  links?: string[];
+  tags?: string[];
+  authorUsername?: string;
+  authorDisplayName?: string;
+  collectedAt?: string;
   [key: string]: any;
 };
 
