@@ -33,13 +33,13 @@ Content flows through the system as:
 ```bash
 # Compile TypeScript to JavaScript
 cd chrome-extension
-npm run build
+bun run build
 
 # Watch mode for continuous compilation
-npm run watch
+bun run watch
 
 # Run tests (requires build first)
-npm run test
+bun run test
 ```
 
 ### Project Structure
@@ -77,7 +77,7 @@ The collectors are tested using target HTML files in `chrome-extension/target-ht
 
 To test after modifications:
 ```bash
-npm run build && npm run test
+bun run build && bun run test
 ```
 
 ### Key Collector Patterns

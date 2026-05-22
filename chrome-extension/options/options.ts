@@ -10,6 +10,7 @@ import {
   PlatformKey,
   DEFAULT_ENABLED_SOURCES,
   ALL_PLATFORMS,
+  buildPlatformUrl,
 } from '../lib/platforms.js';
 
 // Helper function to get element by id with type assertion
@@ -28,17 +29,17 @@ const coreElements = {
   saveStatus: getEl<HTMLElement>('saveStatus'),
   testServerBtn: getEl<HTMLButtonElement>('testServerBtn'),
   testServerStatus: getEl<HTMLElement>('testServerStatus'),
-  scheduledTasksContainer: getEl<HTMLElement>('scheduledTasksContainer'),
-  addTaskBtn: getEl<HTMLButtonElement>('addTaskBtn'),
 };
 
+/**
+ * Schedule state: full task list kept in memory, rebuilt on save.
+ */
 let scheduledTasks: URLTask[] = [];
 
 // Platform elements - dynamically accessed via PLATFORMS config
 const platformElements = {
   getToggle: (platform: PlatformKey) => getEl<HTMLInputElement>(PLATFORMS[platform].toggle),
   getConfig: (platform: PlatformKey) => getEl<HTMLElement>(PLATFORMS[platform].config),
-  // Updated to get the multi-input container
   getMultiInputContainer: (platform: PlatformKey) =>
     document.querySelector(`.multi-input-group[data-platform="${platform}"]`) as HTMLElement,
 };
@@ -49,7 +50,6 @@ const platformElements = {
 function updatePlatformVisibility(platform: PlatformKey) {
   const toggleEl = platformElements.getToggle(platform);
   const configEl = platformElements.getConfig(platform);
-
   if (toggleEl && configEl) {
     configEl.classList.toggle('hidden', !toggleEl.checked);
   }
@@ -63,73 +63,148 @@ function getEnabledSources(): string[] {
 }
 
 /**
- * Render multi-input list for a platform
+ * Build a stable task ID for a platform+account combination.
  */
-function renderMultiInput(container: HTMLElement, values: string[]) {
+function buildTaskId(platform: PlatformKey, accountId: string): string {
+  return `sched_${platform}_${accountId}`;
+}
+
+/**
+ * Create one account row: [text input] [schedule toggle] [time picker] [remove btn]
+ * Schedule state is read from / written to the scheduledTasks array.
+ */
+function createAccountRow(platform: PlatformKey, value: string, onRemove: () => void): HTMLElement {
+  const taskId = buildTaskId(platform, value);
+  const url = buildPlatformUrl(platform, value) || '';
+
+  // Ensure a task entry exists for this account
+  let task = scheduledTasks.find((t) => t.id === taskId);
+  if (!task) {
+    task = { id: taskId, url, enabled: false, time: '09:00' };
+    scheduledTasks.push(task);
+  } else {
+    task.url = url;
+  }
+
+  const row = document.createElement('div');
+  row.className = 'account-row';
+
+  // ── Text input ──────────────────────────────────
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.value = value;
+  input.className = 'dynamic-input';
+  input.placeholder = 'Account ID';
+
+  // When the account ID changes, update the task id/url in scheduledTasks
+  input.addEventListener('input', () => {
+    const newId = input.value.trim();
+    const newTaskId = buildTaskId(platform, newId);
+    const newUrl = buildPlatformUrl(platform, newId) || '';
+
+    // Remove old task entry and replace with new one
+    const idx = scheduledTasks.findIndex((t) => t.id === taskId);
+    if (idx !== -1) {
+      scheduledTasks[idx] = {
+        ...scheduledTasks[idx],
+        id: newTaskId,
+        url: newUrl,
+      };
+    }
+    // Update the row's data attribute so remove still works
+    row.dataset.taskId = newTaskId;
+    timeInput.disabled = !schedToggleInput.checked;
+  });
+
+  row.dataset.taskId = taskId;
+
+  // ── Schedule toggle (small) ─────────────────────
+  const schedToggleLabel = document.createElement('label');
+  schedToggleLabel.className = 'toggle-sm';
+  schedToggleLabel.title = 'Enable scheduled collection';
+
+  const schedToggleInput = document.createElement('input');
+  schedToggleInput.type = 'checkbox';
+  schedToggleInput.checked = task.enabled;
+
+  const schedToggleSlider = document.createElement('span');
+  schedToggleSlider.className = 'toggle-slider';
+
+  schedToggleLabel.appendChild(schedToggleInput);
+  schedToggleLabel.appendChild(schedToggleSlider);
+
+  // ── Time picker ─────────────────────────────────
+  const timeInput = document.createElement('input');
+  timeInput.type = 'time';
+  timeInput.value = task.time;
+  timeInput.disabled = !task.enabled;
+  timeInput.title = 'Collection time';
+
+  schedToggleInput.addEventListener('change', () => {
+    timeInput.disabled = !schedToggleInput.checked;
+    const currentTaskId = row.dataset.taskId!;
+    const t = scheduledTasks.find((t) => t.id === currentTaskId);
+    if (t) t.enabled = schedToggleInput.checked;
+  });
+
+  timeInput.addEventListener('input', () => {
+    const currentTaskId = row.dataset.taskId!;
+    const t = scheduledTasks.find((t) => t.id === currentTaskId);
+    if (t) t.time = timeInput.value;
+  });
+
+  // ── Remove button ────────────────────────────────
+  const removeBtn = document.createElement('button');
+  removeBtn.textContent = '❌';
+  removeBtn.className = 'remove-btn';
+  removeBtn.type = 'button';
+  removeBtn.title = 'Remove';
+  removeBtn.onclick = () => {
+    // Clean up task entry
+    const currentTaskId = row.dataset.taskId!;
+    scheduledTasks = scheduledTasks.filter((t) => t.id !== currentTaskId);
+    onRemove();
+  };
+
+  row.appendChild(input);
+  row.appendChild(schedToggleLabel);
+  row.appendChild(timeInput);
+  row.appendChild(removeBtn);
+  return row;
+}
+
+/**
+ * Render multi-input list for a platform.
+ * Each row contains: account input + inline schedule toggle + time picker + remove.
+ */
+function renderMultiInput(container: HTMLElement, values: string[], platform: PlatformKey) {
   if (!container) return;
 
   const list = container.querySelector('.input-list') as HTMLElement;
   const addBtn = container.querySelector('.add-btn') as HTMLButtonElement;
-
   if (!list || !addBtn) return;
 
-  list.innerHTML = ''; // Clear existing
+  list.innerHTML = '';
 
-  const createRow = (value: string = '') => {
-    const row = document.createElement('div');
-    row.className = 'input-row-dynamic';
-    row.style.display = 'flex';
-    row.style.marginBottom = '8px';
-    row.style.gap = '8px';
-    row.style.alignItems = 'center';
-
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.value = value;
-    input.style.flex = '1';
-    input.className = 'dynamic-input';
-
-    const removeBtn = document.createElement('button');
-    removeBtn.textContent = '❌';
-    removeBtn.className = 'remove-btn';
-    removeBtn.type = 'button';
-    removeBtn.style.background = 'none';
-    removeBtn.style.border = 'none';
-    removeBtn.style.cursor = 'pointer';
-    removeBtn.style.padding = '0 5px';
-    removeBtn.title = 'Remove';
-
-    removeBtn.onclick = () => {
-      row.remove();
-    };
-
-    row.appendChild(input);
-    row.appendChild(removeBtn);
-    return row;
-  };
-
-  const addInput = (val: string = '') => {
-    const row = createRow(val);
+  const addRow = (val: string = '') => {
+    const row = createAccountRow(platform, val, () => row.remove());
     list.appendChild(row);
   };
 
-  // Populate existing values
   if (Array.isArray(values) && values.length > 0) {
-    values.forEach((val) => addInput(val));
+    values.forEach((val) => addRow(val));
   } else {
-    // Add one empty input by default if no values
-    addInput();
+    addRow();
   }
 
-  // Handle Add button
-  // Clone to remove old listeners
+  // Clone button to remove stale listeners
   const newBtn = addBtn.cloneNode(true) as HTMLButtonElement;
   addBtn.parentNode?.replaceChild(newBtn, addBtn);
-  newBtn.addEventListener('click', () => addInput());
+  newBtn.addEventListener('click', () => addRow());
 }
 
 /**
- * Get values from multi-input container
+ * Get account values from multi-input container
  */
 function getMultiInputValues(container: HTMLElement): string[] {
   if (!container) return [];
@@ -140,29 +215,43 @@ function getMultiInputValues(container: HTMLElement): string[] {
 }
 
 /**
+ * Reconcile scheduledTasks: remove stale platform tasks for accounts no longer present.
+ */
+function reconcileScheduledTasks() {
+  const validIds = new Set<string>();
+  for (const platform of ALL_PLATFORMS) {
+    const container = platformElements.getMultiInputContainer(platform);
+    getMultiInputValues(container).forEach((accountId) => {
+      validIds.add(buildTaskId(platform, accountId));
+    });
+  }
+  scheduledTasks = scheduledTasks.filter((t) => {
+    const isPlatformTask = t.id.startsWith('sched_');
+    return !isPlatformTask || validIds.has(t.id);
+  });
+}
+
+/**
  * Load saved configuration
  */
 async function loadConfig() {
   const config = await getConfig();
 
-  // Load core settings
   coreElements.localServerUrl.value = config.localServerUrl || 'http://127.0.0.1:7070';
   coreElements.localServerToken.value = config.localServerToken || '';
   coreElements.collectIntervalMinutes.value = (config.collectIntervalMinutes ?? 240).toString();
   coreElements.debugMode.checked = config.debugMode || false;
 
-  // Load platform-specific settings
+  // Load tasks first so createAccountRow can find existing state
+  scheduledTasks = await getScheduledTasks();
+
   const enabledSources = config.enabledSources || DEFAULT_ENABLED_SOURCES;
   for (const platform of ALL_PLATFORMS) {
-    // Set toggle state
     platformElements.getToggle(platform).checked = enabledSources.includes(platform);
 
-    // Load target user/group values
     const configKey = PLATFORMS[platform].configKey;
     const container = platformElements.getMultiInputContainer(platform);
 
-    // Config value should be array now due to migration logic in storage.ts
-    // But for safety, handle string case just in case
     let values: string[] = [];
     const rawValue = config[configKey];
     if (Array.isArray(rawValue)) {
@@ -171,87 +260,15 @@ async function loadConfig() {
       values = [rawValue];
     }
 
-    renderMultiInput(container, values);
-
-    // Update visibility
+    renderMultiInput(container, values, platform);
     updatePlatformVisibility(platform);
   }
 
-  // Display last collect time
   if (config.lastCollectTime) {
-    const date = new Date(config.lastCollectTime);
-    coreElements.lastCollectInfo.textContent = `Last collected: ${date.toLocaleString()}`;
+    coreElements.lastCollectInfo.textContent = `Last collected: ${new Date(config.lastCollectTime).toLocaleString()}`;
   } else {
     coreElements.lastCollectInfo.textContent = 'Last collected: Never';
   }
-
-  // Load scheduled tasks
-  scheduledTasks = await getScheduledTasks();
-  renderScheduledTasks();
-}
-
-/**
- * Render scheduled tasks
- */
-function renderScheduledTasks() {
-  const container = coreElements.scheduledTasksContainer;
-  container.innerHTML = '';
-
-  scheduledTasks.forEach((task, index) => {
-    const row = document.createElement('div');
-    row.className = 'task-row';
-
-    const enabledLabel = document.createElement('label');
-    enabledLabel.className = 'toggle';
-    const enabledInput = document.createElement('input');
-    enabledInput.type = 'checkbox';
-    enabledInput.checked = task.enabled;
-    enabledInput.onchange = () => { task.enabled = enabledInput.checked; };
-    const enabledSlider = document.createElement('span');
-    enabledSlider.className = 'toggle-slider';
-    enabledLabel.appendChild(enabledInput);
-    enabledLabel.appendChild(enabledSlider);
-
-    const urlInput = document.createElement('input');
-    urlInput.type = 'url';
-    urlInput.placeholder = 'https://example.com';
-    urlInput.value = task.url;
-    urlInput.oninput = () => { task.url = urlInput.value; };
-    urlInput.style.flex = '1';
-
-    const timeInput = document.createElement('input');
-    timeInput.type = 'time';
-    timeInput.value = task.time;
-    timeInput.oninput = () => { task.time = timeInput.value; };
-
-    const removeBtn = document.createElement('button');
-    removeBtn.textContent = '❌';
-    removeBtn.type = 'button';
-    removeBtn.className = 'remove-btn';
-    removeBtn.style.background = 'none';
-    removeBtn.style.border = 'none';
-    removeBtn.style.cursor = 'pointer';
-    removeBtn.onclick = () => {
-      scheduledTasks.splice(index, 1);
-      renderScheduledTasks();
-    };
-
-    row.appendChild(enabledLabel);
-    row.appendChild(urlInput);
-    row.appendChild(timeInput);
-    row.appendChild(removeBtn);
-    container.appendChild(row);
-  });
-}
-
-function handleAddTask() {
-  scheduledTasks.push({
-    id: 'task_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
-    url: '',
-    enabled: true,
-    time: '09:00',
-  });
-  renderScheduledTasks();
 }
 
 /**
@@ -260,7 +277,6 @@ function handleAddTask() {
 async function handleSave() {
   const currentConfig = await getConfig();
 
-  // Build config object with core settings
   const config: any = {
     ...currentConfig,
     localServerUrl: coreElements.localServerUrl.value.trim(),
@@ -273,32 +289,35 @@ async function handleSave() {
     enabledSources: getEnabledSources(),
   };
 
-  // Dynamically add platform-specific settings
   for (const platform of ALL_PLATFORMS) {
     const configKey = PLATFORMS[platform].configKey;
     const container = platformElements.getMultiInputContainer(platform);
-
     let values = getMultiInputValues(container);
-
-    // Special case: X removes @ prefix
     if (platform === 'x') {
       values = values.map((v) => v.replace('@', ''));
     }
-
     config[configKey] = values;
+  }
+
+  // Prune stale tasks and sync URLs
+  reconcileScheduledTasks();
+  for (const platform of ALL_PLATFORMS) {
+    const container = platformElements.getMultiInputContainer(platform);
+    getMultiInputValues(container).forEach((accountId) => {
+      const taskId = buildTaskId(platform, accountId);
+      const task = scheduledTasks.find((t) => t.id === taskId);
+      if (task) task.url = buildPlatformUrl(platform, accountId) || task.url;
+    });
   }
 
   try {
     await saveConfig(config);
     await saveScheduledTasks(scheduledTasks);
-    
+
     coreElements.saveStatus.textContent = '✅ Saved!';
     coreElements.saveStatus.className = 'save-status success';
-
-    setTimeout(() => {
-      coreElements.saveStatus.textContent = '';
-    }, 2000);
-  } catch (error) {
+    setTimeout(() => { coreElements.saveStatus.textContent = ''; }, 2000);
+  } catch {
     coreElements.saveStatus.textContent = '❌ Error saving';
     coreElements.saveStatus.className = 'save-status error';
   }
@@ -325,12 +344,9 @@ async function handleTestServer() {
 
   try {
     const baseUrl = url.replace(/\/+$/, '');
-
-    // Step 1: Check if server is reachable via /health (no auth required)
     const healthResp = await fetch(`${baseUrl}/health`, { method: 'GET' });
 
     if (!healthResp.ok) {
-      // Server responded but with an error
       const body = await healthResp.json().catch(() => null);
       status.textContent = `❌ Server error (${healthResp.status}): ${body?.error || healthResp.statusText}`;
       status.className = 'test-status error';
@@ -340,7 +356,6 @@ async function handleTestServer() {
 
     const healthData = await healthResp.json();
 
-    // Step 2: Verify auth via /stats (requires token)
     if (token) {
       const statsResp = await fetch(`${baseUrl}/stats`, {
         method: 'GET',
@@ -370,17 +385,35 @@ async function handleTestServer() {
   btn.disabled = false;
 }
 
+// ── Tab switching ──────────────────────────────────────────────────────────
+
+function initTabs() {
+  const tabItems = document.querySelectorAll<HTMLElement>('.tab-item');
+  const tabPanels = document.querySelectorAll<HTMLElement>('.tab-panel');
+
+  tabItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.tab;
+      if (!target) return;
+      tabItems.forEach((t) => t.classList.remove('active'));
+      tabPanels.forEach((p) => p.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById(`tab-${target}`)?.classList.add('active');
+    });
+  });
+}
+
 // Event listeners
 coreElements.saveBtn.addEventListener('click', handleSave);
 coreElements.testServerBtn.addEventListener('click', handleTestServer);
-coreElements.addTaskBtn.addEventListener('click', handleAddTask);
 
-// Platform toggle listeners - dynamically set up for all platforms
 for (const platform of ALL_PLATFORMS) {
   platformElements
     .getToggle(platform)
     .addEventListener('change', () => updatePlatformVisibility(platform));
 }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', loadConfig);
+document.addEventListener('DOMContentLoaded', () => {
+  initTabs();
+  loadConfig();
+});

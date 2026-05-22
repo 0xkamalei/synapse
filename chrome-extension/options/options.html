@@ -9,37 +9,87 @@
 </head>
 
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="logo">
-        <span class="logo-icon">⚡</span>
-        <span class="logo-text">Synapse Settings</span>
-      </div>
-    </header>
+  <div class="layout">
 
-    <main class="main">
-      <!-- Local Server Config -->
-      <section class="section">
-        <h2>Local Server</h2>
-        <div class="input-group">
-          <label for="localServerUrl">Server URL</label>
-          <input type="url" id="localServerUrl" placeholder="http://127.0.0.1:7070" />
+    <!-- Left Sidebar Navigation -->
+    <nav class="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Synapse</span>
+      </div>
+
+      <ul class="tab-list">
+        <li class="tab-item active" data-tab="server">
+          <span class="tab-icon">🖥</span>
+          <span class="tab-label">Server</span>
+        </li>
+        <li class="tab-item" data-tab="platforms">
+          <span class="tab-icon">🌐</span>
+          <span class="tab-label">Platforms</span>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Right Content Area -->
+    <div class="content">
+
+      <!-- Tab: Server -->
+      <section class="tab-panel active" id="tab-server">
+        <div class="panel-header">
+          <h1>Local Server</h1>
+          <p class="panel-desc">Configure the connection to your local Synapse server.</p>
         </div>
-        <div class="input-group">
-          <label for="localServerToken">Bearer Token</label>
-          <input type="password" id="localServerToken" placeholder="Your local server token" />
+
+        <div class="card">
+          <div class="input-group">
+            <label for="localServerUrl">Server URL</label>
+            <input type="url" id="localServerUrl" placeholder="http://127.0.0.1:7070" />
+          </div>
+          <div class="input-group">
+            <label for="localServerToken">Bearer Token</label>
+            <input type="password" id="localServerToken" placeholder="Your local server token" />
+          </div>
+          <p class="hint">Start the server with the same token, e.g.: <code>./synapse-server --token mysecret</code></p>
+          <div class="test-server-row">
+            <button id="testServerBtn" class="secondary-btn" type="button">Test Connection</button>
+            <span id="testServerStatus" class="test-status"></span>
+          </div>
         </div>
-        <p class="hint">Run the local server with the same token, for example: http://127.0.0.1:7070</p>
-        <div class="test-server-row">
-          <button id="testServerBtn" class="secondary-btn" type="button">Test Connection</button>
-          <span id="testServerStatus" class="test-status"></span>
+
+        <div class="card" style="margin-top: 16px;">
+          <h2 class="card-title">Auto-Collect</h2>
+          <div class="input-group">
+            <label for="collectIntervalMinutes">Collect Interval (minutes)</label>
+            <input type="number" id="collectIntervalMinutes" min="0" value="240" />
+            <p class="hint">Minutes between auto-collections. Set to 0 to collect every time (useful for debugging).</p>
+          </div>
+          <div class="info-card">
+            <span id="lastCollectInfo">Last collected: Never</span>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px;">
+          <h2 class="card-title">🛠 Debug Mode</h2>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="debugMode" />
+              <span>Enable Debug Mode</span>
+            </label>
+            <p class="hint">When enabled, content is logged as JSON but NOT saved to the server. Use this to test content parsing.</p>
+          </div>
         </div>
       </section>
 
-      <!-- Platforms - USA -->
-      <section class="section">
-        <h2>🇺🇸 United States</h2>
-        <p class="hint">Platforms available in the US</p>
+      <!-- Tab: Platforms -->
+      <section class="tab-panel" id="tab-platforms">
+        <div class="panel-header">
+          <h1>Platforms</h1>
+          <p class="panel-desc">Enable platforms and configure target accounts to collect from.</p>
+        </div>
+
+        <!-- US Platforms -->
+        <div class="group-label">🇺🇸 United States</div>
 
         <!-- X.com -->
         <div class="platform-card" data-platform="x">
@@ -58,16 +108,35 @@
               <label>Username(s)</label>
               <div class="input-list"></div>
               <button type="button" class="add-btn secondary-btn">+ Add Account</button>
-              <p class="hint">Username (without @)</p>
+              <p class="hint">Username without @</p>
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- Platforms - China -->
-      <section class="section">
-        <h2>🇨🇳 中国</h2>
-        <p class="hint">中国社交平台</p>
+        <!-- YouTube -->
+        <div class="platform-card" data-platform="youtube">
+          <div class="platform-header">
+            <div class="platform-info">
+              <span class="platform-icon">▶️</span>
+              <span class="platform-name">YouTube</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="enableYoutube" class="platform-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="platform-config" id="configYoutube">
+            <div class="input-group multi-input-group" data-platform="youtube" data-key="targetYoutubeChannel">
+              <label>Channel Handle(s)</label>
+              <div class="input-list"></div>
+              <button type="button" class="add-btn secondary-btn">+ Add Channel</button>
+              <p class="hint">Handle without @, from URL: youtube.com/@[handle]/videos</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- China Platforms -->
+        <div class="group-label" style="margin-top: 24px;">🇨🇳 中国平台</div>
 
         <!-- Bilibili -->
         <div class="platform-card" data-platform="bilibili">
@@ -86,7 +155,51 @@
               <label>UID(s)</label>
               <div class="input-list"></div>
               <button type="button" class="add-btn secondary-btn">+ Add Account</button>
-              <p class="hint">在个人主页 URL 中找到: space.bilibili.com/[UID]</p>
+              <p class="hint">个人主页 URL: space.bilibili.com/[UID]</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weibo -->
+        <div class="platform-card" data-platform="weibo">
+          <div class="platform-header">
+            <div class="platform-info">
+              <span class="platform-icon">🔴</span>
+              <span class="platform-name">微博 Weibo</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="enableWeibo" class="platform-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="platform-config" id="configWeibo">
+            <div class="input-group multi-input-group" data-platform="weibo" data-key="targetWeiboUser">
+              <label>UID(s)</label>
+              <div class="input-list"></div>
+              <button type="button" class="add-btn secondary-btn">+ Add Account</button>
+              <p class="hint">个人主页 URL: weibo.com/u/[UID]</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Redbook -->
+        <div class="platform-card" data-platform="redbook">
+          <div class="platform-header">
+            <div class="platform-info">
+              <span class="platform-icon">📕</span>
+              <span class="platform-name">小红书 Redbook</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="enableRedbook" class="platform-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="platform-config" id="configRedbook">
+            <div class="input-group multi-input-group" data-platform="redbook" data-key="targetRedbookUser">
+              <label>User ID(s)</label>
+              <div class="input-list"></div>
+              <button type="button" class="add-btn secondary-btn">+ Add Account</button>
+              <p class="hint">个人主页 URL: xiaohongshu.com/user/profile/[UserID]</p>
             </div>
           </div>
         </div>
@@ -112,50 +225,6 @@
           </div>
         </div>
 
-        <!-- Weibo -->
-        <div class="platform-card" data-platform="weibo">
-          <div class="platform-header">
-            <div class="platform-info">
-              <span class="platform-icon">🔴</span>
-              <span class="platform-name">微博 Weibo</span>
-            </div>
-            <label class="toggle">
-              <input type="checkbox" id="enableWeibo" class="platform-toggle" />
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-          <div class="platform-config" id="configWeibo">
-            <div class="input-group multi-input-group" data-platform="weibo" data-key="targetWeiboUser">
-              <label>UID(s)</label>
-              <div class="input-list"></div>
-              <button type="button" class="add-btn secondary-btn">+ Add Account</button>
-              <p class="hint">在个人主页 URL 中找到: weibo.com/u/[UID]</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Redbook -->
-        <div class="platform-card" data-platform="redbook">
-          <div class="platform-header">
-            <div class="platform-info">
-              <span class="platform-icon">📕</span>
-              <span class="platform-name">小红书 Redbook</span>
-            </div>
-            <label class="toggle">
-              <input type="checkbox" id="enableRedbook" class="platform-toggle" />
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-          <div class="platform-config" id="configRedbook">
-            <div class="input-group multi-input-group" data-platform="redbook" data-key="targetRedbookUser">
-              <label>User ID(s)</label>
-              <div class="input-list"></div>
-              <button type="button" class="add-btn secondary-btn">+ Add Account</button>
-              <p class="hint">在个人主页 URL 中找到: xiaohongshu.com/user/profile/[UserID]</p>
-            </div>
-          </div>
-        </div>
-
         <!-- ZSXQ -->
         <div class="platform-card" data-platform="zsxq">
           <div class="platform-header">
@@ -173,82 +242,18 @@
               <label>Group ID(s)</label>
               <div class="input-list"></div>
               <button type="button" class="add-btn secondary-btn">+ Add Group</button>
-              <p class="hint">在星球页面 URL 中找到: wx.zsxq.com/group/[GroupID]</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- YouTube -->
-        <div class="platform-card" data-platform="youtube">
-          <div class="platform-header">
-            <div class="platform-info">
-              <span class="platform-icon">▶️</span>
-              <span class="platform-name">YouTube</span>
-            </div>
-            <label class="toggle">
-              <input type="checkbox" id="enableYoutube" class="platform-toggle" />
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-          <div class="platform-config" id="configYoutube">
-            <div class="input-group multi-input-group" data-platform="youtube" data-key="targetYoutubeChannel">
-              <label>Channel Handle(s)</label>
-              <div class="input-list"></div>
-              <button type="button" class="add-btn secondary-btn">+ Add Channel</button>
-              <p class="hint">
-                Channel handle without @, found in URL: youtube.com/@[handle]/videos
-              </p>
+              <p class="hint">星球页面 URL: wx.zsxq.com/group/[GroupID]</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Scheduled Tasks -->
-      <section class="section">
-        <h2>Scheduled Tasks</h2>
-        <p class="hint">Automatically open pages at specific times (requires local server).</p>
-        <div id="scheduledTasksContainer" class="tasks-container">
-          <!-- Tasks will be rendered here -->
-        </div>
-        <button type="button" id="addTaskBtn" class="secondary-btn" style="margin-top: 10px;">+ Add Task</button>
-      </section>
-
-      <!-- Auto-collect Settings -->
-      <section class="section">
-        <h2>Auto-Collect</h2>
-        <div class="input-group">
-          <label for="collectIntervalMinutes">Collect Interval (minutes)</label>
-          <input type="number" id="collectIntervalMinutes" min="0" value="240" />
-          <p class="hint">
-            Minutes between auto-collections. Set to 0 or negative to collect every time (useful for
-            debugging).
-          </p>
-        </div>
-        <div class="info-card">
-          <span id="lastCollectInfo">Last collected: Never</span>
-        </div>
-      </section>
-
-      <!-- Debug Mode -->
-      <section class="section">
-        <h2>🛠 Debug Mode</h2>
-        <div class="checkbox-group">
-          <label class="checkbox-label">
-            <input type="checkbox" id="debugMode" />
-            <span>Enable Debug Mode</span>
-          </label>
-          <p class="hint">
-            When enabled, content will be logged as JSON but NOT saved to the local server. Use this to test
-            content parsing.
-          </p>
-        </div>
-      </section>
-
-      <div class="actions">
+      <!-- Footer Actions (always visible) -->
+      <div class="footer-actions">
         <button id="saveBtn" class="primary-btn">Save Settings</button>
         <span id="saveStatus" class="save-status"></span>
       </div>
-    </main>
+    </div>
   </div>
 
   <script type="module" src="../dist/options/options.js"></script>
