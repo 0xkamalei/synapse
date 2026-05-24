@@ -11,18 +11,18 @@
          mkdir -p ~/.local/bin && cp synapse-server ~/.local/bin/synapse-server
 
     2. Install and start:
-         cp com.synapse.server.plist ~/Library/LaunchAgents/
-         launchctl load ~/Library/LaunchAgents/com.synapse.server.plist
+         cp leix.synapse.server.plist ~/Library/LaunchAgents/
+         launchctl load ~/Library/LaunchAgents/leix.synapse.server.plist
 
     MANAGE:
-         launchctl stop  com.synapse.server
-         launchctl start com.synapse.server
-         launchctl unload ~/Library/LaunchAgents/com.synapse.server.plist
+         launchctl stop  leix.synapse.server
+         launchctl start leix.synapse.server
+         launchctl unload ~/Library/LaunchAgents/leix.synapse.server.plist
 -->
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.synapse.server</string>
+    <string>leix.synapse.server</string>
 
     <key>ProgramArguments</key>
     <array>
