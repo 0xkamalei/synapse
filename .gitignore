@@ -27,3 +27,5 @@ config.yaml
 server/server
 
 .claude/settings.local.json
+
+server/config.yaml
