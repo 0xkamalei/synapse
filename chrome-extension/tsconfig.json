@@ -13,5 +13,5 @@
     "types": ["chrome", "bun-types"]
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "build.ts"]
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "build.ts", "content/wxh-collector-batch.ts"]
 }

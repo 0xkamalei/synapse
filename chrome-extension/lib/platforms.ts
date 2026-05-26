@@ -24,6 +24,8 @@ export function buildPlatformUrl(platform: string, accountId: string): string | 
       return `https://wx.zsxq.com/group/${accountId}`;
     case 'youtube':
       return `https://www.youtube.com/@${accountId}/videos`;
+    case 'wxh':
+      return accountId; // album URL is used directly
     default:
       return null;
   }
@@ -75,6 +77,12 @@ export const PLATFORMS = {
     targetInput: 'targetYoutubeChannel',
     configKey: 'targetYoutubeChannel' as const,
   },
+  wxh: {
+    toggle: 'enableWxh',
+    config: 'configWxh',
+    targetInput: 'targetWxhAlbum',
+    configKey: 'targetWxhAlbum' as const,
+  },
 } as const;
 
 export type PlatformKey = keyof typeof PLATFORMS;
@@ -90,6 +98,7 @@ export const DEFAULT_ENABLED_SOURCES: PlatformKey[] = [
   'redbook',
   'zsxq',
   'youtube',
+  'wxh',
 ];
 
 /**

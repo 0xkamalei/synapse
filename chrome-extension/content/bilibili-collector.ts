@@ -404,9 +404,77 @@
   }
 
   /**
+   * Parse abbreviated Chinese number strings to integers.
+   * "1.2万" → 12000, "3千" → 3000, "123" → 123
+   */
+  function parseCountText(text: string): number | undefined {
+    if (!text) return undefined;
+    const clean = text.trim().replace(/,/g, '');
+    if (!clean) return undefined;
+
+    const wan = clean.match(/^([\d.]+)万$/);
+    if (wan) return Math.round(parseFloat(wan[1]) * 10000);
+
+    const qian = clean.match(/^([\d.]+)千$/);
+    if (qian) return Math.round(parseFloat(qian[1]) * 1000);
+
+    const yi = clean.match(/^([\d.]+)亿$/);
+    if (yi) return Math.round(parseFloat(yi[1]) * 100000000);
+
+    const n = parseInt(clean, 10);
+    return isNaN(n) ? undefined : n;
+  }
+
+  /**
+   * Extract engagement metrics from a dynamic element.
+   * Bilibili footer action order: [0]=repost, [1]=comment, [2]=like
+   */
+  function extractEngagementBilibili(dynamicElement: Element): EngagementMetrics {
+    const engagement: EngagementMetrics = {};
+
+    const actions = dynamicElement.querySelectorAll(
+      '.bili-dyn-item__footer .bili-dyn-action, .bili-dyn-action__main .bili-dyn-action',
+    );
+
+    if (actions.length >= 3) {
+      // action[0] = repost, action[1] = comment, action[2] = like
+      const textEls = [
+        actions[0].querySelector('.bili-dyn-action__text'),
+        actions[1].querySelector('.bili-dyn-action__text'),
+        actions[2].querySelector('.bili-dyn-action__text'),
+      ];
+      const repostText = (textEls[0] as HTMLElement)?.innerText?.trim() || '';
+      const commentText = (textEls[1] as HTMLElement)?.innerText?.trim() || '';
+      const likeText = (textEls[2] as HTMLElement)?.innerText?.trim() || '';
+
+      // Strip label text ("转发", "评论", "点赞") if present, keep number part
+      const stripLabel = (t: string) => t.replace(/^(转发|评论|点赞)\s*/, '').trim();
+
+      const reposts = parseCountText(stripLabel(repostText));
+      if (reposts !== undefined) engagement.reposts = reposts;
+
+      const comments = parseCountText(stripLabel(commentText));
+      if (comments !== undefined) engagement.comments = comments;
+
+      const likes = parseCountText(stripLabel(likeText));
+      if (likes !== undefined) engagement.likes = likes;
+    }
+
+    // Video play count from video card stat
+    const statEl = dynamicElement.querySelector(
+      '.bili-dyn-card-video__stat, .bili-dyn-card-video .stat-item',
+    ) as HTMLElement;
+    if (statEl) {
+      const viewText = statEl.innerText?.trim() || '';
+      const views = parseCountText(viewText.replace(/^播放\s*/, '').split(/\s+/)[0]);
+      if (views !== undefined) engagement.views = views;
+    }
+
+    return engagement;
+  }
+
+  /**
    * Collect data from a single dynamic element
-   * @param {Element} dynamicElement
-   * @returns {Object}
    */
   function collectDynamicDataBilibili(dynamicElement: Element): CollectedContent {
     const text = extractDynamicTextBilibili(dynamicElement);
@@ -416,18 +484,20 @@
     const author = extractAuthorInfoBilibili(dynamicElement);
     const type = detectDynamicTypeBilibili(dynamicElement);
     const links = extractBilibiliEmbeddedLinks(dynamicElement);
+    const engagement = extractEngagementBilibili(dynamicElement);
 
     return {
       source: 'Bilibili' as const,
       type,
       text,
       images,
-      videos: [], // Bilibili dynamics might contain videos, but currently not extracted as a separate array
+      videos: [],
       links,
       timestamp,
       url,
       author,
       collectedAt: new Date().toISOString(),
+      engagement: Object.keys(engagement).length > 0 ? engagement : undefined,
     };
   }
 

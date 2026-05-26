@@ -60,6 +60,41 @@ export async function saveToLocalServer(content: CollectedContent): Promise<any>
 }
 
 /**
+ * Upsert content to the local server (create or fully overwrite).
+ */
+export async function upsertToLocalServer(content: CollectedContent): Promise<any> {
+  const payload = await toLocalServerPayload(content);
+  const result = await requestLocalServer('/upsert', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+
+  if (!result.ok) {
+    throw new Error(`Local server upsert error: ${result.error}`);
+  }
+
+  return result.data;
+}
+
+/**
+ * Upsert a batch of content items to the local server.
+ * Returns {saved, updated, errors, results}.
+ */
+export async function upsertBatchToLocalServer(contents: CollectedContent[]): Promise<any> {
+  const items = await Promise.all(contents.map(toLocalServerPayload));
+  const result = await requestLocalServer('/upsert/batch', {
+    method: 'POST',
+    body: JSON.stringify({ items }),
+  });
+
+  if (!result.ok) {
+    throw new Error(`Local server upsert batch error: ${result.error}`);
+  }
+
+  return result.data;
+}
+
+/**
  * Check if multiple URLs already exist on the local server.
  * Returns a Set of URLs that already exist.
  */

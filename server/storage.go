@@ -23,21 +23,32 @@ type AuthorInfo struct {
 	DisplayName string `json:"displayName"`
 }
 
+// EngagementMetrics mirrors the extension's EngagementMetrics interface.
+type EngagementMetrics struct {
+	Likes    *int `json:"likes,omitempty"`
+	Comments *int `json:"comments,omitempty"`
+	Reposts  *int `json:"reposts,omitempty"`
+	Reads    *int `json:"reads,omitempty"`
+	Views    *int `json:"views,omitempty"`
+	Collects *int `json:"collects,omitempty"`
+}
+
 // CollectedContent mirrors the Chrome extension's CollectedContent interface.
 // Images are base64-encoded instead of remote URLs.
 type CollectedContent struct {
-	Source      string      `json:"source"` // required
-	Type        string      `json:"type"`   // text|image|video|article|unknown
-	Title       string      `json:"title"`  // optional, used for readable filenames
-	Text        string      `json:"text"`   // required
-	Images      []ImageData `json:"images"` // base64 images
-	Videos      []string    `json:"videos"` // remote video URLs (stored as refs)
-	Links       []string    `json:"links"`
-	Tags        []string    `json:"tags"`
-	Timestamp   string      `json:"timestamp"` // required, ISO 8601
-	URL         string      `json:"url"`       // required
-	Author      AuthorInfo  `json:"author"`
-	CollectedAt string      `json:"collectedAt"` // required
+	Source      string             `json:"source"` // required
+	Type        string             `json:"type"`   // text|image|video|article|unknown
+	Title       string             `json:"title"`  // optional, used for readable filenames
+	Text        string             `json:"text"`   // required
+	Images      []ImageData        `json:"images"` // base64 images
+	Videos      []string           `json:"videos"` // remote video URLs (stored as refs)
+	Links       []string           `json:"links"`
+	Tags        []string           `json:"tags"`
+	Timestamp   string             `json:"timestamp"` // required, ISO 8601
+	URL         string             `json:"url"`       // required
+	Author      AuthorInfo         `json:"author"`
+	CollectedAt string             `json:"collectedAt"` // required
+	Engagement  *EngagementMetrics `json:"engagement,omitempty"`
 }
 
 // SaveResult is returned after a successful save.
@@ -126,6 +137,68 @@ func SaveContent(cfg *Config, content CollectedContent, hashID string) (*SaveRes
 	}, nil
 }
 
+// UpdateContent fully overwrites an existing Markdown file at relPath (relative to storageRoot)
+// with new content, preserving the same hash_id and file location.
+func UpdateContent(cfg *Config, content CollectedContent, hashID string, relPath string) (*SaveResult, error) {
+	absPath := filepath.Join(cfg.StorageRoot, relPath)
+	imgDir := filepath.Join(filepath.Dir(absPath), "images")
+
+	if err := os.MkdirAll(imgDir, 0755); err != nil {
+		return nil, fmt.Errorf("create images directory: %w", err)
+	}
+
+	var localImagePaths []string
+	var remoteImageFallbacks []string
+	imagesDownloaded := 0
+
+	for i, img := range content.Images {
+		if img.Data == "" {
+			if img.OriginalURL != "" {
+				remoteImageFallbacks = append(remoteImageFallbacks, img.OriginalURL)
+			}
+			continue
+		}
+
+		ext := mimeToExt(img.MimeType)
+		shortID := hashID[:16]
+		filename := fmt.Sprintf("%s_%d.%s", shortID, i, ext)
+		imgPath := filepath.Join(imgDir, filename)
+
+		decoded, decErr := base64.StdEncoding.DecodeString(img.Data)
+		if decErr != nil {
+			decoded, decErr = base64.RawStdEncoding.DecodeString(img.Data)
+		}
+		if decErr != nil {
+			if img.OriginalURL != "" {
+				remoteImageFallbacks = append(remoteImageFallbacks, img.OriginalURL)
+			}
+			continue
+		}
+
+		if writeErr := os.WriteFile(imgPath, decoded, 0644); writeErr != nil {
+			if img.OriginalURL != "" {
+				remoteImageFallbacks = append(remoteImageFallbacks, img.OriginalURL)
+			}
+			continue
+		}
+
+		localImagePaths = append(localImagePaths, fmt.Sprintf("images/%s", filename))
+		imagesDownloaded++
+	}
+
+	mdContent := buildMarkdown(hashID, content, localImagePaths, remoteImageFallbacks)
+
+	if err := os.WriteFile(absPath, []byte(mdContent), 0644); err != nil {
+		return nil, fmt.Errorf("overwrite markdown file: %w", err)
+	}
+
+	return &SaveResult{
+		ID:               hashID[:16],
+		Path:             relPath,
+		ImagesDownloaded: imagesDownloaded,
+	}, nil
+}
+
 // buildMarkdown assembles the YAML front matter and body of the Markdown file.
 func buildMarkdown(hashID string, c CollectedContent, localImages, remoteImages []string) string {
 	shortID := hashID[:16]
@@ -181,6 +254,27 @@ func buildMarkdown(hashID string, c CollectedContent, localImages, remoteImages 
 	}
 	sb.WriteString("status: \"collected\"\n")
 	sb.WriteString("server_version: \"1\"\n")
+	if c.Engagement != nil {
+		e := c.Engagement
+		if e.Reads != nil {
+			fmt.Fprintf(&sb, "engagement_reads: %d\n", *e.Reads)
+		}
+		if e.Likes != nil {
+			fmt.Fprintf(&sb, "engagement_likes: %d\n", *e.Likes)
+		}
+		if e.Comments != nil {
+			fmt.Fprintf(&sb, "engagement_comments: %d\n", *e.Comments)
+		}
+		if e.Reposts != nil {
+			fmt.Fprintf(&sb, "engagement_reposts: %d\n", *e.Reposts)
+		}
+		if e.Views != nil {
+			fmt.Fprintf(&sb, "engagement_views: %d\n", *e.Views)
+		}
+		if e.Collects != nil {
+			fmt.Fprintf(&sb, "engagement_collects: %d\n", *e.Collects)
+		}
+	}
 	sb.WriteString("---\n\n")
 
 	// --- Body ---

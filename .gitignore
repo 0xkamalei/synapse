@@ -23,3 +23,7 @@ synapse-server
 config.yaml
 
 **/**/public/data
+
+server/server
+
+.claude/settings.local.json

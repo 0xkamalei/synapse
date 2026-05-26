@@ -33,7 +33,9 @@
     "source": "Bilibili",
     "type": "video",
     "text": "[视频] Philingo使用介绍 \ntry it out : philingo.leix.dev ",
-    "images": ["https://i0.hdslb.com/bfs/archive/9bc73f632120934743bd58dc516bdacd4ca56e5f.jpg"],
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/9bc73f632120934743bd58dc516bdacd4ca56e5f.jpg"
+    ],
     "videos": [],
     "links": [],
     "timestamp": "2025-12-16T16:00:00.000Z",
@@ -42,7 +44,10 @@
       "username": "寡人张磊",
       "displayName": "寡人张磊"
     },
-    "collectedAt": "2024-01-01T00:00:00.000Z"
+    "collectedAt": "2024-01-01T00:00:00.000Z",
+    "engagement": {
+      "views": 68
+    }
   },
   {
     "source": "Bilibili",
@@ -50,7 +55,9 @@
     "text": "https://afdian.com/a/leixdev​  加入了爱发电",
     "images": [],
     "videos": [],
-    "links": ["https://afdian.com/a/leixdev"],
+    "links": [
+      "https://afdian.com/a/leixdev"
+    ],
     "timestamp": "2025-12-13T16:00:00.000Z",
     "url": "https://space.bilibili.com/unknown/dynamic#:~:text=https%3A%2F%2Fafdian.com%2Fa%2Fleixdev%E2%80%8B%20%20%E5%8A%A0%E5%85%A5%E4%BA%86%E7%88%B1%E5%8F%91%E7%94%B5&synapse=MjAyNS0x",
     "author": {
@@ -63,7 +70,9 @@
     "source": "Bilibili",
     "type": "video",
     "text": "[视频] 202512121056_今日英语练习 \n视频中使用软件为自制webapp ",
-    "images": ["https://i0.hdslb.com/bfs/archive/89df9daf3851a453021201085a7f1c8abbd7be44.jpg"],
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/89df9daf3851a453021201085a7f1c8abbd7be44.jpg"
+    ],
     "videos": [],
     "links": [],
     "timestamp": "2025-12-11T16:00:00.000Z",
@@ -72,13 +81,18 @@
       "username": "寡人张磊",
       "displayName": "寡人张磊"
     },
-    "collectedAt": "2024-01-01T00:00:00.000Z"
+    "collectedAt": "2024-01-01T00:00:00.000Z",
+    "engagement": {
+      "views": 11
+    }
   },
   {
     "source": "Bilibili",
     "type": "video",
     "text": "[视频] 防被裁编程法 ",
-    "images": ["https://i0.hdslb.com/bfs/archive/9dd6f52bd36e10e725025b840023194325e16861.jpg"],
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/9dd6f52bd36e10e725025b840023194325e16861.jpg"
+    ],
     "videos": [],
     "links": [],
     "timestamp": "2025-12-10T16:00:00.000Z",
@@ -87,13 +101,18 @@
       "username": "寡人张磊",
       "displayName": "寡人张磊"
     },
-    "collectedAt": "2024-01-01T00:00:00.000Z"
+    "collectedAt": "2024-01-01T00:00:00.000Z",
+    "engagement": {
+      "views": 29
+    }
   },
   {
     "source": "Bilibili",
     "type": "video",
     "text": "[视频] 英语练习记录 ",
-    "images": ["https://i0.hdslb.com/bfs/archive/7c33e7184ade8853461b5cfcc1119f5a2ad6a23d.jpg"],
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/7c33e7184ade8853461b5cfcc1119f5a2ad6a23d.jpg"
+    ],
     "videos": [],
     "links": [],
     "timestamp": "2025-12-08T16:00:00.000Z",
@@ -102,13 +121,18 @@
       "username": "寡人张磊",
       "displayName": "寡人张磊"
     },
-    "collectedAt": "2024-01-01T00:00:00.000Z"
+    "collectedAt": "2024-01-01T00:00:00.000Z",
+    "engagement": {
+      "views": 27
+    }
   },
   {
     "source": "Bilibili",
     "type": "video",
     "text": "[视频] 2025#5 AI成为一中新的material ",
-    "images": ["https://i0.hdslb.com/bfs/archive/af62a9d7b1a2ee77c01818bfb86e81a2b6fc40eb.jpg"],
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/af62a9d7b1a2ee77c01818bfb86e81a2b6fc40eb.jpg"
+    ],
     "videos": [],
     "links": [],
     "timestamp": "2025-10-23T16:00:00.000Z",
@@ -117,13 +141,18 @@
       "username": "寡人张磊",
       "displayName": "寡人张磊"
     },
-    "collectedAt": "2024-01-01T00:00:00.000Z"
+    "collectedAt": "2024-01-01T00:00:00.000Z",
+    "engagement": {
+      "views": 18
+    }
   },
   {
     "source": "Bilibili",
     "type": "video",
     "text": "[视频] 2025#4 一镜到底外出上班 ",
-    "images": ["https://i0.hdslb.com/bfs/archive/6c8bf5a830a7006d5d69c52cf29e4754c095bf05.jpg"],
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/6c8bf5a830a7006d5d69c52cf29e4754c095bf05.jpg"
+    ],
     "videos": [],
     "links": [],
     "timestamp": "2025-10-21T16:00:00.000Z",
@@ -132,13 +161,18 @@
       "username": "寡人张磊",
       "displayName": "寡人张磊"
     },
-    "collectedAt": "2024-01-01T00:00:00.000Z"
+    "collectedAt": "2024-01-01T00:00:00.000Z",
+    "engagement": {
+      "views": 16
+    }
   },
   {
     "source": "Bilibili",
     "type": "video",
     "text": "[视频] 2025#3 我是只青蛙 ",
-    "images": ["https://i0.hdslb.com/bfs/archive/d520a6c21013f146640102db70343db69a761157.jpg"],
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/d520a6c21013f146640102db70343db69a761157.jpg"
+    ],
     "videos": [],
     "links": [],
     "timestamp": "2025-10-20T16:00:00.000Z",
@@ -147,13 +181,18 @@
       "username": "寡人张磊",
       "displayName": "寡人张磊"
     },
-    "collectedAt": "2024-01-01T00:00:00.000Z"
+    "collectedAt": "2024-01-01T00:00:00.000Z",
+    "engagement": {
+      "views": 25
+    }
   },
   {
     "source": "Bilibili",
     "type": "video",
     "text": "[视频] 2025#2 为什么要工作 ",
-    "images": ["https://i0.hdslb.com/bfs/archive/8e20181777cbaf94e4df28bf1183befb6a174042.jpg"],
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/8e20181777cbaf94e4df28bf1183befb6a174042.jpg"
+    ],
     "videos": [],
     "links": [],
     "timestamp": "2025-10-19T16:00:00.000Z",
@@ -162,13 +201,18 @@
       "username": "寡人张磊",
       "displayName": "寡人张磊"
     },
-    "collectedAt": "2024-01-01T00:00:00.000Z"
+    "collectedAt": "2024-01-01T00:00:00.000Z",
+    "engagement": {
+      "views": 36
+    }
   },
   {
     "source": "Bilibili",
     "type": "video",
     "text": "[视频] 2025#1 寡人张磊 ",
-    "images": ["https://i0.hdslb.com/bfs/archive/ebb5e7f27949de762afcd555f1d79aa5cbc20021.jpg"],
+    "images": [
+      "https://i0.hdslb.com/bfs/archive/ebb5e7f27949de762afcd555f1d79aa5cbc20021.jpg"
+    ],
     "videos": [],
     "links": [],
     "timestamp": "2025-10-19T16:00:00.000Z",
@@ -177,6 +221,9 @@
       "username": "寡人张磊",
       "displayName": "寡人张磊"
     },
-    "collectedAt": "2024-01-01T00:00:00.000Z"
+    "collectedAt": "2024-01-01T00:00:00.000Z",
+    "engagement": {
+      "views": 24
+    }
   }
 ]

@@ -407,3 +407,39 @@ test('YouTube Collector', () => {
     expect(results).toEqual(expected);
   }
 });
+
+test('WXH Collector', () => {
+  const window = createTestWindow('https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MjM5MDgxNzY0MA==&action=getalbum&album_id=3946086008822841350');
+  loadCollector(window, 'dist/content/wxh-collector.js');
+
+  const htmlPath = join(TARGET_HTML_DIR, 'wxh.html');
+  const jsonPath = join(TARGET_HTML_DIR, 'wxh.json');
+
+  loadHtmlToWindow(window, htmlPath);
+
+  // Inject window.cgiData from HTML (happy-dom doesn't execute scripts).
+  // cgiData contains nested objects; anchor to the following statement to avoid early match.
+  const htmlContent = readFileSync(htmlPath, 'utf-8');
+  const cgiMatch = htmlContent.match(/window\.cgiData\s*=\s*\{[\s\S]*?\};\s*(?=window\.isPaySubscribe)/);
+  if (cgiMatch) {
+    // Only eval the cgiData assignment, not the rest of the script (which references seajs etc.)
+    const cgiAssignment = cgiMatch[0].replace(/;\s*$/, '');
+    runInContext(cgiAssignment, window);
+  }
+
+  // Use the primary cgiData path (accurate unix timestamps)
+  const results = (window as any).findAllContent();
+  expect(results.length).toBeGreaterThan(0);
+
+  results.forEach((r: any) => {
+    r.collectedAt = '2024-01-01T00:00:00.000Z';
+  });
+
+  if (!existsSync(jsonPath)) {
+    writeFileSync(jsonPath, JSON.stringify(results, null, 2));
+    console.log(`Created ${jsonPath}. Please review it.`);
+  } else {
+    const expected = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+    expect(results).toEqual(expected);
+  }
+});

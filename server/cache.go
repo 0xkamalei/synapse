@@ -10,14 +10,14 @@ import (
 	"sync/atomic"
 )
 
-// Cache is a thread-safe in-memory set of hash IDs for deduplication.
+// Cache is a thread-safe in-memory map of hash IDs to relative file paths for upsert support.
 type Cache struct {
 	mu    sync.RWMutex
-	items map[string]struct{}
+	items map[string]string // hashID → relative path from storageRoot
 }
 
 func NewCache() *Cache {
-	return &Cache{items: make(map[string]struct{})}
+	return &Cache{items: make(map[string]string)}
 }
 
 func (c *Cache) Has(hashID string) bool {
@@ -27,10 +27,17 @@ func (c *Cache) Has(hashID string) bool {
 	return ok
 }
 
-func (c *Cache) Add(hashID string) {
+// GetPath returns the relative path for a given hashID, or "" if not found.
+func (c *Cache) GetPath(hashID string) string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.items[hashID]
+}
+
+func (c *Cache) Add(hashID, relPath string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	c.items[hashID] = struct{}{}
+	c.items[hashID] = relPath
 }
 
 func (c *Cache) Size() int {
@@ -39,8 +46,13 @@ func (c *Cache) Size() int {
 	return len(c.items)
 }
 
+type hashPathPair struct {
+	hashID  string
+	relPath string
+}
+
 // BuildFromDisk walks storageRoot, extracts hash_id from every .md front matter,
-// and populates the cache. Uses a goroutine pool bounded to min(4, NumCPU).
+// and populates the cache with hash → relative path mappings.
 func (c *Cache) BuildFromDisk(storageRoot string) (int, error) {
 	var files []string
 	err := filepath.Walk(storageRoot, func(path string, info os.FileInfo, err error) error {
@@ -69,17 +81,21 @@ func (c *Cache) BuildFromDisk(storageRoot string) (int, error) {
 
 	var count int64
 	var mu sync.Mutex
-	var collected []string
+	var collected []hashPathPair
 	var wg sync.WaitGroup
 
 	for i := 0; i < numWorkers; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			var local []string
+			var local []hashPathPair
 			for path := range jobs {
 				if h := extractHashIDFromFile(path); h != "" {
-					local = append(local, h)
+					relPath, err := filepath.Rel(storageRoot, path)
+					if err != nil {
+						relPath = path
+					}
+					local = append(local, hashPathPair{hashID: h, relPath: relPath})
 					atomic.AddInt64(&count, 1)
 				}
 			}
@@ -91,8 +107,8 @@ func (c *Cache) BuildFromDisk(storageRoot string) (int, error) {
 	wg.Wait()
 
 	c.mu.Lock()
-	for _, h := range collected {
-		c.items[h] = struct{}{}
+	for _, p := range collected {
+		c.items[p.hashID] = p.relPath
 	}
 	c.mu.Unlock()
 

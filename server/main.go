@@ -76,6 +76,8 @@ func main() {
 	mux.Handle("POST /collect/batch", AuthMiddleware(cfg.Token, http.HandlerFunc(h.CollectBatch)))
 	mux.Handle("GET /check", AuthMiddleware(cfg.Token, http.HandlerFunc(h.Check)))
 	mux.Handle("POST /check/batch", AuthMiddleware(cfg.Token, http.HandlerFunc(h.CheckBatch)))
+	mux.Handle("POST /upsert", AuthMiddleware(cfg.Token, http.HandlerFunc(h.Upsert)))
+	mux.Handle("POST /upsert/batch", AuthMiddleware(cfg.Token, http.HandlerFunc(h.UpsertBatch)))
 	mux.Handle("GET /stats", AuthMiddleware(cfg.Token, http.HandlerFunc(h.Stats)))
 	mux.Handle("GET /tasks", AuthMiddleware(cfg.Token, http.HandlerFunc(h.GetTasks)))
 	mux.Handle("POST /tasks", AuthMiddleware(cfg.Token, http.HandlerFunc(h.SaveTasks)))

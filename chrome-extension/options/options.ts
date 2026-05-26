@@ -215,7 +215,8 @@ function getMultiInputValues(container: HTMLElement): string[] {
 }
 
 /**
- * Reconcile scheduledTasks: remove stale platform tasks for accounts no longer present.
+ * Reconcile scheduledTasks: remove all tasks that don't match current platform accounts.
+ * tasks.json must be a 1:1 mirror of the extension config — no orphan tasks allowed.
  */
 function reconcileScheduledTasks() {
   const validIds = new Set<string>();
@@ -225,10 +226,7 @@ function reconcileScheduledTasks() {
       validIds.add(buildTaskId(platform, accountId));
     });
   }
-  scheduledTasks = scheduledTasks.filter((t) => {
-    const isPlatformTask = t.id.startsWith('sched_');
-    return !isPlatformTask || validIds.has(t.id);
-  });
+  scheduledTasks = scheduledTasks.filter((t) => validIds.has(t.id));
 }
 
 /**

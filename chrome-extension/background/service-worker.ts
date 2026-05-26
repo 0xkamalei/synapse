@@ -5,8 +5,7 @@
 
 import { logger } from '../lib/logger.js';
 import {
-  saveToLocalServer,
-  batchCheckDuplicates,
+  upsertBatchToLocalServer,
   truncateText,
 } from '../lib/local-server-client.js';
 import { validateConfig, getConfig, updateLastCollectTime } from '../lib/storage.js';
@@ -14,15 +13,6 @@ import { validateConfig, getConfig, updateLastCollectTime } from '../lib/storage
 // Global lock to prevent concurrent processing of batches
 let isProcessing = false;
 const processingQueue: Array<() => Promise<void>> = [];
-const recentlyProcessedUrls = new Set<string>();
-
-// Clear recently processed URLs every 10 minutes to prevent memory leaks
-setInterval(
-  () => {
-    recentlyProcessedUrls.clear();
-  },
-  10 * 60 * 1000,
-);
 
 async function acquireLock(): Promise<void> {
   if (!isProcessing) {
@@ -46,148 +36,57 @@ function releaseLock(): void {
 }
 
 /**
- * Process collected content and save to the local server.
- * In debug mode: logs parsed JSON without saving
+ * Handle batch collection request from content script.
+ * Uses upsert so the server handles create-vs-update; no client-side duplicate check needed.
  */
-async function processContent(content: CollectedContent): Promise<any> {
-  // Requirement: text must be present to be saved
-  if (!content.text || content.text.trim().length === 0) {
-    console.log('[Synapse] Skipping content with empty text');
-    return null;
-  }
-
-  const summary = truncateText(content.text);
-  const config = await getConfig();
-
-  console.log(`[Synapse] Processing content from ${content.source}:`, {
-    url: content.url,
-    imageCount: content.images?.length || 0,
-    videoCount: content.videos?.length || 0,
-  });
-
-  // DEBUG MODE: Log JSON and skip all processing
-  if (config.debugMode) {
-    const debugData = {
-      source: content.source,
-      text: content.text,
-      images: content.images || [],
-      videos: content.videos || [],
-      url: content.url,
-      timestamp: content.timestamp,
-      author: content.author,
-      collectedAt: content.collectedAt,
-    };
-
-    await logger.info('🛠 DEBUG: Parsed content (NOT saved)', {
-      summary: summary,
-      data: debugData,
-    });
-
-    console.log('[Synapse DEBUG] Parsed content JSON:', JSON.stringify(debugData, null, 2));
-
-    return { debug: true, content: debugData };
-  }
-
-  // Check configuration
-  const configStatus = await validateConfig();
-  if (!configStatus.valid) {
-    const error = `Missing configuration: ${configStatus.missing.join(', ')}`;
-    console.error('[Synapse] Configuration error:', error);
-    await logger.error(error);
-    throw new Error(error);
-  }
-
-  console.log('[Synapse] Saving to local server...');
-  const result = await saveToLocalServer(content);
-
-  // Update last collect time for this source
-  await updateLastCollectTime(content.source);
-
-  console.log('[Synapse] Content saved successfully to local server:', result.path || result.id);
-  await logger.success(`Saved from ${content.source}`, {
-    data: {
-      ...content,
-      localServerId: result.id,
-      localServerPath: result.path,
-      imagesDownloaded: result.images_downloaded,
-    },
-    summary: summary,
-  });
-
-  return result;
-}
-
-/**
- * Handle batch collection request from content script (for multiple items)
- */
-async function handleCollectBatch(contents: CollectedContent[], pageUID: string): Promise<any> {
+async function handleCollectBatch(contents: CollectedContent[], _pageUID: string): Promise<any> {
   await acquireLock();
   try {
     const config = await getConfig();
-
-    // Process each content item
-    let collected = 0;
-    let skipped = 0;
     const firstSource = contents[0]?.source || 'Unknown';
 
-    // Filter logic removed as contents are already guaranteed to be for the target account
-    const filteredContents = contents;
+    const validContents = contents.filter(
+      (c) => c.text && c.text.trim().length > 0,
+    );
+    const skipped = contents.length - validContents.length;
 
-    skipped += contents.length - filteredContents.length;
-
-    // Batch check duplicates for remaining items
-    const urls = filteredContents.map((c) => c.url).filter(Boolean);
-    const existingUrls = await batchCheckDuplicates(urls);
-    const processedInThisBatch = new Set<string>();
-
-    if (urls.length > 0) {
-      await logger.info(
-        `Batch check duplicates: ${existingUrls.size} existing items found in ${urls.length} items`,
-        {
-          data: {
-            totalChecked: urls.length,
-            duplicatesFound: existingUrls.size,
-            existingUrls: Array.from(existingUrls),
-          },
-        },
-      );
+    if (validContents.length === 0) {
+      return { success: true, collected: 0, skipped };
     }
 
-    for (const content of filteredContents) {
-      try {
-        if (
-          existingUrls.has(content.url) ||
-          processedInThisBatch.has(content.url) ||
-          recentlyProcessedUrls.has(content.url)
-        ) {
-          skipped++;
-          continue;
-        }
-
-        const result = await processContent(content);
-        if (result) {
-          collected++;
-          processedInThisBatch.add(content.url);
-          recentlyProcessedUrls.add(content.url);
-        } else {
-          skipped++;
-        }
-      } catch (err: any) {
-        if (err.message.includes('already saved')) {
-          skipped++;
-        } else {
-          await logger.error(`Batch item failed: ${err.message}`, {
-            summary: truncateText(content.text),
-            data: content,
-          });
-        }
+    if (config.debugMode) {
+      for (const content of validContents) {
+        await logger.info('🛠 DEBUG: Parsed content (NOT saved)', {
+          summary: truncateText(content.text),
+          data: content,
+        });
+        console.log('[Synapse DEBUG] Parsed content JSON:', JSON.stringify(content, null, 2));
       }
+      return { success: true, collected: 0, skipped: validContents.length };
+    }
+
+    const configStatus = await validateConfig();
+    if (!configStatus.valid) {
+      const error = `Missing configuration: ${configStatus.missing.join(', ')}`;
+      await logger.error(error);
+      throw new Error(error);
+    }
+
+    const result = await upsertBatchToLocalServer(validContents);
+    const saved: number = result?.saved ?? 0;
+    const updated: number = result?.updated ?? 0;
+    const errors: number = result?.errors ?? 0;
+    const collected = saved + updated;
+
+    if (validContents[0]) {
+      await updateLastCollectTime(validContents[0].source);
     }
 
     if (collected > 0) {
-      await logger.success(`Batch complete: ${collected} saved, ${skipped} skipped`, {
-        summary: `Collected ${collected} items from ${firstSource}`,
-      });
+      await logger.success(
+        `Batch complete: ${saved} saved, ${updated} updated, ${errors} errors, ${skipped} skipped`,
+        { summary: `Collected ${collected} items from ${firstSource}` },
+      );
     }
 
     return { success: true, collected, skipped };

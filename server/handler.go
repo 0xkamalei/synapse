@@ -80,7 +80,7 @@ func (h *Handler) Collect(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.cache.Add(hashID)
+	h.cache.Add(hashID, result.Path)
 
 	writeJSON(w, http.StatusOK, map[string]any{
 		"status":            "saved",
@@ -137,7 +137,7 @@ func (h *Handler) CollectBatch(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		h.cache.Add(hashID)
+		h.cache.Add(hashID, result.Path)
 		saved++
 		results = append(results, ItemResult{URL: content.URL, Status: "saved", ID: result.ID})
 	}
@@ -190,6 +190,124 @@ func (h *Handler) CheckBatch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeJSON(w, http.StatusOK, map[string]any{"existing": existing})
+}
+
+// POST /upsert — create or fully overwrite a single item
+func (h *Handler) Upsert(w http.ResponseWriter, r *http.Request) {
+	var content CollectedContent
+	if err := json.NewDecoder(r.Body).Decode(&content); err != nil {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid JSON: " + err.Error()})
+		return
+	}
+
+	if content.URL == "" {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "missing required field: url"})
+		return
+	}
+	if content.Text == "" {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "missing required field: text"})
+		return
+	}
+	if content.Source == "" {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "missing required field: source"})
+		return
+	}
+
+	hashID := hashURL(content.URL)
+
+	if h.cache.Has(hashID) {
+		relPath := h.cache.GetPath(hashID)
+		result, err := UpdateContent(h.cfg, content, hashID, relPath)
+		if err != nil {
+			writeJSON(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+			return
+		}
+		writeJSON(w, http.StatusOK, map[string]any{
+			"status":            "updated",
+			"id":                result.ID,
+			"path":              result.Path,
+			"images_downloaded": result.ImagesDownloaded,
+		})
+		return
+	}
+
+	result, err := SaveContent(h.cfg, content, hashID)
+	if err != nil {
+		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		return
+	}
+
+	h.cache.Add(hashID, result.Path)
+
+	writeJSON(w, http.StatusOK, map[string]any{
+		"status":            "saved",
+		"id":                result.ID,
+		"path":              result.Path,
+		"images_downloaded": result.ImagesDownloaded,
+	})
+}
+
+// UpsertItemResult is one entry in an upsert batch response
+type UpsertItemResult struct {
+	URL    string `json:"url"`
+	Status string `json:"status"` // "saved", "updated", "error"
+	ID     string `json:"id,omitempty"`
+	Error  string `json:"error,omitempty"`
+}
+
+// POST /upsert/batch — create or overwrite multiple items
+func (h *Handler) UpsertBatch(w http.ResponseWriter, r *http.Request) {
+	var req BatchRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid JSON"})
+		return
+	}
+
+	total := len(req.Items)
+	saved, updated, errors := 0, 0, 0
+	results := make([]UpsertItemResult, 0, total)
+
+	for _, content := range req.Items {
+		if content.URL == "" || content.Text == "" || content.Source == "" {
+			errors++
+			results = append(results, UpsertItemResult{URL: content.URL, Status: "error", Error: "missing required fields"})
+			continue
+		}
+
+		hashID := hashURL(content.URL)
+
+		if h.cache.Has(hashID) {
+			relPath := h.cache.GetPath(hashID)
+			result, err := UpdateContent(h.cfg, content, hashID, relPath)
+			if err != nil {
+				errors++
+				results = append(results, UpsertItemResult{URL: content.URL, Status: "error", Error: err.Error()})
+				continue
+			}
+			updated++
+			results = append(results, UpsertItemResult{URL: content.URL, Status: "updated", ID: result.ID})
+			continue
+		}
+
+		result, err := SaveContent(h.cfg, content, hashID)
+		if err != nil {
+			errors++
+			results = append(results, UpsertItemResult{URL: content.URL, Status: "error", Error: err.Error()})
+			continue
+		}
+
+		h.cache.Add(hashID, result.Path)
+		saved++
+		results = append(results, UpsertItemResult{URL: content.URL, Status: "saved", ID: result.ID})
+	}
+
+	writeJSON(w, http.StatusOK, map[string]any{
+		"total":   total,
+		"saved":   saved,
+		"updated": updated,
+		"errors":  errors,
+		"results": results,
+	})
 }
 
 // GET /stats

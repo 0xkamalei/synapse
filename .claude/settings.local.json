@@ -23,7 +23,11 @@
       "Bash(pkill -f \"synapse-server\")",
       "Bash(mkdir -p ~/.local/bin)",
       "Bash(cp synapse-server *)",
-      "Bash(cp com.synapse.server.plist ~/Library/LaunchAgents/com.synapse.server.plist)"
+      "Bash(cp com.synapse.server.plist ~/Library/LaunchAgents/com.synapse.server.plist)",
+      "Bash(bun run *)",
+      "Bash(bun test *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(go vet *)"
     ]
   }
 }

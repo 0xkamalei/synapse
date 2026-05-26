@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Synapse Collector",
   "version": "1.0.0",
-  "description": "Aggregate your thoughts from X.com, Bilibili, Weibo, QZone, Redbook, ZSXQ and YouTube to a local Synapse server",
+  "description": "Aggregate your thoughts from X.com, Bilibili, Weibo, QZone, Redbook, ZSXQ, YouTube and WeChat to a local Synapse server",
   "permissions": ["storage", "activeTab", "scripting", "webNavigation"],
   "host_permissions": [
     "https://x.com/*",
@@ -19,7 +19,8 @@
     "https://www.xiaohongshu.com/*",
     "https://wx.zsxq.com/*",
     "https://*.zsxq.com/*",
-    "https://www.youtube.com/*"
+    "https://www.youtube.com/*",
+    "https://mp.weixin.qq.com/*"
   ],
   "action": {
     "default_popup": "popup/popup.html",
@@ -70,6 +71,11 @@
     {
       "matches": ["https://www.youtube.com/*"],
       "js": ["dist/content/youtube-collector.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://mp.weixin.qq.com/*"],
+      "js": ["dist/content/wxh-collector.js"],
       "run_at": "document_idle"
     }
   ],

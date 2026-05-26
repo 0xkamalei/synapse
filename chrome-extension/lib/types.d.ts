@@ -10,8 +10,17 @@ interface AuthorInfo {
 
 type ContentType = 'text' | 'image' | 'video' | 'article' | 'unknown';
 
+interface EngagementMetrics {
+  likes?: number;
+  comments?: number;
+  reposts?: number;
+  reads?: number;    // 阅读量 (WXH)
+  views?: number;    // 播放量 (Bilibili video)
+  collects?: number; // 收藏 (Bilibili)
+}
+
 interface CollectedContent {
-  source: 'X' | 'Bilibili' | 'QZone' | 'Weibo' | 'Redbook' | 'ZSXQ' | 'YouTube';
+  source: 'X' | 'Bilibili' | 'QZone' | 'Weibo' | 'Redbook' | 'ZSXQ' | 'YouTube' | 'WXH';
   type?: ContentType;
   text: string;
   images: string[];
@@ -22,6 +31,7 @@ interface CollectedContent {
   url: string;
   author: AuthorInfo;
   collectedAt: string;
+  engagement?: EngagementMetrics;
   localServerId?: string;
   localServerPath?: string;
 }
@@ -65,6 +75,7 @@ interface AppConfig {
   targetRedbookUser: string[];
   targetZsxqGroup?: string[];
   targetYoutubeChannel?: string[];
+  targetWxhAlbum?: string[];
   collectIntervalMinutes?: number;
   lastCollectTime: string | null;
   lastCollectTimes?: Record<string, string>;
