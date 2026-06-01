@@ -1,0 +1,34 @@
+services:
+  synapse-server:
+    build: .
+    container_name: synapse-server
+    restart: unless-stopped
+    ports:
+      - "7070:7070"
+    volumes:
+      # Persist Markdown files and images
+      - /Users/lei/dev/ob/synapse-data:/data
+    environment:
+      # Set your secret token here or use a .env file
+      - TOKEN=${TOKEN:-your-secret-token}
+      - STORAGE_ROOT=/data
+      - PORT=7070
+      - HOST=0.0.0.0
+      - LOG_LEVEL=info
+    command:
+      - --token
+      - ${TOKEN:-your-secret-token}
+      - --storage-root
+      - /data
+      - --port
+      - "7070"
+      - --host
+      - 0.0.0.0
+      - --log-level
+      - info
+    healthcheck:
+      test: [ "CMD", "wget", "-qO-", "http://localhost:7070/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s

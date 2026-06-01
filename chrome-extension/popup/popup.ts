@@ -9,61 +9,96 @@ const elements = {
   configStatus: document.getElementById('configStatus') as HTMLElement,
   lastSync: document.getElementById('lastSync') as HTMLElement,
   collectNow: document.getElementById('collectNow') as HTMLButtonElement,
-  viewLogs: document.getElementById('viewLogs') as HTMLElement,
   openOptions: document.getElementById('openOptions') as HTMLElement,
+  recentList: document.getElementById('recentList') as HTMLElement,
 };
 
-/**
- * Initialize popup
- */
 async function init() {
   await checkConfigStatus();
   await updateLastSync();
+  await loadRecentCollections();
   setupEventListeners();
   await checkPageStatus();
 }
 
-/**
- * Check and display configuration status
- */
 async function checkConfigStatus() {
   const status = await validateConfig();
   const dot = elements.configStatus.querySelector('.status-dot') as HTMLElement;
   const text = elements.configStatus.querySelector('.status-text') as HTMLElement;
 
   if (status.valid) {
-    dot.style.background = '#198754'; // green
+    dot.style.background = '#198754';
     text.textContent = 'Ready';
   } else {
-    dot.style.background = '#B3261E'; // red
+    dot.style.background = '#B3261E';
     text.textContent = 'Config needed';
   }
 }
 
-/**
- * Update last collect time display
- */
 async function updateLastSync() {
   const config = await getConfig();
-  const container = elements.lastSync;
-  const textElement = container.querySelector('.status-text');
+  const textElement = elements.lastSync.querySelector('.status-text');
   if (!textElement) return;
 
   if (config.lastCollectTime) {
     const date = new Date(config.lastCollectTime);
-    // Use a shorter format for the status bar
     const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     textElement.textContent = `Last: ${timeStr}`;
-    container.title = `Last sync: ${date.toLocaleString()}`;
+    elements.lastSync.title = `Last sync: ${date.toLocaleString()}`;
   } else {
     textElement.textContent = 'Last: Never';
   }
 }
 
-/**
- * Check if current page has collectable content
- * Uses unified message communication with content scripts
- */
+async function loadRecentCollections() {
+  const { recentCollections = [] } = await chrome.storage.local.get('recentCollections');
+  renderRecentCollections(recentCollections as LogEntry[]);
+}
+
+function renderRecentCollections(entries: LogEntry[]) {
+  const list = elements.recentList;
+
+  if (entries.length === 0) {
+    list.innerHTML = '<div class="empty-state">No collections yet</div>';
+    return;
+  }
+
+  list.innerHTML = entries
+    .slice(0, 5)
+    .map((entry) => {
+      const time = formatRelativeTime(entry.timestamp);
+      const source = entry.data?.source ?? '?';
+      const isSuccess = entry.level === 'success';
+      const detail = entry.summary || entry.message;
+
+      return `
+      <div class="recent-entry ${entry.level}">
+        <span class="recent-source">${source}</span>
+        <span class="recent-msg">${escapeHtml(detail)}</span>
+        <span class="recent-time">${time}</span>
+      </div>`;
+    })
+    .join('');
+}
+
+function formatRelativeTime(timestamp: string): string {
+  const diff = Date.now() - new Date(timestamp).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  return `${Math.floor(hours / 24)}d ago`;
+}
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 async function checkPageStatus() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -72,18 +107,15 @@ async function checkPageStatus() {
       return;
     }
 
-    // Try to get page info from content script
     let isMatched = false;
 
     try {
-      // Get all frames in the tab
       const frames = await chrome.webNavigation.getAllFrames({ tabId: tab.id });
       if (!frames) {
         elements.collectNow.style.display = 'none';
         return;
       }
 
-      // Try each frame to find a content script that responds
       for (const frame of frames) {
         try {
           const response = await chrome.tabs.sendMessage(
@@ -91,15 +123,11 @@ async function checkPageStatus() {
             { type: 'GET_PAGE_INFO' },
             { frameId: frame.frameId },
           );
-
-          // Check if any collector reports isTargetPage = true
-          // All collectors now use the unified PageInfo interface
           if (response && response.isTargetPage === true) {
             isMatched = true;
             break;
           }
         } catch (e) {
-          // This frame doesn't have a content script, continue
           continue;
         }
       }
@@ -107,20 +135,13 @@ async function checkPageStatus() {
       console.error('Error communicating with content scripts:', e);
     }
 
-    if (isMatched) {
-      elements.collectNow.style.display = 'flex';
-    } else {
-      elements.collectNow.style.display = 'none';
-    }
+    elements.collectNow.style.display = isMatched ? 'flex' : 'none';
   } catch (e) {
     console.error('Error checking page status:', e);
     elements.collectNow.style.display = 'none';
   }
 }
 
-/**
- * Handle manual collection
- */
 async function handleManualCollect() {
   const btn = elements.collectNow;
   const btnText = btn.querySelector('.btn-text') as HTMLElement;
@@ -133,12 +154,10 @@ async function handleManualCollect() {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (!tab || !tab.id) throw new Error('No active tab found');
 
-    // Broadcast to all frames
     if (!chrome.webNavigation) {
       throw new Error('webNavigation API not available. Please check extension permissions.');
     }
     const frames = await chrome.webNavigation.getAllFrames({ tabId: tab.id! });
-
     if (!frames) throw new Error('Could not get frames');
 
     let success = false;
@@ -153,13 +172,12 @@ async function handleManualCollect() {
         );
         if (response && response.success) {
           success = true;
-          // Don't break if it's a batch collection, but for now QZone/Bili/X are usually one-shot per frame
           break;
         } else if (response && response.error) {
           lastError = response.error;
         }
       } catch (e) {
-        // Ignore frames without listeners
+        // ignore frames without listeners
       }
     }
 
@@ -167,6 +185,8 @@ async function handleManualCollect() {
       btnText.textContent = 'Success!';
       btn.style.background = '#198754';
       await updateLastSync();
+      // Refresh recent collections after a brief delay for the log to propagate
+      setTimeout(() => loadRecentCollections(), 500);
     } else {
       throw new Error(lastError);
     }
@@ -184,20 +204,19 @@ async function handleManualCollect() {
   }
 }
 
-/**
- * Setup event listeners
- */
 function setupEventListeners() {
   elements.collectNow.addEventListener('click', handleManualCollect);
-
-  elements.viewLogs.addEventListener('click', () => {
-    chrome.tabs.create({ url: chrome.runtime.getURL('logs/logs.html') });
-  });
 
   elements.openOptions.addEventListener('click', () => {
     chrome.runtime.openOptionsPage();
   });
+
+  // Live-update recent list when storage changes
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === 'local' && changes.recentCollections) {
+      renderRecentCollections((changes.recentCollections.newValue as LogEntry[]) ?? []);
+    }
+  });
 }
 
-// Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', init);

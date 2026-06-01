@@ -1,7 +1,3 @@
-/**
- * Synapse Logger
- * Manages collection logs for debugging
- */
 export const LogLevel: Record<string, LogLevelValue> = {
   INFO: 'info',
   WARN: 'warn',
@@ -9,15 +5,9 @@ export const LogLevel: Record<string, LogLevelValue> = {
   SUCCESS: 'success',
 };
 
-const MAX_LOGS = 200;
+const MAX_RECENT = 10;
 
-/**
- * Logger class for managing collection logs
- */
 class Logger {
-  /**
-   * Add a log entry
-   */
   async log(
     level: LogLevelValue,
     message: string,
@@ -26,7 +16,7 @@ class Logger {
     const { data = {}, summary = '' } = options;
 
     const entry: LogEntry = {
-      id: this.generateId(),
+      id: `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
       timestamp: new Date().toISOString(),
       level,
       message,
@@ -34,18 +24,51 @@ class Logger {
       data,
     };
 
-    const logs = await this.getLogs();
-    logs.unshift(entry);
+    this.consoleLog(level, message, summary, data);
 
-    const trimmedLogs = logs.slice(0, MAX_LOGS);
-    await chrome.storage.local.set({ logs: trimmedLogs });
-
-    const consoleMethod = level === 'error' ? 'error' : level === 'warn' ? 'warn' : 'log';
-    if (console[consoleMethod]) {
-      (console[consoleMethod] as Function)(`[Synapse ${level.toUpperCase()}]`, message, data);
+    if ((level === 'success' || level === 'error') && data.source) {
+      await this.addRecentCollection(entry);
     }
 
     return entry;
+  }
+
+  private consoleLog(level: LogLevelValue, message: string, summary: string, data: any): void {
+    const prefix = `[Synapse ${level.toUpperCase()}]`;
+    const hasData = data && Object.keys(data).length > 0;
+
+    if (hasData || summary) {
+      const label = summary ? `${prefix} ${message} — ${summary}` : `${prefix} ${message}`;
+      console.groupCollapsed(label);
+      Object.entries(data).forEach(([key, value]) => {
+        if (Array.isArray(value) && value.length > 0) {
+          console.groupCollapsed(`  ${key} (${value.length})`);
+          value.forEach((item, i) => console.log(`  [${i}]`, item));
+          console.groupEnd();
+        } else {
+          console.log(`  ${key}:`, value);
+        }
+      });
+      console.groupEnd();
+    } else {
+      const method = level === 'error' ? 'error' : level === 'warn' ? 'warn' : 'log';
+      (console[method] as Function)(prefix, message);
+    }
+  }
+
+  private async addRecentCollection(entry: LogEntry): Promise<void> {
+    const { recentCollections = [] } = await chrome.storage.local.get('recentCollections');
+    const updated = [entry, ...(recentCollections as LogEntry[])].slice(0, MAX_RECENT);
+    await chrome.storage.local.set({ recentCollections: updated });
+  }
+
+  async getRecentCollections(): Promise<LogEntry[]> {
+    const { recentCollections = [] } = await chrome.storage.local.get('recentCollections');
+    return recentCollections as LogEntry[];
+  }
+
+  async clearRecentCollections(): Promise<void> {
+    await chrome.storage.local.set({ recentCollections: [] });
   }
 
   async info(message: string, options: { data?: any; summary?: string } = {}): Promise<LogEntry> {
@@ -66,32 +89,10 @@ class Logger {
   ): Promise<LogEntry> {
     return this.log(LogLevel.SUCCESS, message, options);
   }
-
-  async getLogs(): Promise<LogEntry[]> {
-    const { logs = [] } = await chrome.storage.local.get('logs');
-    return logs as LogEntry[];
-  }
-
-  async clearLogs(): Promise<void> {
-    await chrome.storage.local.set({ logs: [] });
-  }
-
-  async getLogsByLevel(level: LogLevelValue): Promise<LogEntry[]> {
-    const logs = await this.getLogs();
-    return logs.filter((log) => log.level === level);
-  }
-
-  private generateId(): string {
-    return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
-  }
 }
 
 export const logger = new Logger();
 
-export async function getLogs(): Promise<LogEntry[]> {
-  return logger.getLogs();
-}
-
-export async function clearLogs(): Promise<void> {
-  return logger.clearLogs();
+export async function getRecentCollections(): Promise<LogEntry[]> {
+  return logger.getRecentCollections();
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Synapse Logs</title>
+    <title>Synapse</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
 
@@ -45,15 +45,20 @@
 
       <!-- Main Actions -->
       <section class="actions-section">
-        <button id="collectNow" class="primary-btn full-width">
+        <button id="collectNow" class="primary-btn full-width" style="display: none">
           <span class="btn-icon">📥</span>
           <span class="btn-text">Collect Now</span>
         </button>
+      </section>
 
-        <button id="viewLogs" class="secondary-btn">
-          <span class="btn-icon">📋</span>
-          <span class="btn-text">View Logs</span>
-        </button>
+      <!-- Recent Collections -->
+      <section class="recent-section">
+        <div class="recent-header">
+          <span class="recent-title">Recent</span>
+        </div>
+        <div id="recentList" class="recent-list">
+          <div class="empty-state">No collections yet</div>
+        </div>
       </section>
     </div>
 

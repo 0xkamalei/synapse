@@ -93,12 +93,10 @@ body {
 
 /* Actions Section */
 .actions-section {
-  padding: 24px 16px;
+  padding: 12px 16px 8px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  flex: 1;
-  justify-content: center;
 }
 
 .full-width {
@@ -163,8 +161,8 @@ body {
   font-size: 18px;
 }
 
-/* Logs */
-.logs-section {
+/* Recent Collections */
+.recent-section {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -172,87 +170,66 @@ body {
   overflow: hidden;
 }
 
-.logs-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
+.recent-header {
+  margin-bottom: 6px;
 }
 
-.logs-header h3 {
-  font-size: 13px;
+.recent-title {
+  font-size: 11px;
   font-weight: 600;
+  color: var(--md-outline);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.text-btn {
-  background: none;
-  border: none;
-  color: var(--md-primary);
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.logs-list {
+.recent-list {
   flex: 1;
   overflow-y: auto;
-  max-height: 220px;
 }
 
 .empty-state {
   text-align: center;
   color: var(--md-outline);
-  padding: 24px;
+  padding: 20px;
   font-size: 13px;
 }
 
-.log-entry {
-  padding: 8px;
+.recent-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
   border-radius: 6px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   background: white;
   border-left: 3px solid var(--md-outline);
+  font-size: 12px;
 }
 
-.log-entry.success {
+.recent-entry.success {
   border-left-color: var(--md-success);
 }
 
-.log-entry.error {
+.recent-entry.error {
   border-left-color: var(--md-error);
 }
 
-.log-entry.warn {
-  border-left-color: #f59e0b;
+.recent-source {
+  font-weight: 600;
+  min-width: 48px;
+  color: var(--md-on-surface);
 }
 
-.log-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 4px;
-}
-
-.log-level {
-  font-size: 12px;
-}
-
-.log-time {
-  font-size: 10px;
+.recent-msg {
+  flex: 1;
   color: var(--md-outline);
-}
-
-.log-message {
-  font-size: 12px;
-  line-height: 1.4;
-}
-
-.log-summary {
-  font-size: 11px;
-  color: var(--md-outline);
-  margin-top: 4px;
-  padding-top: 4px;
-  border-top: 1px solid var(--md-surface-variant);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.recent-time {
+  color: var(--md-outline);
+  font-size: 10px;
+  white-space: nowrap;
 }
