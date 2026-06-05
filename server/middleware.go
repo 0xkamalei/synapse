@@ -3,21 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
-	"strings"
 	"time"
 )
-
-// AuthMiddleware validates the Bearer token on every protected route.
-func AuthMiddleware(token string, next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		auth := r.Header.Get("Authorization")
-		if !strings.HasPrefix(auth, "Bearer ") || strings.TrimPrefix(auth, "Bearer ") != token {
-			writeJSON(w, http.StatusUnauthorized, map[string]string{"error": "unauthorized"})
-			return
-		}
-		next.ServeHTTP(w, r)
-	})
-}
 
 // statusRecorder captures the HTTP status code for logging.
 type statusRecorder struct {

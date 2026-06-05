@@ -66,7 +66,6 @@ interface LogEntry {
 
 interface AppConfig {
   localServerUrl: string;
-  localServerToken: string;
   enabledSources: string[];
   targetXUser: string[];
   targetBilibiliUser: string[];

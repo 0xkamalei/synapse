@@ -3,7 +3,6 @@ import { DEFAULT_ENABLED_SOURCES, PLATFORMS, ALL_PLATFORMS, PlatformKey } from '
 // Core storage keys (non-platform specific)
 export const STORAGE_KEYS = {
   LOCAL_SERVER_URL: 'localServerUrl',
-  LOCAL_SERVER_TOKEN: 'localServerToken',
   ENABLED_SOURCES: 'enabledSources',
   LAST_COLLECT_TIME: 'lastCollectTime',
   LAST_COLLECT_TIMES: 'lastCollectTimes',
@@ -61,7 +60,6 @@ async function getConfig(): Promise<AppConfig> {
     localServerUrl:
       (result[STORAGE_KEYS.LOCAL_SERVER_URL] as string) ||
       (DEFAULT_CONFIG.localServerUrl as string),
-    localServerToken: (result[STORAGE_KEYS.LOCAL_SERVER_TOKEN] as string) || '',
     enabledSources:
       (result[STORAGE_KEYS.ENABLED_SOURCES] as string[]) ||
       (DEFAULT_CONFIG.enabledSources as string[]),
@@ -91,7 +89,6 @@ async function saveConfig(config: AppConfig): Promise<void> {
   // Build the storage object with core settings
   const storageData: Record<string, any> = {
     [STORAGE_KEYS.LOCAL_SERVER_URL]: config.localServerUrl,
-    [STORAGE_KEYS.LOCAL_SERVER_TOKEN]: config.localServerToken,
     [STORAGE_KEYS.ENABLED_SOURCES]: config.enabledSources,
     [STORAGE_KEYS.COLLECT_INTERVAL_MINUTES]: config.collectIntervalMinutes,
     [STORAGE_KEYS.DEBUG_MODE]: config.debugMode,
@@ -134,7 +131,6 @@ async function validateConfig(): Promise<{ valid: boolean; missing: string[] }> 
   const missing: string[] = [];
 
   if (!config.localServerUrl) missing.push('Local Server URL');
-  if (!config.localServerToken) missing.push('Local Server Token');
 
   return {
     valid: missing.length === 0,

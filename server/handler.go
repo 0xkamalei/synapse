@@ -327,6 +327,15 @@ func (h *Handler) GetTasks(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// GET /tasks/trigger — run all enabled tasks immediately
+func (h *Handler) TasksTrigger(w http.ResponseWriter, r *http.Request) {
+	count := h.scheduler.TriggerAll()
+	writeJSON(w, http.StatusOK, map[string]any{
+		"status":          "triggered",
+		"tasks_triggered": count,
+	})
+}
+
 // POST /tasks
 func (h *Handler) SaveTasks(w http.ResponseWriter, r *http.Request) {
 	var req struct {

@@ -8,7 +8,6 @@ import (
 
 // Config holds all server configuration.
 type Config struct {
-	Token       string `yaml:"token"`
 	StorageRoot string `yaml:"storage_root"`
 	Port        int    `yaml:"port"`
 	Host        string `yaml:"host"`
@@ -26,9 +25,6 @@ func (c *Config) LoadFromFile(path string) error {
 		return err
 	}
 	// Only apply file values when the flag value is still the default/zero
-	if c.Token == "" && tmp.Token != "" {
-		c.Token = tmp.Token
-	}
 	if c.StorageRoot == "" && tmp.StorageRoot != "" {
 		c.StorageRoot = tmp.StorageRoot
 	}

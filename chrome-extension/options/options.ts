@@ -21,7 +21,7 @@ function getEl<T extends HTMLElement>(id: string): T {
 // DOM Elements - Core settings
 const coreElements = {
   localServerUrl: getEl<HTMLInputElement>('localServerUrl'),
-  localServerToken: getEl<HTMLInputElement>('localServerToken'),
+
   collectIntervalMinutes: getEl<HTMLInputElement>('collectIntervalMinutes'),
   debugMode: getEl<HTMLInputElement>('debugMode'),
   lastCollectInfo: getEl<HTMLElement>('lastCollectInfo'),
@@ -236,7 +236,6 @@ async function loadConfig() {
   const config = await getConfig();
 
   coreElements.localServerUrl.value = config.localServerUrl || 'http://127.0.0.1:7070';
-  coreElements.localServerToken.value = config.localServerToken || '';
   coreElements.collectIntervalMinutes.value = (config.collectIntervalMinutes ?? 240).toString();
   coreElements.debugMode.checked = config.debugMode || false;
 
@@ -278,7 +277,6 @@ async function handleSave() {
   const config: any = {
     ...currentConfig,
     localServerUrl: coreElements.localServerUrl.value.trim(),
-    localServerToken: coreElements.localServerToken.value.trim(),
     collectIntervalMinutes:
       coreElements.collectIntervalMinutes.value === ''
         ? 240
@@ -326,7 +324,6 @@ async function handleSave() {
  */
 async function handleTestServer() {
   const url = coreElements.localServerUrl.value.trim();
-  const token = coreElements.localServerToken.value.trim();
   const btn = coreElements.testServerBtn;
   const status = coreElements.testServerStatus;
 
@@ -342,39 +339,18 @@ async function handleTestServer() {
 
   try {
     const baseUrl = url.replace(/\/+$/, '');
-    const healthResp = await fetch(`${baseUrl}/health`, { method: 'GET' });
+    const statsResp = await fetch(`${baseUrl}/stats`, { method: 'GET' });
 
-    if (!healthResp.ok) {
-      const body = await healthResp.json().catch(() => null);
-      status.textContent = `❌ Server error (${healthResp.status}): ${body?.error || healthResp.statusText}`;
+    if (!statsResp.ok) {
+      status.textContent = `❌ Server error (${statsResp.status})`;
       status.className = 'test-status error';
       btn.disabled = false;
       return;
     }
 
-    const healthData = await healthResp.json();
-
-    if (token) {
-      const statsResp = await fetch(`${baseUrl}/stats`, {
-        method: 'GET',
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (statsResp.ok) {
-        const statsData = await statsResp.json();
-        status.textContent = `✅ Connected (${statsData.total || 0} items, v${healthData.version || '?'})`;
-        status.className = 'test-status success';
-      } else if (statsResp.status === 401 || statsResp.status === 403) {
-        status.textContent = '⚠️ Server reachable but token rejected (401)';
-        status.className = 'test-status error';
-      } else {
-        status.textContent = `⚠️ Server reachable, stats error (${statsResp.status})`;
-        status.className = 'test-status error';
-      }
-    } else {
-      status.textContent = `✅ Server reachable (v${healthData.version || '?'}) — no token configured`;
-      status.className = 'test-status success';
-    }
+    const statsData = await statsResp.json();
+    status.textContent = `✅ Connected (${statsData.total || 0} items)`;
+    status.className = 'test-status success';
   } catch (err: any) {
     status.textContent = `❌ Cannot reach server: ${err.message || 'network error'}`;
     status.className = 'test-status error';
@@ -400,6 +376,24 @@ function initTabs() {
     });
   });
 }
+
+// ── Open button handlers ──────────────────────────────────────────────────────
+
+function handleOpenPlatform(platform: PlatformKey) {
+  const container = platformElements.getMultiInputContainer(platform);
+  const values = getMultiInputValues(container);
+  const accountId = values[0] || '';
+  const url = buildPlatformUrl(platform, accountId);
+  if (!url) return;
+  chrome.tabs.create({ url });
+}
+
+document.querySelectorAll('.open-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const platform = (btn as HTMLElement).dataset.platform as PlatformKey;
+    handleOpenPlatform(platform);
+  });
+});
 
 // Event listeners
 coreElements.saveBtn.addEventListener('click', handleSave);

@@ -10,14 +10,11 @@ services:
       - /Users/lei/dev/ob/synapse-data:/data
     environment:
       # Set your secret token here or use a .env file
-      - TOKEN=${TOKEN:-your-secret-token}
       - STORAGE_ROOT=/data
       - PORT=7070
       - HOST=0.0.0.0
       - LOG_LEVEL=info
     command:
-      - --token
-      - ${TOKEN:-your-secret-token}
       - --storage-root
       - /data
       - --port

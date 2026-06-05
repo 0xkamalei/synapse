@@ -237,11 +237,11 @@ async function fileUrlToBase64(url: string): Promise<Base64Result> {
 async function requestLocalServer(path: string, init: RequestInit): Promise<any> {
   const config = await getConfig();
 
-  if (!config.localServerUrl || !config.localServerToken) {
+  if (!config.localServerUrl) {
     return {
       ok: false,
       status: 0,
-      error: 'Local server configuration incomplete (URL or token missing)',
+      error: 'Local server URL not configured',
     };
   }
 
@@ -250,7 +250,6 @@ async function requestLocalServer(path: string, init: RequestInit): Promise<any>
     ...init,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${config.localServerToken}`,
       ...(init.headers || {}),
     },
   });

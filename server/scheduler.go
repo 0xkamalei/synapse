@@ -134,6 +134,22 @@ func (s *Scheduler) checkAndRunTasks() {
 	}
 }
 
+func (s *Scheduler) TriggerAll() int {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+
+	count := 0
+	for _, task := range s.tasks {
+		if !task.Enabled {
+			continue
+		}
+		log.Printf("[scheduler] Triggering task %s: opening %s", task.ID, task.URL)
+		go openURL(task.URL)
+		count++
+	}
+	return count
+}
+
 func openURL(url string) {
 	// macOS specific command to open URL in Google Chrome
 	cmd := exec.Command("open", "-a", "Google Chrome", url)

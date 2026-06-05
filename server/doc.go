@@ -152,44 +152,6 @@ const DocHTML = `<!DOCTYPE html>
             }
         }
 
-        .token-setup {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .token-input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .token-input {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 0.375rem;
-            padding: 0.5rem 0.75rem 0.5rem 2rem;
-            color: var(--text-primary);
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            width: 250px;
-            transition: all 0.2s ease;
-        }
-
-        .token-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-        }
-
-        .token-icon {
-            position: absolute;
-            left: 0.75rem;
-            color: var(--text-muted);
-            width: 0.875rem;
-            height: 0.875rem;
-        }
-
         /* Container Layout */
         .main-container {
             display: flex;
@@ -420,12 +382,6 @@ const DocHTML = `<!DOCTYPE html>
             font-weight: 600;
             padding: 0.2rem 0.5rem;
             border-radius: 9999px;
-        }
-
-        .auth-required {
-            background-color: rgba(239, 68, 68, 0.1);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
         .auth-none {
@@ -703,12 +659,7 @@ const DocHTML = `<!DOCTYPE html>
                 <span class="status-dot"></span>
                 <span>Active</span>
             </div>
-            <div class="token-setup">
-                <div class="token-input-wrapper">
-                    <svg class="icon token-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    <input type="password" id="global-token" class="token-input" placeholder="Bearer Token" oninput="saveToken(this.value)">
-                </div>
-            </div>
+
         </div>
     </header>
 
@@ -731,6 +682,7 @@ const DocHTML = `<!DOCTYPE html>
                     <li><a href="#endpoint-collect-batch" class="nav-item-link" onclick="activateNav(this)"><span class="method-badge method-post">POST</span> <span style="font-family: var(--font-mono)">/collect/batch</span></a></li>
                     <li><a href="#endpoint-tasks-get" class="nav-item-link" onclick="activateNav(this)"><span class="method-badge method-get">GET</span> <span style="font-family: var(--font-mono)">/tasks</span></a></li>
                     <li><a href="#endpoint-tasks-post" class="nav-item-link" onclick="activateNav(this)"><span class="method-badge method-post">POST</span> <span style="font-family: var(--font-mono)">/tasks</span></a></li>
+                    <li><a href="#endpoint-tasks-trigger" class="nav-item-link" onclick="activateNav(this)"><span class="method-badge method-get">GET</span> <span style="font-family: var(--font-mono)">/tasks/trigger</span></a></li>
                 </ul>
             </div>
         </aside>
@@ -816,9 +768,9 @@ const DocHTML = `<!DOCTYPE html>
                             <span class="method-badge method-get">GET</span>
                             <span class="api-card-path">/stats</span>
                         </div>
-                        <span class="auth-indicator auth-required">
+                        <span class="auth-indicator auth-none">
                             <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                            Auth Required
+                            No Auth
                         </span>
                     </div>
                     <div class="api-card-body">
@@ -837,7 +789,6 @@ const DocHTML = `<!DOCTYPE html>
                             <div class="playground-grid">
                                 <div class="playground-editor-col">
                                     <span class="col-title">Request Headers</span>
-                                    <p style="font-size: 0.8rem; color: var(--text-muted)">Requires global authorization token set at the top-right.</p>
                                 </div>
                                 <div class="playground-response-col">
                                     <span class="col-title">Response</span>
@@ -860,9 +811,9 @@ const DocHTML = `<!DOCTYPE html>
                             <span class="method-badge method-get">GET</span>
                             <span class="api-card-path">/check</span>
                         </div>
-                        <span class="auth-indicator auth-required">
+                        <span class="auth-indicator auth-none">
                             <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                            Auth Required
+                            No Auth
                         </span>
                     </div>
                     <div class="api-card-body">
@@ -927,9 +878,9 @@ const DocHTML = `<!DOCTYPE html>
                             <span class="method-badge method-post">POST</span>
                             <span class="api-card-path">/check/batch</span>
                         </div>
-                        <span class="auth-indicator auth-required">
+                        <span class="auth-indicator auth-none">
                             <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                            Auth Required
+                            No Auth
                         </span>
                     </div>
                     <div class="api-card-body">
@@ -976,9 +927,9 @@ const DocHTML = `<!DOCTYPE html>
                             <span class="method-badge method-post">POST</span>
                             <span class="api-card-path">/collect</span>
                         </div>
-                        <span class="auth-indicator auth-required">
+                        <span class="auth-indicator auth-none">
                             <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                            Auth Required
+                            No Auth
                         </span>
                     </div>
                     <div class="api-card-body">
@@ -1042,9 +993,9 @@ const DocHTML = `<!DOCTYPE html>
                             <span class="method-badge method-post">POST</span>
                             <span class="api-card-path">/collect/batch</span>
                         </div>
-                        <span class="auth-indicator auth-required">
+                        <span class="auth-indicator auth-none">
                             <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                            Auth Required
+                            No Auth
                         </span>
                     </div>
                     <div class="api-card-body">
@@ -1103,9 +1054,9 @@ const DocHTML = `<!DOCTYPE html>
                             <span class="method-badge method-get">GET</span>
                             <span class="api-card-path">/tasks</span>
                         </div>
-                        <span class="auth-indicator auth-required">
+                        <span class="auth-indicator auth-none">
                             <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                            Auth Required
+                            No Auth
                         </span>
                     </div>
                     <div class="api-card-body">
@@ -1124,7 +1075,7 @@ const DocHTML = `<!DOCTYPE html>
                             <div class="playground-grid">
                                 <div class="playground-editor-col">
                                     <span class="col-title">Request Headers</span>
-                                    <p style="font-size: 0.8rem; color: var(--text-muted)">Requires global authorization token set at the top-right.</p>
+
                                 </div>
                                 <div class="playground-response-col">
                                     <span class="col-title">Response</span>
@@ -1147,9 +1098,9 @@ const DocHTML = `<!DOCTYPE html>
                             <span class="method-badge method-post">POST</span>
                             <span class="api-card-path">/tasks</span>
                         </div>
-                        <span class="auth-indicator auth-required">
+                        <span class="auth-indicator auth-none">
                             <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                            Auth Required
+                            No Auth
                         </span>
                     </div>
                     <div class="api-card-body">
@@ -1191,6 +1142,50 @@ const DocHTML = `<!DOCTYPE html>
                         </div>
                     </div>
                 </section>
+
+                <!-- GET /tasks/trigger -->
+                <section id="endpoint-tasks-trigger" class="api-card">
+                    <div class="api-card-header">
+                        <div class="api-card-title-group">
+                            <span class="method-badge method-get">GET</span>
+                            <span class="api-card-path">/tasks/trigger</span>
+                        </div>
+                        <span class="auth-indicator auth-none">
+                            <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            No Auth
+                        </span>
+                    </div>
+                    <div class="api-card-body">
+                        <p class="api-card-desc">Run all enabled scheduled tasks immediately. Each task URL is opened in Google Chrome.</p>
+
+                        <div class="playground-section">
+                            <div class="playground-header">
+                                <span class="playground-title">Playground & Test</span>
+                                <div class="playground-actions">
+                                    <button class="btn" onclick="testEndpoint('GET', '/tasks/trigger', null, 'tasks-trigger')">
+                                        <svg class="icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                        Run
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="playground-grid">
+                                <div class="playground-editor-col">
+                                    <span class="col-title">Request Headers</span>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted)">No parameters required.</p>
+                                </div>
+                                <div class="playground-response-col">
+                                    <span class="col-title">Response</span>
+                                    <div class="response-container" id="response-tasks-trigger">
+                                        <div class="empty-response-state">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                            <span>Press "Run" to test this endpoint.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </main>
     </div>
@@ -1198,9 +1193,6 @@ const DocHTML = `<!DOCTYPE html>
     <script>
         // Setup initial UI states
         window.addEventListener('DOMContentLoaded', () => {
-            const savedToken = localStorage.getItem('synapse_token') || '';
-            document.getElementById('global-token').value = savedToken;
-            
             // Set base URL dynamically
             const baseUrl = window.location.origin;
             document.getElementById('meta-base-url').innerText = baseUrl;
@@ -1209,14 +1201,6 @@ const DocHTML = `<!DOCTYPE html>
             fetchStatsAndMeta();
         });
 
-        function saveToken(val) {
-            localStorage.setItem('synapse_token', val.trim());
-        }
-
-        function getToken() {
-            return localStorage.getItem('synapse_token') || '';
-        }
-
         function activateNav(linkEl) {
             document.querySelectorAll('.nav-item-link').forEach(el => el.classList.remove('active'));
             linkEl.classList.add('active');
@@ -1224,13 +1208,6 @@ const DocHTML = `<!DOCTYPE html>
 
         async function fetchStatsAndMeta() {
             try {
-                // Fetch stats with token if available
-                const token = getToken();
-                const headers = {};
-                if (token) {
-                    headers['Authorization'] = 'Bearer ' + token;
-                }
-
                 const res = await fetch('/health');
                 if (res.ok) {
                     const healthData = await res.json();
@@ -1238,12 +1215,10 @@ const DocHTML = `<!DOCTYPE html>
                     document.getElementById('meta-cache-size').innerText = healthData.cache_size !== undefined ? healthData.cache_size : 'N/A';
                 }
 
-                if (token) {
-                    const statsRes = await fetch('/stats', { headers });
-                    if (statsRes.ok) {
-                        const statsData = await statsRes.json();
-                        document.getElementById('meta-cache-size').innerText = statsData.cache_size;
-                    }
+                const statsRes = await fetch('/stats');
+                if (statsRes.ok) {
+                    const statsData = await statsRes.json();
+                    document.getElementById('meta-cache-size').innerText = statsData.cache_size;
                 }
             } catch (err) {
                 console.error('Failed to fetch server stats:', err);
@@ -1288,13 +1263,9 @@ const DocHTML = `<!DOCTYPE html>
             const container = document.getElementById('response-' + responseContainerId);
             container.innerHTML = '<div class="empty-response-state">Sending request...</div>';
             
-            const token = getToken();
             const headers = {
                 'Content-Type': 'application/json'
             };
-            if (token) {
-                headers['Authorization'] = 'Bearer ' + token;
-            }
 
             try {
                 const options = { method, headers };

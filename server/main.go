@@ -18,7 +18,6 @@ func main() {
 	cfg := &Config{}
 	var configFile string
 
-	flag.StringVar(&cfg.Token, "token", "", "Bearer token for API authentication (required)")
 	flag.StringVar(&cfg.StorageRoot, "storage-root", "", "Root directory for Markdown storage (required)")
 	flag.IntVar(&cfg.Port, "port", 7070, "HTTP listen port")
 	flag.StringVar(&cfg.Host, "host", "127.0.0.1", "HTTP bind address")
@@ -35,11 +34,6 @@ func main() {
 	}
 
 	// Validate required fields
-	if cfg.Token == "" {
-		fmt.Fprintln(os.Stderr, "Error: --token is required")
-		flag.Usage()
-		os.Exit(1)
-	}
 	if cfg.StorageRoot == "" {
 		fmt.Fprintln(os.Stderr, "Error: --storage-root is required")
 		flag.Usage()
@@ -72,15 +66,16 @@ func main() {
 
 	mux.HandleFunc("GET /{$}", h.Index)
 	mux.HandleFunc("GET /health", h.Health)
-	mux.Handle("POST /collect", AuthMiddleware(cfg.Token, http.HandlerFunc(h.Collect)))
-	mux.Handle("POST /collect/batch", AuthMiddleware(cfg.Token, http.HandlerFunc(h.CollectBatch)))
-	mux.Handle("GET /check", AuthMiddleware(cfg.Token, http.HandlerFunc(h.Check)))
-	mux.Handle("POST /check/batch", AuthMiddleware(cfg.Token, http.HandlerFunc(h.CheckBatch)))
-	mux.Handle("POST /upsert", AuthMiddleware(cfg.Token, http.HandlerFunc(h.Upsert)))
-	mux.Handle("POST /upsert/batch", AuthMiddleware(cfg.Token, http.HandlerFunc(h.UpsertBatch)))
-	mux.Handle("GET /stats", AuthMiddleware(cfg.Token, http.HandlerFunc(h.Stats)))
-	mux.Handle("GET /tasks", AuthMiddleware(cfg.Token, http.HandlerFunc(h.GetTasks)))
-	mux.Handle("POST /tasks", AuthMiddleware(cfg.Token, http.HandlerFunc(h.SaveTasks)))
+	mux.HandleFunc("POST /collect", h.Collect)
+	mux.HandleFunc("POST /collect/batch", h.CollectBatch)
+	mux.HandleFunc("GET /check", h.Check)
+	mux.HandleFunc("POST /check/batch", h.CheckBatch)
+	mux.HandleFunc("POST /upsert", h.Upsert)
+	mux.HandleFunc("POST /upsert/batch", h.UpsertBatch)
+	mux.HandleFunc("GET /stats", h.Stats)
+	mux.HandleFunc("GET /tasks", h.GetTasks)
+	mux.HandleFunc("POST /tasks", h.SaveTasks)
+	mux.HandleFunc("GET /tasks/trigger", h.TasksTrigger)
 
 	addr := fmt.Sprintf("%s:%d", cfg.Host, cfg.Port)
 	srv := &http.Server{

@@ -27,10 +27,8 @@
     <key>ProgramArguments</key>
     <array>
         <string>/Users/lei/.local/bin/synapse-server</string>
-        <string>--token</string>
-        <string>synapse123</string>
         <string>--storage-root</string>
-        <string>/Users/lei/dev/ob/synapse-data</string>
+        <string>/Users/lei/dev/obsidian/synapse-data</string>
         <string>--port</string>
         <string>7070</string>
         <string>--host</string>
