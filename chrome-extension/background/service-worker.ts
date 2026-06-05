@@ -85,7 +85,10 @@ async function handleCollectBatch(contents: CollectedContent[], _pageUID: string
     if (collected > 0) {
       await logger.success(
         `Batch complete: ${saved} saved, ${updated} updated, ${errors} errors, ${skipped} skipped`,
-        { summary: `Collected ${collected} items from ${firstSource}` },
+        {
+          summary: `Collected ${collected} items from ${firstSource}`,
+          data: { source: firstSource },
+        },
       );
     }
 
