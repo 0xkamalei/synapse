@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "synapse",
+  "compatibility_date": "2026-10-01",
+  // Static site: deploy the Astro build output as static assets only.
+  // There is intentionally no `main` worker script, so Wrangler serves the
+  // files under `dist/` directly and does not auto-configure an SSR adapter.
+  "assets": {
+    "directory": "./dist"
+  }
+}
