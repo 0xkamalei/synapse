@@ -55,20 +55,6 @@ bun run preview
 
 ## Deployment
 
-### Firebase Hosting
-
-```bash
-# Install Firebase CLI
-bun add -g firebase-tools
-
-# Login and init
-firebase login
-firebase init hosting
-
-# Deploy
-firebase deploy --only hosting
-```
-
 ### Vercel
 
 ```bash

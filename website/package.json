@@ -14,8 +14,7 @@
     "dependencies": {
         "@notionhq/client": "^2.2.14",
         "@vercel/analytics": "^1.6.1",
-        "astro": "^4.0.0",
-        "firebase": "^12.7.0"
+        "astro": "^4.0.0"
     },
     "devDependencies": {
         "@types/node": "^20.0.0"

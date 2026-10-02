@@ -215,8 +215,7 @@ website/
 │   │   └── global.css                 # Material Design 3 styles + CSS variables
 │   ├── lib/
 │   │   ├── thoughts-data.ts           # Build-time data loader (reads JSON files)
-│   │   ├── notion.ts                  # Notion API client (used by sync script only)
-│   │   └── firebase.ts                # Firebase auth client
+│   │   └── notion.ts                  # Notion API client (used by sync script only)
 │   └── env.d.ts
 └── dist/                              # Built static site output
 ```
@@ -234,8 +233,6 @@ Data files (all in `public/data/`):
 - `thoughts-by-year/{year}.json` — thoughts for that year (sorted by date desc)
 - `daily-counts.json` — per-day counts for the heatmap
 - `sync-metadata.json` — last sync timestamp and stats
-
-The page also uses **Firebase Authentication** to gate content: unauthenticated users see only the first 30 thoughts; authenticated users get full access with infinite scroll.
 
 
 
@@ -283,7 +280,6 @@ Core endpoints:
 - Environment variables in `.env` are accessible via `import.meta.env` (build-time) or `process.env` (runtime)
 - Notion API is only used by the sync script, not at build time or runtime
 - The browser fetches year JSON files lazily from `/data/thoughts-by-year/{year}.json` as the user scrolls
-- Firebase Auth gates content: unauthenticated users see 30 thoughts max
 
 ### Common Tasks
 
