@@ -1,0 +1,38 @@
+[
+  {
+    "id": "sched_x_KamaleiZhang",
+    "url": "https://x.com/KamaleiZhang",
+    "enabled": false,
+    "time": "09:00"
+  },
+  {
+    "id": "sched_x_leigoto",
+    "url": "https://x.com/leigoto",
+    "enabled": false,
+    "time": "09:00"
+  },
+  {
+    "id": "sched_bilibili_284623903",
+    "url": "https://space.bilibili.com/284623903/dynamic",
+    "enabled": false,
+    "time": "09:00"
+  },
+  {
+    "id": "sched_qzone_852872578",
+    "url": "https://user.qzone.qq.com/852872578",
+    "enabled": false,
+    "time": "09:00"
+  },
+  {
+    "id": "sched_redbook_64f335df00000000050011ee",
+    "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee",
+    "enabled": false,
+    "time": "09:00"
+  },
+  {
+    "id": "sched_wxh_https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MjM5MDgxNzY0MA==\u0026action=getalbum\u0026album_id=3946086008822841350#wechat_redirect",
+    "url": "https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MjM5MDgxNzY0MA==\u0026action=getalbum\u0026album_id=3946086008822841350#wechat_redirect",
+    "enabled": false,
+    "time": "09:00"
+  }
+]

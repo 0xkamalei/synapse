@@ -7,7 +7,7 @@ services:
       - "7070:7070"
     volumes:
       # Persist Markdown files and images
-      - /Users/lei/dev/ob/synapse-data:/data
+      - /Users/lei/dev/projects/2601-synapse/social-media-data:/data
     environment:
       # Set your secret token here or use a .env file
       - STORAGE_ROOT=/data

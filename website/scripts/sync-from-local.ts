@@ -17,7 +17,8 @@
  *   sync-metadata.json                 — last sync time and stats
  *
  * Configuration:
- *   SYNAPSE_DATA_DIR  — path to synapse-data root (default: ~/dev/ob/synapse-data)
+ *   SYNAPSE_DATA_DIR  — path to the social-media-data root
+ *                       (default: <project-root>/social-media-data)
  */
 
 import fs from "node:fs";
@@ -32,6 +33,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const WEBSITE_ROOT = path.join(__dirname, "..");
+const PROJECT_ROOT = path.join(WEBSITE_ROOT, "..");
 const PUBLIC_DATA_DIR = path.join(WEBSITE_ROOT, "public", "data");
 const THOUGHTS_BY_YEAR_DIR = path.join(PUBLIC_DATA_DIR, "thoughts-by-year");
 const PUBLIC_IMAGES_DIR = path.join(PUBLIC_DATA_DIR, "images");
@@ -43,7 +45,7 @@ function resolveDataDir(): string {
       ? path.join(os.homedir(), envVal.slice(1))
       : envVal;
   }
-  return path.join(os.homedir(), "dev", "ob", "synapse-data");
+  return path.join(PROJECT_ROOT, "social-media-data");
 }
 
 const DATA_DIR = resolveDataDir();
