@@ -409,25 +409,18 @@ test('YouTube Collector', () => {
 });
 
 test('WXH Collector', () => {
-  const window = createTestWindow('https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MjM5MDgxNzY0MA==&action=getalbum&album_id=3946086008822841350');
+  const window = createTestWindow(
+    'https://mp.weixin.qq.com/cgi-bin/appmsgpublish?sub=list&begin=0&count=10&token=1873195352&lang=zh_CN',
+  );
   loadCollector(window, 'dist/content/wxh-collector.js');
 
-  const htmlPath = join(TARGET_HTML_DIR, 'wxh.html');
-  const jsonPath = join(TARGET_HTML_DIR, 'wxh.json');
+  const htmlPath = join(TARGET_HTML_DIR, 'wxh-internal.html');
+  const jsonPath = join(TARGET_HTML_DIR, 'wxh-internal.json');
 
   loadHtmlToWindow(window, htmlPath);
 
-  // Inject window.cgiData from HTML (happy-dom doesn't execute scripts).
-  // cgiData contains nested objects; anchor to the following statement to avoid early match.
-  const htmlContent = readFileSync(htmlPath, 'utf-8');
-  const cgiMatch = htmlContent.match(/window\.cgiData\s*=\s*\{[\s\S]*?\};\s*(?=window\.isPaySubscribe)/);
-  if (cgiMatch) {
-    // Only eval the cgiData assignment, not the rest of the script (which references seajs etc.)
-    const cgiAssignment = cgiMatch[0].replace(/;\s*$/, '');
-    runInContext(cgiAssignment, window);
-  }
-
-  // Use the primary cgiData path (accurate unix timestamps)
+  // The page embeds its payload in an inline `publish_page` <script>; the
+  // collector reads it from the script text, so no manual injection is needed.
   const results = (window as any).findAllContent();
   expect(results.length).toBeGreaterThan(0);
 

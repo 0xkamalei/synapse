@@ -8,6 +8,10 @@
  * Returns null if the platform doesn't support URL construction.
  */
 export function buildPlatformUrl(platform: string, accountId: string): string | null {
+  // WeChat collects the currently logged-in account, so there is no account id.
+  if (platform === 'wxh') {
+    return 'https://mp.weixin.qq.com/';
+  }
   if (!accountId) return null;
   switch (platform) {
     case 'x':
@@ -24,8 +28,6 @@ export function buildPlatformUrl(platform: string, accountId: string): string | 
       return `https://wx.zsxq.com/group/${accountId}`;
     case 'youtube':
       return `https://www.youtube.com/@${accountId}/videos`;
-    case 'wxh':
-      return accountId; // album URL is used directly
     default:
       return null;
   }

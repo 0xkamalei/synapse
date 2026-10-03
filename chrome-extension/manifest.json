@@ -20,7 +20,8 @@
     "https://wx.zsxq.com/*",
     "https://*.zsxq.com/*",
     "https://www.youtube.com/*",
-    "https://mp.weixin.qq.com/*"
+    "https://mp.weixin.qq.com/*",
+    "https://*.qpic.cn/*"
   ],
   "action": {
     "default_popup": "popup/popup.html",

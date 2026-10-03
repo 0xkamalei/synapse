@@ -210,7 +210,10 @@ async function fileUrlToBase64(url: string): Promise<Base64Result> {
     };
   }
 
-  const response = await fetch(url);
+  // Send no Referer: several image CDNs (notably WeChat's mmbiz.qpic.cn) serve
+  // an anti-hotlink placeholder when a foreign Referer is present, but return the
+  // real image when no Referer is sent.
+  const response = await fetch(url, { referrerPolicy: 'no-referrer', credentials: 'omit' });
   if (!response.ok) {
     throw new Error(`Image fetch failed: ${response.status}`);
   }

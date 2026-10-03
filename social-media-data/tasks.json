@@ -28,11 +28,5 @@
     "url": "https://www.xiaohongshu.com/user/profile/64f335df00000000050011ee",
     "enabled": false,
     "time": "09:00"
-  },
-  {
-    "id": "sched_wxh_https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MjM5MDgxNzY0MA==\u0026action=getalbum\u0026album_id=3946086008822841350#wechat_redirect",
-    "url": "https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MjM5MDgxNzY0MA==\u0026action=getalbum\u0026album_id=3946086008822841350#wechat_redirect",
-    "enabled": false,
-    "time": "09:00"
   }
 ]
